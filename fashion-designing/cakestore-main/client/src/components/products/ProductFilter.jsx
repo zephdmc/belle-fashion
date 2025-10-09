@@ -10,7 +10,6 @@ import {
     FiScissors,
     FiStar,
     FiRefreshCw,
-    FiRuler,
     FiDroplet,
     FiCalendar,
     FiTrendingUp
@@ -219,7 +218,7 @@ export default function ProductFilter({ categories, onFilter }) {
                         {/* Size & Color Filters */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {/* Size */}
-                            <FilterSection title="Size" icon={FiRuler}>
+                            <FilterSection title="Size" icon={FiDroplet}>
                                 <select
                                     name="size"
                                     value={filters.size}
