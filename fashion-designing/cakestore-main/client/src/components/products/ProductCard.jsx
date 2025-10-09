@@ -8,7 +8,6 @@ import {
     FiPackage,
     FiHeart,
     FiScissors,
-    FiRuler,
     FiDroplet,
     FiTruck
 } from 'react-icons/fi';
@@ -164,7 +163,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                     {/* Sizes */}
                     {displaySizes.length > 0 && (
                         <div className="flex items-center text-xs text-gray-600">
-                            <FiRuler size={12} className="mr-1 text-blue-500" />
+                            <FiPackage size={12} className="mr-1 text-blue-500" />
                             <span className="font-medium">Sizes: </span>
                             <span className="ml-1">{displaySizes.join(', ')}</span>
                             {product.sizes?.length > 3 && (
