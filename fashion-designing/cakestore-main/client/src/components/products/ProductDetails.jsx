@@ -14,7 +14,6 @@ import {
     FiChevronLeft,
     FiChevronRight,
     FiTag,
-    FiRuler,
     FiDroplet,
     FiScissors,
     FiTruck,
@@ -390,7 +389,7 @@ export default function ProductDetail() {
                             {product.sizes && product.sizes.length > 0 && (
                                 <div>
                                     <h3 className="text-xl font-semibold mb-3 text-gray-900 flex items-center">
-                                        <FiRuler className="mr-2 text-blue-500" />
+                                        <FiDroplet className="mr-2 text-blue-500" />
                                         Select Size
                                     </h3>
                                     <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
