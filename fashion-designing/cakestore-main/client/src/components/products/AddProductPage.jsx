@@ -18,7 +18,6 @@ import {
     FiCheckCircle,
     FiAlertCircle,
     FiEdit3,
-    FiRuler,
     FiDroplet,
     FiTruck,
     FiCalendar
@@ -534,7 +533,7 @@ export default function AddProductPage() {
                         {/* Sizes */}
                         <div className="lg:col-span-2">
                             <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center">
-                                <FiRuler className="mr-2 text-blue-500" />
+                                <FiDroplet className="mr-2 text-blue-500" />
                                 Available Sizes *
                             </label>
                             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
