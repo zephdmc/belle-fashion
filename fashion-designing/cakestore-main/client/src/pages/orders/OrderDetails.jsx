@@ -19,7 +19,6 @@ import {
     FiAlertCircle,
     FiScissors,
     FiTag,
-    FiRuler,
     FiEdit3,
     FiRefreshCw,
     FiShoppingBag
@@ -317,7 +316,7 @@ export default function OrderDetails() {
                         {customOrder.measurements && (
                             <div className="md:col-span-2">
                                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                                    <FiRuler className="text-purple-300" />
+                                    <FiInfo className="text-purple-300" />
                                     Body Measurements
                                 </h3>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
