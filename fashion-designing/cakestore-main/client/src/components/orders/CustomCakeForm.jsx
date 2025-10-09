@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiUpload, FiX, FiCheck, FiArrowLeft, FiArrowRight, 
-  FiImage, FiCalendar, FiInfo, FiScissors, FiRuler,
+  FiImage, FiCalendar, FiInfo, FiScissors,
   FiDroplet, FiPackage, FiMapPin
 } from 'react-icons/fi';
 
