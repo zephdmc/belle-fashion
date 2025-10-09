@@ -7,7 +7,7 @@ import {
     FiTag, 
     FiPackage,
     FiHeart,
-    FiScissors,
+    FiScissors, 
     FiDroplet,
     FiTruck
 } from 'react-icons/fi';
