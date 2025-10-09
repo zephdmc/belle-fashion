@@ -16,7 +16,6 @@ import {
     FiImage,
     FiAlertTriangle,
     FiScissors,
-    FiRuler,
     FiEdit3,
     FiEye,
     FiMapPin
@@ -25,7 +24,7 @@ import {
 const statusConfig = {
     consultation: { color: 'bg-blue-100 text-blue-800 border-blue-200', icon: FiClock, label: 'Consultation' },
     design: { color: 'bg-purple-100 text-purple-800 border-purple-200', icon: FiEdit3, label: 'Design' },
-    measurement: { color: 'bg-indigo-100 text-indigo-800 border-indigo-200', icon: FiRuler, label: 'Measurement' },
+    measurement: { color: 'bg-indigo-100 text-indigo-800 border-indigo-200', icon: FiMapPin, label: 'Measurement' },
     production: { color: 'bg-orange-100 text-orange-800 border-orange-200', icon: FiScissors, label: 'Production' },
     fitting: { color: 'bg-pink-100 text-pink-800 border-pink-200', icon: FiUser, label: 'Fitting' },
     ready: { color: 'bg-green-100 text-green-800 border-green-200', icon: FiPackage, label: 'Ready' },
@@ -37,7 +36,7 @@ const statusConfig = {
 const statusOptions = [
     { value: 'consultation', label: 'Consultation', icon: FiClock },
     { value: 'design', label: 'Design', icon: FiEdit3 },
-    { value: 'measurement', label: 'Measurement', icon: FiRuler },
+    { value: 'measurement', label: 'Measurement', icon: FiMapPin },
     { value: 'production', label: 'Production', icon: FiScissors },
     { value: 'fitting', label: 'Fitting', icon: FiUser },
     { value: 'ready', label: 'Ready', icon: FiPackage },
