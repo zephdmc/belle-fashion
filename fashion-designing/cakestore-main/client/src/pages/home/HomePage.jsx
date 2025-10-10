@@ -220,7 +220,7 @@ export default function HomePage() {
                     className="fixed top-6 right-6 z-50"
                 >
                     <Link
-                        to="https://www.stefanosbakeshop.com/admin"
+                        to="https://belle-fashion.vercel.app/admin"
                         className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 px-6 rounded-2xl font-medium transition-all duration-300 shadow-2xl flex items-center gap-3 backdrop-blur-sm border border-white/20"
                     >
                         Admin Panel
