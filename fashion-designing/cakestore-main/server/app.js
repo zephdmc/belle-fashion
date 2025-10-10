@@ -25,7 +25,7 @@ const app = express();
 app.use((req, res, next) => {
   const allowedOrigins = [
     'https://belle-fashion.vercel.app',
-    'https://stefanosbakeshop.com',
+    'https://belle-fashion-9134mg8y3-stefanos-projects-ea9eedaa.vercel.app',
     'http://localhost:3000',
     'http://localhost:5173'
   ];
