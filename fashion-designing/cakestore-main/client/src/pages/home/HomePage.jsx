@@ -9,7 +9,6 @@ import { FiHeart, FiAward, FiLoader, FiAlertTriangle, FiEye, FiShoppingBag, FiAr
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { getBlogPosts } from '../../services/contentful';
-import BlogTeaser from '../../components/blog/BlogTeaser';
 import SkincareQuizForm from './HomePageComponent/SkincareQuizForm';
 import { BiBookReader } from "react-icons/bi";
 import { GiTrophyCup } from "react-icons/gi";
