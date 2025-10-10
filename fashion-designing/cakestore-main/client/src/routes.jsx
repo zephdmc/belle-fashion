@@ -20,8 +20,7 @@ const SearchResultsPage = lazy(() => import('./pages/search/serachPage'));
 const OrderDetails = lazy(() => import('./pages/orders/OrderDetails'))
 const AdminOrders = lazy(() => import('./pages/admin/AdminOrders'));
 const AdminOrderDetails = lazy(() => import('./pages/admin/OrderDetails'));
-const BlogListPage = lazy(() => import('./pages/blog/BlogListPage'));  // ✅ Correct
-const BlogDetailPage = lazy(() => import('./pages/blog/BlogDetailPage'));  // ✅ Correct
+
 const NotFound = lazy(() => import('./pages/404'));
 const Privacy = lazy(() => import('./components/common/privacy'));
 const Returns = lazy(() => import('./components/common/returns'));
@@ -48,8 +47,7 @@ const AppRoutes = () => {
                 <Route path="products/:id" element={<ProductDetailPage />} />
                 <Route path="/orders" element={<OrderHistory />} />
                 <Route path="/orders/:id" element={<OrderDetails />} />
-                <Route path="/blog" element={<BlogListPage />} />
-                <Route path="/blog/:slug" element={<BlogDetailPage />} />
+              
                 <Route path="/returns" element={<Returns />} />
                 <Route path="/shipping" element={<Shipping />} />
                 <Route path="/privacy" element={<Privacy />} />
