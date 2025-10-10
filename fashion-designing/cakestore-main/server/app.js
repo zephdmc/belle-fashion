@@ -176,7 +176,7 @@ app.use((err, req, res, next) => {
   console.error('Global Error:', err);
   
   const origin = req.headers.origin;
-  const allowedOrigins = ['https://www.stefanosbakeshop.com', 'https://stefanosbakeshop.com'];
+  const allowedOrigins = ['https://belle-fashion.vercel.app', 'https://belle-fashion-9134mg8y3-stefanos-projects-ea9eedaa.vercel.app'];
   
   if (allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
@@ -199,7 +199,7 @@ app.use((err, req, res, next) => {
 // 404 handler with CORS headers
 app.use('*', (req, res) => {
   const origin = req.headers.origin;
-  const allowedOrigins = ['https://www.stefanosbakeshop.com', 'https://stefanosbakeshop.com'];
+  const allowedOrigins = ['https://belle-fashion.vercel.app', 'https://belle-fashion-9134mg8y3-stefanos-projects-ea9eedaa.vercel.app'];
   
   if (allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
