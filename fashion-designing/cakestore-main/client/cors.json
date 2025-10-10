@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://cakestore-6bc5l3wro-stefanos-projects-ea9eedaa.vercel.app"],
+    "origin": ["https://belle-fashion-an0xaqxrx-stefanos-projects-ea9eedaa.vercel.app"],
     "method": ["GET", "POST", "PUT"],
     "maxAgeSeconds": 3600,
     "responseHeader": ["Content-Type", "Authorization", "x-goog-meta-foo"]
