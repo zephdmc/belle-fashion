@@ -140,7 +140,7 @@ export default function HomePage() {
     const [showQuizForm, setShowQuizForm] = useState(false);
     const { currentUser } = useAuth();
     const isAdmin = currentUser?.isAdmin;
-
+import { FiArrowRight, FiHeart, FiShoppingBag, FiChevronLeft, FiChevronRight, FiAlertTriangle, FiStar, FiPackage } from 'react-icons/fi';
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -160,9 +160,7 @@ export default function HomePage() {
 
 
 
-    // Fashion Category Products Section
-const FashionCategoriesSection = () => {
-    const [categories, setCategories] = useState([]);
+     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -171,11 +169,25 @@ const FashionCategoriesSection = () => {
         const fetchProductsByCategory = async () => {
             try {
                 setLoading(true);
+                setError(null);
+                
+                // Try to fetch products
                 const response = await fetch('/api/products?limit=50');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch products');
+                }
+
                 const result = await response.json();
 
                 if (!result.success) {
-                    throw new Error(result.error || 'Failed to fetch products');
+                    throw new Error(result.error || 'Failed to load products');
+                }
+
+                // Check if we have products data
+                if (!result.data || !Array.isArray(result.data)) {
+                    setCategories([]);
+                    return;
                 }
 
                 // Organize products by category
@@ -208,6 +220,7 @@ const FashionCategoriesSection = () => {
             } catch (err) {
                 console.error('Error fetching products:', err);
                 setError(err.message);
+                setCategories([]); // Ensure categories is always an array
             } finally {
                 setLoading(false);
             }
@@ -223,10 +236,16 @@ const FashionCategoriesSection = () => {
 
     // Get product rating
     const getProductRating = (product) => {
-        if (!product.reviews || product.reviews.length === 0) return 0;
+        if (!product.reviews || !Array.isArray(product.reviews) || product.reviews.length === 0) return 0;
         const sum = product.reviews.reduce((acc, review) => acc + review.rating, 0);
         return sum / product.reviews.length;
     };
+
+    // Safe array access helper
+    const safeArray = (arr) => {
+        return Array.isArray(arr) ? arr : [];
+    };
+
 
     
     useEffect(() => {
@@ -579,7 +598,6 @@ const FashionCategoriesSection = () => {
 </section>
 
             {/* Enhanced Feature Cards Section */}
-        {/* Fashion Category Products Section */}
         <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
             <div className="container mx-auto max-w-7xl">
                 {loading ? (
@@ -604,10 +622,10 @@ const FashionCategoriesSection = () => {
                     </motion.div>
                 ) : (
                     <div className="space-y-16">
-                        {/* Map through fashion categories */}
-                        {(categories || []).map((category, categoryIndex) => (
+                        {/* Safe mapping through categories - will show nothing if categories is empty */}
+                        {safeArray(categories).map((category, categoryIndex) => (
                             <motion.div
-                                key={category.id}
+                                key={category.id || categoryIndex}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
@@ -625,10 +643,10 @@ const FashionCategoriesSection = () => {
                                         />
                                         <div>
                                             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-                                                {category.name}
+                                                {category.name || 'Uncategorized'}
                                             </h2>
                                             <p className="text-gray-500 text-sm mt-1">
-                                                {category.products.length} {category.products.length === 1 ? 'item' : 'items'} available
+                                                {safeArray(category.products).length} {safeArray(category.products).length === 1 ? 'item' : 'items'} available
                                             </p>
                                         </div>
                                     </div>
@@ -637,7 +655,7 @@ const FashionCategoriesSection = () => {
                                         transition={{ type: "spring", stiffness: 400 }}
                                     >
                                         <Link
-                                            to={`/categories/${category.slug}?category=${encodeURIComponent(category.name)}`}
+                                            to={`/categories/${category.slug || 'all'}?category=${encodeURIComponent(category.name || 'all')}`}
                                             className="group inline-flex items-center gap-2 text-gray-700 hover:text-amber-600 font-semibold text-lg transition-all duration-300 border-b-2 border-transparent hover:border-amber-600 pb-1"
                                         >
                                             View Collection
@@ -654,9 +672,9 @@ const FashionCategoriesSection = () => {
                                         transition={{ delay: 0.3 }}
                                         className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory"
                                     >
-                                        {category.products.slice(0, 8).map((product, index) => (
+                                        {safeArray(category.products).slice(0, 8).map((product, index) => (
                                             <motion.div
-                                                key={product.id}
+                                                key={product?.id || index}
                                                 initial={{ opacity: 0, x: 20 }}
                                                 whileInView={{ opacity: 1, x: 0 }}
                                                 viewport={{ once: true }}
@@ -668,14 +686,14 @@ const FashionCategoriesSection = () => {
                                                 className="flex-shrink-0 w-[280px] snap-start"
                                             >
                                                 <Link 
-                                                    to={`/products/${product.id}`}
+                                                    to={product ? `/products/${product.id}` : '#'}
                                                     className="block group"
                                                 >
                                                     <div className="bg-white rounded-2xl shadow-sm hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-500/50 transition-all duration-500 h-full flex flex-col">
                                                         {/* Product Image */}
                                                         <div className="relative pt-[120%] bg-gray-100 overflow-hidden">
                                                             {/* Discount Badge */}
-                                                            {product.discountPercentage > 0 && (
+                                                            {product?.discountPercentage > 0 && (
                                                                 <motion.div
                                                                     initial={{ scale: 0 }}
                                                                     whileInView={{ scale: 1 }}
@@ -701,8 +719,8 @@ const FashionCategoriesSection = () => {
                                                             
                                                             {/* Product Image */}
                                                             <motion.img 
-                                                                src={product.images?.[0] || '/api/placeholder/300/360'} 
-                                                                alt={product.name}
+                                                                src={product?.images?.[0] || '/api/placeholder/300/360'} 
+                                                                alt={product?.name || 'Product image'}
                                                                 className="absolute top-0 left-0 w-full h-full object-cover"
                                                                 whileHover={{ scale: 1.05 }}
                                                                 transition={{ duration: 0.4 }}
@@ -715,15 +733,15 @@ const FashionCategoriesSection = () => {
                                                             {/* Product Name & Category */}
                                                             <div className="mb-3">
                                                                 <span className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full mb-2">
-                                                                    {product.subcategory || product.category}
+                                                                    {product?.subcategory || product?.category || 'Fashion'}
                                                                 </span>
                                                                 <h3 className="font-semibold text-gray-900 text-lg leading-tight line-clamp-2 group-hover:text-amber-600 transition-colors">
-                                                                    {product.name}
+                                                                    {product?.name || 'Product Name'}
                                                                 </h3>
                                                             </div>
 
                                                             {/* Rating */}
-                                                            {product.reviews && product.reviews.length > 0 && (
+                                                            {product?.reviews && safeArray(product.reviews).length > 0 && (
                                                                 <div className="flex items-center gap-1 mb-3">
                                                                     <div className="flex items-center gap-1">
                                                                         <FiStar className="w-4 h-4 text-amber-400 fill-current" />
@@ -732,17 +750,17 @@ const FashionCategoriesSection = () => {
                                                                         </span>
                                                                     </div>
                                                                     <span className="text-gray-400 text-sm">
-                                                                        ({product.reviews.length})
+                                                                        ({safeArray(product.reviews).length})
                                                                     </span>
                                                                 </div>
                                                             )}
 
                                                             {/* Price Section */}
                                                             <div className="mt-auto space-y-2">
-                                                                {product.discountPercentage > 0 ? (
+                                                                {product?.discountPercentage > 0 ? (
                                                                     <div className="flex items-center gap-3">
                                                                         <span className="text-gray-400 text-sm line-through">
-                                                                            ₦{product.originalPrice?.toLocaleString()}
+                                                                            ₦{product.originalPrice?.toLocaleString() || product?.price?.toLocaleString()}
                                                                         </span>
                                                                         <span className="text-gray-900 font-bold text-xl">
                                                                             ₦{calculateDiscountedPrice(product.price, product.discountPercentage).toLocaleString()}
@@ -750,13 +768,13 @@ const FashionCategoriesSection = () => {
                                                                     </div>
                                                                 ) : (
                                                                     <span className="text-gray-900 font-bold text-xl">
-                                                                        ₦{product.price.toLocaleString()}
+                                                                        ₦{product?.price?.toLocaleString() || '0'}
                                                                     </span>
                                                                 )}
                                                                 
                                                                 {/* Size Variants */}
                                                                 <div className="flex gap-1">
-                                                                    {(product.sizes || ['S', 'M', 'L', 'XL']).slice(0, 4).map((size) => (
+                                                                    {safeArray(product?.sizes || ['S', 'M', 'L', 'XL']).slice(0, 4).map((size) => (
                                                                         <span 
                                                                             key={size}
                                                                             className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded hover:border-amber-500 hover:bg-amber-500/10 transition-colors cursor-pointer"
@@ -764,9 +782,9 @@ const FashionCategoriesSection = () => {
                                                                             {size}
                                                                         </span>
                                                                     ))}
-                                                                    {product.sizes && product.sizes.length > 4 && (
+                                                                    {safeArray(product?.sizes).length > 4 && (
                                                                         <span className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded text-gray-400">
-                                                                            +{product.sizes.length - 4}
+                                                                            +{safeArray(product?.sizes).length - 4}
                                                                         </span>
                                                                     )}
                                                                 </div>
@@ -811,7 +829,7 @@ const FashionCategoriesSection = () => {
                     </div>
                 )}
 
-                {/* Show message if no categories exist */}
+                {/* Show "Data Not Available" when no categories exist */}
                 {!loading && !error && (!categories || categories.length === 0) && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -820,8 +838,8 @@ const FashionCategoriesSection = () => {
                     >
                         <div className="bg-gray-50 rounded-2xl p-12 max-w-2xl mx-auto">
                             <FiPackage className="text-4xl text-gray-400 mx-auto mb-4" />
-                            <h3 className="text-2xl font-bold text-gray-900 mb-2">No Collections Available</h3>
-                            <p className="text-gray-600 mb-6">Check back later for our latest fashion collections.</p>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-2">Data Not Available</h3>
+                            <p className="text-gray-600 mb-6">No fashion collections are currently available. Please check back later.</p>
                             <Link
                                 to="/products"
                                 className="inline-block bg-gray-900 text-white font-semibold py-3 px-8 rounded-xl hover:bg-amber-500 transition-colors"
@@ -832,27 +850,29 @@ const FashionCategoriesSection = () => {
                     </motion.div>
                 )}
 
-                {/* View All Collections Button */}
-                <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="text-center mt-20"
-                >
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                {/* View All Collections Button - Only show if we have categories */}
+                {!loading && !error && categories && categories.length > 0 && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                        className="text-center mt-20"
                     >
-                        <Link
-                            to="/products"
-                            className="group inline-flex items-center justify-center bg-gray-900 hover:bg-amber-500 text-white font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gray-900 text-lg"
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
-                            Explore All Collections
-                            <FiArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                        </Link>
+                            <Link
+                                to="/products"
+                                className="group inline-flex items-center justify-center bg-gray-900 hover:bg-amber-500 text-white font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gray-900 text-lg"
+                            >
+                                Explore All Collections
+                                <FiArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                            </Link>
+                        </motion.div>
                     </motion.div>
-                </motion.div>
+                )}
             </div>
         </section>
 
