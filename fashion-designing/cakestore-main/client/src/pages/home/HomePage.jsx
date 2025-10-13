@@ -5,7 +5,7 @@ import ProductCard from '../../components/products/ProductCard';
 import { getProducts } from '../../services/productServic';
 import TestimonialSlider from '../../pages/home/HomePageComponent/TestimonialSlider';
 import AboutSection from '../../pages/home/HomePageComponent/AboutSection';
-import { FiAward, FiLoader, FiAlertTriangle, FiEye, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
+import { FiAward, FiLoader, FiEye, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
 import { 
     FiPhone, 
     FiMail, 
@@ -18,7 +18,7 @@ import {
     
     FiScissors 
 } from 'react-icons/fi';
-import { FiArrowRight, FiChevronLeft, FiChevronRight, FiAlertTriangle } from 'react-icons/fi';
+import { FiArrowRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { getBlogPosts } from '../../services/contentful';
