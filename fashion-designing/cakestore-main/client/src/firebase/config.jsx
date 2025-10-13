@@ -11,12 +11,12 @@ import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBlafRUKpFjqmtgT2c940bsbeWMqMojLTs",
-    authDomain: "stefanosbakeshop-5cf8f.firebaseapp.com",
-    projectId: "stefanosbakeshop-5cf8f",
-    storageBucket: "stefanosbakeshop-5cf8f.firebasestorage.app",
-    messagingSenderId: "893744528427",
-    appId: "1:893744528427:web:a31ddada2407f52d1ebe6e"
+    apiKey: "AIzaSyD4Q6aApKEmzqwR7L7dvATZdcIXNYZKaPQ",
+    authDomain: "bellebyokien-a737f.firebaseapp.com",
+    projectId: "bellebyokien-a737f",
+    storageBucket: "bellebyokien-a737f.firebasestorage.app",
+    messagingSenderId: "106276820197",
+    appId: "1:106276820197:web:7a386b6e9b6382e48d700c"
 };
 
 const app = initializeApp(firebaseConfig);
