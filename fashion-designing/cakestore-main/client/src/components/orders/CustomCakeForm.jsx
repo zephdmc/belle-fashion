@@ -469,7 +469,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
     >
       <div className="text-center mb-4">
         <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
-          <FiRuler className="text-white text-lg" />
+          < FiDroplet className="text-white text-lg" />
         </div>
         <h3 className="text-lg font-bold text-gray-800 mb-1">Measurements</h3>
         <p className="text-gray-600 text-xs">Provide your measurements for perfect fit</p>
