@@ -18,7 +18,7 @@ import {
     
     FiScissors 
 } from 'react-icons/fi';
-import { FiArrowRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import {  FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { getBlogPosts } from '../../services/contentful';
