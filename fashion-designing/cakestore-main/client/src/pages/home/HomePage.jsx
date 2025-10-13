@@ -5,20 +5,26 @@ import ProductCard from '../../components/products/ProductCard';
 import { getProducts } from '../../services/productServic';
 import TestimonialSlider from '../../pages/home/HomePageComponent/TestimonialSlider';
 import AboutSection from '../../pages/home/HomePageComponent/AboutSection';
-import { FiAward, FiLoader, FiEye, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
 import { 
     FiPhone, 
     FiMail, 
     FiGlobe, 
     FiGrid, 
     FiHeart, 
-    
     FiUser, 
     FiFeather, 
-    
-    FiScissors 
+    FiScissors,
+    FiShoppingBag,
+    FiArrowRight,
+    FiLoader,
+    FiEye,
+    FiAward,
+    FiChevronLeft,
+    FiChevronRight,
+    FiAlertTriangle,
+    FiStar,
+    FiPackage
 } from 'react-icons/fi';
-import {  FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { getBlogPosts } from '../../services/contentful';
@@ -30,6 +36,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { GiTwoFeathers } from "react-icons/gi";
 import CustomCakeForm from '../../components/orders/CustomCakeForm';
 import { createCustomOrder } from '../../services/customOrderService';
+
 // Enhanced ImageSlideShow Component
 const ImageSlideShow = ({ isMobile = false }) => {
   const images = [
@@ -132,14 +139,17 @@ const FeatureCard = ({ icon: Icon, title, description, delay = 0 }) => (
 export default function HomePage() {
     const [products, setProducts] = useState([]);
     const [blogs, setBlogs] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [categoriesLoading, setCategoriesLoading] = useState(true);
     const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
     const navigate = useNavigate();
     const [error, setError] = useState('');
+    const [categoriesError, setCategoriesError] = useState(null);
     const [showQuizForm, setShowQuizForm] = useState(false);
     const { currentUser } = useAuth();
     const isAdmin = currentUser?.isAdmin;
-//import { FiArrowRight, FiHeart, FiShoppingBag, FiChevronLeft, FiChevronRight, FiAlertTriangle, FiStar, FiPackage } from 'react-icons/fi';
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -156,19 +166,12 @@ export default function HomePage() {
         fetchProducts();
     }, []);
 
-
-
-
-     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
     // Fetch products and organize by category
     useEffect(() => {
         const fetchProductsByCategory = async () => {
             try {
-                setLoading(true);
-                setError(null);
+                setCategoriesLoading(true);
+                setCategoriesError(null);
                 
                 // Try to fetch products
                 const response = await fetch('/api/products?limit=50');
@@ -218,10 +221,10 @@ export default function HomePage() {
                 
             } catch (err) {
                 console.error('Error fetching products:', err);
-                setError(err.message);
+                setCategoriesError(err.message);
                 setCategories([]); // Ensure categories is always an array
             } finally {
-                setLoading(false);
+                setCategoriesLoading(false);
             }
         };
 
@@ -244,7 +247,6 @@ export default function HomePage() {
     const safeArray = (arr) => {
         return Array.isArray(arr) ? arr : [];
     };
-
 
     
     useEffect(() => {
@@ -596,284 +598,284 @@ export default function HomePage() {
     </div>
 </section>
 
-            {/* Enhanced Feature Cards Section */}
-        <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
-            <div className="container mx-auto max-w-7xl">
-                {loading ? (
-                    <div className="text-center py-20">
-                        <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                            className="inline-flex items-center justify-center w-16 h-16 border-2 border-amber-500 border-t-transparent rounded-full mb-4"
-                        />
-                        <p className="text-gray-600 font-medium">Loading fashion collections...</p>
-                    </div>
-                ) : error ? (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="text-center py-12"
-                    >
-                        <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
-                            <FiAlertTriangle className="text-2xl text-red-500 mx-auto mb-4" />
-                            <p className="text-gray-700">{error}</p>
-                        </div>
-                    </motion.div>
-                ) : (
-                    <div className="space-y-16">
-                        {/* Safe mapping through categories - will show nothing if categories is empty */}
-                        {safeArray(categories).map((category, categoryIndex) => (
+            {/* Enhanced Fashion Categories Section */}
+            <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
+                <div className="container mx-auto max-w-7xl">
+                    {categoriesLoading ? (
+                        <div className="text-center py-20">
                             <motion.div
-                                key={category.id || categoryIndex}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                                className="category-section"
-                            >
-                                {/* Category Header */}
-                                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 px-2 gap-4">
-                                    <div className="flex items-center gap-4">
-                                        <motion.div
-                                            initial={{ width: 0 }}
-                                            whileInView={{ width: 40 }}
-                                            transition={{ duration: 0.8, delay: 0.2 }}
-                                            className="h-0.5 bg-gradient-to-r from-amber-500 to-black rounded-full"
-                                        />
-                                        <div>
-                                            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-                                                {category.name || 'Uncategorized'}
-                                            </h2>
-                                            <p className="text-gray-500 text-sm mt-1">
-                                                {safeArray(category.products).length} {safeArray(category.products).length === 1 ? 'item' : 'items'} available
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <motion.div
-                                        whileHover={{ x: 5 }}
-                                        transition={{ type: "spring", stiffness: 400 }}
-                                    >
-                                        <Link
-                                            to={`/categories/${category.slug || 'all'}?category=${encodeURIComponent(category.name || 'all')}`}
-                                            className="group inline-flex items-center gap-2 text-gray-700 hover:text-amber-600 font-semibold text-lg transition-all duration-300 border-b-2 border-transparent hover:border-amber-600 pb-1"
-                                        >
-                                            View Collection
-                                            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-                                        </Link>
-                                    </motion.div>
-                                </div>
-
-                                {/* Products Scroll Container */}
-                                <div className="relative">
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        transition={{ delay: 0.3 }}
-                                        className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory"
-                                    >
-                                        {safeArray(category.products).slice(0, 8).map((product, index) => (
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                className="inline-flex items-center justify-center w-16 h-16 border-2 border-amber-500 border-t-transparent rounded-full mb-4"
+                            />
+                            <p className="text-gray-600 font-medium">Loading fashion collections...</p>
+                        </div>
+                    ) : categoriesError ? (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="text-center py-12"
+                        >
+                            <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
+                                <FiAlertTriangle className="text-2xl text-red-500 mx-auto mb-4" />
+                                <p className="text-gray-700">{categoriesError}</p>
+                            </div>
+                        </motion.div>
+                    ) : (
+                        <div className="space-y-16">
+                            {/* Safe mapping through categories - will show nothing if categories is empty */}
+                            {safeArray(categories).map((category, categoryIndex) => (
+                                <motion.div
+                                    key={category.id || categoryIndex}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+                                    className="category-section"
+                                >
+                                    {/* Category Header */}
+                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 px-2 gap-4">
+                                        <div className="flex items-center gap-4">
                                             <motion.div
-                                                key={product?.id || index}
-                                                initial={{ opacity: 0, x: 20 }}
-                                                whileInView={{ opacity: 1, x: 0 }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                                whileHover={{ 
-                                                    y: -8,
-                                                    transition: { type: "spring", stiffness: 400 }
-                                                }}
-                                                className="flex-shrink-0 w-[280px] snap-start"
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: 40 }}
+                                                transition={{ duration: 0.8, delay: 0.2 }}
+                                                className="h-0.5 bg-gradient-to-r from-amber-500 to-black rounded-full"
+                                            />
+                                            <div>
+                                                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
+                                                    {category.name || 'Uncategorized'}
+                                                </h2>
+                                                <p className="text-gray-500 text-sm mt-1">
+                                                    {safeArray(category.products).length} {safeArray(category.products).length === 1 ? 'item' : 'items'} available
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <motion.div
+                                            whileHover={{ x: 5 }}
+                                            transition={{ type: "spring", stiffness: 400 }}
+                                        >
+                                            <Link
+                                                to={`/categories/${category.slug || 'all'}?category=${encodeURIComponent(category.name || 'all')}`}
+                                                className="group inline-flex items-center gap-2 text-gray-700 hover:text-amber-600 font-semibold text-lg transition-all duration-300 border-b-2 border-transparent hover:border-amber-600 pb-1"
                                             >
-                                                <Link 
-                                                    to={product ? `/products/${product.id}` : '#'}
-                                                    className="block group"
+                                                View Collection
+                                                <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+                                            </Link>
+                                        </motion.div>
+                                    </div>
+
+                                    {/* Products Scroll Container */}
+                                    <div className="relative">
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            whileInView={{ opacity: 1 }}
+                                            transition={{ delay: 0.3 }}
+                                            className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory"
+                                        >
+                                            {safeArray(category.products).slice(0, 8).map((product, index) => (
+                                                <motion.div
+                                                    key={product?.id || index}
+                                                    initial={{ opacity: 0, x: 20 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true }}
+                                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                                    whileHover={{ 
+                                                        y: -8,
+                                                        transition: { type: "spring", stiffness: 400 }
+                                                    }}
+                                                    className="flex-shrink-0 w-[280px] snap-start"
                                                 >
-                                                    <div className="bg-white rounded-2xl shadow-sm hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-500/50 transition-all duration-500 h-full flex flex-col">
-                                                        {/* Product Image */}
-                                                        <div className="relative pt-[120%] bg-gray-100 overflow-hidden">
-                                                            {/* Discount Badge */}
-                                                            {product?.discountPercentage > 0 && (
-                                                                <motion.div
-                                                                    initial={{ scale: 0 }}
-                                                                    whileInView={{ scale: 1 }}
-                                                                    transition={{ type: "spring", stiffness: 500 }}
-                                                                    className="absolute top-3 left-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-lg"
-                                                                >
-                                                                    {product.discountPercentage}% OFF
-                                                                </motion.div>
-                                                            )}
-                                                            
-                                                            {/* Favorite Button */}
-                                                            <motion.button
-                                                                whileHover={{ scale: 1.1 }}
-                                                                whileTap={{ scale: 0.9 }}
-                                                                className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-red-50 transition-colors"
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    // Add to wishlist functionality
-                                                                }}
-                                                            >
-                                                                <FiHeart className="w-4 h-4 text-gray-600" />
-                                                            </motion.button>
-                                                            
+                                                    <Link 
+                                                        to={product ? `/products/${product.id}` : '#'}
+                                                        className="block group"
+                                                    >
+                                                        <div className="bg-white rounded-2xl shadow-sm hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-500/50 transition-all duration-500 h-full flex flex-col">
                                                             {/* Product Image */}
-                                                            <motion.img 
-                                                                src={product?.images?.[0] || '/api/placeholder/300/360'} 
-                                                                alt={product?.name || 'Product image'}
-                                                                className="absolute top-0 left-0 w-full h-full object-cover"
-                                                                whileHover={{ scale: 1.05 }}
-                                                                transition={{ duration: 0.4 }}
-                                                            />
-                                                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                                        </div>
-                                                        
-                                                        {/* Product Info */}
-                                                        <div className="p-5 flex-grow flex flex-col">
-                                                            {/* Product Name & Category */}
-                                                            <div className="mb-3">
-                                                                <span className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full mb-2">
-                                                                    {product?.subcategory || product?.category || 'Fashion'}
-                                                                </span>
-                                                                <h3 className="font-semibold text-gray-900 text-lg leading-tight line-clamp-2 group-hover:text-amber-600 transition-colors">
-                                                                    {product?.name || 'Product Name'}
-                                                                </h3>
-                                                            </div>
-
-                                                            {/* Rating */}
-                                                            {product?.reviews && safeArray(product.reviews).length > 0 && (
-                                                                <div className="flex items-center gap-1 mb-3">
-                                                                    <div className="flex items-center gap-1">
-                                                                        <FiStar className="w-4 h-4 text-amber-400 fill-current" />
-                                                                        <span className="text-sm font-medium text-gray-700">
-                                                                            {getProductRating(product).toFixed(1)}
-                                                                        </span>
-                                                                    </div>
-                                                                    <span className="text-gray-400 text-sm">
-                                                                        ({safeArray(product.reviews).length})
-                                                                    </span>
-                                                                </div>
-                                                            )}
-
-                                                            {/* Price Section */}
-                                                            <div className="mt-auto space-y-2">
-                                                                {product?.discountPercentage > 0 ? (
-                                                                    <div className="flex items-center gap-3">
-                                                                        <span className="text-gray-400 text-sm line-through">
-                                                                            ₦{product.originalPrice?.toLocaleString() || product?.price?.toLocaleString()}
-                                                                        </span>
-                                                                        <span className="text-gray-900 font-bold text-xl">
-                                                                            ₦{calculateDiscountedPrice(product.price, product.discountPercentage).toLocaleString()}
-                                                                        </span>
-                                                                    </div>
-                                                                ) : (
-                                                                    <span className="text-gray-900 font-bold text-xl">
-                                                                        ₦{product?.price?.toLocaleString() || '0'}
-                                                                    </span>
+                                                            <div className="relative pt-[120%] bg-gray-100 overflow-hidden">
+                                                                {/* Discount Badge */}
+                                                                {product?.discountPercentage > 0 && (
+                                                                    <motion.div
+                                                                        initial={{ scale: 0 }}
+                                                                        whileInView={{ scale: 1 }}
+                                                                        transition={{ type: "spring", stiffness: 500 }}
+                                                                        className="absolute top-3 left-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-lg"
+                                                                    >
+                                                                        {product.discountPercentage}% OFF
+                                                                    </motion.div>
                                                                 )}
                                                                 
-                                                                {/* Size Variants */}
-                                                                <div className="flex gap-1">
-                                                                    {safeArray(product?.sizes || ['S', 'M', 'L', 'XL']).slice(0, 4).map((size) => (
-                                                                        <span 
-                                                                            key={size}
-                                                                            className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded hover:border-amber-500 hover:bg-amber-500/10 transition-colors cursor-pointer"
-                                                                        >
-                                                                            {size}
+                                                                {/* Favorite Button */}
+                                                                <motion.button
+                                                                    whileHover={{ scale: 1.1 }}
+                                                                    whileTap={{ scale: 0.9 }}
+                                                                    className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-red-50 transition-colors"
+                                                                    onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        // Add to wishlist functionality
+                                                                    }}
+                                                                >
+                                                                    <FiHeart className="w-4 h-4 text-gray-600" />
+                                                                </motion.button>
+                                                                
+                                                                {/* Product Image */}
+                                                                <motion.img 
+                                                                    src={product?.images?.[0] || '/api/placeholder/300/360'} 
+                                                                    alt={product?.name || 'Product image'}
+                                                                    className="absolute top-0 left-0 w-full h-full object-cover"
+                                                                    whileHover={{ scale: 1.05 }}
+                                                                    transition={{ duration: 0.4 }}
+                                                                />
+                                                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                                            </div>
+                                                            
+                                                            {/* Product Info */}
+                                                            <div className="p-5 flex-grow flex flex-col">
+                                                                {/* Product Name & Category */}
+                                                                <div className="mb-3">
+                                                                    <span className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full mb-2">
+                                                                        {product?.subcategory || product?.category || 'Fashion'}
+                                                                    </span>
+                                                                    <h3 className="font-semibold text-gray-900 text-lg leading-tight line-clamp-2 group-hover:text-amber-600 transition-colors">
+                                                                        {product?.name || 'Product Name'}
+                                                                    </h3>
+                                                                </div>
+
+                                                                {/* Rating */}
+                                                                {product?.reviews && safeArray(product.reviews).length > 0 && (
+                                                                    <div className="flex items-center gap-1 mb-3">
+                                                                        <div className="flex items-center gap-1">
+                                                                            <FiStar className="w-4 h-4 text-amber-400 fill-current" />
+                                                                            <span className="text-sm font-medium text-gray-700">
+                                                                                {getProductRating(product).toFixed(1)}
+                                                                            </span>
+                                                                        </div>
+                                                                        <span className="text-gray-400 text-sm">
+                                                                            ({safeArray(product.reviews).length})
                                                                         </span>
-                                                                    ))}
-                                                                    {safeArray(product?.sizes).length > 4 && (
-                                                                        <span className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded text-gray-400">
-                                                                            +{safeArray(product?.sizes).length - 4}
+                                                                    </div>
+                                                                )}
+
+                                                                {/* Price Section */}
+                                                                <div className="mt-auto space-y-2">
+                                                                    {product?.discountPercentage > 0 ? (
+                                                                        <div className="flex items-center gap-3">
+                                                                            <span className="text-gray-400 text-sm line-through">
+                                                                                ₦{product.originalPrice?.toLocaleString() || product?.price?.toLocaleString()}
+                                                                            </span>
+                                                                            <span className="text-gray-900 font-bold text-xl">
+                                                                                ₦{calculateDiscountedPrice(product.price, product.discountPercentage).toLocaleString()}
+                                                                            </span>
+                                                                        </div>
+                                                                    ) : (
+                                                                        <span className="text-gray-900 font-bold text-xl">
+                                                                            ₦{product?.price?.toLocaleString() || '0'}
                                                                         </span>
                                                                     )}
+                                                                    
+                                                                    {/* Size Variants */}
+                                                                    <div className="flex gap-1">
+                                                                        {safeArray(product?.sizes || ['S', 'M', 'L', 'XL']).slice(0, 4).map((size) => (
+                                                                            <span 
+                                                                                key={size}
+                                                                                className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded hover:border-amber-500 hover:bg-amber-500/10 transition-colors cursor-pointer"
+                                                                            >
+                                                                                {size}
+                                                                            </span>
+                                                                        ))}
+                                                                        {safeArray(product?.sizes).length > 4 && (
+                                                                            <span className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded text-gray-400">
+                                                                                +{safeArray(product?.sizes).length - 4}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
                                                                 </div>
+
+                                                                {/* Add to Cart Button */}
+                                                                <motion.button
+                                                                    whileHover={{ scale: 1.02 }}
+                                                                    whileTap={{ scale: 0.98 }}
+                                                                    className="mt-4 w-full bg-gray-900 hover:bg-amber-500 text-white font-semibold py-3.5 px-4 rounded-xl hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                                                    onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        // Add to cart functionality
+                                                                    }}
+                                                                >
+                                                                    <FiShoppingBag className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                                                                    Add to Cart
+                                                                </motion.button>
                                                             </div>
-
-                                                            {/* Add to Cart Button */}
-                                                            <motion.button
-                                                                whileHover={{ scale: 1.02 }}
-                                                                whileTap={{ scale: 0.98 }}
-                                                                className="mt-4 w-full bg-gray-900 hover:bg-amber-500 text-white font-semibold py-3.5 px-4 rounded-xl hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    // Add to cart functionality
-                                                                }}
-                                                            >
-                                                                <FiShoppingBag className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
-                                                                Add to Cart
-                                                            </motion.button>
                                                         </div>
-                                                    </div>
-                                                </Link>
-                                            </motion.div>
-                                        ))}
-                                    </motion.div>
+                                                    </Link>
+                                                </motion.div>
+                                            ))}
+                                        </motion.div>
 
-                                    {/* Scroll Hint */}
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        transition={{ delay: 0.8 }}
-                                        className="flex justify-center mt-6"
-                                    >
-                                        <div className="flex items-center gap-2 text-gray-400 text-sm">
-                                            <FiChevronLeft className="w-4 h-4" />
-                                            <span className="animate-pulse">Scroll to discover more</span>
-                                            <FiChevronRight className="w-4 h-4" />
-                                        </div>
-                                    </motion.div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                )}
-
-                {/* Show "Data Not Available" when no categories exist */}
-                {!loading && !error && (!categories || categories.length === 0) && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-center py-20"
-                    >
-                        <div className="bg-gray-50 rounded-2xl p-12 max-w-2xl mx-auto">
-                            <FiPackage className="text-4xl text-gray-400 mx-auto mb-4" />
-                            <h3 className="text-2xl font-bold text-gray-900 mb-2">Data Not Available</h3>
-                            <p className="text-gray-600 mb-6">No fashion collections are currently available. Please check back later.</p>
-                            <Link
-                                to="/products"
-                                className="inline-block bg-gray-900 text-white font-semibold py-3 px-8 rounded-xl hover:bg-amber-500 transition-colors"
-                            >
-                                Browse All Products
-                            </Link>
+                                        {/* Scroll Hint */}
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            whileInView={{ opacity: 1 }}
+                                            transition={{ delay: 0.8 }}
+                                            className="flex justify-center mt-6"
+                                        >
+                                            <div className="flex items-center gap-2 text-gray-400 text-sm">
+                                                <FiChevronLeft className="w-4 h-4" />
+                                                <span className="animate-pulse">Scroll to discover more</span>
+                                                <FiChevronRight className="w-4 h-4" />
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                </motion.div>
+                            ))}
                         </div>
-                    </motion.div>
-                )}
+                    )}
 
-                {/* View All Collections Button - Only show if we have categories */}
-                {!loading && !error && categories && categories.length > 0 && (
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="text-center mt-20"
-                    >
+                    {/* Show "Data Not Available" when no categories exist */}
+                    {!categoriesLoading && !categoriesError && (!categories || categories.length === 0) && (
                         <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-center py-20"
                         >
-                            <Link
-                                to="/products"
-                                className="group inline-flex items-center justify-center bg-gray-900 hover:bg-amber-500 text-white font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gray-900 text-lg"
-                            >
-                                Explore All Collections
-                                <FiArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                            </Link>
+                            <div className="bg-gray-50 rounded-2xl p-12 max-w-2xl mx-auto">
+                                <FiPackage className="text-4xl text-gray-400 mx-auto mb-4" />
+                                <h3 className="text-2xl font-bold text-gray-900 mb-2">Data Not Available</h3>
+                                <p className="text-gray-600 mb-6">No fashion collections are currently available. Please check back later.</p>
+                                <Link
+                                    to="/products"
+                                    className="inline-block bg-gray-900 text-white font-semibold py-3 px-8 rounded-xl hover:bg-amber-500 transition-colors"
+                                >
+                                    Browse All Products
+                                </Link>
+                            </div>
                         </motion.div>
-                    </motion.div>
-                )}
-            </div>
-        </section>
+                    )}
+
+                    {/* View All Collections Button - Only show if we have categories */}
+                    {!categoriesLoading && !categoriesError && categories && categories.length > 0 && (
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                            className="text-center mt-20"
+                        >
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <Link
+                                    to="/products"
+                                    className="group inline-flex items-center justify-center bg-gray-900 hover:bg-amber-500 text-white font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gray-900 text-lg"
+                                >
+                                    Explore All Collections
+                                    <FiArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                                </Link>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </div>
+            </section>
 
             <AboutSection />
 
