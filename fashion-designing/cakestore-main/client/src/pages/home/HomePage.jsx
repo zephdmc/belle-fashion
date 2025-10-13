@@ -157,6 +157,78 @@ export default function HomePage() {
         fetchProducts();
     }, []);
 
+
+
+
+    // Fashion Category Products Section
+const FashionCategoriesSection = () => {
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Fetch products and organize by category
+    useEffect(() => {
+        const fetchProductsByCategory = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch('/api/products?limit=50');
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.error || 'Failed to fetch products');
+                }
+
+                // Organize products by category
+                const productsByCategory = {};
+                
+                result.data.forEach(product => {
+                    if (product.status !== 'inactive') {
+                        const category = product.category || 'Uncategorized';
+                        if (!productsByCategory[category]) {
+                            productsByCategory[category] = {
+                                id: category.toLowerCase().replace(/\s+/g, '-'),
+                                name: category,
+                                slug: category.toLowerCase().replace(/\s+/g, '-'),
+                                description: `Explore our ${category} collection`,
+                                products: []
+                            };
+                        }
+                        productsByCategory[category].products.push(product);
+                    }
+                });
+
+                // Convert to array and take top categories with most products
+                const categoryArray = Object.values(productsByCategory)
+                    .filter(cat => cat.products.length > 0)
+                    .sort((a, b) => b.products.length - a.products.length)
+                    .slice(0, 6); // Show top 6 categories
+
+                setCategories(categoryArray);
+                
+            } catch (err) {
+                console.error('Error fetching products:', err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProductsByCategory();
+    }, []);
+
+    // Calculate discounted price
+    const calculateDiscountedPrice = (price, discountPercentage) => {
+        return price - (price * (discountPercentage / 100));
+    };
+
+    // Get product rating
+    const getProductRating = (product) => {
+        if (!product.reviews || product.reviews.length === 0) return 0;
+        const sum = product.reviews.reduce((acc, review) => acc + review.rating, 0);
+        return sum / product.reviews.length;
+    };
+
+    
     useEffect(() => {
       const fetchBlogs = async () => {
         try {
@@ -508,107 +580,107 @@ export default function HomePage() {
 
             {/* Enhanced Feature Cards Section */}
         {/* Fashion Category Products Section */}
-<section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
-    <div className="container mx-auto max-w-7xl">
-        {loading ? (
-            <div className="text-center py-20">
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="inline-flex items-center justify-center w-16 h-16 border-2 border-gold border-t-transparent rounded-full mb-4"
-                />
-                <p className="text-gray-600 font-medium">Loading fashion collections...</p>
-            </div>
-        ) : error ? (
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-12"
-            >
-                <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
-                    <FiAlertTriangle className="text-2xl text-red-500 mx-auto mb-4" />
-                    <p className="text-gray-700">{error}</p>
-                </div>
-            </motion.div>
-        ) : (
-            <div className="space-y-16">
-                {/* Map through fashion categories */}
-                {categories.map((category, categoryIndex) => (
+        <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
+            <div className="container mx-auto max-w-7xl">
+                {loading ? (
+                    <div className="text-center py-20">
+                        <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            className="inline-flex items-center justify-center w-16 h-16 border-2 border-amber-500 border-t-transparent rounded-full mb-4"
+                        />
+                        <p className="text-gray-600 font-medium">Loading fashion collections...</p>
+                    </div>
+                ) : error ? (
                     <motion.div
-                        key={category.id}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                        className="category-section"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center py-12"
                     >
-                        {/* Category Header */}
-                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 px-2 gap-4">
-                            <div className="flex items-center gap-4">
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: 40 }}
-                                    transition={{ duration: 0.8, delay: 0.2 }}
-                                    className="h-0.5 bg-gradient-to-r from-gold to-black rounded-full"
-                                />
-                                <div>
-                                    <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
-                                        {category.name}
-                                    </h2>
-                                    <p className="text-gray-500 text-sm mt-1">{category.description}</p>
-                                </div>
-                            </div>
-                            <motion.div
-                                whileHover={{ x: 5 }}
-                                transition={{ type: "spring", stiffness: 400 }}
-                            >
-                                <Link
-                                    to={`/categories/${category.slug}`}
-                                    className="group inline-flex items-center gap-2 text-gray-700 hover:text-gold font-semibold text-lg transition-all duration-300 border-b-2 border-transparent hover:border-gold pb-1"
-                                >
-                                    View Collection
-                                    <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-                                </Link>
-                            </motion.div>
+                        <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
+                            <FiAlertTriangle className="text-2xl text-red-500 mx-auto mb-4" />
+                            <p className="text-gray-700">{error}</p>
                         </div>
-
-                        {/* Products Scroll Container */}
-                        <div className="relative">
+                    </motion.div>
+                ) : (
+                    <div className="space-y-16">
+                        {/* Map through fashion categories */}
+                        {(categories || []).map((category, categoryIndex) => (
                             <motion.div
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                transition={{ delay: 0.3 }}
-                                className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory"
+                                key={category.id}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+                                className="category-section"
                             >
-                                {(category.products.length > 0 ? category.products : Array.from({ length: 5 })).map((product, index) => (
+                                {/* Category Header */}
+                                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 px-2 gap-4">
+                                    <div className="flex items-center gap-4">
+                                        <motion.div
+                                            initial={{ width: 0 }}
+                                            whileInView={{ width: 40 }}
+                                            transition={{ duration: 0.8, delay: 0.2 }}
+                                            className="h-0.5 bg-gradient-to-r from-amber-500 to-black rounded-full"
+                                        />
+                                        <div>
+                                            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
+                                                {category.name}
+                                            </h2>
+                                            <p className="text-gray-500 text-sm mt-1">
+                                                {category.products.length} {category.products.length === 1 ? 'item' : 'items'} available
+                                            </p>
+                                        </div>
+                                    </div>
                                     <motion.div
-                                        key={product?.id || index}
-                                        initial={{ opacity: 0, x: 20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                                        whileHover={{ 
-                                            y: -8,
-                                            transition: { type: "spring", stiffness: 400 }
-                                        }}
-                                        className="flex-shrink-0 w-[280px] snap-start"
+                                        whileHover={{ x: 5 }}
+                                        transition={{ type: "spring", stiffness: 400 }}
                                     >
-                                        <Link 
-                                            to={product ? `/products/${product.id}` : '#'}
-                                            className="block group"
+                                        <Link
+                                            to={`/categories/${category.slug}?category=${encodeURIComponent(category.name)}`}
+                                            className="group inline-flex items-center gap-2 text-gray-700 hover:text-amber-600 font-semibold text-lg transition-all duration-300 border-b-2 border-transparent hover:border-amber-600 pb-1"
                                         >
-                                            <div className="bg-white rounded-2xl shadow-sm hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-gold/50 transition-all duration-500 h-full flex flex-col">
-                                                {/* Product Image */}
-                                                <div className="relative pt-[120%] bg-gray-100 overflow-hidden">
-                                                    {product ? (
-                                                        <>
+                                            View Collection
+                                            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+                                        </Link>
+                                    </motion.div>
+                                </div>
+
+                                {/* Products Scroll Container */}
+                                <div className="relative">
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        transition={{ delay: 0.3 }}
+                                        className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory"
+                                    >
+                                        {category.products.slice(0, 8).map((product, index) => (
+                                            <motion.div
+                                                key={product.id}
+                                                initial={{ opacity: 0, x: 20 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                                whileHover={{ 
+                                                    y: -8,
+                                                    transition: { type: "spring", stiffness: 400 }
+                                                }}
+                                                className="flex-shrink-0 w-[280px] snap-start"
+                                            >
+                                                <Link 
+                                                    to={`/products/${product.id}`}
+                                                    className="block group"
+                                                >
+                                                    <div className="bg-white rounded-2xl shadow-sm hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-500/50 transition-all duration-500 h-full flex flex-col">
+                                                        {/* Product Image */}
+                                                        <div className="relative pt-[120%] bg-gray-100 overflow-hidden">
                                                             {/* Discount Badge */}
                                                             {product.discountPercentage > 0 && (
                                                                 <motion.div
                                                                     initial={{ scale: 0 }}
                                                                     whileInView={{ scale: 1 }}
                                                                     transition={{ type: "spring", stiffness: 500 }}
-                                                                    className="absolute top-3 left-3 bg-gradient-to-r from-gold to-amber-500 text-black text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-lg"
+                                                                    className="absolute top-3 left-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-lg"
                                                                 >
                                                                     {product.discountPercentage}% OFF
                                                                 </motion.div>
@@ -619,37 +691,51 @@ export default function HomePage() {
                                                                 whileHover={{ scale: 1.1 }}
                                                                 whileTap={{ scale: 0.9 }}
                                                                 className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-red-50 transition-colors"
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    // Add to wishlist functionality
+                                                                }}
                                                             >
                                                                 <FiHeart className="w-4 h-4 text-gray-600" />
                                                             </motion.button>
                                                             
+                                                            {/* Product Image */}
                                                             <motion.img 
-                                                                src={product.images[0]} 
+                                                                src={product.images?.[0] || '/api/placeholder/300/360'} 
                                                                 alt={product.name}
                                                                 className="absolute top-0 left-0 w-full h-full object-cover"
                                                                 whileHover={{ scale: 1.05 }}
                                                                 transition={{ duration: 0.4 }}
                                                             />
                                                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                                        </>
-                                                    ) : (
-                                                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse rounded-2xl" />
-                                                    )}
-                                                </div>
-                                                
-                                                {/* Product Info */}
-                                                <div className="p-5 flex-grow flex flex-col">
-                                                    {product ? (
-                                                        <>
+                                                        </div>
+                                                        
+                                                        {/* Product Info */}
+                                                        <div className="p-5 flex-grow flex flex-col">
                                                             {/* Product Name & Category */}
                                                             <div className="mb-3">
                                                                 <span className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full mb-2">
-                                                                    {product.category}
+                                                                    {product.subcategory || product.category}
                                                                 </span>
-                                                                <h3 className="font-semibold text-gray-900 text-lg leading-tight line-clamp-2 group-hover:text-gold transition-colors">
+                                                                <h3 className="font-semibold text-gray-900 text-lg leading-tight line-clamp-2 group-hover:text-amber-600 transition-colors">
                                                                     {product.name}
                                                                 </h3>
                                                             </div>
+
+                                                            {/* Rating */}
+                                                            {product.reviews && product.reviews.length > 0 && (
+                                                                <div className="flex items-center gap-1 mb-3">
+                                                                    <div className="flex items-center gap-1">
+                                                                        <FiStar className="w-4 h-4 text-amber-400 fill-current" />
+                                                                        <span className="text-sm font-medium text-gray-700">
+                                                                            {getProductRating(product).toFixed(1)}
+                                                                        </span>
+                                                                    </div>
+                                                                    <span className="text-gray-400 text-sm">
+                                                                        ({product.reviews.length})
+                                                                    </span>
+                                                                </div>
+                                                            )}
 
                                                             {/* Price Section */}
                                                             <div className="mt-auto space-y-2">
@@ -659,7 +745,7 @@ export default function HomePage() {
                                                                             ₦{product.originalPrice?.toLocaleString()}
                                                                         </span>
                                                                         <span className="text-gray-900 font-bold text-xl">
-                                                                            ₦{product.price.toLocaleString()}
+                                                                            ₦{calculateDiscountedPrice(product.price, product.discountPercentage).toLocaleString()}
                                                                         </span>
                                                                     </div>
                                                                 ) : (
@@ -670,14 +756,19 @@ export default function HomePage() {
                                                                 
                                                                 {/* Size Variants */}
                                                                 <div className="flex gap-1">
-                                                                    {['S', 'M', 'L', 'XL'].map((size) => (
+                                                                    {(product.sizes || ['S', 'M', 'L', 'XL']).slice(0, 4).map((size) => (
                                                                         <span 
                                                                             key={size}
-                                                                            className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded hover:border-gold hover:bg-gold/10 transition-colors cursor-pointer"
+                                                                            className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded hover:border-amber-500 hover:bg-amber-500/10 transition-colors cursor-pointer"
                                                                         >
                                                                             {size}
                                                                         </span>
                                                                     ))}
+                                                                    {product.sizes && product.sizes.length > 4 && (
+                                                                        <span className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded text-gray-400">
+                                                                            +{product.sizes.length - 4}
+                                                                        </span>
+                                                                    )}
                                                                 </div>
                                                             </div>
 
@@ -685,89 +776,85 @@ export default function HomePage() {
                                                             <motion.button
                                                                 whileHover={{ scale: 1.02 }}
                                                                 whileTap={{ scale: 0.98 }}
-                                                                className="mt-4 w-full bg-gray-900 hover:bg-gold text-white font-semibold py-3.5 px-4 rounded-xl hover:text-black transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                                                className="mt-4 w-full bg-gray-900 hover:bg-amber-500 text-white font-semibold py-3.5 px-4 rounded-xl hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    // Add to cart functionality
+                                                                }}
                                                             >
                                                                 <FiShoppingBag className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
                                                                 Add to Cart
                                                             </motion.button>
-                                                        </>
-                                                    ) : (
-                                                        // Skeleton Loader
-                                                        <div className="space-y-3">
-                                                            <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
-                                                            <div className="h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
-                                                            <div className="h-10 bg-gray-200 rounded-xl mt-4 animate-pulse"></div>
                                                         </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </Link>
+                                                    </div>
+                                                </Link>
+                                            </motion.div>
+                                        ))}
                                     </motion.div>
-                                ))}
-                            </motion.div>
 
-                            {/* Scroll Hint */}
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                transition={{ delay: 0.8 }}
-                                className="flex justify-center mt-6"
-                            >
-                                <div className="flex items-center gap-2 text-gray-400 text-sm">
-                                    <FiChevronLeft className="w-4 h-4" />
-                                    <span className="animate-pulse">Scroll to discover more</span>
-                                    <FiChevronRight className="w-4 h-4" />
+                                    {/* Scroll Hint */}
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        transition={{ delay: 0.8 }}
+                                        className="flex justify-center mt-6"
+                                    >
+                                        <div className="flex items-center gap-2 text-gray-400 text-sm">
+                                            <FiChevronLeft className="w-4 h-4" />
+                                            <span className="animate-pulse">Scroll to discover more</span>
+                                            <FiChevronRight className="w-4 h-4" />
+                                        </div>
+                                    </motion.div>
                                 </div>
                             </motion.div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Show message if no categories exist */}
+                {!loading && !error && (!categories || categories.length === 0) && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center py-20"
+                    >
+                        <div className="bg-gray-50 rounded-2xl p-12 max-w-2xl mx-auto">
+                            <FiPackage className="text-4xl text-gray-400 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-gray-900 mb-2">No Collections Available</h3>
+                            <p className="text-gray-600 mb-6">Check back later for our latest fashion collections.</p>
+                            <Link
+                                to="/products"
+                                className="inline-block bg-gray-900 text-white font-semibold py-3 px-8 rounded-xl hover:bg-amber-500 transition-colors"
+                            >
+                                Browse All Products
+                            </Link>
                         </div>
                     </motion.div>
-                ))}
-            </div>
-        )}
+                )}
 
-        {/* View All Collections Button */}
-        <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-20"
-        >
-            <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-            >
-                <Link
-                    to="/collections"
-                    className="group inline-flex items-center justify-center bg-gray-900 hover:bg-gold text-white hover:text-black font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gray-900 text-lg"
+                {/* View All Collections Button */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="text-center mt-20"
                 >
-                    Explore All Collections
-                    <FiArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Link>
-            </motion.div>
-            
-            {/* Featured Brands */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="flex justify-center items-center gap-8 mt-12 opacity-60"
-            >
-                {['Nike', 'Adidas', 'Zara', 'H&M', 'Gucci'].map((brand, index) => (
-                    <motion.span
-                        key={brand}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 + index * 0.1 }}
-                        className="text-gray-400 font-semibold text-sm hover:text-gold transition-colors cursor-pointer"
+                    <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                     >
-                        {brand}
-                    </motion.span>
-                ))}
-            </motion.div>
-        </motion.div>
-    </div>
-</section>
+                        <Link
+                            to="/products"
+                            className="group inline-flex items-center justify-center bg-gray-900 hover:bg-amber-500 text-white font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gray-900 text-lg"
+                        >
+                            Explore All Collections
+                            <FiArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                        </Link>
+                    </motion.div>
+                </motion.div>
+            </div>
+        </section>
 
             <AboutSection />
 
