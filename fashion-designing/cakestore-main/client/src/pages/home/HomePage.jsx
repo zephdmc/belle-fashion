@@ -18,6 +18,8 @@ import {
     
     FiScissors 
 } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import { FiArrowRight, FiChevronLeft, FiChevronRight, FiAlertTriangle } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { getBlogPosts } from '../../services/contentful';
