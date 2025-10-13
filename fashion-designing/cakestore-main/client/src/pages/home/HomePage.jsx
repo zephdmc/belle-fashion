@@ -5,7 +5,7 @@ import ProductCard from '../../components/products/ProductCard';
 import { getProducts } from '../../services/productServic';
 import TestimonialSlider from '../../pages/home/HomePageComponent/TestimonialSlider';
 import AboutSection from '../../pages/home/HomePageComponent/AboutSection';
-import { FiHeart, FiAward, FiLoader, FiAlertTriangle, FiEye, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
+import { FiAward, FiLoader, FiAlertTriangle, FiEye, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
 import { 
     FiPhone, 
     FiMail, 
