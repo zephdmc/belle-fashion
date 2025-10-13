@@ -6,6 +6,18 @@ import { getProducts } from '../../services/productServic';
 import TestimonialSlider from '../../pages/home/HomePageComponent/TestimonialSlider';
 import AboutSection from '../../pages/home/HomePageComponent/AboutSection';
 import { FiHeart, FiAward, FiLoader, FiAlertTriangle, FiEye, FiShoppingBag, FiArrowRight, FiStar } from 'react-icons/fi';
+import { 
+    FiPhone, 
+    FiMail, 
+    FiGlobe, 
+    FiGrid, 
+    FiStar, 
+    FiHeart, 
+    FiUser, 
+    FiFeather, 
+    FiShoppingBag, 
+    FiScissors 
+} from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { getBlogPosts } from '../../services/contentful';
@@ -228,110 +240,267 @@ export default function HomePage() {
                 </motion.div>
             )}
 
-        {/* Enhanced Hero Section */}
+        {/* Enhanced Hero Section with 3-Column Layout */}
 <section className="relative overflow-hidden min-h-[90vh] flex items-center px-4">
     {/* Animated Background Elements */}
     <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
     </div>
 
-    <div className="container mx-auto max-w-7xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Text Content */}
+    {/* Mobile Contact Bar */}
+    <div className="lg:hidden absolute top-4 left-0 right-0 z-20">
+        <div className="container mx-auto px-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20">
+                <div className="flex justify-between items-center text-white text-xs">
+                    <div className="flex items-center space-x-3">
+                        <a href="tel:+1234567890" className="flex items-center hover:text-blue-200 transition-colors">
+                            <FiPhone className="mr-1" size={12} />
+                            <span>+123 456 7890</span>
+                        </a>
+                        <a href="mailto:info@bellebyokien.com" className="flex items-center hover:text-blue-200 transition-colors">
+                            <FiMail className="mr-1" size={12} />
+                            <span>info@bellebyokien.com</span>
+                        </a>
+                    </div>
+                    <a href="https://bellebyokien.com" className="hover:text-blue-200 transition-colors">
+                        <FiGlobe className="mr-1" size={12} />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div className="container mx-auto max-w-7xl relative z-10 pt-16 lg:pt-0">
+        {/* Mobile Banner */}
+        <div className="lg:hidden mb-8">
             <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-center lg:text-left"
+                transition={{ duration: 0.8 }}
+                className="relative h-[300px] rounded-2xl overflow-hidden shadow-2xl"
             >
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 lg:mb-6 leading-tight"
-                >
-                    Crafting Moments{' '}
-                    <span className="bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
-                        You Can Taste,
-                    </span>{' '}
-                    Scent & Hold
-                </motion.h1>
-                
+                <ImageSlideShow />
+            </motion.div>
+        </div>
+
+        {/* Desktop 3-Column Layout */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-6 items-start">
+            
+            {/* Column 1: Categories List */}
+            <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="lg:col-span-3"
+            >
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl">
+                    <h3 className="text-white font-bold text-lg mb-4 flex items-center">
+                        <FiGrid className="mr-2 text-blue-300" />
+                        Categories
+                    </h3>
+                    <div className="space-y-3">
+                        {[
+                            { name: 'Evening Gowns', icon: FiStar, count: 24 },
+                            { name: 'Wedding Dresses', icon: FiHeart, count: 18 },
+                            { name: 'Casual Wear', icon: FiUser, count: 32 },
+                            { name: 'Traditional', icon: FiFeather, count: 15 },
+                            { name: 'Accessories', icon: FiShoppingBag, count: 45 },
+                            { name: 'Custom Designs', icon: FiScissors, count: 'New' }
+                        ].map((category, index) => (
+                            <motion.div
+                                key={category.name}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
+                                className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-all duration-300 cursor-pointer group"
+                            >
+                                <div className="flex items-center">
+                                    <category.icon className="text-blue-300 mr-3 group-hover:text-blue-200 transition-colors" size={18} />
+                                    <span className="text-white font-medium group-hover:text-blue-200 transition-colors">
+                                        {category.name}
+                                    </span>
+                                </div>
+                                <span className="bg-white/20 text-white text-xs px-2 py-1 rounded-full">
+                                    {category.count}
+                                </span>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* Column 2: Main Banner */}
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="lg:col-span-6"
+            >
+                <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+                    <ImageSlideShow />
+                    
+                    {/* Floating elements on banner */}
+                    <motion.div
+                        animate={{ 
+                            y: [0, -20, 0],
+                            rotate: [0, 5, 0]
+                        }}
+                        transition={{ 
+                            duration: 6,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="absolute top-6 left-6 bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20 shadow-2xl"
+                    >
+                        <FiStar className="text-yellow-300 text-2xl" />
+                    </motion.div>
+                    
+                    <motion.div
+                        animate={{ 
+                            y: [0, 20, 0],
+                            rotate: [0, -5, 0]
+                        }}
+                        transition={{ 
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 1
+                        }}
+                        className="absolute bottom-6 right-6 bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20 shadow-2xl"
+                    >
+                        <FiHeart className="text-pink-300 text-2xl" />
+                    </motion.div>
+                </div>
+            </motion.div>
+
+            {/* Column 3: Contact Card & Brand Card */}
+            <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="lg:col-span-3 space-y-6"
+            >
+                {/* Contact Card */}
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl">
+                    <h3 className="text-white font-bold text-lg mb-4 flex items-center">
+                        <FiPhone className="mr-2 text-blue-300" />
+                        Contact Us
+                    </h3>
+                    <div className="space-y-4">
+                        <div className="flex items-center p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group">
+                            <FiPhone className="text-blue-300 mr-3 group-hover:text-blue-200 transition-colors" />
+                            <div>
+                                <p className="text-white font-medium">Phone</p>
+                                <a href="tel:+1234567890" className="text-blue-200 text-sm hover:text-blue-100 transition-colors">
+                                    +123 456 7890
+                                </a>
+                            </div>
+                        </div>
+                        <div className="flex items-center p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group">
+                            <FiMail className="text-blue-300 mr-3 group-hover:text-blue-200 transition-colors" />
+                            <div>
+                                <p className="text-white font-medium">Email</p>
+                                <a href="mailto:info@bellebyokien.com" className="text-blue-200 text-sm hover:text-blue-100 transition-colors">
+                                    info@bellebyokien.com
+                                </a>
+                            </div>
+                        </div>
+                        <div className="flex items-center p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group">
+                            <FiGlobe className="text-blue-300 mr-3 group-hover:text-blue-200 transition-colors" />
+                            <div>
+                                <p className="text-white font-medium">Website</p>
+                                <a href="https://bellebyokien.com" className="text-blue-200 text-sm hover:text-blue-100 transition-colors">
+                                    bellebyokien.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Brand Banner Card */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
+                    className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl relative overflow-hidden"
                 >
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <Link
-                            to="/products"
-                            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-white/20 block text-sm sm:text-base"
-                        >
-                            Shop Ready-Made
-                        </Link>
-                    </motion.div>
+                    {/* Animated background elements */}
+                    <div className="absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                    <div className="absolute -bottom-10 -left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
                     
-                    <motion.button
-                        onClick={handleCustomOrderClick}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-white/10 hover:bg-white/20 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-white/20 text-sm sm:text-base"
+                    <motion.div
+                        animate={{ 
+                            scale: [1, 1.05, 1],
+                            opacity: [0.7, 1, 0.7]
+                        }}
+                        transition={{ 
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="text-center"
                     >
-                        Order Custom
-                    </motion.button>
-                </motion.div>
-            </motion.div>
-
-            {/* Image Slideshow */}
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="relative"
-            >
-                <div className="relative h-[400px] sm:h-[450px] md:h-[500px] lg:h-[600px] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
-                    <ImageSlideShow />
-                </div>
-                
-                {/* Floating elements */}
-                <motion.div
-                    animate={{ 
-                        y: [0, -20, 0],
-                        rotate: [0, 5, 0]
-                    }}
-                    transition={{ 
-                        duration: 6,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 bg-white/10 backdrop-blur-sm p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-white/20 shadow-2xl"
-                >
-                    <FiStar className="text-yellow-300 text-xl sm:text-2xl" />
-                </motion.div>
-                
-                <motion.div
-                    animate={{ 
-                        y: [0, 20, 0],
-                        rotate: [0, -5, 0]
-                    }}
-                    transition={{ 
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 1
-                    }}
-                    className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 bg-white/10 backdrop-blur-sm p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-white/20 shadow-2xl"
-                >
-                    <FiHeart className="text-pink-300 text-xl sm:text-2xl" />
+                        <h2 className="text-2xl font-bold text-white mb-2">
+                            belle
+                        </h2>
+                        <p className="text-blue-200 text-sm font-light">
+                            by okien
+                        </p>
+                    </motion.div>
                 </motion.div>
             </motion.div>
         </div>
+
+        {/* Mobile Text Content */}
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="lg:hidden text-center mt-8"
+        >
+            <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight"
+            >
+                Crafting Fashion{' '}
+                <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+                    You Can Feel,
+                </span>{' '}
+                Wear & Love
+            </motion.h1>
+            
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="flex flex-col sm:flex-row gap-3 justify-center"
+            >
+                <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <Link
+                        to="/products"
+                        className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-white/20 block"
+                    >
+                        Shop Ready-to-Wear
+                    </Link>
+                </motion.div>
+                
+                <motion.button
+                    onClick={handleCustomOrderClick}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-white/10 hover:bg-white/20 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-white/20"
+                >
+                    Create Custom Design
+                </motion.button>
+            </motion.div>
+        </motion.div>
     </div>
 </section>
 
