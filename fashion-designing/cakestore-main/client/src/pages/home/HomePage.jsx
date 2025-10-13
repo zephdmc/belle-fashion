@@ -5,14 +5,14 @@ import ProductCard from '../../components/products/ProductCard';
 import { getProducts } from '../../services/productServic';
 import TestimonialSlider from '../../pages/home/HomePageComponent/TestimonialSlider';
 import AboutSection from '../../pages/home/HomePageComponent/AboutSection';
-import { FiHeart, FiAward, FiLoader, FiAlertTriangle, FiEye, FiShoppingBag, FiArrowRight, FiStar } from 'react-icons/fi';
+import { FiHeart, FiAward, FiLoader, FiAlertTriangle, FiEye, FiShoppingBag, FiArrowRight } from 'react-icons/fi';
 import { 
     FiPhone, 
     FiMail, 
     FiGlobe, 
     FiGrid, 
-    FiStar, 
     FiHeart, 
+    
     FiUser, 
     FiFeather, 
     FiShoppingBag, 
@@ -302,7 +302,7 @@ export default function HomePage() {
                     </h3>
                     <div className="space-y-3">
                         {[
-                            { name: 'Evening Gowns', icon: FiStar, count: 24 },
+                            { name: 'Evening Gowns', icon: FiHeart, count: 24 },
                             { name: 'Wedding Dresses', icon: FiHeart, count: 18 },
                             { name: 'Casual Wear', icon: FiUser, count: 32 },
                             { name: 'Traditional', icon: FiFeather, count: 15 },
@@ -354,7 +354,7 @@ export default function HomePage() {
                         }}
                         className="absolute top-6 left-6 bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20 shadow-2xl"
                     >
-                        <FiStar className="text-yellow-300 text-2xl" />
+                        <FiHeart className="text-yellow-300 text-2xl" />
                     </motion.div>
                     
                     <motion.div
