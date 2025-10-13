@@ -505,164 +505,263 @@ export default function HomePage() {
 </section>
 
             {/* Enhanced Feature Cards Section */}
-          {/* Enhanced Featured Products Section */}
-<section className="py-20 px-4 bg-gradient-to-b from-purple-900/50 to-purple-800/30">
+        {/* Fashion Category Products Section */}
+<section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
     <div className="container mx-auto max-w-7xl">
-        <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={containerVariants}
-        >
-            <motion.div
-                variants={itemVariants}
-                className="text-center mb-16"
-            >
-                <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-                    Customer Favorites
-                    <motion.div
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="inline-block ml-4"
-                    >
-                        <FiHeart className="inline text-pink-400" />
-                    </motion.div>
-                </h2>
-                <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-                    Curated selections loved by our community{' '}
-                    <FiAward className="inline text-yellow-400 ml-2" />
-                </p>
-            </motion.div>
-
-            {loading ? (
-                <motion.div variants={itemVariants} className="text-center py-20">
-                    <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="inline-block mb-4"
-                    >
-                        <FiLoader className="text-4xl text-purple-300" />
-                    </motion.div>
-                    <p className="text-white/80 text-lg">Loading featured products...</p>
-                </motion.div>
-            ) : error ? (
-                <motion.div variants={itemVariants} className="text-center py-12">
-                    <div className="bg-red-500/20 backdrop-blur-sm border border-red-500/30 rounded-2xl p-6 max-w-md mx-auto">
-                        <FiAlertTriangle className="text-3xl text-red-400 mx-auto mb-3" />
-                        <p className="text-white">{error}</p>
-                    </div>
-                </motion.div>
-            ) : (
+        {loading ? (
+            <div className="text-center py-20">
                 <motion.div
-                    variants={containerVariants}
-                    className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 md:gap-6"
-                >
-                    {(products.length > 0 ? products : Array.from({ length: 8 })).map((product, index) => (
-                        <motion.div
-                            key={product?.id || index}
-                            variants={itemVariants}
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true }}
-                            whileHover={{ 
-                                y: -8,
-                                scale: 1.02,
-                                transition: { duration: 0.3 }
-                            }}
-                            className="group"
-                        >
-                            <Link 
-                                to={product ? `/products/${product.id}` : '#'}
-                                className="block"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="inline-flex items-center justify-center w-16 h-16 border-2 border-gold border-t-transparent rounded-full mb-4"
+                />
+                <p className="text-gray-600 font-medium">Loading fashion collections...</p>
+            </div>
+        ) : error ? (
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-12"
+            >
+                <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
+                    <FiAlertTriangle className="text-2xl text-red-500 mx-auto mb-4" />
+                    <p className="text-gray-700">{error}</p>
+                </div>
+            </motion.div>
+        ) : (
+            <div className="space-y-16">
+                {/* Map through fashion categories */}
+                {categories.map((category, categoryIndex) => (
+                    <motion.div
+                        key={category.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+                        className="category-section"
+                    >
+                        {/* Category Header */}
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 px-2 gap-4">
+                            <div className="flex items-center gap-4">
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: 40 }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    className="h-0.5 bg-gradient-to-r from-gold to-black rounded-full"
+                                />
+                                <div>
+                                    <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
+                                        {category.name}
+                                    </h2>
+                                    <p className="text-gray-500 text-sm mt-1">{category.description}</p>
+                                </div>
+                            </div>
+                            <motion.div
+                                whileHover={{ x: 5 }}
+                                transition={{ type: "spring", stiffness: 400 }}
                             >
-                                <div className="bg-white/10 backdrop-blur-sm rounded-2xl md:rounded-3xl shadow-xl hover:shadow-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-500 h-full flex flex-col">
-                                    {/* Product Image */}
-                                    <div className="relative pt-[100%] bg-gradient-to-br from-purple-400/10 to-pink-400/10 overflow-hidden">
-                                        {product ? (
-                                            <>
-                                                {/* Discount Badge */}
-                                                {product.discountPercentage > 0 && (
-                                                    <div className="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10 transform -rotate-6 shadow-lg">
-                                                        {product.discountPercentage}% OFF
-                                                    </div>
-                                                )}
-                                                
-                                                <img 
-                                                    src={product.images} 
-                                                    alt={product.name}
-                                                    className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                            </>
-                                        ) : (
-                                            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-400/20 to-pink-400/20 animate-pulse rounded-2xl md:rounded-3xl" />
-                                        )}
-                                    </div>
-                                    
-                                    {/* Product Info */}
-                                    <div className="p-4 md:p-5 flex-grow flex flex-col">
-                                        {product ? (
-                                            <>
-                                                {/* Category Tag */}
-                                                <div className="mb-2">
-                                                    <span className="inline-block bg-white/20 text-white/80 text-xs px-2 py-1 rounded-full">
-                                                        {product.category || 'Cake'}
-                                                    </span>
-                                                </div>
+                                <Link
+                                    to={`/categories/${category.slug}`}
+                                    className="group inline-flex items-center gap-2 text-gray-700 hover:text-gold font-semibold text-lg transition-all duration-300 border-b-2 border-transparent hover:border-gold pb-1"
+                                >
+                                    View Collection
+                                    <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+                                </Link>
+                            </motion.div>
+                        </div>
 
-                                                {/* Product Name */}
-                                                <h3 className="font-semibold text-white text-sm md:text-base mb-2 line-clamp-2 leading-tight min-h-[2.5rem]">
-                                                    {product.name}
-                                                </h3>
-
-                                                {/* Price Section */}
-                                                <div className="mt-auto">
-                                                    {product.discountPercentage > 0 ? (
-                                                        <div className="flex items-center gap-2 flex-wrap">
-                                                            <span className="text-white/60 text-xs line-through">
-                                                                ₦{(product.price + (product.price * (product.discountPercentage / 100))).toLocaleString()}
-                                                            </span>
-                                                            <span className="text-white font-bold text-base md:text-lg bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">
-                                                                ₦{product.price.toLocaleString()}
-                                                            </span>
-                                                        </div>
+                        {/* Products Scroll Container */}
+                        <div className="relative">
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ delay: 0.3 }}
+                                className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory"
+                            >
+                                {(category.products.length > 0 ? category.products : Array.from({ length: 5 })).map((product, index) => (
+                                    <motion.div
+                                        key={product?.id || index}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        whileHover={{ 
+                                            y: -8,
+                                            transition: { type: "spring", stiffness: 400 }
+                                        }}
+                                        className="flex-shrink-0 w-[280px] snap-start"
+                                    >
+                                        <Link 
+                                            to={product ? `/products/${product.id}` : '#'}
+                                            className="block group"
+                                        >
+                                            <div className="bg-white rounded-2xl shadow-sm hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-gold/50 transition-all duration-500 h-full flex flex-col">
+                                                {/* Product Image */}
+                                                <div className="relative pt-[120%] bg-gray-100 overflow-hidden">
+                                                    {product ? (
+                                                        <>
+                                                            {/* Discount Badge */}
+                                                            {product.discountPercentage > 0 && (
+                                                                <motion.div
+                                                                    initial={{ scale: 0 }}
+                                                                    whileInView={{ scale: 1 }}
+                                                                    transition={{ type: "spring", stiffness: 500 }}
+                                                                    className="absolute top-3 left-3 bg-gradient-to-r from-gold to-amber-500 text-black text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-lg"
+                                                                >
+                                                                    {product.discountPercentage}% OFF
+                                                                </motion.div>
+                                                            )}
+                                                            
+                                                            {/* Favorite Button */}
+                                                            <motion.button
+                                                                whileHover={{ scale: 1.1 }}
+                                                                whileTap={{ scale: 0.9 }}
+                                                                className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-red-50 transition-colors"
+                                                            >
+                                                                <FiHeart className="w-4 h-4 text-gray-600" />
+                                                            </motion.button>
+                                                            
+                                                            <motion.img 
+                                                                src={product.images[0]} 
+                                                                alt={product.name}
+                                                                className="absolute top-0 left-0 w-full h-full object-cover"
+                                                                whileHover={{ scale: 1.05 }}
+                                                                transition={{ duration: 0.4 }}
+                                                            />
+                                                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                                        </>
                                                     ) : (
-                                                        <span className="text-white font-bold text-base md:text-lg">
-                                                            ₦{product.price.toLocaleString()}
-                                                        </span>
+                                                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse rounded-2xl" />
                                                     )}
                                                 </div>
-                                            </>
-                                        ) : (
-                                            // Skeleton Loader
-                                            <>
-                                                <div className="h-4 bg-white/20 rounded w-3/4 mb-2 animate-pulse"></div>
-                                                <div className="h-4 bg-white/20 rounded w-1/2 mb-3 animate-pulse"></div>
-                                                <div className="h-4 bg-white/20 rounded w-2/3 mt-auto animate-pulse"></div>
-                                            </>
-                                        )}
-                                    </div>
-                                </div>
-                            </Link>
-                        </motion.div>
-                    ))}
-                </motion.div>
-            )}
+                                                
+                                                {/* Product Info */}
+                                                <div className="p-5 flex-grow flex flex-col">
+                                                    {product ? (
+                                                        <>
+                                                            {/* Product Name & Category */}
+                                                            <div className="mb-3">
+                                                                <span className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full mb-2">
+                                                                    {product.category}
+                                                                </span>
+                                                                <h3 className="font-semibold text-gray-900 text-lg leading-tight line-clamp-2 group-hover:text-gold transition-colors">
+                                                                    {product.name}
+                                                                </h3>
+                                                            </div>
 
-            {/* View All Products Button */}
-            <motion.div 
-                variants={itemVariants} 
-                className="text-center mt-12 md:mt-16"
+                                                            {/* Price Section */}
+                                                            <div className="mt-auto space-y-2">
+                                                                {product.discountPercentage > 0 ? (
+                                                                    <div className="flex items-center gap-3">
+                                                                        <span className="text-gray-400 text-sm line-through">
+                                                                            ₦{product.originalPrice?.toLocaleString()}
+                                                                        </span>
+                                                                        <span className="text-gray-900 font-bold text-xl">
+                                                                            ₦{product.price.toLocaleString()}
+                                                                        </span>
+                                                                    </div>
+                                                                ) : (
+                                                                    <span className="text-gray-900 font-bold text-xl">
+                                                                        ₦{product.price.toLocaleString()}
+                                                                    </span>
+                                                                )}
+                                                                
+                                                                {/* Size Variants */}
+                                                                <div className="flex gap-1">
+                                                                    {['S', 'M', 'L', 'XL'].map((size) => (
+                                                                        <span 
+                                                                            key={size}
+                                                                            className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded hover:border-gold hover:bg-gold/10 transition-colors cursor-pointer"
+                                                                        >
+                                                                            {size}
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+
+                                                            {/* Add to Cart Button */}
+                                                            <motion.button
+                                                                whileHover={{ scale: 1.02 }}
+                                                                whileTap={{ scale: 0.98 }}
+                                                                className="mt-4 w-full bg-gray-900 hover:bg-gold text-white font-semibold py-3.5 px-4 rounded-xl hover:text-black transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                                            >
+                                                                <FiShoppingBag className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                                                                Add to Cart
+                                                            </motion.button>
+                                                        </>
+                                                    ) : (
+                                                        // Skeleton Loader
+                                                        <div className="space-y-3">
+                                                            <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+                                                            <div className="h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
+                                                            <div className="h-10 bg-gray-200 rounded-xl mt-4 animate-pulse"></div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </motion.div>
+
+                            {/* Scroll Hint */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ delay: 0.8 }}
+                                className="flex justify-center mt-6"
+                            >
+                                <div className="flex items-center gap-2 text-gray-400 text-sm">
+                                    <FiChevronLeft className="w-4 h-4" />
+                                    <span className="animate-pulse">Scroll to discover more</span>
+                                    <FiChevronRight className="w-4 h-4" />
+                                </div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+        )}
+
+        {/* View All Collections Button */}
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mt-20"
+        >
+            <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
             >
                 <Link
-                    to="/products"
-                    className="group inline-flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-4 px-8 md:px-10 rounded-2xl transition-all duration-300 shadow-2xl backdrop-blur-sm border border-white/20"
+                    to="/collections"
+                    className="group inline-flex items-center justify-center bg-gray-900 hover:bg-gold text-white hover:text-black font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gray-900 text-lg"
                 >
-                    View All Products
-                    <FiArrowRight className="ml-3 transition-transform group-hover:translate-x-1" />
+                    Explore All Collections
+                    <FiArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Link>
+            </motion.div>
+            
+            {/* Featured Brands */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="flex justify-center items-center gap-8 mt-12 opacity-60"
+            >
+                {['Nike', 'Adidas', 'Zara', 'H&M', 'Gucci'].map((brand, index) => (
+                    <motion.span
+                        key={brand}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 + index * 0.1 }}
+                        className="text-gray-400 font-semibold text-sm hover:text-gold transition-colors cursor-pointer"
+                    >
+                        {brand}
+                    </motion.span>
+                ))}
             </motion.div>
         </motion.div>
     </div>
