@@ -139,7 +139,7 @@ export default function HomePage() {
     const [showQuizForm, setShowQuizForm] = useState(false);
     const { currentUser } = useAuth();
     const isAdmin = currentUser?.isAdmin;
-import { FiArrowRight, FiHeart, FiShoppingBag, FiChevronLeft, FiChevronRight, FiAlertTriangle, FiStar, FiPackage } from 'react-icons/fi';
+//import { FiArrowRight, FiHeart, FiShoppingBag, FiChevronLeft, FiChevronRight, FiAlertTriangle, FiStar, FiPackage } from 'react-icons/fi';
     useEffect(() => {
         const fetchProducts = async () => {
             try {
