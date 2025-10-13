@@ -15,7 +15,7 @@ import {
     
     FiUser, 
     FiFeather, 
-    FiShoppingBag, 
+    
     FiScissors 
 } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
