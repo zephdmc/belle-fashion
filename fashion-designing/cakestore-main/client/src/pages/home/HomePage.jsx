@@ -101,7 +101,7 @@ const ImageSlideShow = ({ isMobile = false }) => {
           <button
             key={index}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === currentIndex ? 'bg-white scale-125' : 'bg-white/50'
+              index === currentIndex ? 'bg-gold scale-125' : 'bg-gold/50'
             }`}
             onClick={() => setCurrentIndex(index)}
           />
@@ -122,17 +122,17 @@ const FeatureCard = ({ icon: Icon, title, description, delay = 0 }) => (
       y: -8,
       transition: { duration: 0.3 }
     }}
-    className="group relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
+    className="group relative bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 hover:border-gold/50 transition-all duration-300"
   >
     <div className="relative z-10">
-      <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-        <Icon className="text-white text-xl" />
+      <div className="w-12 h-12 bg-gradient-to-br from-gold to-yellow-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+        <Icon className="text-black text-xl" />
       </div>
       <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
       <p className="text-white/80 text-sm leading-relaxed">{description}</p>
     </div>
     {/* Background glow effect */}
-    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div className="absolute inset-0 bg-gradient-to-br from-gold/10 to-yellow-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
   </motion.div>
 );
 
@@ -316,7 +316,7 @@ export default function HomePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-700">
+        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900">
             {/* Admin Button */}
             {isAdmin && (
                 <motion.div
@@ -326,7 +326,7 @@ export default function HomePage() {
                 >
                     <Link
                         to="https://belle-fashion.vercel.app/admin"
-                        className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 px-6 rounded-2xl font-medium transition-all duration-300 shadow-2xl flex items-center gap-3 backdrop-blur-sm border border-white/20"
+                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-2xl font-medium transition-all duration-300 shadow-2xl shadow-gold/30 flex items-center gap-3 backdrop-blur-sm border border-gold/30"
                     >
                         Admin Panel
                         <FiArrowRight className="transition-transform group-hover:translate-x-1" />
@@ -338,27 +338,27 @@ export default function HomePage() {
 <section className="relative overflow-hidden min-h-[90vh] flex items-center px-4">
     {/* Animated Background Elements */}
     <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gold/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-600/20 rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
     </div>
 
     {/* Mobile Contact Bar */}
     <div className="lg:hidden absolute top-4 left-0 right-0 z-20">
         <div className="container mx-auto px-4">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20">
+            <div className="bg-black/20 backdrop-blur-sm rounded-xl p-3 border border-gold/30">
                 <div className="flex justify-between items-center text-white text-xs">
                     <div className="flex items-center space-x-3">
-                        <a href="tel:+1234567890" className="flex items-center hover:text-blue-200 transition-colors">
+                        <a href="tel:+1234567890" className="flex items-center hover:text-gold transition-colors">
                             <FiPhone className="mr-1" size={12} />
                             <span>+123 456 7890</span>
                         </a>
-                        <a href="mailto:info@bellebyokien.com" className="flex items-center hover:text-blue-200 transition-colors">
+                        <a href="mailto:info@bellebyokien.com" className="flex items-center hover:text-gold transition-colors">
                             <FiMail className="mr-1" size={12} />
                             <span>info@bellebyokien.com</span>
                         </a>
                     </div>
-                    <a href="https://bellebyokien.com" className="hover:text-blue-200 transition-colors">
+                    <a href="https://bellebyokien.com" className="hover:text-gold transition-colors">
                         <FiGlobe className="mr-1" size={12} />
                     </a>
                 </div>
@@ -389,9 +389,9 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="lg:col-span-3"
             >
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl">
+                <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl">
                     <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-                        <FiGrid className="mr-2 text-blue-300" />
+                        <FiGrid className="mr-2 text-gold" />
                         Categories
                     </h3>
                     <div className="space-y-3">
@@ -408,15 +408,15 @@ export default function HomePage() {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
-                                className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-all duration-300 cursor-pointer group"
+                                className="flex items-center justify-between p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 cursor-pointer group"
                             >
                                 <div className="flex items-center">
-                                    <category.icon className="text-blue-300 mr-3 group-hover:text-blue-200 transition-colors" size={18} />
-                                    <span className="text-white font-medium group-hover:text-blue-200 transition-colors">
+                                    <category.icon className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" size={18} />
+                                    <span className="text-white font-medium group-hover:text-gold transition-colors">
                                         {category.name}
                                     </span>
                                 </div>
-                                <span className="bg-white/20 text-white text-xs px-2 py-1 rounded-full">
+                                <span className="bg-gold/20 text-white text-xs px-2 py-1 rounded-full">
                                     {category.count}
                                 </span>
                             </motion.div>
@@ -446,9 +446,9 @@ export default function HomePage() {
                             repeat: Infinity,
                             ease: "easeInOut"
                         }}
-                        className="absolute top-6 left-6 bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20 shadow-2xl"
+                        className="absolute top-6 left-6 bg-black/20 backdrop-blur-sm p-4 rounded-2xl border border-gold/30 shadow-2xl"
                     >
-                        <FiHeart className="text-yellow-300 text-2xl" />
+                        <FiHeart className="text-gold text-2xl" />
                     </motion.div>
                     
                     <motion.div
@@ -462,9 +462,9 @@ export default function HomePage() {
                             ease: "easeInOut",
                             delay: 1
                         }}
-                        className="absolute bottom-6 right-6 bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20 shadow-2xl"
+                        className="absolute bottom-6 right-6 bg-black/20 backdrop-blur-sm p-4 rounded-2xl border border-gold/30 shadow-2xl"
                     >
-                        <FiHeart className="text-pink-300 text-2xl" />
+                        <FiHeart className="text-yellow-300 text-2xl" />
                     </motion.div>
                 </div>
             </motion.div>
@@ -477,35 +477,35 @@ export default function HomePage() {
                 className="lg:col-span-3 space-y-6"
             >
                 {/* Contact Card */}
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl">
+                <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl">
                     <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-                        <FiPhone className="mr-2 text-blue-300" />
+                        <FiPhone className="mr-2 text-gold" />
                         Contact Us
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group">
-                            <FiPhone className="text-blue-300 mr-3 group-hover:text-blue-200 transition-colors" />
+                        <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
+                            <FiPhone className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Phone</p>
-                                <a href="tel:+1234567890" className="text-blue-200 text-sm hover:text-blue-100 transition-colors">
+                                <a href="tel:+1234567890" className="text-gold text-sm hover:text-yellow-300 transition-colors">
                                     +123 456 7890
                                 </a>
                             </div>
                         </div>
-                        <div className="flex items-center p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group">
-                            <FiMail className="text-blue-300 mr-3 group-hover:text-blue-200 transition-colors" />
+                        <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
+                            <FiMail className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Email</p>
-                                <a href="mailto:info@bellebyokien.com" className="text-blue-200 text-sm hover:text-blue-100 transition-colors">
+                                <a href="mailto:info@bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
                                     info@bellebyokien.com
                                 </a>
                             </div>
                         </div>
-                        <div className="flex items-center p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group">
-                            <FiGlobe className="text-blue-300 mr-3 group-hover:text-blue-200 transition-colors" />
+                        <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
+                            <FiGlobe className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Website</p>
-                                <a href="https://bellebyokien.com" className="text-blue-200 text-sm hover:text-blue-100 transition-colors">
+                                <a href="https://bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
                                     bellebyokien.com
                                 </a>
                             </div>
@@ -518,11 +518,11 @@ export default function HomePage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl relative overflow-hidden"
+                    className="bg-gradient-to-br from-gold/20 to-yellow-600/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl relative overflow-hidden"
                 >
                     {/* Animated background elements */}
-                    <div className="absolute -top-10 -right-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-                    <div className="absolute -bottom-10 -left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                    <div className="absolute -top-10 -right-10 w-20 h-20 bg-gold/10 rounded-full blur-xl"></div>
+                    <div className="absolute -bottom-10 -left-10 w-20 h-20 bg-gold/10 rounded-full blur-xl"></div>
                     
                     <motion.div
                         animate={{ 
@@ -539,7 +539,7 @@ export default function HomePage() {
                         <h2 className="text-2xl font-bold text-white mb-2">
                             belle
                         </h2>
-                        <p className="text-blue-200 text-sm font-light">
+                        <p className="text-gold text-sm font-light">
                             by okien
                         </p>
                     </motion.div>
@@ -561,7 +561,7 @@ export default function HomePage() {
                 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight"
             >
                 Crafting Fashion{' '}
-                <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-gold to-yellow-300 bg-clip-text text-transparent">
                     You Can Feel,
                 </span>{' '}
                 Wear & Love
@@ -579,7 +579,7 @@ export default function HomePage() {
                 >
                     <Link
                         to="/products"
-                        className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-white/20 block"
+                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30 block"
                     >
                         Shop Ready-to-Wear
                     </Link>
@@ -589,7 +589,7 @@ export default function HomePage() {
                     onClick={handleCustomOrderClick}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-white/10 hover:bg-white/20 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-white/20"
+                    className="bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30"
                 >
                     Create Custom Design
                 </motion.button>
@@ -599,16 +599,16 @@ export default function HomePage() {
 </section>
 
             {/* Enhanced Fashion Categories Section */}
-            <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-white">
+            <section className="py-16 px-4 bg-gradient-to-br from-gray-900 to-black">
                 <div className="container mx-auto max-w-7xl">
                     {categoriesLoading ? (
                         <div className="text-center py-20">
                             <motion.div
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                className="inline-flex items-center justify-center w-16 h-16 border-2 border-amber-500 border-t-transparent rounded-full mb-4"
+                                className="inline-flex items-center justify-center w-16 h-16 border-2 border-gold border-t-transparent rounded-full mb-4"
                             />
-                            <p className="text-gray-600 font-medium">Loading fashion collections...</p>
+                            <p className="text-white font-medium">Loading fashion collections...</p>
                         </div>
                     ) : categoriesError ? (
                         <motion.div
@@ -616,9 +616,9 @@ export default function HomePage() {
                             animate={{ opacity: 1, scale: 1 }}
                             className="text-center py-12"
                         >
-                            <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-md mx-auto">
-                                <FiAlertTriangle className="text-2xl text-red-500 mx-auto mb-4" />
-                                <p className="text-gray-700">{categoriesError}</p>
+                            <div className="bg-red-500/20 border border-red-500/30 rounded-2xl p-8 max-w-md mx-auto">
+                                <FiAlertTriangle className="text-2xl text-red-400 mx-auto mb-4" />
+                                <p className="text-white">{categoriesError}</p>
                             </div>
                         </motion.div>
                     ) : (
@@ -640,13 +640,13 @@ export default function HomePage() {
                                                 initial={{ width: 0 }}
                                                 whileInView={{ width: 40 }}
                                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                                className="h-0.5 bg-gradient-to-r from-amber-500 to-black rounded-full"
+                                                className="h-0.5 bg-gradient-to-r from-gold to-yellow-600 rounded-full"
                                             />
                                             <div>
-                                                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">
+                                                <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
                                                     {category.name || 'Uncategorized'}
                                                 </h2>
-                                                <p className="text-gray-500 text-sm mt-1">
+                                                <p className="text-white/70 text-sm mt-1">
                                                     {safeArray(category.products).length} {safeArray(category.products).length === 1 ? 'item' : 'items'} available
                                                 </p>
                                             </div>
@@ -657,7 +657,7 @@ export default function HomePage() {
                                         >
                                             <Link
                                                 to={`/categories/${category.slug || 'all'}?category=${encodeURIComponent(category.name || 'all')}`}
-                                                className="group inline-flex items-center gap-2 text-gray-700 hover:text-amber-600 font-semibold text-lg transition-all duration-300 border-b-2 border-transparent hover:border-amber-600 pb-1"
+                                                className="group inline-flex items-center gap-2 text-white hover:text-gold font-semibold text-lg transition-all duration-300 border-b-2 border-transparent hover:border-gold pb-1"
                                             >
                                                 View Collection
                                                 <FiArrowRight className="transition-transform group-hover:translate-x-1" />
@@ -690,16 +690,16 @@ export default function HomePage() {
                                                         to={product ? `/products/${product.id}` : '#'}
                                                         className="block group"
                                                     >
-                                                        <div className="bg-white rounded-2xl shadow-sm hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-500/50 transition-all duration-500 h-full flex flex-col">
+                                                        <div className="bg-black/20 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-2xl overflow-hidden border border-gold/30 hover:border-gold/50 transition-all duration-500 h-full flex flex-col">
                                                             {/* Product Image */}
-                                                            <div className="relative pt-[120%] bg-gray-100 overflow-hidden">
+                                                            <div className="relative pt-[120%] bg-gray-800 overflow-hidden">
                                                                 {/* Discount Badge */}
                                                                 {product?.discountPercentage > 0 && (
                                                                     <motion.div
                                                                         initial={{ scale: 0 }}
                                                                         whileInView={{ scale: 1 }}
                                                                         transition={{ type: "spring", stiffness: 500 }}
-                                                                        className="absolute top-3 left-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-lg"
+                                                                        className="absolute top-3 left-3 bg-gradient-to-r from-gold to-yellow-600 text-black text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-lg"
                                                                     >
                                                                         {product.discountPercentage}% OFF
                                                                     </motion.div>
@@ -709,13 +709,13 @@ export default function HomePage() {
                                                                 <motion.button
                                                                     whileHover={{ scale: 1.1 }}
                                                                     whileTap={{ scale: 0.9 }}
-                                                                    className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-red-50 transition-colors"
+                                                                    className="absolute top-3 right-3 w-8 h-8 bg-black/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg z-10 hover:bg-red-500/20 transition-colors"
                                                                     onClick={(e) => {
                                                                         e.preventDefault();
                                                                         // Add to wishlist functionality
                                                                     }}
                                                                 >
-                                                                    <FiHeart className="w-4 h-4 text-gray-600" />
+                                                                    <FiHeart className="w-4 h-4 text-white" />
                                                                 </motion.button>
                                                                 
                                                                 {/* Product Image */}
@@ -733,10 +733,10 @@ export default function HomePage() {
                                                             <div className="p-5 flex-grow flex flex-col">
                                                                 {/* Product Name & Category */}
                                                                 <div className="mb-3">
-                                                                    <span className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full mb-2">
+                                                                    <span className="inline-block bg-gold/20 text-gold text-xs font-medium px-2.5 py-1 rounded-full mb-2">
                                                                         {product?.subcategory || product?.category || 'Fashion'}
                                                                     </span>
-                                                                    <h3 className="font-semibold text-gray-900 text-lg leading-tight line-clamp-2 group-hover:text-amber-600 transition-colors">
+                                                                    <h3 className="font-semibold text-white text-lg leading-tight line-clamp-2 group-hover:text-gold transition-colors">
                                                                         {product?.name || 'Product Name'}
                                                                     </h3>
                                                                 </div>
@@ -745,12 +745,12 @@ export default function HomePage() {
                                                                 {product?.reviews && safeArray(product.reviews).length > 0 && (
                                                                     <div className="flex items-center gap-1 mb-3">
                                                                         <div className="flex items-center gap-1">
-                                                                            <FiStar className="w-4 h-4 text-amber-400 fill-current" />
-                                                                            <span className="text-sm font-medium text-gray-700">
+                                                                            <FiStar className="w-4 h-4 text-gold fill-current" />
+                                                                            <span className="text-sm font-medium text-white">
                                                                                 {getProductRating(product).toFixed(1)}
                                                                             </span>
                                                                         </div>
-                                                                        <span className="text-gray-400 text-sm">
+                                                                        <span className="text-white/70 text-sm">
                                                                             ({safeArray(product.reviews).length})
                                                                         </span>
                                                                     </div>
@@ -760,15 +760,15 @@ export default function HomePage() {
                                                                 <div className="mt-auto space-y-2">
                                                                     {product?.discountPercentage > 0 ? (
                                                                         <div className="flex items-center gap-3">
-                                                                            <span className="text-gray-400 text-sm line-through">
+                                                                            <span className="text-white/70 text-sm line-through">
                                                                                 ₦{product.originalPrice?.toLocaleString() || product?.price?.toLocaleString()}
                                                                             </span>
-                                                                            <span className="text-gray-900 font-bold text-xl">
+                                                                            <span className="text-white font-bold text-xl">
                                                                                 ₦{calculateDiscountedPrice(product.price, product.discountPercentage).toLocaleString()}
                                                                             </span>
                                                                         </div>
                                                                     ) : (
-                                                                        <span className="text-gray-900 font-bold text-xl">
+                                                                        <span className="text-white font-bold text-xl">
                                                                             ₦{product?.price?.toLocaleString() || '0'}
                                                                         </span>
                                                                     )}
@@ -778,13 +778,13 @@ export default function HomePage() {
                                                                         {safeArray(product?.sizes || ['S', 'M', 'L', 'XL']).slice(0, 4).map((size) => (
                                                                             <span 
                                                                                 key={size}
-                                                                                className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded hover:border-amber-500 hover:bg-amber-500/10 transition-colors cursor-pointer"
+                                                                                className="w-6 h-6 flex items-center justify-center text-xs border border-gold/30 rounded hover:border-gold hover:bg-gold/10 transition-colors cursor-pointer text-white"
                                                                             >
                                                                                 {size}
                                                                             </span>
                                                                         ))}
                                                                         {safeArray(product?.sizes).length > 4 && (
-                                                                            <span className="w-6 h-6 flex items-center justify-center text-xs border border-gray-200 rounded text-gray-400">
+                                                                            <span className="w-6 h-6 flex items-center justify-center text-xs border border-gold/30 rounded text-white/70">
                                                                                 +{safeArray(product?.sizes).length - 4}
                                                                             </span>
                                                                         )}
@@ -795,7 +795,7 @@ export default function HomePage() {
                                                                 <motion.button
                                                                     whileHover={{ scale: 1.02 }}
                                                                     whileTap={{ scale: 0.98 }}
-                                                                    className="mt-4 w-full bg-gray-900 hover:bg-amber-500 text-white font-semibold py-3.5 px-4 rounded-xl hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group/btn"
+                                                                    className="mt-4 w-full bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn"
                                                                     onClick={(e) => {
                                                                         e.preventDefault();
                                                                         // Add to cart functionality
@@ -818,7 +818,7 @@ export default function HomePage() {
                                             transition={{ delay: 0.8 }}
                                             className="flex justify-center mt-6"
                                         >
-                                            <div className="flex items-center gap-2 text-gray-400 text-sm">
+                                            <div className="flex items-center gap-2 text-white/70 text-sm">
                                                 <FiChevronLeft className="w-4 h-4" />
                                                 <span className="animate-pulse">Scroll to discover more</span>
                                                 <FiChevronRight className="w-4 h-4" />
@@ -837,13 +837,13 @@ export default function HomePage() {
                             animate={{ opacity: 1, y: 0 }}
                             className="text-center py-20"
                         >
-                            <div className="bg-gray-50 rounded-2xl p-12 max-w-2xl mx-auto">
-                                <FiPackage className="text-4xl text-gray-400 mx-auto mb-4" />
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">Data Not Available</h3>
-                                <p className="text-gray-600 mb-6">No fashion collections are currently available. Please check back later.</p>
+                            <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-12 max-w-2xl mx-auto border border-gold/30">
+                                <FiPackage className="text-4xl text-gold mx-auto mb-4" />
+                                <h3 className="text-2xl font-bold text-white mb-2">Data Not Available</h3>
+                                <p className="text-white/70 mb-6">No fashion collections are currently available. Please check back later.</p>
                                 <Link
                                     to="/products"
-                                    className="inline-block bg-gray-900 text-white font-semibold py-3 px-8 rounded-xl hover:bg-amber-500 transition-colors"
+                                    className="inline-block bg-gradient-to-r from-gold to-yellow-600 text-black font-semibold py-3 px-8 rounded-xl hover:from-yellow-500 hover:to-yellow-700 transition-colors"
                                 >
                                     Browse All Products
                                 </Link>
@@ -866,7 +866,7 @@ export default function HomePage() {
                             >
                                 <Link
                                     to="/products"
-                                    className="group inline-flex items-center justify-center bg-gray-900 hover:bg-amber-500 text-white font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gray-900 text-lg"
+                                    className="group inline-flex items-center justify-center bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold py-5 px-12 rounded-2xl transition-all duration-500 shadow-2xl hover:shadow-3xl border-2 border-transparent hover:border-gold text-lg"
                                 >
                                     Explore All Collections
                                     <FiArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -880,7 +880,7 @@ export default function HomePage() {
             <AboutSection />
 
             {/* Enhanced Testimonials Section */}
-            <section className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+            <section className="py-20 bg-gradient-to-br from-gray-900 to-black">
                 <div className="container mx-auto max-w-7xl px-4">
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -889,8 +889,8 @@ export default function HomePage() {
                         transition={{ duration: 0.6 }}
                         className="text-center mb-16"
                     >
-                        <h2 className="text-5xl font-bold text-purple-900 mb-6">What Our Customers Say</h2>
-                        <p className="text-xl text-purple-700 max-w-2xl mx-auto">Real results from real people</p>
+                        <h2 className="text-5xl font-bold text-white mb-6">What Our Customers Say</h2>
+                        <p className="text-xl text-white/70 max-w-2xl mx-auto">Real results from real people</p>
                     </motion.div>
 
                     <TestimonialSlider />
