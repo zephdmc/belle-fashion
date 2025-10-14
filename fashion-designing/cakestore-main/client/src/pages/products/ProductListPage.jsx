@@ -25,12 +25,12 @@ import { Link } from 'react-router-dom';
 const ProductSkeleton = () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Array.from({ length: 8 }).map((_, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-4 animate-pulse">
-                <div className="relative pt-[125%] bg-white/20 rounded-xl mb-4"></div>
+            <div key={index} className="bg-black/20 backdrop-blur-sm rounded-2xl border border-gold/30 p-4 animate-pulse">
+                <div className="relative pt-[125%] bg-gold/20 rounded-xl mb-4"></div>
                 <div className="space-y-2">
-                    <div className="h-4 bg-white/20 rounded w-3/4"></div>
-                    <div className="h-4 bg-white/20 rounded w-1/2"></div>
-                    <div className="h-6 bg-white/20 rounded w-1/3 mt-4"></div>
+                    <div className="h-4 bg-gold/20 rounded w-3/4"></div>
+                    <div className="h-4 bg-gold/20 rounded w-1/2"></div>
+                    <div className="h-6 bg-gold/20 rounded w-1/3 mt-4"></div>
                 </div>
             </div>
         ))}
@@ -39,13 +39,13 @@ const ProductSkeleton = () => (
 
 // View Toggle Component
 const ViewToggle = ({ viewMode, setViewMode }) => (
-    <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm rounded-2xl p-1 border border-white/20">
+    <div className="flex items-center gap-1 bg-black/20 backdrop-blur-sm rounded-2xl p-1 border border-gold/30">
         <button
             onClick={() => setViewMode('grid')}
             className={`p-2 rounded-xl transition-all duration-300 ${
                 viewMode === 'grid' 
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg' 
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                    ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg shadow-gold/30' 
+                    : 'text-white/70 hover:text-gold hover:bg-gold/10'
             }`}
         >
             <FiGrid className="text-lg" />
@@ -54,8 +54,8 @@ const ViewToggle = ({ viewMode, setViewMode }) => (
             onClick={() => setViewMode('list')}
             className={`p-2 rounded-xl transition-all duration-300 ${
                 viewMode === 'list' 
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg' 
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
+                    ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg shadow-gold/30' 
+                    : 'text-white/70 hover:text-gold hover:bg-gold/10'
             }`}
         >
             <FiList className="text-lg" />
@@ -72,11 +72,11 @@ const CollectionBadges = ({ onCollectionSelect }) => (
         className="flex flex-wrap gap-3 mb-6"
     >
         {[
-            { name: 'All Collections', value: 'all', color: 'from-gray-500 to-gray-600' },
-            { name: 'New Arrivals', value: 'new', color: 'from-blue-500 to-cyan-500', icon: FiTrendingUp },
-            { name: 'Featured', value: 'featured', color: 'from-purple-500 to-pink-500', icon: FiStar },
-            { name: 'Summer Collection', value: 'summer', color: 'from-orange-500 to-red-500', icon: FiTag },
-            { name: 'Custom Designs', value: 'custom', color: 'from-green-500 to-emerald-500', icon: FiScissors },
+            { name: 'All Collections', value: 'all', color: 'from-gray-600 to-gray-700' },
+            { name: 'New Arrivals', value: 'new', color: 'from-gold to-yellow-600', icon: FiTrendingUp },
+            { name: 'Featured', value: 'featured', color: 'from-gold to-yellow-500', icon: FiStar },
+            { name: 'Summer Collection', value: 'summer', color: 'from-yellow-500 to-yellow-600', icon: FiTag },
+            { name: 'Custom Designs', value: 'custom', color: 'from-gold to-yellow-700', icon: FiScissors },
         ].map((collection) => {
             const Icon = collection.icon;
             return (
@@ -85,7 +85,7 @@ const CollectionBadges = ({ onCollectionSelect }) => (
                     onClick={() => onCollectionSelect(collection.value)}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`bg-gradient-to-r ${collection.color} text-white px-4 py-2 rounded-2xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2`}
+                    className={`bg-gradient-to-r ${collection.color} text-black px-4 py-2 rounded-2xl font-medium shadow-lg shadow-gold/20 hover:shadow-xl transition-all duration-300 flex items-center gap-2`}
                 >
                     {Icon && <Icon className="text-sm" />}
                     {collection.name}
@@ -176,7 +176,7 @@ export default function ProductListPage() {
     };
 
     if (loading) return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-700 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 <div className="text-center py-12">
                     <motion.div
@@ -184,7 +184,7 @@ export default function ProductListPage() {
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                         className="inline-block mb-4"
                     >
-                        <FiLoader className="text-4xl text-purple-300" />
+                        <FiLoader className="text-4xl text-gold" />
                     </motion.div>
                     <p className="text-white/80 text-lg">Loading fashion collection...</p>
                 </div>
@@ -193,7 +193,7 @@ export default function ProductListPage() {
     );
 
     if (error) return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-700 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -209,7 +209,7 @@ export default function ProductListPage() {
                         onClick={refreshProducts}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg shadow-gold/30"
                     >
                         <FiRefreshCw className="text-sm" />
                         Try Again
@@ -220,7 +220,7 @@ export default function ProductListPage() {
     );
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-700 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header Section */}
                 <motion.div
@@ -242,7 +242,7 @@ export default function ProductListPage() {
                             <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
-                                className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/20"
+                                className="bg-black/20 backdrop-blur-sm rounded-2xl px-4 py-2 border border-gold/30"
                             >
                                 <span className="text-white font-semibold">
                                     {filteredProducts.length} {filteredProducts.length === 1 ? 'design' : 'designs'}
@@ -270,12 +270,12 @@ export default function ProductListPage() {
                             placeholder="Search by name, description, style, or occasion..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl pl-12 pr-4 py-3 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="w-full bg-black/20 backdrop-blur-sm border border-gold/30 rounded-2xl pl-12 pr-4 py-3 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
                         />
                         {searchQuery && (
                             <button
                                 onClick={() => setSearchQuery('')}
-                                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white"
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-gold"
                             >
                                 <FiX className="text-lg" />
                             </button>
@@ -287,14 +287,14 @@ export default function ProductListPage() {
                         onClick={() => setShowFilters(!showFilters)}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-white/20"
+                        className="inline-flex items-center gap-2 bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/30"
                     >
                         <FiFilter className="text-sm" />
                         Filters
                         {showFilters ? (
                             <FiX className="text-sm transition-transform" />
                         ) : (
-                            <span className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></span>
+                            <span className="w-2 h-2 bg-gradient-to-r from-gold to-yellow-600 rounded-full"></span>
                         )}
                     </motion.button>
                 </motion.div>
@@ -323,13 +323,13 @@ export default function ProductListPage() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-white/20"
+                            className="flex items-center justify-center gap-3 bg-black/20 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-gold/30"
                         >
                             <motion.div
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                             >
-                                <FiLoader className="text-purple-300 text-lg" />
+                                <FiLoader className="text-gold text-lg" />
                             </motion.div>
                             <span className="text-white font-medium">Applying filters...</span>
                         </motion.div>
@@ -350,7 +350,7 @@ export default function ProductListPage() {
                                 {activeCollection !== 'all' && ` in ${activeCollection.replace(/([A-Z])/g, ' $1').trim()}`}
                             </p>
                             {activeCollection !== 'all' && (
-                                <span className="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-3 py-1 rounded-full text-sm font-medium">
+                                <span className="bg-gold/20 text-gold border border-gold/30 px-3 py-1 rounded-full text-sm font-medium">
                                     {activeCollection.replace(/([A-Z])/g, ' $1').trim()}
                                 </span>
                             )}
@@ -358,7 +358,7 @@ export default function ProductListPage() {
                         {(searchQuery || products.length !== filteredProducts.length || activeCollection !== 'all') && (
                             <button
                                 onClick={handleClearFilters}
-                                className="text-purple-300 hover:text-purple-200 text-sm font-medium flex items-center gap-1"
+                                className="text-gold hover:text-yellow-300 text-sm font-medium flex items-center gap-1"
                             >
                                 <FiRefreshCw className="text-xs" />
                                 Clear all
@@ -406,9 +406,9 @@ export default function ProductListPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center py-16"
                     >
-                        <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-12 max-w-2xl mx-auto">
-                            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <FiShoppingBag className="text-3xl text-white" />
+                        <div className="bg-black/20 backdrop-blur-sm border border-gold/30 rounded-2xl p-12 max-w-2xl mx-auto">
+                            <div className="w-20 h-20 bg-gradient-to-r from-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <FiShoppingBag className="text-3xl text-black" />
                             </div>
                             <h3 className="text-2xl font-bold text-white mb-3">
                                 {searchQuery || activeCollection !== 'all' ? 'No designs found' : 'No designs available'}
@@ -426,7 +426,7 @@ export default function ProductListPage() {
                                     onClick={handleClearFilters}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
+                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg shadow-gold/30"
                                 >
                                     <FiRefreshCw className="text-sm" />
                                     Clear Filters
@@ -435,7 +435,7 @@ export default function ProductListPage() {
                                     to="/custom-order"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-white/20"
+                                    className="inline-flex items-center gap-2 bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/30"
                                 >
                                     <FiScissors className="text-sm" />
                                     Create Custom Design
@@ -451,12 +451,12 @@ export default function ProductListPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="mt-12 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/30 rounded-2xl p-8 text-center"
+                        className="mt-12 bg-gradient-to-r from-gold/20 to-yellow-600/20 border border-gold/30 rounded-2xl p-8 text-center"
                     >
                         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                             <div className="flex items-center gap-4">
-                                <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
-                                    <FiScissors className="text-purple-300 text-2xl" />
+                                <div className="w-16 h-16 bg-black/20 rounded-2xl flex items-center justify-center">
+                                    <FiScissors className="text-gold text-2xl" />
                                 </div>
                                 <div className="text-left">
                                     <h3 className="text-xl font-bold text-white mb-2">Need Something Unique?</h3>
@@ -469,7 +469,7 @@ export default function ProductListPage() {
                                 to="/custom-order"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="bg-white text-purple-600 hover:bg-purple-50 py-3 px-8 rounded-2xl font-semibold transition-all duration-300 whitespace-nowrap"
+                                className="bg-gradient-to-r from-gold to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 py-3 px-8 rounded-2xl font-semibold transition-all duration-300 whitespace-nowrap shadow-lg shadow-gold/30"
                             >
                                 Start Custom Design
                             </MotionLink>
