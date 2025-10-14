@@ -17,6 +17,9 @@ import {
     FiStar,
     FiTag
 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+
+// Create MotionLink component
 
 // Loading Skeleton Component
 const ProductSkeleton = () => (
@@ -101,7 +104,8 @@ export default function ProductListPage() {
         fetchProducts,
         refreshProducts 
     } = useProducts();
-    
+    const MotionLink = motion(Link);
+
     const [localLoading, setLocalLoading] = useState(false);
     const [viewMode, setViewMode] = useState('grid');
     const [searchQuery, setSearchQuery] = useState('');
