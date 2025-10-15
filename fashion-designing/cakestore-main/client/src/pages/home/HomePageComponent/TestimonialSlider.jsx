@@ -7,7 +7,7 @@ const testimonials = [
         id: 1,
         name: "Maria Okoro.",
         role: "Wedding Client",
-        content: "Stefano's created the most breathtaking wedding cake for our special day! Not only was it stunning, but it tasted absolutely divine. Our guests are still talking about it!",
+        content: "belle by okien created the most breathtaking wedding gown for our special day! Not only was it stunningly beautiful, but the fit was absolutely perfect. The intricate lace detailing and flawless silhouette made me feel like royalty. Our guests are still talking about how exquisite I looked!",
         rating: 5,
         avatar: "/images/maria.jpg",
         favorite: "Wedding Tier Cake"
@@ -16,7 +16,7 @@ const testimonials = [
         id: 2,
         name: "David Okoye.",
         role: "Regular Customer",
-        content: "The croissants here are perfection - flaky, buttery, and always fresh. I stop by every Saturday morning and it's become my weekly treat!",
+        content: "The custom evening gown from belle by okien exceeded all my expectations! The design was incredibly unique and the craftsmanship was impeccable. I felt so confident and elegant at the gala - everyone kept asking who designed my dress!",
         rating: 5,
         avatar: "/images/devid.jpg",
         favorite: "Butter Croissants"
@@ -25,7 +25,7 @@ const testimonials = [
         id: 3,
         name: "Sophie Mmadu.",
         role: "Birthday Party Host",
-        content: "Ordered custom cupcakes for my daughter's birthday and they were a huge hit! The designs were adorable and the flavors were incredible. Stefano's never disappoints!",
+        content: "belle by okien crafted the most sophisticated couture piece I've ever owned! The attention to detail, from the hand-sewn beads to the luxurious fabric, was extraordinary. It's not just a dress - it's a work of art that makes you feel incredible",
         rating: 5,
         avatar: "/images/sofia.jpg",
         favorite: "Custom Cupcakes"
@@ -34,7 +34,7 @@ const testimonials = [
         id: 4,
         name: "Mr. Johnson",
         role: "Anniversary Celebration",
-        content: "Our 25th anniversary cake was a masterpiece! The red velvet was moist and delicious, and the sugar flowers looked almost too beautiful to eat. Thank you, Stefano's!",
+        content: "belle by okien designed the most stunning gown for my special event! The exquisite craftsmanship and perfect fit made me feel absolutely radiant. Everyone was mesmerized by the beautiful design!",
         rating: 5,
         avatar: "/images/jonson.jpg",
         favorite: "Red Velvet Cake"
