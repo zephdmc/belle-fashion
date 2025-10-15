@@ -19,7 +19,7 @@ module.exports = {
         'purpleDark2': '#BB2A8F',
         'purpleLighter': '#F4EAFA',
         'purpleLighter1': '#ede7f6',
-        'white': '#6ab6b6',
+        'white': '#FFFFFF',
         'gray': '#ffffff',
         'red': '#e91e63',
         'greengrade': '#6ab6b6', // Removed gradient from colors (gradients belong in backgroundImage)
