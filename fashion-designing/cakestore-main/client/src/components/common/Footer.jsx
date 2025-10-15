@@ -172,9 +172,9 @@ export default function Footer() {
                             </motion.div>
                             <div>
                                 <h3 className="text-xl font-bold text-white">
-                                    Stefanos
+                                    Bellebyokien
                                 </h3>
-                                <p className="text-yellow-400 text-sm font-medium">Bakeshop</p>
+                                <p className="text-yellow-400 text-sm font-medium">READY TO WEAR</p>
                             </div>
                         </motion.div>
                         
