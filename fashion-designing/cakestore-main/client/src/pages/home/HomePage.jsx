@@ -338,8 +338,7 @@ export default function HomePage() {
 
 
 
-
-          {/* Enhanced Hero Section with Full-Size Banner */}
+{/* Enhanced Hero Section with Full-Size Banner */}
 <section className="relative overflow-hidden min-h-screen flex items-center px-0">
     {/* Animated Background Elements */}
     <div className="absolute inset-0 overflow-hidden">
@@ -389,12 +388,12 @@ export default function HomePage() {
     <div className="w-full relative z-10 pt-16 lg:pt-0">
         {/* Mobile Layout */}
         <div className="lg:hidden w-full">
-            {/* Full Screen Mobile Banner */}
+            {/* Full Screen Mobile Banner - No Size Restrictions */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="relative w-full h-[50vh] min-h-[400px]"
+                className="relative w-full"
             >
                 <ImageSlideShow />
             </motion.div>
@@ -450,8 +449,8 @@ export default function HomePage() {
         </div>
 
         {/* Desktop 3-Column Layout */}
-        <div className="hidden lg:block container mx-auto max-w-7xl">
-            <div className="grid grid-cols-12 gap-6 items-start">
+        <div className="hidden lg:block w-full">
+            <div className="grid grid-cols-12 gap-6 items-start mx-auto max-w-7xl">
                 
                 {/* Column 1: Categories List */}
                 <motion.div
@@ -496,14 +495,14 @@ export default function HomePage() {
                     </div>
                 </motion.div>
 
-                {/* Column 2: Full Size Banner */}
+                {/* Column 2: Full Original Size Banner */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                     className="col-span-6"
                 >
-                    <div className="relative w-full h-[80vh] min-h-[700px]">
+                    <div className="relative w-full">
                         <ImageSlideShow />
                         
                         {/* Floating elements on banner */}
