@@ -42,8 +42,8 @@ const NotificationItem = ({ notification, onMarkAsRead }) => (
     <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className={`p-4 border-b border-white/10 flex justify-between items-start group hover:bg-white/5 transition-all duration-300 ${
-            !notification.read ? 'bg-purple-500/10' : ''
+        className={`p-4 border-b border-gold/20 flex justify-between items-start group hover:bg-gold/10 transition-all duration-300 ${
+            !notification.read ? 'bg-yellow-500/10' : ''
         }`}
     >
         <div className="flex-1 min-w-0">
@@ -58,7 +58,7 @@ const NotificationItem = ({ notification, onMarkAsRead }) => (
                     e.stopPropagation();
                     onMarkAsRead(notification.id || notification._id);
                 }}
-                className="text-green-400 hover:text-green-300 ml-3 transition-colors duration-200"
+                className="text-yellow-400 hover:text-yellow-300 ml-3 transition-colors duration-200"
                 title="Mark as read"
             >
                 <FiCheck size={16} />
@@ -72,7 +72,7 @@ const SearchSuggestion = ({ item, onClick }) => (
     <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-3 hover:bg-white/10 cursor-pointer border-b border-white/10 last:border-b-0 flex justify-between items-center group transition-all duration-300"
+        className="p-3 hover:bg-gold/10 cursor-pointer border-b border-gold/20 last:border-b-0 flex justify-between items-center group transition-all duration-300"
         onClick={onClick}
     >
         <div className="flex-1 min-w-0">
@@ -266,13 +266,13 @@ export default function Header() {
 
     if (isAdmin) {
         return (
-            <header className="bg-gradient-to-r from-purple-900 to-pink-800 shadow-lg sticky top-0 z-50">
+            <header className="bg-gradient-to-r from-black via-yellow-900 to-yellow-700 shadow-lg sticky top-0 z-50">
                 <div className="container mx-auto px-4 py-3 flex justify-end">
                     <MotionLink
                         to="/admin"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-2 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg flex items-center gap-2 backdrop-blur-sm border border-white/20"
+                        className="bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-white py-2 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg flex items-center gap-2 backdrop-blur-sm border border-yellow-400/30"
                     >
                         Admin Dashboard
                         <FiArrowRight className="text-sm" />
@@ -283,7 +283,7 @@ export default function Header() {
     }
 
     return (
-        <header className="bg-gradient-to-r from-purple-900 to-pink-800 shadow-2xl sticky top-0 z-50">
+        <header className="bg-gradient-to-r from-black via-yellow-900 to-yellow-700 shadow-2xl sticky top-0 z-50">
             {/* Session Timeout Warning */}
             <AnimatePresence>
                 {showTimeoutWarning && (
@@ -308,7 +308,7 @@ export default function Header() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="lg:hidden text-white hover:text-purple-200 transition-all duration-300 p-2 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20"
+                            className="lg:hidden text-white hover:text-yellow-200 transition-all duration-300 p-2 rounded-2xl bg-white/10 backdrop-blur-sm border border-yellow-400/20"
                         >
                             {mobileMenuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
                         </motion.button>
@@ -318,7 +318,7 @@ export default function Header() {
                             whileHover={{ scale: 1.02 }}
                             className="flex items-center gap-3 hover:opacity-90 transition-all duration-300 group"
                         >
-                            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 flex items-center justify-center p-2">
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-white/10 backdrop-blur-sm rounded-2xl border border-yellow-400/20 flex items-center justify-center p-2">
                                 <img 
                                     src="/images/logo.png" 
                                     alt="Stefanos Bakeshop"
@@ -343,7 +343,7 @@ export default function Header() {
                                 <input
                                     type="text"
                                     placeholder="Search cakes, pastries, and more..."
-                                    className="w-full pl-5 pr-12 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300"
+                                    className="w-full pl-5 pr-12 py-3 bg-white/10 backdrop-blur-sm border border-yellow-400/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onKeyDown={handleKeyDown}
@@ -366,7 +366,7 @@ export default function Header() {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
-                                        className="absolute top-full left-0 right-0 mt-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-2xl z-50 max-h-96 overflow-y-auto"
+                                        className="absolute top-full left-0 right-0 mt-2 bg-black/90 backdrop-blur-sm border border-yellow-400/20 rounded-2xl shadow-2xl z-50 max-h-96 overflow-y-auto"
                                     >
                                         {searchSuggestions.map((item, index) => (
                                             <SearchSuggestion
@@ -387,16 +387,13 @@ export default function Header() {
 
                     {/* Right-side Icons */}
                     <div className="flex items-center gap-4">
-                        {/* Mobile Search Button - REMOVED */}
-                        {/* Search icon removed from mobile view as requested */}
-
                         {/* Notifications */}
                         {currentUser && (
                             <div className="relative notifications-container">
                                 <motion.button
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
-                                    className="relative text-white hover:text-purple-200 transition-colors duration-300 p-2 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20"
+                                    className="relative text-white hover:text-yellow-200 transition-colors duration-300 p-2 rounded-2xl bg-white/10 backdrop-blur-sm border border-yellow-400/20"
                                     onClick={() => setShowNotifications(!showNotifications)}
                                 >
                                     <FiBell size={20} />
@@ -404,7 +401,7 @@ export default function Header() {
                                         <motion.span
                                             initial={{ scale: 0 }}
                                             animate={{ scale: 1 }}
-                                            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center border-2 border-purple-900"
+                                            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center border-2 border-black"
                                         >
                                             {unreadNotifications}
                                         </motion.span>
@@ -417,14 +414,14 @@ export default function Header() {
                                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            className="absolute right-0 mt-2 w-80 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-2xl z-50"
+                                            className="absolute right-0 mt-2 w-80 bg-black/90 backdrop-blur-sm border border-yellow-400/20 rounded-2xl shadow-2xl z-50"
                                         >
-                                            <div className="p-4 font-semibold text-white border-b border-white/10 flex justify-between items-center">
+                                            <div className="p-4 font-semibold text-white border-b border-yellow-400/20 flex justify-between items-center">
                                                 <span>Notifications</span>
                                                 {unreadNotifications > 0 && (
                                                     <button
                                                         onClick={handleMarkAllAsRead}
-                                                        className="text-sm text-purple-300 hover:text-purple-200 transition-colors duration-300"
+                                                        className="text-sm text-yellow-300 hover:text-yellow-200 transition-colors duration-300"
                                                     >
                                                         Mark all as read
                                                     </button>
@@ -456,14 +453,14 @@ export default function Header() {
                             to="/cart"
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                            className="relative group p-2 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20"
+                            className="relative group p-2 rounded-2xl bg-white/10 backdrop-blur-sm border border-yellow-400/20"
                         >
-                            <FiShoppingCart className="h-6 w-6 text-white group-hover:text-purple-200 transition-colors duration-300" />
+                            <FiShoppingCart className="h-6 w-6 text-white group-hover:text-yellow-200 transition-colors duration-300" />
                             {cartCount > 0 && (
                                 <motion.span
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center border-2 border-purple-900 font-semibold"
+                                    className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-600 to-yellow-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center border-2 border-black font-semibold"
                                 >
                                     {cartCount}
                                 </motion.span>
@@ -477,9 +474,9 @@ export default function Header() {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setShowUserDropdown(!showUserDropdown)}
-                                    className="flex items-center gap-3 text-white hover:text-purple-200 transition-colors duration-300 p-2 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20"
+                                    className="flex items-center gap-3 text-white hover:text-yellow-200 transition-colors duration-300 p-2 rounded-2xl bg-white/10 backdrop-blur-sm border border-yellow-400/20"
                                 >
-                                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden border-2 border-white/20">
+                                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-r from-yellow-600 to-yellow-500 flex items-center justify-center overflow-hidden border-2 border-yellow-400/30">
                                         {currentUser.photoURL ? (
                                             <img
                                                 src={currentUser.photoURL}
@@ -500,9 +497,9 @@ export default function Header() {
                                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            className="absolute right-0 mt-2 w-64 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl shadow-2xl z-50"
+                                            className="absolute right-0 mt-2 w-64 bg-black/90 backdrop-blur-sm border border-yellow-400/20 rounded-2xl shadow-2xl z-50"
                                         >
-                                            <div className="p-4 border-b border-white/10">
+                                            <div className="p-4 border-b border-yellow-400/20">
                                                 <div className="font-semibold text-white text-lg">
                                                     {currentUser.displayName || currentUser.email.split('@')[0]}
                                                 </div>
@@ -514,7 +511,7 @@ export default function Header() {
                                                     <NavLink
                                                         to="/admin"
                                                         onClick={() => setShowUserDropdown(false)}
-                                                        className="flex items-center gap-3 px-3 py-3 text-white hover:bg-white/10 rounded-xl transition-all duration-300 text-sm font-medium"
+                                                        className="flex items-center gap-3 px-3 py-3 text-white hover:bg-yellow-500/20 rounded-xl transition-all duration-300 text-sm font-medium"
                                                     >
                                                         <FiPackage className="text-lg" />
                                                         Dashboard
@@ -523,22 +520,22 @@ export default function Header() {
                                                 <NavLink
                                                     to="/orders"
                                                     onClick={() => setShowUserDropdown(false)}
-                                                    className="flex items-center gap-3 px-3 py-3 text-white hover:bg-white/10 rounded-xl transition-all duration-300 text-sm font-medium"
-                                                >
+                                                    className="flex items-center gap-3 px-3 py-3 text-white hover:bg-yellow-500/20 rounded-xl transition-all duration-300 text-sm font-medium"
+                                                    >
                                                     <FiShoppingBag className="text-lg" />
                                                     My Orders
                                                 </NavLink>
                                                 <NavLink
                                                     to="/products"
                                                     onClick={() => setShowUserDropdown(false)}
-                                                    className="flex items-center gap-3 px-3 py-3 text-white hover:bg-white/10 rounded-xl transition-all duration-300 text-sm font-medium"
-                                                >
+                                                    className="flex items-center gap-3 px-3 py-3 text-white hover:bg-yellow-500/20 rounded-xl transition-all duration-300 text-sm font-medium"
+                                                    >
                                                     <FiHeart className="text-lg" />
                                                     Products
                                                 </NavLink>
                                             </div>
                                             
-                                            <div className="p-2 border-t border-white/10">
+                                            <div className="p-2 border-t border-yellow-400/20">
                                                 <motion.button
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
@@ -561,14 +558,14 @@ export default function Header() {
                                 <MotionLink
                                     to="/about"
                                     whileHover={{ scale: 1.05 }}
-                                    className="text-white hover:text-purple-200 transition-colors duration-300 font-medium"
+                                    className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
                                 >
                                     About
                                 </MotionLink>
                                 <MotionLink
                                     to="/login"
                                     whileHover={{ scale: 1.05 }}
-                                    className="text-white hover:text-purple-200 transition-colors duration-300 font-medium"
+                                    className="text-white hover:text-yellow-200 transition-colors duration-300 font-medium"
                                 >
                                     Login
                                 </MotionLink>
@@ -576,7 +573,7 @@ export default function Header() {
                                     to="/register"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-2 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
+                                    className="bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-white py-2 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
                                 >
                                     Register
                                 </MotionLink>
@@ -598,7 +595,7 @@ export default function Header() {
                                 <input
                                     type="text"
                                     placeholder="Search cakes, pastries, and more..."
-                                    className="mobile-search-input w-full pl-4 pr-12 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300"
+                                    className="mobile-search-input w-full pl-4 pr-12 py-3 bg-white/10 backdrop-blur-sm border border-yellow-400/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onKeyDown={handleKeyDown}
@@ -625,7 +622,7 @@ export default function Header() {
                         initial={{ opacity: 0, x: -300 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -300 }}
-                        className="mobile-menu-container lg:hidden bg-gradient-to-b from-purple-900 to-pink-800 border-t border-white/20 fixed inset-0 z-40 pt-20"
+                        className="mobile-menu-container lg:hidden bg-gradient-to-b from-black to-yellow-900 border-t border-yellow-400/20 fixed inset-0 z-40 pt-20"
                     >
                         {/* Close Button */}
                         <div className="absolute top-4 right-4">
@@ -633,7 +630,7 @@ export default function Header() {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="text-white hover:text-purple-200 transition-colors duration-300 p-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20"
+                                className="text-white hover:text-yellow-200 transition-colors duration-300 p-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-yellow-400/20"
                             >
                                 <FiX size={24} />
                             </motion.button>
@@ -641,9 +638,9 @@ export default function Header() {
 
                         {/* User Profile Section */}
                         {currentUser && (
-                            <div className="px-6 py-4 border-b border-white/20 mb-4">
+                            <div className="px-6 py-4 border-b border-yellow-400/20 mb-4">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden border-2 border-white/20">
+                                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-yellow-600 to-yellow-500 flex items-center justify-center overflow-hidden border-2 border-yellow-400/30">
                                         {currentUser.photoURL ? (
                                             <img
                                                 src={currentUser.photoURL}
@@ -673,8 +670,8 @@ export default function Header() {
                                 className={({ isActive }) =>
                                     `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                         isActive 
-                                            ? 'bg-white/20 text-white' 
-                                            : 'text-white/80 hover:bg-white/10 hover:text-white'
+                                            ? 'bg-yellow-500/20 text-white' 
+                                            : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
                                     }`
                                 }
                             >
@@ -688,8 +685,8 @@ export default function Header() {
                                 className={({ isActive }) =>
                                     `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                         isActive 
-                                            ? 'bg-white/20 text-white' 
-                                            : 'text-white/80 hover:bg-white/10 hover:text-white'
+                                            ? 'bg-yellow-500/20 text-white' 
+                                            : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
                                     }`
                                 }
                             >
@@ -705,8 +702,8 @@ export default function Header() {
                                         className={({ isActive }) =>
                                             `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                                 isActive 
-                                                    ? 'bg-white/20 text-white' 
-                                                    : 'text-white/80 hover:bg-white/10 hover:text-white'
+                                                    ? 'bg-yellow-500/20 text-white' 
+                                                    : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
                                             }`
                                         }
                                     >
@@ -721,8 +718,8 @@ export default function Header() {
                                             className={({ isActive }) =>
                                                 `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                                     isActive 
-                                                        ? 'bg-white/20 text-white' 
-                                                        : 'text-white/80 hover:bg-white/10 hover:text-white'
+                                                        ? 'bg-yellow-500/20 text-white' 
+                                                        : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
                                                 }`
                                             }
                                         >
@@ -734,7 +731,7 @@ export default function Header() {
                             )}
 
                             {currentUser ? (
-                                <div className="pt-6 border-t border-white/20 mt-4">
+                                <div className="pt-6 border-t border-yellow-400/20 mt-4">
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
@@ -751,11 +748,11 @@ export default function Header() {
                                     </motion.button>
                                 </div>
                             ) : (
-                                <div className="pt-6 border-t border-white/20 mt-4 space-y-2">
+                                <div className="pt-6 border-t border-yellow-400/20 mt-4 space-y-2">
                                     <MotionLink
                                         to="/login"
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300"
+                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium text-white/80 hover:bg-yellow-500/10 hover:text-white transition-all duration-300"
                                     >
                                         <FiUser className="text-xl" />
                                         Login
@@ -763,7 +760,7 @@ export default function Header() {
                                     <MotionLink
                                         to="/register"
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium bg-gradient-to-r from-yellow-600 to-yellow-500 text-white hover:from-yellow-700 hover:to-yellow-600 transition-all duration-300"
                                     >
                                         <FiUser className="text-xl" />
                                         Register
