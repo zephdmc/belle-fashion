@@ -327,10 +327,10 @@ export default function Header() {
                             </div>
                             <div className="flex flex-col leading-none">
                                 <span className="text-2xl sm:text-3xl font-bold text-white tracking-tight -mb-1">
-                                    Stefanos
+                                    Bellebyokien
                                 </span>
                                 <span className="text-sm sm:text-base font-medium text-white/80 tracking-wider mt-0.5">
-                                    Bakeshop
+                                    Fashion 
                                 </span>
                             </div>
                         </MotionLink>
