@@ -263,7 +263,7 @@ export default function Footer() {
                                     href="mailto:stefanosbakeshop6@gmail.com" 
                                     className="hover:text-yellow-300 transition-colors duration-300 hover:underline"
                                 >
-                                    stefanosbakeshop6@gmail.com
+                                    bellebyokien1@gmail.com
                                 </a>
                             </ContactItem>
                             <ContactItem icon={FiPhone} delay={0.3}>
@@ -319,7 +319,7 @@ export default function Footer() {
                             transition={{ duration: 0.5 }}
                             viewport={{ once: true }}
                         >
-                            <span>&copy; {new Date().getFullYear()} Stefanos Bakeshop.</span>
+                            <span>&copy; {new Date().getFullYear()} Bellebyokien Ready To Wear.</span>
                             <span className="hidden sm:inline">Made with</span>
                             <motion.div
                                 animate={{ scale: [1, 1.2, 1] }}
