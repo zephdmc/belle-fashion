@@ -6,10 +6,9 @@ import {
     FiMail, 
     FiPhone, 
     FiMapPin,
-    FiHeart,
     FiArrowUp,
     FiSend,
-    FiCake
+    FiHeart
 } from 'react-icons/fi';
 import { FaTiktok, FaWhatsapp } from 'react-icons/fa';
 
@@ -169,7 +168,7 @@ export default function Footer() {
                                 whileHover={{ rotate: 360 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <FiCake className="text-white text-lg" />
+                                <FiHeart className="text-white text-lg" />
                             </motion.div>
                             <div>
                                 <h3 className="text-xl font-bold text-white">
