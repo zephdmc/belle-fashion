@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'; // Fixed import
 import ProductCard from '../../components/products/ProductCard';
 import { getProducts } from '../../services/productServic';
 import TestimonialSlider from '../../pages/home/HomePageComponent/TestimonialSlider';
-import AboutSection from '../../pages/home/HomePageComponent/AboutSection';
 import { 
     FiPhone, 
     FiMail, 
@@ -963,7 +962,6 @@ const SimpleImageSlideShow = () => {
                 </div>
             </section>
 
-            <AboutSection />
 
             {/* Enhanced Testimonials Section */}
             <section className="py-20 bg-gradient-to-br from-gray-900 to-black">
