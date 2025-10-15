@@ -43,7 +43,7 @@ const testimonials = [
         id: 5,
         name: "Clement Obinna",
         role: "Local Restaurant Owner",
-        content: "As a professional chef, I appreciate quality baked goods. Stefano's sourdough bread is some of the best I've tasted - perfect crust and amazing flavor profile.",
+        content: "As a fashion editor, I see countless designs, but belle by okien's work stands out. The architectural precision of their cuts combined with luxurious fabrics creates pieces that are both visually stunning and incredibly well-constructed. True couture quality..",
         rating: 5,
         avatar: "/images/clement.jpg",
         favorite: "Artisan Sourdough"
