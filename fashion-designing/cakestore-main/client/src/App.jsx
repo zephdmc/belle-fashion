@@ -42,7 +42,7 @@ function App() {
                     <ProductProvider>
                         <CartProvider>
                              <ScrollToTop />
-                            <div className="min-h-screen bg-purplegradient flex flex-col">
+                            <div className="min-h-screen bg-black flex flex-col">
                                 <Header />
                                 <main className="flex-grow container mx-auto px-2">
                                     <AppRoutes />
