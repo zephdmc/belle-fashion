@@ -334,7 +334,12 @@ export default function HomePage() {
                 </motion.div>
             )}
 
-        {/* Enhanced Hero Section with 3-Column Layout */}
+
+
+
+
+
+            {/* Enhanced Hero Section with 3-Column Layout */}
 <section className="relative overflow-hidden min-h-[90vh] flex items-center px-4 lg:px-0">
     {/* Animated Background Elements */}
     <div className="absolute inset-0 overflow-hidden">
@@ -363,17 +368,17 @@ export default function HomePage() {
                 {/* Multiple copies for seamless scroll */}
                 {[...Array(3)].map((_, setIndex) => (
                     <div key={setIndex} className="flex items-center space-x-8">
-                        <a href="tel:+2349014727839" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                        <a href="tel:+1234567890" className="flex items-center text-white hover:text-gold transition-colors text-sm">
                             <FiPhone className="mr-2" size={14} />
-                            <span>+234 901 4727 839</span>
+                            <span>+123 456 7890</span>
                         </a>
-                        <a href="mailto:stefanosbakeshop6@gmail.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                        <a href="mailto:info@bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
                             <FiMail className="mr-2" size={14} />
-                            <span>stefanosbakeshop6@gmail.com</span>
+                            <span>info@bellebyokien.com</span>
                         </a>
-                        <a href="https://stefanosbakeshop.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                        <a href="https://bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
                             <FiGlobe className="mr-2" size={14} />
-                            <span>stefanosbakeshop.com</span>
+                            <span>bellebyokien.com</span>
                         </a>
                     </div>
                 ))}
@@ -382,13 +387,13 @@ export default function HomePage() {
     </div>
 
     <div className="container mx-auto max-w-7xl relative z-10 pt-24 lg:pt-0">
-        {/* Mobile Banner */}
-        <div className="lg:hidden mb-6 mx-2">
+        {/* Mobile Banner - Full Width */}
+        <div className="lg:hidden mb-6 -mx-4">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="relative h-[280px] rounded-xl overflow-hidden shadow-2xl border border-gold/20"
+                className="relative w-full h-[300px] overflow-hidden"
             >
                 <ImageSlideShow />
             </motion.div>
@@ -411,12 +416,12 @@ export default function HomePage() {
                     </h3>
                     <div className="space-y-3">
                         {[
-                            { name: 'Wedding Cakes', icon: FiHeart, count: 24 },
-                            { name: 'Birthday Cakes', icon: FiHeart, count: 18 },
-                            { name: 'Custom Cakes', icon: FiUser, count: 32 },
-                            { name: 'Cupcakes', icon: FiFeather, count: 15 },
-                            { name: 'Pastries', icon: FiShoppingBag, count: 45 },
-                            { name: 'Special Orders', icon: FiScissors, count: 'New' }
+                            { name: 'Evening Gowns', icon: FiHeart, count: 24 },
+                            { name: 'Wedding Dresses', icon: FiHeart, count: 18 },
+                            { name: 'Casual Wear', icon: FiUser, count: 32 },
+                            { name: 'Traditional', icon: FiFeather, count: 15 },
+                            { name: 'Accessories', icon: FiShoppingBag, count: 45 },
+                            { name: 'Custom Designs', icon: FiScissors, count: 'New' }
                         ].map((category, index) => (
                             <motion.div
                                 key={category.name}
@@ -440,16 +445,16 @@ export default function HomePage() {
                 </div>
             </motion.div>
 
-            {/* Column 2: Main Banner - Full Height Responsive */}
+            {/* Column 2: Main Banner - Full Width & Height */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="lg:col-span-6"
             >
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gold/20">
-                    {/* Responsive height container */}
-                    <div className="relative w-full h-[65vh] min-h-[500px] max-h-[700px]">
+                <div className="relative w-full overflow-hidden">
+                    {/* Full width banner container */}
+                    <div className="relative w-full h-[75vh] min-h-[600px]">
                         <ImageSlideShow />
                     </div>
                     
@@ -505,8 +510,8 @@ export default function HomePage() {
                             <FiPhone className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Phone</p>
-                                <a href="tel:+2349014727839" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                    +234 901 4727 839
+                                <a href="tel:+1234567890" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                    +123 456 7890
                                 </a>
                             </div>
                         </div>
@@ -514,8 +519,8 @@ export default function HomePage() {
                             <FiMail className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Email</p>
-                                <a href="mailto:stefanosbakeshop6@gmail.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                    stefanosbakeshop6@gmail.com
+                                <a href="mailto:info@bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                    info@bellebyokien.com
                                 </a>
                             </div>
                         </div>
@@ -523,8 +528,8 @@ export default function HomePage() {
                             <FiGlobe className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Website</p>
-                                <a href="https://stefanosbakeshop.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                    stefanosbakeshop.com
+                                <a href="https://bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                    bellebyokien.com
                                 </a>
                             </div>
                         </div>
@@ -555,10 +560,10 @@ export default function HomePage() {
                         className="text-center"
                     >
                         <h2 className="text-2xl font-bold text-white mb-2">
-                            Stefanos
+                            belle
                         </h2>
                         <p className="text-gold text-sm font-light">
-                            Bakeshop
+                            by okien
                         </p>
                     </motion.div>
                 </motion.div>
@@ -570,7 +575,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:hidden text-center mt-6 mx-2"
+            className="lg:hidden text-center mt-6 px-4"
         >
             <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -578,11 +583,11 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight"
             >
-                Crafting Sweet{' '}
+                Crafting Fashion{' '}
                 <span className="bg-gradient-to-r from-gold to-yellow-300 bg-clip-text text-transparent">
-                    Memories You Can Taste,
+                    You Can Feel,
                 </span>{' '}
-                Share & Love
+                Wear & Love
             </motion.h1>
             
             <motion.div
@@ -599,7 +604,7 @@ export default function HomePage() {
                         to="/products"
                         className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30 block"
                     >
-                        Shop Cakes & Pastries
+                        Shop Ready-to-Wear
                     </Link>
                 </motion.div>
                 
@@ -609,14 +614,12 @@ export default function HomePage() {
                     whileTap={{ scale: 0.95 }}
                     className="bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30"
                 >
-                    Custom Cake Order
+                    Create Custom Design
                 </motion.button>
             </motion.div>
         </motion.div>
     </div>
 </section>
-
-
 
 
 
