@@ -175,17 +175,17 @@ const SimpleImageSlideShow = () => {
     const slides = [
         {
             id: 1,
-            image: "/images/fashion-banner-1.jpg",
+            image: "/images/hero1.png",
             alt: "Luxury Fashion Collection"
         },
         {
             id: 2, 
-            image: "/images/fashion-banner-2.jpg",
+            image: "/images/hero2.png",
             alt: "Elegant Evening Wear"
         },
         {
             id: 3,
-            image: "/images/fashion-banner-3.jpg",
+            image: "/images/hero3.png",
             alt: "Designer Collection"
         }
     ];
