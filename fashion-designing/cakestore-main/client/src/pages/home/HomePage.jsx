@@ -335,7 +335,7 @@ export default function HomePage() {
             )}
 
         {/* Enhanced Hero Section with 3-Column Layout */}
-<section className="relative overflow-hidden min-h-[90vh] flex items-center px-4">
+<section className="relative overflow-hidden min-h-[90vh] flex items-center px-4 lg:px-0">
     {/* Animated Background Elements */}
     <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gold/20 rounded-full blur-3xl"></div>
@@ -343,37 +343,52 @@ export default function HomePage() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
     </div>
 
-    {/* Mobile Contact Bar */}
-    <div className="lg:hidden absolute top-4 left-0 right-0 z-20">
-        <div className="container mx-auto px-4">
-            <div className="bg-black/20 backdrop-blur-sm rounded-xl p-3 border border-gold/30">
-                <div className="flex justify-between items-center text-white text-xs">
-                    <div className="flex items-center space-x-3">
-                        <a href="tel:+1234567890" className="flex items-center hover:text-gold transition-colors">
-                            <FiPhone className="mr-1" size={12} />
-                            <span>+123 456 7890</span>
+    {/* Mobile Contact Bar - Scrolling Animation */}
+    <div className="lg:hidden absolute top-20 left-0 right-0 z-20 overflow-hidden">
+        <motion.div
+            className="bg-black/20 backdrop-blur-sm border-b border-gold/30 py-3"
+            animate={{
+                x: [0, -200, 0],
+            }}
+            transition={{
+                x: {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 15,
+                    ease: "linear",
+                },
+            }}
+        >
+            <div className="flex space-x-8 whitespace-nowrap min-w-max">
+                {/* Multiple copies for seamless scroll */}
+                {[...Array(3)].map((_, setIndex) => (
+                    <div key={setIndex} className="flex items-center space-x-8">
+                        <a href="tel:+2349014727839" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                            <FiPhone className="mr-2" size={14} />
+                            <span>+234 901 4727 839</span>
                         </a>
-                        <a href="mailto:info@bellebyokien.com" className="flex items-center hover:text-gold transition-colors">
-                            <FiMail className="mr-1" size={12} />
-                            <span>info@bellebyokien.com</span>
+                        <a href="mailto:stefanosbakeshop6@gmail.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                            <FiMail className="mr-2" size={14} />
+                            <span>stefanosbakeshop6@gmail.com</span>
+                        </a>
+                        <a href="https://stefanosbakeshop.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                            <FiGlobe className="mr-2" size={14} />
+                            <span>stefanosbakeshop.com</span>
                         </a>
                     </div>
-                    <a href="https://bellebyokien.com" className="hover:text-gold transition-colors">
-                        <FiGlobe className="mr-1" size={12} />
-                    </a>
-                </div>
+                ))}
             </div>
-        </div>
+        </motion.div>
     </div>
 
-    <div className="container mx-auto max-w-7xl relative z-10 pt-16 lg:pt-0">
+    <div className="container mx-auto max-w-7xl relative z-10 pt-24 lg:pt-0">
         {/* Mobile Banner */}
-        <div className="lg:hidden mb-8">
+        <div className="lg:hidden mb-6 mx-2">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="relative h-[300px] rounded-2xl overflow-hidden shadow-2xl"
+                className="relative h-[280px] rounded-xl overflow-hidden shadow-2xl border border-gold/20"
             >
                 <ImageSlideShow />
             </motion.div>
@@ -396,12 +411,12 @@ export default function HomePage() {
                     </h3>
                     <div className="space-y-3">
                         {[
-                            { name: 'Evening Gowns', icon: FiHeart, count: 24 },
-                            { name: 'Wedding Dresses', icon: FiHeart, count: 18 },
-                            { name: 'Casual Wear', icon: FiUser, count: 32 },
-                            { name: 'Traditional', icon: FiFeather, count: 15 },
-                            { name: 'Accessories', icon: FiShoppingBag, count: 45 },
-                            { name: 'Custom Designs', icon: FiScissors, count: 'New' }
+                            { name: 'Wedding Cakes', icon: FiHeart, count: 24 },
+                            { name: 'Birthday Cakes', icon: FiHeart, count: 18 },
+                            { name: 'Custom Cakes', icon: FiUser, count: 32 },
+                            { name: 'Cupcakes', icon: FiFeather, count: 15 },
+                            { name: 'Pastries', icon: FiShoppingBag, count: 45 },
+                            { name: 'Special Orders', icon: FiScissors, count: 'New' }
                         ].map((category, index) => (
                             <motion.div
                                 key={category.name}
@@ -425,15 +440,18 @@ export default function HomePage() {
                 </div>
             </motion.div>
 
-            {/* Column 2: Main Banner */}
+            {/* Column 2: Main Banner - Full Height Responsive */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="lg:col-span-6"
             >
-                <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl">
-                    <ImageSlideShow />
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gold/20">
+                    {/* Responsive height container */}
+                    <div className="relative w-full h-[65vh] min-h-[500px] max-h-[700px]">
+                        <ImageSlideShow />
+                    </div>
                     
                     {/* Floating elements on banner */}
                     <motion.div
@@ -487,8 +505,8 @@ export default function HomePage() {
                             <FiPhone className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Phone</p>
-                                <a href="tel:+1234567890" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                    +123 456 7890
+                                <a href="tel:+2349014727839" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                    +234 901 4727 839
                                 </a>
                             </div>
                         </div>
@@ -496,8 +514,8 @@ export default function HomePage() {
                             <FiMail className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Email</p>
-                                <a href="mailto:info@bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                    info@bellebyokien.com
+                                <a href="mailto:stefanosbakeshop6@gmail.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                    stefanosbakeshop6@gmail.com
                                 </a>
                             </div>
                         </div>
@@ -505,8 +523,8 @@ export default function HomePage() {
                             <FiGlobe className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
                             <div>
                                 <p className="text-white font-medium">Website</p>
-                                <a href="https://bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                    bellebyokien.com
+                                <a href="https://stefanosbakeshop.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                    stefanosbakeshop.com
                                 </a>
                             </div>
                         </div>
@@ -537,10 +555,10 @@ export default function HomePage() {
                         className="text-center"
                     >
                         <h2 className="text-2xl font-bold text-white mb-2">
-                            belle
+                            Stefanos
                         </h2>
                         <p className="text-gold text-sm font-light">
-                            by okien
+                            Bakeshop
                         </p>
                     </motion.div>
                 </motion.div>
@@ -552,7 +570,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:hidden text-center mt-8"
+            className="lg:hidden text-center mt-6 mx-2"
         >
             <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -560,11 +578,11 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight"
             >
-                Crafting Fashion{' '}
+                Crafting Sweet{' '}
                 <span className="bg-gradient-to-r from-gold to-yellow-300 bg-clip-text text-transparent">
-                    You Can Feel,
+                    Memories You Can Taste,
                 </span>{' '}
-                Wear & Love
+                Share & Love
             </motion.h1>
             
             <motion.div
@@ -581,7 +599,7 @@ export default function HomePage() {
                         to="/products"
                         className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30 block"
                     >
-                        Shop Ready-to-Wear
+                        Shop Cakes & Pastries
                     </Link>
                 </motion.div>
                 
@@ -591,13 +609,19 @@ export default function HomePage() {
                     whileTap={{ scale: 0.95 }}
                     className="bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30"
                 >
-                    Create Custom Design
+                    Custom Cake Order
                 </motion.button>
             </motion.div>
         </motion.div>
     </div>
 </section>
 
+
+
+
+
+
+            
             {/* Enhanced Fashion Categories Section */}
             <section className="py-16 px-4 bg-gradient-to-br from-gray-900 to-black">
                 <div className="container mx-auto max-w-7xl">
