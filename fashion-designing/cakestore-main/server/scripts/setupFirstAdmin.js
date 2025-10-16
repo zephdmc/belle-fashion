@@ -8,7 +8,7 @@ admin.initializeApp({
 });
 
 // const email = 'zephdmc@gmail.com'; // Change this
-const email = 'auaestheticsbellebeau@gmail.com'; // Change this
+const email = 'bellebyokien1@gmail.com'; // Change this
 
 async function setupAdmin() {
     try {
