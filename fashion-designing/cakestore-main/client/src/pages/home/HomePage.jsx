@@ -302,14 +302,14 @@ export default function HomePage() {
 // MovingImagesGrid Component
 const MovingImagesGrid = () => {
     const images = [
-        '/images/fashion1.jpg',
-        '/images/fashion2.jpg',
-        '/images/fashion3.jpg',
-        '/images/fashion4.jpg',
-        '/images/fashion5.jpg',
-        '/images/fashion6.jpg',
-        '/images/fashion7.jpg',
-        '/images/fashion8.jpg',
+        '/images/fashion1.png',
+        '/images/fashion2.png',
+        '/images/fashion3.png',
+        '/images/fashion4.png',
+        '/images/fashion5.png',
+        '/images/fashion6.png',
+        '/images/fashion7.png',
+        '/images/fashion8.png',
     ];
 
     return (
