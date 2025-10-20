@@ -56,7 +56,7 @@ const AboutPage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-900 mb-6">
+                        <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray/80 mb-6">
                             Our <span className="text-gold">Style</span> Story
                         </h1>
                         <p className="text-lg md:text-xl text-gray max-w-3xl mx-auto">
