@@ -10,7 +10,7 @@ import {
 
 // Fashion Design Pricing Configuration
 const PRICING = {
-  basePrice: 15000,
+  basePrice: 25000,
   designTypes: {
     'dress': { multiplier: 1, baseTime: '2-3 weeks' },
     'gown': { multiplier: 2, baseTime: '3-4 weeks' },
@@ -22,12 +22,12 @@ const PRICING = {
   },
   fabrics: {
     'cotton': 0,
-    'linen': 2000,
-    'silk': 5000,
-    'satin': 3000,
-    'velvet': 4000,
-    'wool': 3500,
-    'chiffon': 2500
+    'linen': 3000,
+    'silk': 8000,
+    'satin': 5000,
+    'velvet': 6000,
+    'wool': 5500,
+    'chiffon': 4000
   },
   materialQuality: {
     'standard': 1,
@@ -36,16 +36,16 @@ const PRICING = {
   },
   designFeatures: {
     'basic': 0,
-    'embroidery': 3000,
-    'beading': 5000,
-    'lace': 2500,
-    'sequins': 4000,
-    'print': 1500
+    'embroidery': 5000,
+    'beading': 8000,
+    'lace': 4000,
+    'sequins': 6000,
+    'print': 2500
   },
   shipping: {
-    'standard': 1500,
-    'express': 3000,
-    'overnight': 5000
+    'standard': 2000,
+    'express': 4000,
+    'overnight': 7000
   }
 };
 
@@ -266,7 +266,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
 
   const InputField = ({ label, name, type = 'text', required = false, children, ...props }) => (
     <div className="mb-4">
-      <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center">
+      <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
@@ -277,7 +277,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
           value={formData[name]}
           onChange={handleChange}
           required={required}
-          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-400"
+          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 placeholder-gray-400 font-serif"
           {...props}
         />
       )}
@@ -286,7 +286,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
 
   const SelectField = ({ label, name, options, required = false, priceMap = {} }) => (
     <div className="mb-4">
-      <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center">
+      <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
@@ -295,7 +295,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
         value={formData[name]}
         onChange={handleChange}
         required={required}
-        className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 appearance-none cursor-pointer"
+        className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 appearance-none cursor-pointer font-serif"
       >
         <option value="">Select {label.toLowerCase()}</option>
         {Object.entries(options).map(([key, value]) => (
@@ -321,11 +321,11 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       className="space-y-2"
     >
       <div className="text-center mb-4">
-        <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
+        <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-gold/30">
           <FiScissors className="text-white text-lg" />
         </div>
-        <h3 className="text-lg font-bold text-gray-800 mb-1">Design Vision</h3>
-        <p className="text-gray-600 text-xs">Tell us about your custom design</p>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Design Vision</h3>
+        <p className="text-gray-600 text-xs font-serif">Tell us about your custom design</p>
       </div>
 
       <SelectField 
@@ -361,7 +361,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
           value={formData.styleDescription}
           onChange={handleChange}
           rows="3"
-          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 resize-none font-serif"
           placeholder="E.g., A-line dress with floral embroidery, off-shoulder neckline..."
         />
       </InputField>
@@ -380,11 +380,11 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       className="space-y-2"
     >
       <div className="text-center mb-4">
-        <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
+        <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-gold/30">
           <FiDroplet className="text-white text-lg" />
         </div>
-        <h3 className="text-lg font-bold text-gray-800 mb-1">Fabric & Materials</h3>
-        <p className="text-gray-600 text-xs">Choose your materials and quality</p>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Fabric & Materials</h3>
+        <p className="text-gray-600 text-xs font-serif">Choose your materials and quality</p>
       </div>
 
       <SelectField 
@@ -403,7 +403,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       />
       
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-700 mb-2">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 font-serif">
           Material Quality
         </label>
         <div className="grid grid-cols-3 gap-2">
@@ -412,10 +412,10 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
               key={quality}
               type="button"
               onClick={() => setFormData(prev => ({ ...prev, materialQuality: quality }))}
-              className={`p-2 rounded-lg border text-xs font-medium transition-all duration-200 ${
+              className={`p-2 rounded-lg border text-xs font-medium transition-all duration-200 font-serif ${
                 formData.materialQuality === quality
-                  ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm'
-                  : 'border-gray-200 bg-white text-gray-600 hover:border-blue-300'
+                  ? 'border-gold bg-gold/10 text-gold shadow-sm'
+                  : 'border-gray-200 bg-white text-gray-600 hover:border-gold/50'
               }`}
             >
               {quality.charAt(0).toUpperCase() + quality.slice(1)}
@@ -428,7 +428,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       </div>
 
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-700 mb-2">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 font-serif">
           Design Features
         </label>
         <div className="grid grid-cols-2 gap-2">
@@ -437,10 +437,10 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
               key={feature}
               type="button"
               onClick={() => handleFeatureToggle(feature)}
-              className={`p-2 rounded-lg border text-xs font-medium transition-all duration-200 ${
+              className={`p-2 rounded-lg border text-xs font-medium transition-all duration-200 font-serif ${
                 formData.designFeatures.includes(feature)
-                  ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-sm'
-                  : 'border-gray-200 bg-white text-gray-600 hover:border-purple-300'
+                  ? 'border-gold bg-gold/10 text-gold shadow-sm'
+                  : 'border-gray-200 bg-white text-gray-600 hover:border-gold/50'
               }`}
             >
               {feature.charAt(0).toUpperCase() + feature.slice(1)}
@@ -468,11 +468,11 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       className="space-y-2"
     >
       <div className="text-center mb-4">
-        <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
-          < FiDroplet className="text-white text-lg" />
+        <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-gold/30">
+          <FiDroplet className="text-white text-lg" />
         </div>
-        <h3 className="text-lg font-bold text-gray-800 mb-1">Measurements</h3>
-        <p className="text-gray-600 text-xs">Provide your measurements for perfect fit</p>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Measurements</h3>
+        <p className="text-gray-600 text-xs font-serif">Provide your measurements for perfect fit</p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
@@ -500,7 +500,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
           onChange={handleChange}
           rows="2"
           placeholder="Any specific fit preferences or special requirements..."
-          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 resize-none font-serif"
         />
       </InputField>
     </motion.div>
@@ -518,11 +518,11 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       className="space-y-2"
     >
       <div className="text-center mb-4">
-        <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-2">
+        <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-gold/30">
           <FiCalendar className="text-white text-lg" />
         </div>
-        <h3 className="text-lg font-bold text-gray-800 mb-1">Timeline & Delivery</h3>
-        <p className="text-gray-600 text-xs">When and where you need it</p>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Timeline & Delivery</h3>
+        <p className="text-gray-600 text-xs font-serif">When and where you need it</p>
       </div>
 
       <InputField 
@@ -542,7 +542,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       />
 
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
           <FiMapPin className="mr-1" />
           Delivery Address
         </label>
@@ -555,7 +555,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
               value={value}
               onChange={handleChange}
               placeholder={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
-              className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder-gray-400"
+              className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 placeholder-gray-400 font-serif"
               required={key !== 'zipCode'}
             />
           ))}
@@ -564,16 +564,16 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
 
       {/* Image Upload Section */}
       <div className="mb-4">
-        <label className="block text-xs font-semibold text-gray-700 mb-2">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 font-serif">
           Inspiration Images (Optional)
         </label>
         <div 
           className={`border-2 border-dashed rounded-xl p-4 text-center transition-all duration-200 cursor-pointer ${
             isDragging 
-              ? 'border-blue-500 bg-blue-50' 
+              ? 'border-gold bg-gold/10' 
               : uploadedImages.length > 0
                 ? 'border-green-500 bg-green-50'
-                : 'border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50'
+                : 'border-gray-300 bg-gray-50 hover:border-gold hover:bg-gold/5'
           }`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -596,15 +596,15 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
                   </div>
                 ))}
               </div>
-              <p className="text-green-600 text-xs">{uploadedImages.length} images uploaded</p>
+              <p className="text-green-600 text-xs font-serif">{uploadedImages.length} images uploaded</p>
             </div>
           ) : (
             <>
               <FiUpload className="mx-auto text-xl text-gray-400 mb-1" />
-              <p className="text-gray-600 text-xs mb-0.5">
-                <span className="text-blue-600 font-semibold">Click to upload</span> or drag and drop
+              <p className="text-gray-600 text-xs mb-0.5 font-serif">
+                <span className="text-gold font-semibold">Click to upload</span> or drag and drop
               </p>
-              <p className="text-[10px] text-gray-500">PNG, JPG up to 5MB each</p>
+              <p className="text-[10px] text-gray-500 font-serif">PNG, JPG up to 5MB each</p>
             </>
           )}
           <input 
@@ -638,16 +638,16 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       className="space-y-4"
     >
       <div className="text-center mb-4">
-        <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+        <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-green-500/30">
           <FiCheck className="text-white text-lg" />
         </div>
-        <h3 className="text-lg font-bold text-gray-800 mb-1">Review Design</h3>
-        <p className="text-gray-600 text-xs">Review your custom design details</p>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Review Design</h3>
+        <p className="text-gray-600 text-xs font-serif">Review your custom design details</p>
       </div>
 
       {/* Design Details */}
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-3 rounded-lg border border-blue-100">
-        <h4 className="font-bold text-blue-900 mb-2 text-sm">Design Specifications</h4>
+      <div className="bg-gradient-to-r from-gold/10 to-yellow-600/10 p-3 rounded-lg border border-gold/20">
+        <h4 className="font-bold text-gray-800 mb-2 text-sm font-serif">Design Specifications</h4>
         <div className="space-y-2">
           {[
             ['Design Type', formData.designType],
@@ -658,24 +658,24 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
             ['Features', formData.designFeatures.join(', ') || 'None'],
             ['Production Time', getProductionTime()]
           ].map(([label, value]) => (
-            <div key={label} className="bg-white rounded p-2">
-              <span className="text-gray-600 text-xs">{label}:</span>
-              <p className="font-semibold text-gray-800 text-xs">{value || 'Not specified'}</p>
+            <div key={label} className="bg-white rounded p-2 border border-gray-100">
+              <span className="text-gray-600 text-xs font-serif">{label}:</span>
+              <p className="font-semibold text-gray-800 text-xs font-serif">{value || 'Not specified'}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Measurements */}
-      <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-3 rounded-lg border border-purple-100">
-        <h4 className="font-bold text-purple-900 mb-2 text-sm">Measurements (cm)</h4>
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200">
+        <h4 className="font-bold text-gray-800 mb-2 text-sm font-serif">Measurements (cm)</h4>
         <div className="grid grid-cols-2 gap-2">
           {Object.entries(formData.measurements).map(([key, value]) => (
-            <div key={key} className="bg-white rounded p-2 text-center">
-              <span className="text-gray-600 text-xs block">
+            <div key={key} className="bg-white rounded p-2 text-center border border-gray-100">
+              <span className="text-gray-600 text-xs block font-serif">
                 {key.charAt(0).toUpperCase() + key.slice(1)}
               </span>
-              <p className="font-semibold text-gray-800 text-sm">{value || '-'}</p>
+              <p className="font-semibold text-gray-800 text-sm font-serif">{value || '-'}</p>
             </div>
           ))}
         </div>
@@ -683,24 +683,24 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
 
       {/* Timeline & Delivery */}
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-lg border border-green-100">
-        <h4 className="font-bold text-green-900 mb-2 text-sm">Timeline & Delivery</h4>
+        <h4 className="font-bold text-green-900 mb-2 text-sm font-serif">Timeline & Delivery</h4>
         <div className="space-y-2">
           {[
             ['Event Date', formData.eventDate],
             ['Shipping', formData.shippingMethod],
             ['Address', `${formData.deliveryAddress.street}, ${formData.deliveryAddress.city}`]
           ].map(([label, value]) => (
-            <div key={label} className="bg-white rounded p-2">
-              <span className="text-gray-600 text-xs">{label}:</span>
-              <p className="font-semibold text-gray-800 text-xs">{value || 'Not specified'}</p>
+            <div key={label} className="bg-white rounded p-2 border border-green-100">
+              <span className="text-gray-600 text-xs font-serif">{label}:</span>
+              <p className="font-semibold text-gray-800 text-xs font-serif">{value || 'Not specified'}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Price Breakdown */}
-      <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-3 rounded-lg border border-orange-100">
-        <h4 className="font-bold text-orange-900 mb-2 text-sm">Price Estimate</h4>
+      <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-3 rounded-lg border border-amber-100">
+        <h4 className="font-bold text-amber-900 mb-2 text-sm font-serif">Price Estimate</h4>
         <div className="space-y-1">
           {[
             ['Base Price', PRICING.basePrice],
@@ -717,19 +717,19 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
             ]),
             ...(formData.shippingMethod ? [['Shipping', PRICING.shipping[formData.shippingMethod]]] : [])
           ].map(([label, amount]) => (
-            <div key={label} className="flex justify-between items-center py-1 border-b border-orange-100 last:border-b-0">
-              <span className="text-gray-700 text-xs">{label}:</span>
-              <span className="font-semibold text-gray-800 text-xs">
+            <div key={label} className="flex justify-between items-center py-1 border-b border-amber-100 last:border-b-0">
+              <span className="text-gray-700 text-xs font-serif">{label}:</span>
+              <span className="font-semibold text-gray-800 text-xs font-serif">
                 {amount > 0 ? `+₦${amount.toLocaleString()}` : 'Included'}
               </span>
             </div>
           ))}
-          <div className="border-t border-orange-200 pt-2 mt-1">
+          <div className="border-t border-amber-200 pt-2 mt-1">
             <div className="flex justify-between items-center text-sm font-bold">
-              <span className="text-orange-900">Total Estimate:</span>
-              <span className="text-orange-900">₦{calculatePrice().toLocaleString()}</span>
+              <span className="text-amber-900 font-serif">Total Estimate:</span>
+              <span className="text-amber-900 font-serif">₦{calculatePrice().toLocaleString()}</span>
             </div>
-            <p className="text-[10px] text-orange-700 mt-1">
+            <p className="text-[10px] text-amber-700 mt-1 font-serif">
               *Final price may vary after design consultation
             </p>
           </div>
@@ -742,20 +742,20 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
     <div className="flex justify-between items-center mb-4 relative">
       <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 -translate-y-1/2 -z-10"></div>
       <div 
-        className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 -translate-y-1/2 transition-all duration-500 -z-10"
+        className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-gold to-yellow-600 -translate-y-1/2 transition-all duration-500 -z-10"
         style={{ width: `${((step - 1) / 4) * 100}%` }}
       ></div>
       {[1, 2, 3, 4, 5].map((stepNumber) => (
         <div key={stepNumber} className="flex flex-col items-center">
           <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all duration-300 text-xs ${
             step >= stepNumber 
-              ? 'bg-gradient-to-r from-blue-500 to-purple-500 border-transparent text-white scale-110 shadow'
+              ? 'bg-gradient-to-r from-gold to-yellow-600 border-transparent text-white scale-110 shadow'
               : 'bg-white border-gray-300 text-gray-400'
           }`}>
             {stepNumber}
           </div>
-          <span className={`text-[10px] mt-1 font-medium ${
-            step >= stepNumber ? 'text-blue-600' : 'text-gray-400'
+          <span className={`text-[10px] mt-1 font-medium font-serif ${
+            step >= stepNumber ? 'text-gold' : 'text-gray-400'
           }`}>
             {['Vision', 'Materials', 'Measure', 'Delivery', 'Review'][stepNumber - 1]}
           </span>
@@ -772,21 +772,21 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ duration: 0.3, type: "spring", damping: 25 }}
-          className="bg-white rounded-xl shadow-2xl w-full max-w-sm max-h-[90vh] overflow-hidden"
+          className="bg-white rounded-xl shadow-2xl w-full max-w-sm max-h-[90vh] overflow-hidden border border-gold/20"
         >
           <div className="relative">
             {/* Header */}
-            <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+            <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-gray-900 to-black text-white">
               <div className="flex justify-between items-center">
                 <div>
-                  <h2 className="text-lg font-bold">Custom Fashion Design</h2>
-                  <p className="text-blue-100 opacity-90 text-xs">5 simple steps</p>
+                  <h2 className="text-lg font-bold font-serif">Custom Fashion Design</h2>
+                  <p className="text-gold/80 text-xs font-serif">5 simple steps</p>
                 </div>
                 <button 
                   onClick={onClose}
-                  className="w-6 h-6 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 flex items-center justify-center transition-all duration-200 backdrop-blur-sm"
+                  className="w-6 h-6 rounded-full bg-gold/20 hover:bg-gold/30 flex items-center justify-center transition-all duration-200 backdrop-blur-sm border border-gold/30"
                 >
-                  <FiX className="text-sm" />
+                  <FiX className="text-sm text-gold" />
                 </button>
               </div>
             </div>
@@ -804,15 +804,15 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center py-6"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3 border border-gold/30">
                     <FiInfo className="text-white text-xl" />
                   </div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-2">Login Required</h3>
-                  <p className="text-gray-600 text-xs mb-4">
+                  <h3 className="text-lg font-bold text-gray-800 mb-2 font-serif">Login Required</h3>
+                  <p className="text-gray-600 text-xs mb-4 font-serif">
                     Please log in to create a custom fashion design
                   </p>
                   <button 
-                    className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-6 rounded-full font-semibold hover:shadow transition-all duration-200 transform hover:scale-105 text-sm"
+                    className="bg-gradient-to-r from-gold to-yellow-600 text-black py-2 px-6 rounded-full font-semibold hover:shadow transition-all duration-200 transform hover:scale-105 text-sm border border-gold/30 font-serif"
                     onClick={() => window.location.href = '/login'}
                   >
                     Login to Continue
@@ -837,7 +837,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
                     type="button" 
                     onClick={() => navigateStep(step - 1)}
                     disabled={step === 1}
-                    className="flex items-center px-3 py-2 rounded-lg border border-gray-300 text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed hover:border-blue-500 hover:text-blue-600 transition-all duration-200 font-semibold text-xs"
+                    className="flex items-center px-3 py-2 rounded-lg border border-gray-300 text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed hover:border-gold hover:text-gold transition-all duration-200 font-semibold text-xs font-serif"
                   >
                     <FiArrowLeft className="mr-1" />
                     Back
@@ -853,7 +853,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
                         (step === 3 && Object.values(formData.measurements).some(val => !val)) ||
                         (step === 4 && (!formData.eventDate || !formData.deliveryAddress.street))
                       }
-                      className="flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white disabled:opacity-50 disabled:cursor-not-allowed hover:shadow transform hover:scale-105 transition-all duration-200 font-semibold text-xs"
+                      className="flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-gold to-yellow-600 text-black disabled:opacity-50 disabled:cursor-not-allowed hover:shadow transform hover:scale-105 transition-all duration-200 font-semibold text-xs border border-gold/30 font-serif"
                     >
                       Continue
                       <FiArrowRight className="ml-1" />
@@ -862,7 +862,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
                     <button 
                       type="submit" 
                       onClick={handleSubmit}
-                      className="flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow transform hover:scale-105 transition-all duration-200 font-semibold text-xs"
+                      className="flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow transform hover:scale-105 transition-all duration-200 font-semibold text-xs border border-green-500/30 font-serif"
                     >
                       Submit Design - ₦{calculatePrice().toLocaleString()}
                       <FiCheck className="ml-1" />
