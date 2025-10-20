@@ -59,7 +59,7 @@ const AboutPage = () => {
                         <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray-900 mb-6">
                             Our <span className="text-gold">Style</span> Story
                         </h1>
-                        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                        <p className="text-lg md:text-xl text-gray max-w-3xl mx-auto">
                             Where contemporary elegance meets timeless craftsmanship for the modern Nigerian woman
                         </p>
                     </motion.div>
