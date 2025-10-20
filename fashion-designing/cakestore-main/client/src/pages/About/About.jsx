@@ -122,7 +122,7 @@ const AboutPage = () => {
                             <h3 className="text-2xl font-serif font-bold mb-4 text-center text-gold">
                                 Our Fashion Mission
                             </h3>
-                            <p className="text-center text-gray/30 text-lg">
+                            <p className="text-center text-gray-600 text-lg">
                                 To empower contemporary women with elegant, well-crafted fashion that celebrates 
                                 their individuality. We create pieces that transition seamlessly from day to night, 
                                 offering both style and substance for the modern lifestyle.
