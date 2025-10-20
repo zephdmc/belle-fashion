@@ -32,27 +32,27 @@ const EmptyCart = () => (
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="w-24 h-24 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/20"
+                className="w-24 h-24 bg-gradient-to-br from-gold/20 to-yellow-600/20 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-gold/30"
             >
-                <FiShoppingCart className="text-4xl text-white/60" />
+                <FiShoppingCart className="text-4xl text-gold/60" />
             </motion.div>
             
             <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-3xl font-bold text-white mb-4"
+                className="text-3xl font-bold text-white mb-4 font-serif"
             >
-                Your Fashion Cart is Empty
+                Your Style Cart is Empty
             </motion.h1>
             
             <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-white/70 mb-8 text-lg"
+                className="text-gold/70 mb-8 text-lg font-serif"
             >
-                Discover our latest fashion collections and custom design services to elevate your style.
+                Discover our latest contemporary collections and custom design services to elevate your style.
             </motion.p>
 
             <motion.div
@@ -62,13 +62,13 @@ const EmptyCart = () => (
                 className="flex flex-col sm:flex-row gap-4 justify-center"
             >
                 <MotionLink
-                    to="/shop"
+                    to="/collections"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-4 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg group"
+                    className="inline-flex items-center gap-3 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-4 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg group border border-gold/30 font-serif"
                 >
                     <FiShoppingBag className="text-sm" />
-                    Shop Ready-to-Wear
+                    Shop Collections
                     <FiArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
                 </MotionLink>
                 
@@ -76,7 +76,7 @@ const EmptyCart = () => (
                     to="/custom-order"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 text-white py-4 px-8 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-white/20"
+                    className="inline-flex items-center gap-3 bg-gold/10 hover:bg-gold/20 text-gold py-4 px-8 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
                 >
                     <FiScissors className="text-sm" />
                     Create Custom Design
@@ -91,17 +91,17 @@ const EmptyCart = () => (
                 className="mt-12 grid grid-cols-2 gap-4"
             >
                 {[
-                    { name: 'Dresses', color: 'from-purple-500 to-pink-500', href: '/shop?category=dresses' },
-                    { name: 'Tops & Blouses', color: 'from-blue-500 to-cyan-500', href: '/shop?category=tops' },
-                    { name: 'Bottoms', color: 'from-green-500 to-emerald-500', href: '/shop?category=bottoms' },
-                    { name: 'Custom Designs', color: 'from-orange-500 to-red-500', href: '/custom-order' }
+                    { name: 'Dresses', color: 'from-gold to-yellow-600', href: '/collections?category=dresses' },
+                    { name: 'Tops & Blouses', color: 'from-gray-800 to-gray-600', href: '/collections?category=tops' },
+                    { name: 'Bottoms', color: 'from-gold to-yellow-600', href: '/collections?category=bottoms' },
+                    { name: 'Custom Designs', color: 'from-gray-800 to-gray-600', href: '/custom-order' }
                 ].map((category, index) => (
                     <MotionLink
                         key={category.name}
                         to={category.href}
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`bg-gradient-to-r ${category.color} text-white p-4 rounded-2xl text-center font-medium shadow-lg hover:shadow-xl transition-all duration-300`}
+                        className={`bg-gradient-to-r ${category.color} text-white p-4 rounded-2xl text-center font-medium shadow-lg hover:shadow-xl transition-all duration-300 font-serif`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.7 + index * 0.1 }}
@@ -118,19 +118,19 @@ const EmptyCart = () => (
                 transition={{ delay: 0.9 }}
                 className="mt-8"
             >
-                <h3 className="text-white/70 text-sm font-semibold mb-4">Featured Collections</h3>
+                <h3 className="text-gold/70 text-sm font-semibold mb-4 font-serif">Featured Collections</h3>
                 <div className="grid grid-cols-2 gap-3">
                     {[
-                        { name: 'Summer Collection', href: '/shop?collection=summer' },
-                        { name: 'New Arrivals', href: '/shop?new=true' },
-                        { name: 'Wedding Collection', href: '/shop?occasion=wedding' },
-                        { name: 'Office Wear', href: '/shop?category=office' }
+                        { name: 'Summer Collection', href: '/collections?collection=summer' },
+                        { name: 'New Arrivals', href: '/collections?new=true' },
+                        { name: 'Wedding Collection', href: '/collections?occasion=wedding' },
+                        { name: 'Office Wear', href: '/collections?category=office' }
                     ].map((collection, index) => (
                         <MotionLink
                             key={collection.name}
                             to={collection.href}
                             whileHover={{ scale: 1.02 }}
-                            className="bg-white/5 hover:bg-white/10 text-white/80 hover:text-white text-xs p-3 rounded-xl text-center transition-all duration-300 border border-white/10 hover:border-white/20"
+                            className="bg-gold/5 hover:bg-gold/10 text-gold/80 hover:text-gold text-xs p-3 rounded-xl text-center transition-all duration-300 border border-gold/10 hover:border-gold/20 font-serif"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.0 + index * 0.1 }}
@@ -152,14 +152,14 @@ const CartHeader = ({ cartCount, onClearCart, hasCustomItems }) => (
         className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8"
     >
         <div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2">Shopping Cart</h1>
-            <div className="flex flex-wrap items-center gap-4 text-white/70">
-                <p className="flex items-center gap-2">
+            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2 font-serif">Style Cart</h1>
+            <div className="flex flex-wrap items-center gap-4 text-gold/70">
+                <p className="flex items-center gap-2 font-serif">
                     <FiShoppingBag className="text-sm" />
-                    {cartCount} {cartCount === 1 ? 'item' : 'items'} in your cart
+                    {cartCount} fashion {cartCount === 1 ? 'piece' : 'pieces'} selected
                 </p>
                 {hasCustomItems && (
-                    <span className="flex items-center gap-1 bg-purple-500/30 text-purple-200 px-3 py-1 rounded-full text-sm">
+                    <span className="flex items-center gap-1 bg-gold/30 text-gold px-3 py-1 rounded-full text-sm font-serif">
                         <FiScissors className="text-xs" />
                         Custom Designs
                     </span>
@@ -172,17 +172,17 @@ const CartHeader = ({ cartCount, onClearCart, hasCustomItems }) => (
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={onClearCart}
-                className="flex items-center gap-2 bg-white/10 hover:bg-red-500/20 text-white/70 hover:text-red-300 py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-red-500/30"
+                className="flex items-center gap-2 bg-gold/10 hover:bg-red-500/20 text-gold/70 hover:text-red-300 py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-gold/20 hover:border-red-500/30 font-serif"
             >
                 <FiTrash2 className="text-sm" />
-                Clear Cart
+                Clear Style Cart
             </motion.button>
             
             <MotionLink
-                to="/shop"
+                to="/collections"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-white/20"
+                className="flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
             >
                 <FiArrowRight className="text-sm rotate-180" />
                 Continue Shopping
@@ -196,19 +196,19 @@ const SizeGuideHelper = () => (
     <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-blue-500/20 border border-blue-400/30 rounded-2xl p-4 mb-6"
+        className="bg-gold/20 border border-gold/30 rounded-2xl p-4 mb-6"
     >
         <div className="flex items-start gap-3">
-            <FiStar className="text-blue-300 mt-0.5 flex-shrink-0" />
+            <FiStar className="text-gold mt-0.5 flex-shrink-0" />
             <div>
-                <h4 className="text-blue-200 font-semibold mb-1">Size Guide Available</h4>
-                <p className="text-blue-100/80 text-sm">
-                    Unsure about your size? Check our comprehensive size guide for perfect fitting.
+                <h4 className="text-gold font-semibold mb-1 font-serif">Perfect Fit Guide</h4>
+                <p className="text-gold/80 text-sm font-serif">
+                    Unsure about your size? Check our comprehensive size guide for the perfect fit.
                 </p>
                 <MotionLink
                     to="/size-guide"
                     whileHover={{ scale: 1.02 }}
-                    className="inline-flex items-center gap-1 text-blue-200 hover:text-blue-100 text-sm font-medium mt-2 transition-colors"
+                    className="inline-flex items-center gap-1 text-gold hover:text-yellow-400 text-sm font-medium mt-2 transition-colors font-serif"
                 >
                     View Size Guide
                     <FiArrowRight className="text-xs" />
@@ -226,7 +226,7 @@ export default function CartPage() {
 
     if (cartCount === 0) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-700 py-8">
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
                 <div className="container mx-auto px-4 max-w-6xl">
                     <EmptyCart />
                 </div>
@@ -235,7 +235,7 @@ export default function CartPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-700 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <CartHeader cartCount={cartCount} onClearCart={clearCart} hasCustomItems={hasCustomItems} />
@@ -247,16 +247,16 @@ export default function CartPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 overflow-hidden"
+                            className="bg-black/40 backdrop-blur-sm rounded-3xl border border-gold/20 overflow-hidden"
                         >
                             {/* Cart Items Header */}
-                            <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 px-6 py-4 border-b border-white/20">
+                            <div className="bg-gradient-to-r from-gold/20 to-yellow-600/20 px-6 py-4 border-b border-gold/20">
                                 <div className="flex items-center justify-between">
-                                    <h2 className="text-xl font-semibold text-white flex items-center gap-3">
-                                        <FiShoppingBag className="text-purple-300" />
-                                        Your Fashion Items ({cartCount})
+                                    <h2 className="text-xl font-semibold text-gold flex items-center gap-3 font-serif">
+                                        <FiShoppingBag className="text-gold" />
+                                        Your Style Selection ({cartCount})
                                         {hasCustomItems && (
-                                            <span className="bg-purple-500/30 text-purple-200 px-2 py-1 rounded-full text-sm font-normal">
+                                            <span className="bg-gold/30 text-black px-2 py-1 rounded-full text-sm font-normal font-serif">
                                                 + Custom Designs
                                             </span>
                                         )}
@@ -265,7 +265,7 @@ export default function CartPage() {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={clearCart}
-                                        className="flex items-center gap-2 text-white/70 hover:text-red-300 text-sm font-medium transition-colors duration-300"
+                                        className="flex items-center gap-2 text-gold/70 hover:text-red-300 text-sm font-medium transition-colors duration-300 font-serif"
                                     >
                                         <FiTrash2 className="text-sm" />
                                         Clear All
@@ -277,7 +277,7 @@ export default function CartPage() {
                             <SizeGuideHelper />
 
                             {/* Cart Items List */}
-                            <div className="divide-y divide-white/10">
+                            <div className="divide-y divide-gold/10">
                                 <AnimatePresence>
                                     {cartItems.map((item, index) => (
                                         <motion.div
@@ -302,15 +302,15 @@ export default function CartPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.8 }}
-                                className="p-6 bg-white/5 border-t border-white/10"
+                                className="p-6 bg-gold/5 border-t border-gold/10"
                             >
                                 <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
                                     <div className="flex items-center gap-4">
                                         <MotionLink
-                                            to="/shop"
+                                            to="/collections"
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-300"
+                                            className="flex items-center gap-2 text-gold/70 hover:text-gold transition-colors duration-300 font-serif"
                                         >
                                             <FiArrowRight className="text-sm rotate-180" />
                                             Continue Shopping
@@ -320,7 +320,7 @@ export default function CartPage() {
                                             to="/wishlist"
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="flex items-center gap-2 text-white/70 hover:text-pink-300 transition-colors duration-300"
+                                            className="flex items-center gap-2 text-gold/70 hover:text-gold transition-colors duration-300 font-serif"
                                         >
                                             <FiHeart className="text-sm" />
                                             View Wishlist
@@ -330,7 +330,7 @@ export default function CartPage() {
                                             to="/custom-order"
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="flex items-center gap-2 text-white/70 hover:text-purple-300 transition-colors duration-300"
+                                            className="flex items-center gap-2 text-gold/70 hover:text-gold transition-colors duration-300 font-serif"
                                         >
                                             <FiScissors className="text-sm" />
                                             Custom Design
@@ -339,10 +339,10 @@ export default function CartPage() {
                                     
                                     <motion.div
                                         whileHover={{ scale: 1.02 }}
-                                        className="bg-white/5 rounded-xl px-4 py-2 border border-white/10"
+                                        className="bg-gold/5 rounded-xl px-4 py-2 border border-gold/10"
                                     >
-                                        <span className="text-white font-semibold">
-                                            Total: {cartCount} {cartCount === 1 ? 'item' : 'items'}
+                                        <span className="text-gold font-semibold font-serif">
+                                            Total: {cartCount} {cartCount === 1 ? 'fashion piece' : 'fashion pieces'}
                                         </span>
                                     </motion.div>
                                 </div>
@@ -359,27 +359,27 @@ export default function CartPage() {
                             {[
                                 { 
                                     icon: FiTruck, 
-                                    title: 'Free Shipping', 
-                                    description: 'On orders over $100',
-                                    color: 'from-purple-500 to-pink-500'
+                                    title: 'Premium Shipping', 
+                                    description: 'Careful handling',
+                                    color: 'from-gold to-yellow-600'
                                 },
                                 { 
                                     icon: FiRefreshCw, 
                                     title: 'Easy Returns', 
-                                    description: '30-day return policy',
-                                    color: 'from-green-500 to-emerald-500'
+                                    description: 'Quality guarantee',
+                                    color: 'from-gray-800 to-gray-600'
                                 },
                                 { 
                                     icon: FiShield, 
-                                    title: 'Quality Guarantee', 
+                                    title: 'Quality Craftsmanship', 
                                     description: 'Premium materials',
-                                    color: 'from-blue-500 to-cyan-500'
+                                    color: 'from-gold to-yellow-600'
                                 },
                                 { 
                                     icon: FiScissors, 
-                                    title: 'Custom Fitting', 
-                                    description: 'Perfect fit guarantee',
-                                    color: 'from-orange-500 to-red-500'
+                                    title: 'Perfect Fit', 
+                                    description: 'Size guidance',
+                                    color: 'from-gray-800 to-gray-600'
                                 }
                             ].map((badge, index) => (
                                 <motion.div
@@ -388,13 +388,13 @@ export default function CartPage() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 1.1 + index * 0.1 }}
                                     whileHover={{ y: -4 }}
-                                    className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 text-center group hover:border-white/40 transition-all duration-300"
+                                    className="bg-black/40 backdrop-blur-sm rounded-2xl p-4 border border-gold/20 text-center group hover:border-gold/40 transition-all duration-300"
                                 >
                                     <div className={`w-12 h-12 bg-gradient-to-r ${badge.color} rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`}>
                                         <badge.icon className="text-white text-lg" />
                                     </div>
-                                    <h3 className="text-white font-semibold mb-1 text-sm">{badge.title}</h3>
-                                    <p className="text-white/60 text-xs">{badge.description}</p>
+                                    <h3 className="text-gold font-semibold mb-1 text-sm font-serif">{badge.title}</h3>
+                                    <p className="text-gold/60 text-xs font-serif">{badge.description}</p>
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -405,16 +405,16 @@ export default function CartPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.3 }}
-                                className="mt-6 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/30 rounded-2xl p-6"
+                                className="mt-6 bg-gradient-to-r from-gold/20 to-yellow-600/20 border border-gold/30 rounded-2xl p-6"
                             >
                                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                                            <FiScissors className="text-purple-300 text-xl" />
+                                        <div className="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center border border-gold/20">
+                                            <FiScissors className="text-gold text-xl" />
                                         </div>
                                         <div>
-                                            <h3 className="text-white font-semibold mb-1">Need Something Unique?</h3>
-                                            <p className="text-white/70 text-sm">
+                                            <h3 className="text-gold font-semibold mb-1 font-serif">Need Something Unique?</h3>
+                                            <p className="text-gold/70 text-sm font-serif">
                                                 Create your custom designed outfit with our expert tailors.
                                             </p>
                                         </div>
@@ -423,7 +423,7 @@ export default function CartPage() {
                                         to="/custom-order"
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className="bg-white text-purple-600 hover:bg-purple-50 py-3 px-6 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap"
+                                        className="bg-gold text-black hover:bg-yellow-500 py-3 px-6 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap border border-gold/30 font-serif"
                                     >
                                         Start Custom Design
                                     </MotionLink>
