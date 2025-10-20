@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion'; // Fixed import
+import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '../../components/products/ProductCard';
 import { getProducts } from '../../services/productServic';
 import TestimonialSlider from '../../pages/home/HomePageComponent/TestimonialSlider';
@@ -135,6 +135,67 @@ const FeatureCard = ({ icon: Icon, title, description, delay = 0 }) => (
   </motion.div>
 );
 
+// Mock products data for fallback
+const mockProducts = [
+  {
+    id: 1,
+    name: "Elegant Evening Gown",
+    price: 29999,
+    originalPrice: 39999,
+    discountPercentage: 25,
+    category: "Evening Wear",
+    subcategory: "Gowns",
+    images: ["/images/hero1.png"],
+    sizes: ["S", "M", "L"],
+    colors: ["Black", "Navy"],
+    isFeatured: true,
+    isNewArrival: true,
+    reviews: [{ rating: 4.5 }, { rating: 5 }],
+    status: "active"
+  },
+  {
+    id: 2,
+    name: "Designer Cocktail Dress",
+    price: 18999,
+    category: "Casual Wear", 
+    subcategory: "Dresses",
+    images: ["/images/hero2.png"],
+    sizes: ["XS", "S", "M"],
+    colors: ["Red", "Blue"],
+    isFeatured: true,
+    reviews: [{ rating: 4.5 }, { rating: 5 }],
+    status: "active"
+  },
+  {
+    id: 3,
+    name: "Traditional Attire Set",
+    price: 24999,
+    category: "Traditional",
+    subcategory: "Complete Sets",
+    images: ["/images/hero3.png"],
+    sizes: ["M", "L", "XL"],
+    colors: ["Gold", "Green"],
+    isFeatured: false,
+    reviews: [{ rating: 5 }],
+    status: "active"
+  },
+  {
+    id: 4,
+    name: "Bridal Wedding Dress",
+    price: 45999,
+    originalPrice: 59999,
+    discountPercentage: 23,
+    category: "Wedding Dresses",
+    subcategory: "Bridal",
+    images: ["/images/hero4.png"],
+    sizes: ["Custom"],
+    colors: ["White", "Ivory"],
+    isFeatured: true,
+    reviews: [{ rating: 5 }, { rating: 5 }, { rating: 4 }],
+    status: "active"
+  }
+];
+
 export default function HomePage() {
     const [products, setProducts] = useState([]);
     const [blogs, setBlogs] = useState([]);
@@ -149,20 +210,93 @@ export default function HomePage() {
     const { currentUser } = useAuth();
     const isAdmin = currentUser?.isAdmin;
 
+    // Fixed: Enhanced product fetching with proper error handling
     useEffect(() => {
         const fetchProducts = async () => {
             try {
+                setLoading(true);
+                console.log('🔄 Fetching products for homepage...');
                 const response = await getProducts();
-                setProducts(response.data?.slice(0, 8) || []);
+                console.log('📦 Products API Response:', response);
+                
+                if (response && response.data && Array.isArray(response.data)) {
+                    console.log(`✅ Found ${response.data.length} products`);
+                    setProducts(response.data.slice(0, 8));
+                } else {
+                    // Fallback to mock data
+                    console.warn('❌ Unexpected response structure, using mock data');
+                    setProducts(mockProducts.slice(0, 4));
+                }
             } catch (err) {
-                setError(err.message || 'Failed to load featured products');
-                setProducts([]);
+                console.error('💥 Fetch error, using mock data:', err);
+                setProducts(mockProducts.slice(0, 4));
+                setError('Using demo data - API connection issue');
             } finally {
                 setLoading(false);
             }
         };
 
         fetchProducts();
+    }, []);
+
+    // Fixed: Enhanced categories fetching using the same service
+    useEffect(() => {
+        const fetchProductsByCategory = async () => {
+            try {
+                setCategoriesLoading(true);
+                setCategoriesError(null);
+                
+                // Use the same getProducts service instead of direct fetch
+                console.log('🔄 Fetching products for categories...');
+                const response = await getProducts({ limit: 50 });
+                
+                // Check if response structure is correct
+                if (!response.data || !Array.isArray(response.data)) {
+                    console.warn('No products data found for categories');
+                    setCategories([]);
+                    return;
+                }
+
+                console.log(`📂 Organizing ${response.data.length} products into categories`);
+
+                // Organize products by category
+                const productsByCategory = {};
+                
+                response.data.forEach(product => {
+                    if (product.status !== 'inactive') {
+                        const category = product.category || 'Uncategorized';
+                        if (!productsByCategory[category]) {
+                            productsByCategory[category] = {
+                                id: category.toLowerCase().replace(/\s+/g, '-'),
+                                name: category,
+                                slug: category.toLowerCase().replace(/\s+/g, '-'),
+                                description: `Explore our ${category} collection`,
+                                products: []
+                            };
+                        }
+                        productsByCategory[category].products.push(product);
+                    }
+                });
+
+                // Convert to array and take top categories with most products
+                const categoryArray = Object.values(productsByCategory)
+                    .filter(cat => cat.products.length > 0)
+                    .sort((a, b) => b.products.length - a.products.length)
+                    .slice(0, 6); // Show top 6 categories
+
+                console.log(`✅ Created ${categoryArray.length} categories`);
+                setCategories(categoryArray);
+                
+            } catch (err) {
+                console.error('❌ Error fetching products for categories:', err);
+                setCategoriesError(err.message || 'Failed to load categories');
+                setCategories([]); // Ensure categories is always an array
+            } finally {
+                setCategoriesLoading(false);
+            }
+        };
+
+        fetchProductsByCategory();
     }, []);
 
 // MovingImagesGrid Component
@@ -287,11 +421,11 @@ const MovingImagesGrid = () => {
         </div>
     );
 };
+
     // Simple Image Slideshow Component
 const SimpleImageSlideShow = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     
-    // Replace these with your actual image paths
     const slides = [
         {
             id: 1,
@@ -351,70 +485,6 @@ const SimpleImageSlideShow = () => {
         </div>
     );
 };
-    // Fetch products and organize by category
-    useEffect(() => {
-        const fetchProductsByCategory = async () => {
-            try {
-                setCategoriesLoading(true);
-                setCategoriesError(null);
-                
-                // Try to fetch products
-                const response = await fetch('/api/products?limit=50');
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-
-                const result = await response.json();
-
-                if (!result.success) {
-                    throw new Error(result.error || 'Failed to load products');
-                }
-
-                // Check if we have products data
-                if (!result.data || !Array.isArray(result.data)) {
-                    setCategories([]);
-                    return;
-                }
-
-                // Organize products by category
-                const productsByCategory = {};
-                
-                result.data.forEach(product => {
-                    if (product.status !== 'inactive') {
-                        const category = product.category || 'Uncategorized';
-                        if (!productsByCategory[category]) {
-                            productsByCategory[category] = {
-                                id: category.toLowerCase().replace(/\s+/g, '-'),
-                                name: category,
-                                slug: category.toLowerCase().replace(/\s+/g, '-'),
-                                description: `Explore our ${category} collection`,
-                                products: []
-                            };
-                        }
-                        productsByCategory[category].products.push(product);
-                    }
-                });
-
-                // Convert to array and take top categories with most products
-                const categoryArray = Object.values(productsByCategory)
-                    .filter(cat => cat.products.length > 0)
-                    .sort((a, b) => b.products.length - a.products.length)
-                    .slice(0, 6); // Show top 6 categories
-
-                setCategories(categoryArray);
-                
-            } catch (err) {
-                console.error('Error fetching products:', err);
-                setCategoriesError(err.message);
-                setCategories([]); // Ensure categories is always an array
-            } finally {
-                setCategoriesLoading(false);
-            }
-        };
-
-        fetchProductsByCategory();
-    }, []);
 
     // Calculate discounted price
     const calculateDiscountedPrice = (price, discountPercentage) => {
@@ -519,302 +589,300 @@ const SimpleImageSlideShow = () => {
                 </motion.div>
             )}
 
-
-{/* Enhanced Hero Section with 3-Column Layout */}
-<section className="relative overflow-hidden min-h-[90vh] flex items-center px-4">
-    {/* Animated Background Elements */}
-    <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gold/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-600/20 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-    </div>
-
-    {/* Mobile Contact Bar - Scrolling Animation */}
-    <div className="lg:hidden absolute top-4 left-0 right-0 z-20 overflow-hidden">
-        <motion.div
-            className="bg-black/20 backdrop-blur-sm border-b border-gold/30 py-3"
-            animate={{
-                x: [0, -300, 0],
-            }}
-            transition={{
-                x: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration: 20,
-                    ease: "linear",
-                },
-            }}
-        >
-            <div className="flex space-x-8 whitespace-nowrap min-w-max">
-                {/* Multiple copies for seamless scroll */}
-                {[...Array(3)].map((_, setIndex) => (
-                    <div key={setIndex} className="flex items-center space-x-8">
-                        <a href="tel:+1234567890" className="flex items-center text-white hover:text-gold transition-colors text-sm">
-                            <FiPhone className="mr-2" size={14} />
-                            <span>+123 456 7890</span>
-                        </a>
-                        <a href="mailto:info@bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
-                            <FiMail className="mr-2" size={14} />
-                            <span>info@bellebyokien.com</span>
-                        </a>
-                        <a href="https://bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
-                            <FiGlobe className="mr-2" size={14} />
-                            <span>bellebyokien.com</span>
-                        </a>
-                    </div>
-                ))}
-            </div>
-        </motion.div>
-    </div>
-
-    <div className="container mx-auto max-w-7xl relative z-10 pt-20 lg:pt-0">
-        {/* Mobile Layout - Banner moved up */}
-        <div className="lg:hidden">
-            {/* Banner at top for mobile */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gold/20 mb-6"
-            >
-                <SimpleImageSlideShow />
-            </motion.div>
-
-            {/* Moving Images Section for Mobile */}
-            <div className="mt-4 mb-6 overflow-hidden">
-                <MovingImagesGrid />
-            </div>
-
-            {/* Mobile Text Content */}
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-center"
-            >
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                    className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight"
-                >
-                    Crafting Fashion{' '}
-                    <span className="bg-gradient-to-r from-gold to-yellow-300 bg-clip-text text-transparent">
-                        You Can Feel,
-                    </span>{' '}
-                    Wear & Love
-                </motion.h1>
-                
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                    className="flex flex-col sm:flex-row gap-3 justify-center"
-                >
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        <Link
-                            to="/products"
-                            className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30 block"
-                        >
-                            Shop Ready-to-Wear
-                        </Link>
-                    </motion.div>
-                    
-                    <motion.button
-                        onClick={handleCustomOrderClick}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30"
-                    >
-                        Create Custom Design
-                    </motion.button>
-                </motion.div>
-            </motion.div>
-        </div>
-
-        {/* Desktop 3-Column Layout */}
-        <div className="hidden lg:grid lg:grid-cols-12 gap-6 items-stretch">
-            
-            {/* Column 1: Categories List */}
-            <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="lg:col-span-3 flex flex-col"
-            >
-                <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
-                    <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-                        <FiGrid className="mr-2 text-gold" />
-                        Categories
-                    </h3>
-                    <div className="space-y-3">
-                        {[
-                            { name: 'Evening Gowns', icon: FiHeart, count: 24 },
-                            { name: 'Wedding Dresses', icon: FiHeart, count: 18 },
-                            { name: 'Casual Wear', icon: FiUser, count: 32 },
-                            { name: 'Traditional', icon: FiFeather, count: 15 },
-                            { name: 'Accessories', icon: FiShoppingBag, count: 45 },
-                            { name: 'Custom Designs', icon: FiScissors, count: 'New' }
-                        ].map((category, index) => (
-                            <motion.div
-                                key={category.name}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
-                                className="flex items-center justify-between p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 cursor-pointer group"
-                            >
-                                <div className="flex items-center">
-                                    <category.icon className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" size={18} />
-                                    <span className="text-white font-medium group-hover:text-gold transition-colors">
-                                        {category.name}
-                                    </span>
-                                </div>
-                                <span className="bg-gold/20 text-white text-xs px-2 py-1 rounded-full">
-                                    {category.count}
-                                </span>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </motion.div>
-
-            {/* Column 2: Main Banner - Full Image Display */}
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="lg:col-span-6 flex flex-col"
-            >
-                <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gold/20 flex-1">
-                    <div className="w-full h-full">
-                        <SimpleImageSlideShow />
-                    </div>
-                    
-                    {/* Floating elements on banner */}
-                    <motion.div
-                        animate={{ 
-                            y: [0, -20, 0],
-                            rotate: [0, 5, 0]
-                        }}
-                        transition={{ 
-                            duration: 6,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                        className="absolute top-6 left-6 bg-black/20 backdrop-blur-sm p-4 rounded-2xl border border-gold/30 shadow-2xl"
-                    >
-                        <FiHeart className="text-gold text-2xl" />
-                    </motion.div>
-                    
-                    <motion.div
-                        animate={{ 
-                            y: [0, 20, 0],
-                            rotate: [0, -5, 0]
-                        }}
-                        transition={{ 
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 1
-                        }}
-                        className="absolute bottom-6 right-6 bg-black/20 backdrop-blur-sm p-4 rounded-2xl border border-gold/30 shadow-2xl"
-                    >
-                        <FiHeart className="text-yellow-300 text-2xl" />
-                    </motion.div>
+            {/* Enhanced Hero Section with 3-Column Layout */}
+            <section className="relative overflow-hidden min-h-[90vh] flex items-center px-4">
+                {/* Animated Background Elements */}
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute -top-40 -right-40 w-80 h-80 bg-gold/20 rounded-full blur-3xl"></div>
+                    <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-600/20 rounded-full blur-3xl"></div>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
                 </div>
 
-                {/* Moving Images Section for Desktop */}
-                <div className="mt-4">
-                    <MovingImagesGrid />
-                </div>
-            </motion.div>
-
-            {/* Column 3: Contact Card & Brand Card */}
-            <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="lg:col-span-3 flex flex-col"
-            >
-                <div className="flex-1 flex flex-col">
-                    {/* Contact Card */}
-                    <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
-                        <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-                            <FiPhone className="mr-2 text-gold" />
-                            Contact Us
-                        </h3>
-                        <div className="space-y-4">
-                            <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
-                                <FiPhone className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
-                                <div>
-                                    <p className="text-white font-medium">Phone</p>
-                                    <a href="tel:+1234567890" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                        +123 456 7890
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
-                                <FiMail className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
-                                <div>
-                                    <p className="text-white font-medium">Email</p>
-                                    <a href="mailto:info@bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                        info@bellebyokien.com
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
-                                <FiGlobe className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
-                                <div>
-                                    <p className="text-white font-medium">Website</p>
-                                    <a href="https://bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                        bellebyokien.com
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Brand Banner Card */}
+                {/* Mobile Contact Bar - Scrolling Animation */}
+                <div className="lg:hidden absolute top-4 left-0 right-0 z-20 overflow-hidden">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.8 }}
-                        className="bg-gradient-to-br from-gold/20 to-yellow-600/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl relative overflow-hidden mt-6"
-                    >
-                        {/* Animated background elements */}
-                        <div className="absolute -top-10 -right-10 w-20 h-20 bg-gold/10 rounded-full blur-xl"></div>
-                        <div className="absolute -bottom-10 -left-10 w-20 h-20 bg-gold/10 rounded-full blur-xl"></div>
-                        
-                        <motion.div
-                            animate={{ 
-                                scale: [1, 1.05, 1],
-                                opacity: [0.7, 1, 0.7]
-                            }}
-                            transition={{ 
-                                duration: 3,
+                        className="bg-black/20 backdrop-blur-sm border-b border-gold/30 py-3"
+                        animate={{
+                            x: [0, -300, 0],
+                        }}
+                        transition={{
+                            x: {
                                 repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
+                                repeatType: "loop",
+                                duration: 20,
+                                ease: "linear",
+                            },
+                        }}
+                    >
+                        <div className="flex space-x-8 whitespace-nowrap min-w-max">
+                            {/* Multiple copies for seamless scroll */}
+                            {[...Array(3)].map((_, setIndex) => (
+                                <div key={setIndex} className="flex items-center space-x-8">
+                                    <a href="tel:+1234567890" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                                        <FiPhone className="mr-2" size={14} />
+                                        <span>+123 456 7890</span>
+                                    </a>
+                                    <a href="mailto:info@bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                                        <FiMail className="mr-2" size={14} />
+                                        <span>info@bellebyokien.com</span>
+                                    </a>
+                                    <a href="https://bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                                        <FiGlobe className="mr-2" size={14} />
+                                        <span>bellebyokien.com</span>
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
+
+                <div className="container mx-auto max-w-7xl relative z-10 pt-20 lg:pt-0">
+                    {/* Mobile Layout - Banner moved up */}
+                    <div className="lg:hidden">
+                        {/* Banner at top for mobile */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gold/20 mb-6"
+                        >
+                            <SimpleImageSlideShow />
+                        </motion.div>
+
+                        {/* Moving Images Section for Mobile */}
+                        <div className="mt-4 mb-6 overflow-hidden">
+                            <MovingImagesGrid />
+                        </div>
+
+                        {/* Mobile Text Content */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
                             className="text-center"
                         >
-                            <h2 className="text-2xl font-bold text-white mb-2">
-                                belle
-                            </h2>
-                            <p className="text-gold text-sm font-light">
-                                by okien
-                            </p>
+                            <motion.h1
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.6 }}
+                                className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight"
+                            >
+                                Crafting Fashion{' '}
+                                <span className="bg-gradient-to-r from-gold to-yellow-300 bg-clip-text text-transparent">
+                                    You Can Feel,
+                                </span>{' '}
+                                Wear & Love
+                            </motion.h1>
+                            
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.8 }}
+                                className="flex flex-col sm:flex-row gap-3 justify-center"
+                            >
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <Link
+                                        to="/products"
+                                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30 block"
+                                    >
+                                        Shop Ready-to-Wear
+                                    </Link>
+                                </motion.div>
+                                
+                                <motion.button
+                                    onClick={handleCustomOrderClick}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30"
+                                >
+                                    Create Custom Design
+                                </motion.button>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
-                </div>
-            </motion.div>
-        </div>
-    </div>
-</section>
+                    </div>
 
-            
+                    {/* Desktop 3-Column Layout */}
+                    <div className="hidden lg:grid lg:grid-cols-12 gap-6 items-stretch">
+                        
+                        {/* Column 1: Categories List */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="lg:col-span-3 flex flex-col"
+                        >
+                            <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
+                                <h3 className="text-white font-bold text-lg mb-4 flex items-center">
+                                    <FiGrid className="mr-2 text-gold" />
+                                    Categories
+                                </h3>
+                                <div className="space-y-3">
+                                    {[
+                                        { name: 'Evening Gowns', icon: FiHeart, count: 24 },
+                                        { name: 'Wedding Dresses', icon: FiHeart, count: 18 },
+                                        { name: 'Casual Wear', icon: FiUser, count: 32 },
+                                        { name: 'Traditional', icon: FiFeather, count: 15 },
+                                        { name: 'Accessories', icon: FiShoppingBag, count: 45 },
+                                        { name: 'Custom Designs', icon: FiScissors, count: 'New' }
+                                    ].map((category, index) => (
+                                        <motion.div
+                                            key={category.name}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
+                                            className="flex items-center justify-between p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 cursor-pointer group"
+                                        >
+                                            <div className="flex items-center">
+                                                <category.icon className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" size={18} />
+                                                <span className="text-white font-medium group-hover:text-gold transition-colors">
+                                                    {category.name}
+                                                </span>
+                                            </div>
+                                            <span className="bg-gold/20 text-white text-xs px-2 py-1 rounded-full">
+                                                {category.count}
+                                            </span>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Column 2: Main Banner - Full Image Display */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                            className="lg:col-span-6 flex flex-col"
+                        >
+                            <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gold/20 flex-1">
+                                <div className="w-full h-full">
+                                    <SimpleImageSlideShow />
+                                </div>
+                                
+                                {/* Floating elements on banner */}
+                                <motion.div
+                                    animate={{ 
+                                        y: [0, -20, 0],
+                                        rotate: [0, 5, 0]
+                                    }}
+                                    transition={{ 
+                                        duration: 6,
+                                        repeat: Infinity,
+                                        ease: "easeInOut"
+                                    }}
+                                    className="absolute top-6 left-6 bg-black/20 backdrop-blur-sm p-4 rounded-2xl border border-gold/30 shadow-2xl"
+                                >
+                                    <FiHeart className="text-gold text-2xl" />
+                                </motion.div>
+                                
+                                <motion.div
+                                    animate={{ 
+                                        y: [0, 20, 0],
+                                        rotate: [0, -5, 0]
+                                    }}
+                                    transition={{ 
+                                        duration: 4,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                        delay: 1
+                                    }}
+                                    className="absolute bottom-6 right-6 bg-black/20 backdrop-blur-sm p-4 rounded-2xl border border-gold/30 shadow-2xl"
+                                >
+                                    <FiHeart className="text-yellow-300 text-2xl" />
+                                </motion.div>
+                            </div>
+
+                            {/* Moving Images Section for Desktop */}
+                            <div className="mt-4">
+                                <MovingImagesGrid />
+                            </div>
+                        </motion.div>
+
+                        {/* Column 3: Contact Card & Brand Card */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
+                            className="lg:col-span-3 flex flex-col"
+                        >
+                            <div className="flex-1 flex flex-col">
+                                {/* Contact Card */}
+                                <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
+                                    <h3 className="text-white font-bold text-lg mb-4 flex items-center">
+                                        <FiPhone className="mr-2 text-gold" />
+                                        Contact Us
+                                    </h3>
+                                    <div className="space-y-4">
+                                        <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
+                                            <FiPhone className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
+                                            <div>
+                                                <p className="text-white font-medium">Phone</p>
+                                                <a href="tel:+1234567890" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                                    +123 456 7890
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
+                                            <FiMail className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
+                                            <div>
+                                                <p className="text-white font-medium">Email</p>
+                                                <a href="mailto:info@bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                                    info@bellebyokien.com
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group">
+                                            <FiGlobe className="text-gold mr-3 group-hover:text-yellow-300 transition-colors" />
+                                            <div>
+                                                <p className="text-white font-medium">Website</p>
+                                                <a href="https://bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
+                                                    bellebyokien.com
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Brand Banner Card */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.8 }}
+                                    className="bg-gradient-to-br from-gold/20 to-yellow-600/20 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl relative overflow-hidden mt-6"
+                                >
+                                    {/* Animated background elements */}
+                                    <div className="absolute -top-10 -right-10 w-20 h-20 bg-gold/10 rounded-full blur-xl"></div>
+                                    <div className="absolute -bottom-10 -left-10 w-20 h-20 bg-gold/10 rounded-full blur-xl"></div>
+                                    
+                                    <motion.div
+                                        animate={{ 
+                                            scale: [1, 1.05, 1],
+                                            opacity: [0.7, 1, 0.7]
+                                        }}
+                                        transition={{ 
+                                            duration: 3,
+                                            repeat: Infinity,
+                                            ease: "easeInOut"
+                                        }}
+                                        className="text-center"
+                                    >
+                                        <h2 className="text-2xl font-bold text-white mb-2">
+                                            belle
+                                        </h2>
+                                        <p className="text-gold text-sm font-light">
+                                            by okien
+                                        </p>
+                                    </motion.div>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
             {/* Enhanced Fashion Categories Section */}
             <section className="py-16 px-4 bg-gradient-to-br from-gray-900 to-black">
                 <div className="container mx-auto max-w-7xl">
@@ -835,7 +903,13 @@ const SimpleImageSlideShow = () => {
                         >
                             <div className="bg-red-500/20 border border-red-500/30 rounded-2xl p-8 max-w-md mx-auto">
                                 <FiAlertTriangle className="text-2xl text-red-400 mx-auto mb-4" />
-                                <p className="text-white">{categoriesError}</p>
+                                <p className="text-white mb-4">{categoriesError}</p>
+                                <button 
+                                    onClick={() => window.location.reload()}
+                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black py-2 px-6 rounded-xl font-semibold"
+                                >
+                                    Retry
+                                </button>
                             </div>
                         </motion.div>
                     ) : (
@@ -1093,7 +1167,6 @@ const SimpleImageSlideShow = () => {
                     )}
                 </div>
             </section>
-
 
             {/* Enhanced Testimonials Section */}
             <section className="py-20 bg-gradient-to-br from-gray-900 to-black">
