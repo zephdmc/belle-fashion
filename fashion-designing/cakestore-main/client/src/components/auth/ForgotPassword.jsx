@@ -9,7 +9,8 @@ export default function ForgotPassword() {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
 
-    const handleSubmit = async (e) => {import { useState } from 'react';
+    const handleSubmit = async (e) => {
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../firebase/config';
