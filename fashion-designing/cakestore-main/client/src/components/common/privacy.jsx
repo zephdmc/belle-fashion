@@ -1,110 +1,176 @@
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-gray-50">
-            <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black">
+      <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        {/* Modern Card Design */}
+        <div className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gold/20">
           
-           {/* Content */}
-          <div className="p-6 md:p-8 prose prose-purple max-w-none">
-                <div className="bg-purpleDark p-6 md:p-8 text-white">
-            <h1 className="text-3xl font-serif font-bold">Privacy Policy</h1>
-            <div className="flex justify-between items-start mt-2">
-              <p className="opacity-90 text-white">Bellebeau Aesthetics</p>
-              <p className="text-sm text-purpleLight opacity-80">
-                Effective: July 22, 2025
-              </p>
+          {/* Enhanced Header with Gradient */}
+          <div className="bg-gradient-to-r from-black via-gray-900 to-black p-8 border-b border-gold/30 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent"></div>
+            <div className="relative">
+              <h1 className="text-4xl font-serif font-bold text-white mb-3">
+                Privacy Policy
+              </h1>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <p className="text-gold/80 text-lg">Bellebyokien Ready-to-Wear</p>
+                <div className="bg-gold/10 border border-gold/20 rounded-lg px-4 py-2">
+                  <p className="text-gold text-sm font-medium">
+                    Effective: January 22, 2025
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-            <p className="mt-4">
-              
-              At Bellebeau Aesthetics, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and protect the personal information you provide when visiting our website or interacting with our services.
-            </p>
 
-            <div className="mt-8 space-y-8">
-              {/* Section 1 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  1. Information We Collect
-                </h2>
-                <p className="mt-2">
-                  We may collect the following types of personal information:
-                </p>
-                <ul className="mt-2 space-y-1 list-disc pl-5">
-                  <li>Name, email address, phone number</li>
-                  <li>Delivery address</li>
-                  <li>Payment details (processed securely via third-party payment platforms)</li>
-                  <li>Social media handles (when you interact via Instagram or WhatsApp)</li>
-                  <li>Any information you provide voluntarily through forms or chats</li>
-                </ul>
-              </section>
+          {/* Content Area */}
+          <div className="p-6 md:p-8 bg-gray-900">
+            <div className="prose prose-invert max-w-none">
+              <p className="text-white/80 text-lg leading-relaxed mb-8">
+                At Bellebyokien, we are committed to protecting your privacy and personal style. This Privacy Policy explains how we collect, use, and protect the personal information you provide when visiting our boutique website, shopping our collections, or engaging with our brand.
+              </p>
 
-              {/* Section 2 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  2. How We Use Your Information
-                </h2>
-                <p className="mt-2">
-                  We use your personal information for the following purposes:
-                </p>
-                <ul className="mt-2 space-y-1 list-disc pl-5">
-                  <li>To process and deliver your orders</li>
-                  <li>To communicate with you regarding your purchases</li>
-                  <li>To provide customer support and respond to inquiries</li>
-                  <li>To send you promotional messages or updates (only with your consent)</li>
-                  <li>To improve our products, services, and website experience</li>
-                </ul>
-              </section>
+              <div className="space-y-10">
+                {/* Section 1 */}
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                      <span className="text-black font-bold text-sm">1</span>
+                    </div>
+                    <h2 className="text-2xl font-bold text-white font-serif">
+                      Style Information We Collect
+                    </h2>
+                  </div>
+                  <div className="ml-11">
+                    <p className="text-white/80 mb-4">
+                      To enhance your shopping experience, we may collect:
+                    </p>
+                    <ul className="space-y-3 text-white/80">
+                      {['Personal details: name, email, phone number for order processing', 'Shipping address and size preferences for perfect fit', 'Payment information (securely processed through trusted partners)', 'Style preferences and wishlist items to personalize recommendations', 'Social media interactions when you engage with our fashion content'].map((item, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-gold rounded-full mt-2 flex-shrink-0"></div>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
 
-              {/* Section 3 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  3. Data Sharing and Security
-                </h2>
-                <p className="mt-2">
-                  We do not sell or rent your personal information. We only share data with trusted third parties such as delivery services and payment processors, solely to fulfill your orders.
-                </p>
-                <p className="mt-2">
-                  We use industry-standard measures to protect your data from unauthorized access, alteration, or disclosure.
-                </p>
-              </section>
+                {/* Section 2 */}
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                      <span className="text-black font-bold text-sm">2</span>
+                    </div>
+                    <h2 className="text-2xl font-bold text-white font-serif">
+                      How We Use Your Style Profile
+                    </h2>
+                  </div>
+                  <div className="ml-11">
+                    <p className="text-white/80 mb-4">
+                      We use your information to create a seamless fashion experience:
+                    </p>
+                    <ul className="space-y-3 text-white/80">
+                      {['Process orders and deliver your carefully curated pieces', 'Provide personalized styling advice and collection previews', 'Offer customer support for your fashion inquiries', 'Share new collection launches and exclusive events (with consent)', 'Improve our designs based on contemporary women\'s preferences'].map((item, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-gold rounded-full mt-2 flex-shrink-0"></div>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
 
-              {/* Section 4 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  4. Your Rights
-                </h2>
-                <p className="mt-2">
-                  You have the right to:
-                </p>
-                <ul className="mt-2 space-y-1 list-disc pl-5">
-                  <li>Request access to your personal information</li>
-                  <li>Correct or update inaccurate information</li>
-                  <li>Request deletion of your data (subject to legal obligations)</li>
-                  <li>Opt out of marketing communications at any time</li>
-                </ul>
-              </section>
+                {/* Section 3 */}
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                      <span className="text-black font-bold text-sm">3</span>
+                    </div>
+                    <h2 className="text-2xl font-bold text-white font-serif">
+                      Data Security & Style Integrity
+                    </h2>
+                  </div>
+                  <div className="ml-11 space-y-3 text-white/80">
+                    <p>
+                      We treat your personal information with the same care we put into our designs. We never sell or share your style preferences with third parties for marketing purposes.
+                    </p>
+                    <p>
+                      Your data is shared only with essential partners (shipping carriers, payment processors) to fulfill your orders, protected by industry-standard security measures.
+                    </p>
+                  </div>
+                </section>
 
-              {/* Section 5 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  5. Cookies and Analytics
-                </h2>
-                <p className="mt-2">
-                  Our website may use cookies to enhance your browsing experience and analyze site traffic. You can choose to disable cookies in your browser settings.
-                </p>
-              </section>
+                {/* Section 4 */}
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                      <span className="text-black font-bold text-sm">4</span>
+                    </div>
+                    <h2 className="text-2xl font-bold text-white font-serif">
+                      Your Style Rights
+                    </h2>
+                  </div>
+                  <div className="ml-11">
+                    <p className="text-white/80 mb-4">
+                      You have complete control over your fashion journey:
+                    </p>
+                    <ul className="space-y-3 text-white/80">
+                      {['Access and update your personal style profile', 'Correct any information in your account', 'Request deletion of your data (where applicable)', 'Opt out of fashion communications at any time', 'Manage your size and preference settings'].map((item, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-gold rounded-full mt-2 flex-shrink-0"></div>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
 
-              {/* Section 6 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  6. Changes to this Policy
-                </h2>
-                <p className="mt-2">
-                  We may update this Privacy Policy from time to time. Any changes will be posted on this page with a revised effective date.
-                </p>
-              </section>
+                {/* Section 5 & 6 Side by Side on Desktop */}
+                <div className="grid md:grid-cols-2 gap-8">
+                  <section className="group">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                        <span className="text-black font-bold text-sm">5</span>
+                      </div>
+                      <h2 className="text-2xl font-bold text-white font-serif">
+                        Boutique Experience
+                      </h2>
+                    </div>
+                    <div className="ml-11">
+                      <p className="text-white/80">
+                        Our website uses cookies to enhance your digital boutique experience, remembering your preferences and helping us understand how contemporary women interact with our collections.
+                      </p>
+                    </div>
+                  </section>
 
-           
+                  <section className="group">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                        <span className="text-black font-bold text-sm">6</span>
+                      </div>
+                      <h2 className="text-2xl font-bold text-white font-serif">
+                        Collection Updates
+                      </h2>
+                    </div>
+                    <div className="ml-11">
+                      <p className="text-white/80">
+                        As our collections evolve, we may update this policy. Changes will be reflected here with updated effective dates, ensuring transparency in our relationship.
+                      </p>
+                    </div>
+                  </section>
+                </div>
+              </div>
+
+              {/* Contact Button */}
+              <div className="mt-12 pt-8 border-t border-gold/20 text-center">
+                <p className="text-gold/80 mb-4 font-serif italic">
+                  For questions about your privacy or style preferences
+                </p>
+                <button className="bg-gradient-to-r from-gold to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gold/25">
+                  Contact Our Style Team
+                </button>
+              </div>
             </div>
           </div>
         </div>
