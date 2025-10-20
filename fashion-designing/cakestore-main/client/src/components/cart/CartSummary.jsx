@@ -9,7 +9,7 @@ import {
   FiTrash2,
   FiArrowRight,
   FiShoppingCart,
-  FiShield
+  FiShield 
 } from 'react-icons/fi';
 
 export default function CartSummary() {
