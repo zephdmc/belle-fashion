@@ -342,7 +342,7 @@ export default function Header() {
                             <div className="relative">
                                 <input
                                     type="text"
-                                    placeholder="Search cakes, pastries, and more..."
+                                    placeholder="Search dresses, and more..."
                                     className="w-full pl-5 pr-12 py-3 bg-white/10 backdrop-blur-sm border border-yellow-400/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
