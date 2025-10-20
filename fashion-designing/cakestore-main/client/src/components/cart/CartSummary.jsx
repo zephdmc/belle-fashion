@@ -8,7 +8,8 @@ import {
   FiCreditCard, 
   FiTrash2,
   FiArrowRight,
-  FiShoppingCart
+  FiShoppingCart,
+  FiShield
 } from 'react-icons/fi';
 
 export default function CartSummary() {
@@ -63,14 +64,14 @@ export default function CartSummary() {
             className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden sticky top-8"
         >
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4 text-white">
+            <div className="bg-gradient-to-r from-gray-900 to-black px-6 py-4 text-white border-b border-gold/20">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30">
-                        <FiShoppingBag className="text-lg" />
+                    <div className="w-10 h-10 bg-gold/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-gold/30">
+                        <FiShoppingBag className="text-lg text-gold" />
                     </div>
                     <div>
-                        <h3 className="text-lg font-bold">Order Summary</h3>
-                        <p className="text-purple-100 text-sm">{cartCount} item{cartCount !== 1 ? 's' : ''} in cart</p>
+                        <h3 className="text-lg font-bold font-serif">Style Summary</h3>
+                        <p className="text-gold/80 text-sm font-serif">{cartCount} fashion item{cartCount !== 1 ? 's' : ''} selected</p>
                     </div>
                 </div>
             </div>
@@ -82,34 +83,34 @@ export default function CartSummary() {
                     variants={itemVariants}
                     className="space-y-4 mb-6"
                 >
-                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl border border-gray-200">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <FiShoppingCart className="text-purple-600 text-sm" />
+                            <div className="w-8 h-8 bg-gold/10 rounded-lg flex items-center justify-center border border-gold/20">
+                                <FiShoppingCart className="text-gold text-sm" />
                             </div>
-                            <span className="text-gray-600">Subtotal</span>
+                            <span className="text-gray-600 font-serif">Subtotal</span>
                         </div>
-                        <span className="font-semibold text-gray-800">₦{cartTotal.toLocaleString()}</span>
+                        <span className="font-semibold text-gray-800 font-serif">₦{cartTotal.toLocaleString()}</span>
                     </div>
 
-                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl border border-gray-200">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <FiTruck className="text-blue-600 text-sm" />
+                            <div className="w-8 h-8 bg-gold/10 rounded-lg flex items-center justify-center border border-gold/20">
+                                <FiTruck className="text-gold text-sm" />
                             </div>
-                            <span className="text-gray-600">Shipping</span>
+                            <span className="text-gray-600 font-serif">Premium Shipping</span>
                         </div>
-                        <span className="text-green-600 font-semibold">Calculated at checkout</span>
+                        <span className="text-green-600 font-semibold font-serif">Calculated at checkout</span>
                     </div>
 
-                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl">
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-2xl border border-gray-200">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                                <FiPercent className="text-green-600 text-sm" />
+                            <div className="w-8 h-8 bg-gold/10 rounded-lg flex items-center justify-center border border-gold/20">
+                                <FiPercent className="text-gold text-sm" />
                             </div>
-                            <span className="text-gray-600">Tax</span>
+                            <span className="text-gray-600 font-serif">Tax & Fees</span>
                         </div>
-                        <span className="text-green-600 font-semibold">Included</span>
+                        <span className="text-green-600 font-semibold font-serif">Included</span>
                     </div>
                 </motion.div>
 
@@ -118,14 +119,14 @@ export default function CartSummary() {
                     variants={itemVariants}
                     className="border-t border-gray-200 pt-4 mb-6"
                 >
-                    <div className="flex justify-between items-center p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border border-purple-100">
+                    <div className="flex justify-between items-center p-3 bg-gradient-to-r from-gold/10 to-yellow-600/10 rounded-2xl border border-gold/20">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                            <div className="w-8 h-8 bg-gradient-to-r from-gold to-yellow-600 rounded-lg flex items-center justify-center">
                                 <FiCreditCard className="text-white text-sm" />
                             </div>
-                            <span className="font-bold text-gray-800 text-lg">Total</span>
+                            <span className="font-bold text-gray-800 text-lg font-serif">Total Amount</span>
                         </div>
-                        <span className="font-bold text-purple-600 text-xl">₦{cartTotal.toLocaleString()}</span>
+                        <span className="font-bold text-gold text-xl font-serif">₦{cartTotal.toLocaleString()}</span>
                     </div>
                 </motion.div>
 
@@ -143,10 +144,10 @@ export default function CartSummary() {
                             >
                                 <Link
                                     to="/checkout"
-                                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 block"
+                                    className="w-full bg-gradient-to-r from-gold to-yellow-600 text-black py-4 px-6 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 block hover:from-yellow-500 hover:to-yellow-700 border border-gold/30 font-serif"
                                 >
                                     <FiCreditCard className="text-lg" />
-                                    Proceed to Checkout
+                                    Complete Your Style Order
                                     <FiArrowRight className="text-lg" />
                                 </Link>
                             </motion.div>
@@ -160,10 +161,10 @@ export default function CartSummary() {
                                 whileHover="hover"
                                 whileTap="tap"
                                 onClick={handleClearCart}
-                                className="w-full border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-2xl font-medium hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 flex items-center justify-center gap-3"
+                                className="w-full border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-2xl font-medium hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 flex items-center justify-center gap-3 font-serif"
                             >
                                 <FiTrash2 className="text-lg" />
-                                Clear Cart
+                                Clear Style Selections
                             </motion.button>
                         )}
                     </AnimatePresence>
@@ -174,32 +175,35 @@ export default function CartSummary() {
                             animate={{ opacity: 1, scale: 1 }}
                             className="text-center py-8"
                         >
-                            <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                                <FiShoppingCart className="text-gray-400 text-2xl" />
+                            <div className="w-16 h-16 bg-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gold/20">
+                                <FiShoppingCart className="text-gold text-2xl" />
                             </div>
-                            <p className="text-gray-500 mb-4">Your cart is empty</p>
+                            <p className="text-gray-500 mb-4 font-serif">Your style cart is empty</p>
                             <Link
-                                to="/products"
-                                className="inline-flex items-center gap-2 bg-purple-600 text-white py-3 px-6 rounded-2xl font-semibold hover:bg-purple-700 transition-colors duration-300"
+                                to="/collections"
+                                className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-black py-3 px-6 rounded-2xl font-semibold hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 border border-gold/30 font-serif"
                             >
                                 <FiShoppingBag />
-                                Continue Shopping
+                                Explore Collections
                             </Link>
                         </motion.div>
                     )}
                 </motion.div>
 
-                {/* Security Badge */}
+                {/* Security & Benefits */}
                 {!isCartEmpty && (
                     <motion.div
                         variants={itemVariants}
-                        className="mt-6 pt-6 border-t border-gray-200"
+                        className="mt-6 pt-6 border-t border-gray-200 space-y-3"
                     >
                         <div className="flex items-center justify-center gap-3 text-sm text-gray-500">
-                            <div className="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center">
-                                <FiCreditCard className="text-green-600 text-xs" />
+                            <div className="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center border border-green-200">
+                                <FiShield className="text-green-600 text-xs" />
                             </div>
-                            <span>Secure SSL Encryption • 100% Protected</span>
+                            <span className="font-serif">Secure SSL Encryption • Style Protection</span>
+                        </div>
+                        <div className="text-center text-xs text-gold/60 font-serif">
+                            Free returns • Quality guarantee • Premium packaging
                         </div>
                     </motion.div>
                 )}
@@ -219,7 +223,7 @@ export default function CartSummary() {
                                 repeat: Infinity,
                                 ease: "easeInOut"
                             }}
-                            className="absolute -top-2 -right-2 w-4 h-4 bg-purple-300/30 rounded-full"
+                            className="absolute -top-2 -right-2 w-4 h-4 bg-gold/30 rounded-full"
                         />
                         <motion.div
                             animate={{ 
@@ -232,11 +236,18 @@ export default function CartSummary() {
                                 ease: "easeInOut",
                                 delay: 1
                             }}
-                            className="absolute -bottom-2 -left-2 w-3 h-3 bg-pink-300/40 rounded-full"
+                            className="absolute -bottom-2 -left-2 w-3 h-3 bg-gold/40 rounded-full"
                         />
                     </>
                 )}
             </AnimatePresence>
+
+            {/* Bellebyokien Brand Element */}
+            <div className="absolute bottom-4 right-4">
+                <div className="bg-gold/10 text-gold text-xs px-3 py-1 rounded-full border border-gold/20 font-medium font-serif">
+                    Bellebyokien
+                </div>
+            </div>
         </motion.div>
     );
 }
