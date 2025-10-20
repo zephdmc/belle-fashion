@@ -11,7 +11,7 @@ export default function LoginPage() {
                 {/* Main Background Image with Gradient Overlay */}
                 <div className="absolute inset-0">
                     <img 
-                        src="/images/fashion-boutique.jpg"
+                        src="/images/fashion8.png"
                         alt="Bellebyokien Fashion Boutique"
                         className="w-full h-full object-cover"
                     />
