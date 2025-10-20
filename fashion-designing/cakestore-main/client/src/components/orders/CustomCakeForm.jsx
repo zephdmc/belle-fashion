@@ -9,7 +9,7 @@ import {
   FiDroplet, FiPackage, FiMapPin, FiMessageCircle,
   FiWhatsApp, FiMail, FiPhone
 } from 'react-icons/fi';
-
+import { FaWhatsApp} from 'react-icons/fa';
 // Fashion Design Pricing Configuration
 const PRICING = {
   basePrice: 25000,
