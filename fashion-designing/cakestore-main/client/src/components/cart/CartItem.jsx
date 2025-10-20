@@ -5,7 +5,8 @@ import {
   FiMinus, 
   FiTrash2, 
   FiShoppingBag,
-  FiHeart
+  FiHeart,
+  FiShare2
 } from 'react-icons/fi';
 
 export default function CartItem({ item }) {
@@ -28,7 +29,6 @@ export default function CartItem({ item }) {
     };
 
     const handleRemove = () => {
-        // Animation for removal
         removeFromCart(item.id);
     };
 
@@ -90,7 +90,7 @@ export default function CartItem({ item }) {
                         <img
                             src={item.images}
                             alt={item.name}
-                            className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-2xl border-2 border-gray-200 group-hover:border-purple-200 transition-colors duration-300"
+                            className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-2xl border-2 border-gray-200 group-hover:border-gold/50 transition-colors duration-300"
                         />
                         {/* Favorite Badge */}
                         <motion.button
@@ -106,14 +106,17 @@ export default function CartItem({ item }) {
                     <div className="flex-1 min-w-0">
                         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
                             <div className="flex-1">
-                                <h3 className="font-semibold text-gray-800 text-sm md:text-base leading-tight group-hover:text-purple-600 transition-colors duration-200 line-clamp-2">
+                                <h3 className="font-semibold text-gray-800 text-sm md:text-base leading-tight group-hover:text-gold transition-colors duration-200 line-clamp-2 font-serif">
                                     {item.name}
                                 </h3>
-                                <p className="text-lg font-bold text-purple-600 mt-1 md:mt-2">
+                                <p className="text-xs text-gray-500 mt-1 uppercase tracking-wide font-medium">
+                                    {item.category || 'Ready-to-Wear'}
+                                </p>
+                                <p className="text-lg font-bold text-gold mt-1 md:mt-2 font-serif">
                                     ₦{item.price.toLocaleString()}
                                 </p>
                                 <p className="text-sm text-gray-500 mt-1">
-                                    Subtotal: <span className="font-semibold text-gray-700">₦{(item.price * item.quantity).toLocaleString()}</span>
+                                    Subtotal: <span className="font-semibold text-gray-700 font-serif">₦{(item.price * item.quantity).toLocaleString()}</span>
                                 </p>
                             </div>
 
@@ -130,7 +133,7 @@ export default function CartItem({ item }) {
                                         className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-200 ${
                                             item.quantity <= 1 
                                                 ? 'text-gray-300 cursor-not-allowed' 
-                                                : 'text-gray-600 hover:bg-gray-200 hover:text-gray-800'
+                                                : 'text-gray-600 hover:bg-gold/20 hover:text-gold'
                                         }`}
                                     >
                                         <FiMinus className="w-4 h-4" />
@@ -140,7 +143,7 @@ export default function CartItem({ item }) {
                                         key={item.quantity}
                                         initial={{ scale: 1.2 }}
                                         animate={{ scale: 1 }}
-                                        className="w-8 text-center font-semibold text-gray-800 text-sm"
+                                        className="w-8 text-center font-semibold text-gray-800 text-sm font-serif"
                                     >
                                         {item.quantity}
                                     </motion.span>
@@ -154,7 +157,7 @@ export default function CartItem({ item }) {
                                         className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-200 ${
                                             item.quantity >= 10 
                                                 ? 'text-gray-300 cursor-not-allowed' 
-                                                : 'text-gray-600 hover:bg-gray-200 hover:text-gray-800'
+                                                : 'text-gray-600 hover:bg-gold/20 hover:text-gold'
                                         }`}
                                     >
                                         <FiPlus className="w-4 h-4" />
@@ -175,15 +178,38 @@ export default function CartItem({ item }) {
                             </div>
                         </div>
 
+                        {/* Size & Color Info */}
+                        {(item.size || item.color) && (
+                            <div className="flex items-center gap-4 mt-2">
+                                {item.size && (
+                                    <div className="flex items-center gap-1">
+                                        <span className="text-xs text-gray-500">Size:</span>
+                                        <span className="text-xs font-medium text-gray-800 bg-gray-100 px-2 py-1 rounded-md">
+                                            {item.size}
+                                        </span>
+                                    </div>
+                                )}
+                                {item.color && (
+                                    <div className="flex items-center gap-1">
+                                        <span className="text-xs text-gray-500">Color:</span>
+                                        <span className="text-xs font-medium text-gray-800 bg-gray-100 px-2 py-1 rounded-md">
+                                            {item.color}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                         {/* Quick Actions */}
                         <div className="flex items-center gap-4 mt-3 pt-3 border-t border-gray-100">
-                            <button className="text-xs text-gray-500 hover:text-purple-600 transition-colors duration-200 flex items-center gap-1">
+                            <button className="text-xs text-gray-500 hover:text-gold transition-colors duration-200 flex items-center gap-1 font-serif">
                                 <FiShoppingBag className="w-3 h-3" />
                                 Save for later
                             </button>
                             <span className="text-gray-300">•</span>
-                            <button className="text-xs text-gray-500 hover:text-purple-600 transition-colors duration-200">
-                                Share product
+                            <button className="text-xs text-gray-500 hover:text-gold transition-colors duration-200 flex items-center gap-1 font-serif">
+                                <FiShare2 className="w-3 h-3" />
+                                Share style
                             </button>
                         </div>
                     </div>
@@ -197,13 +223,13 @@ export default function CartItem({ item }) {
                         <div className={`w-2 h-2 rounded-full ${
                             item.quantity < 3 ? 'bg-red-500' : 'bg-green-500'
                         }`}></div>
-                        <span className={`font-medium ${
+                        <span className={`font-medium font-serif ${
                             item.quantity < 3 ? 'text-red-600' : 'text-green-600'
                         }`}>
-                            {item.quantity < 3 ? 'Low stock' : 'In stock'}
+                            {item.quantity < 3 ? 'Limited stock' : 'In stock'}
                         </span>
                     </div>
-                    <span className="text-gray-500">
+                    <span className="text-gray-500 font-serif">
                         Max: 10 units
                     </span>
                 </div>
@@ -223,6 +249,16 @@ export default function CartItem({ item }) {
                     />
                 </div>
             </div>
+
+            {/* Fashion Badge */}
+            <div className="absolute top-3 right-3">
+                <div className="bg-gold/10 text-gold text-xs px-2 py-1 rounded-full border border-gold/20 font-medium font-serif">
+                    Bellebyokien
+                </div>
+            </div>
+
+            {/* Hover Effect Overlay */}
+            <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-gold/20 transition-all duration-300 pointer-events-none" />
         </motion.div>
     );
 }
