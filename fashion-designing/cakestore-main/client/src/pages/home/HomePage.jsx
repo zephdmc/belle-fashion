@@ -1200,7 +1200,7 @@ const SimpleImageSlideShow = () => {
                 className="fixed bottom-8 right-8 z-50 cursor-grab active:cursor-grabbing"
             >
                 <motion.a
-                    href="https://wa.me/+2349014727839"
+                    href="https://wa.me/+2349010873215"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-2xl p-4 shadow-2xl flex items-center justify-center transition-all duration-300 backdrop-blur-sm border border-white/20"
