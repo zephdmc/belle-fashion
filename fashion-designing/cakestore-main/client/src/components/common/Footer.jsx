@@ -122,9 +122,9 @@ export default function Footer() {
 
     const socialLinks = [
         { href: '#', icon: FiFacebook, delay: 0 },
-        { href: '#', icon: FiInstagram, delay: 0.1 },
+        { href: 'https://instagram.com/belle_by_okien/?igsh=MTQyYnBvNDRmY3hraQ%3D%3D#', icon: FiInstagram, delay: 0.1 },
         { href: '#', icon: FaTiktok, delay: 0.2 },
-        { href: 'https://wa.me/+2349014727839', icon: FaWhatsapp, delay: 0.3 }
+        { href: 'https://wa.me/+2349010873215', icon: FaWhatsapp, delay: 0.3 }
     ];
 
     // Handle newsletter submission
@@ -179,8 +179,7 @@ export default function Footer() {
                         </motion.div>
                         
                         <p className="text-white/60 text-xs leading-relaxed">
-                            Crafting exquisite cakes and pastries that turn moments into 
-                            unforgettable celebrations. Quality baked with passion.
+                            Crafting exquisite garments that turn moments into unforgettable statements. Style tailored with passion.
                         </p>
                         
                         {/* Social Media */}
@@ -271,7 +270,7 @@ export default function Footer() {
                                     href="tel:+2349014727839" 
                                     className="hover:text-yellow-300 transition-colors duration-300 hover:underline"
                                 >
-                                    +234 901 4727 839
+                                    +234 901 873215
                                 </a>
                             </ContactItem>
                         </ul>
