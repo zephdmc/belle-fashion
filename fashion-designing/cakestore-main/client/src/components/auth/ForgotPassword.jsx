@@ -30,14 +30,7 @@ export default function ForgotPassword() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden flex items-center justify-center px-4 py-8">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/images/fashion-forgot-password.jpg"
-          alt="Bellebyokien Fashion Security"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-black/85 to-gray-800/90"></div>
-      </div>
+    
 
       {/* Back Button */}
       <motion.div
