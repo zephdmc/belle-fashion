@@ -7,7 +7,7 @@ import {
   FiShoppingBag,
   FiHeart,
   FiShare2
-} from 'react-icons/fi';
+} from 'react-icons/fi'; 
 
 export default function CartItem({ item }) {
     const { updateQuantity, removeFromCart } = useCart();
