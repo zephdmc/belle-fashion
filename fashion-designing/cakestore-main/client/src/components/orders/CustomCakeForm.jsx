@@ -7,7 +7,7 @@ import {
   FiUpload, FiX, FiCheck, FiArrowLeft, FiArrowRight, 
   FiImage, FiCalendar, FiInfo, FiScissors,
   FiDroplet, FiPackage, FiMapPin, FiMessageCircle,
-  FiWhatsApp, FiMail, FiPhone
+   FiMail, FiPhone
 } from 'react-icons/fi';
 import { FaWhatsApp} from 'react-icons/fa';
 // Fashion Design Pricing Configuration
@@ -846,7 +846,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
 
       <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-200">
         <h4 className="font-bold text-gray-800 mb-4 font-serif flex items-center justify-center gap-2">
-          <FiWhatsApp className="text-green-500" />
+          <FaWhatsApp className="text-green-500" />
           Immediate Assistance
         </h4>
         
@@ -861,7 +861,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105"
           >
-            <FiWhatsApp className="text-lg" />
+            <FaWhatsApp className="text-lg" />
             Chat on WhatsApp
           </a>
           
