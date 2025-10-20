@@ -9,14 +9,7 @@ export default function LoginPage() {
             {/* Animated Background Elements */}
             <div className="absolute inset-0 z-0">
                 {/* Main Background Image with Gradient Overlay */}
-                <div className="absolute inset-0">
-                    <img 
-                        src="/images/fashion8.png"
-                        alt="Bellebyokien Fashion Boutique"
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-black/80 to-gray-800/90"></div>
-                </div>
+             
                 
                 {/* Floating Elements */}
                 <motion.div
