@@ -13,6 +13,7 @@ module.exports = {
         'greengrade': 'linear-gradient(to right, #6ab6b6, #c6c6c6)',
       },
       colors: {
+        'gold': '#EFBF04'
         'purpleDark1': '#BB2A8F',
         'purpleDark': '#BB2A8F',
         'purpleLight': '#F4EAFA',
