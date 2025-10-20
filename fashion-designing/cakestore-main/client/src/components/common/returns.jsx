@@ -1,120 +1,368 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FiRefreshCw, FiPackage, FiShoppingBag, FiTruck, FiDollarSign, FiMail, FiPhone, FiMapPin, FiAlertCircle } from 'react-icons/fi';
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+const iconVariants = {
+  hidden: { scale: 0, rotate: -180 },
+  visible: {
+    scale: 1,
+    rotate: 0,
+    transition: {
+      type: "spring",
+      stiffness: 200,
+      duration: 0.8
+    }
+  }
+};
+
+// Section Component
+const PolicySection = ({ icon: Icon, title, children, delay = 0 }) => (
+  <motion.section
+    variants={itemVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-50px" }}
+    className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+  >
+    <div className="flex items-start gap-4 mb-4">
+      <motion.div
+        variants={iconVariants}
+        className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-gold to-yellow-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+      >
+        <Icon className="text-white text-lg" />
+      </motion.div>
+      <h2 className="text-xl md:text-2xl font-bold text-gray-800 group-hover:text-gold transition-colors duration-300 font-serif">
+        {title}
+      </h2>
+    </div>
+    <div className="text-gray-600 leading-relaxed space-y-3">
+      {children}
+    </div>
+  </motion.section>
+);
+
 export default function ReturnPolicy() {
   return (
-    <div className="min-h-screen bg-gray-50">
-     
-
-      <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-         {/* Content */}
-          <div className="p-6 md:p-8 prose prose-purple max-w-none">
-             <div className="bg-purpleDark  text-white">
-            <h1 className="text-3xl px-2 font-serif pt-6 md:pt-8 font-bold">Return & Exchange Policy</h1>
-            <p className="mt-2 p-2 px-2 md:p-4 pb-6 md:pb-8 opacity-90">Bellebeau Aesthetics</p>
-          </div>
-            <p className="text-gray-600">
-              <strong>Effective Date:</strong> {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </p>
-
-            <p className="mt-4">
-              At Bellebeau Aesthetics, customer satisfaction is our top priority. While we aim to deliver only the best skincare products, we understand that issues may arise. This Return & Exchange Policy outlines the conditions under which returns or exchanges are accepted.
-            </p>
-
-            <div className="mt-8 space-y-8">
-              {/* Section 1 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  1. Eligibility for Return or Exchange
-                </h2>
-                <p className="mt-2">
-                  We only accept returns or exchanges under the following conditions:
-                </p>
-                <ul className="mt-2 space-y-2 list-disc pl-5">
-                  <li>The item received is damaged or defective</li>
-                  <li>The item delivered is incorrect (wrong product or quantity)</li>
-                </ul>
-                <p className="mt-2 text-sm text-gray-600">
-                  Requests must be made within 24 hours of receiving your order.
-                </p>
-              </section>
-
-              {/* Section 2 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  2. Items Not Eligible for Return
-                </h2>
-                <p className="mt-2">
-                  Due to hygiene and safety concerns, we do not accept returns or exchanges for:
-                </p>
-                <ul className="mt-2 space-y-2 list-disc pl-5">
-                  <li>Used or opened skincare products</li>
-                  <li>Items without original packaging</li>
-                  <li>Sale or promotional items (unless damaged or incorrect)</li>
-                </ul>
-              </section>
-
-              {/* Section 3 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  3. How to Request a Return or Exchange
-                </h2>
-                <ol className="mt-2 space-y-2 list-decimal pl-5">
-                  <li>Contact us via WhatsApp or email within 24 hours.</li>
-                  <li>Provide your order number, clear photo of the item, and a brief explanation.</li>
-                  <li>We will review and guide you on the next steps.</li>
-                </ol>
-              </section>
-
-              {/* Section 4  */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  4. Return Shipping Costs
-                </h2>
-                <ul className="mt-2 space-y-2 list-disc pl-5">
-                  <li>If we made an error, we'll cover the shipping.</li>
-                  <li>If the return is due to customer preference, the buyer handles return shipping.</li>
-                </ul>
-              </section>
-
-              {/* Section 5 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  5. Refunds (If Applicable)
-                </h2>
-                <p className="mt-2">
-                  Refunds are only issued when an item is out of stock and cannot be replaced.
-                  Refunds are processed within 3–5 business days to your original payment method or bank account.
-                </p>
-              </section>
-
-              {/* Section 6 */}
-              <section>
-                <h2 className="text-xl font-bold text-purple-800 border-b border-purple-100 pb-2">
-                  6. Exchanges
-                </h2>
-                <p className="mt-2">
-                  If you'd prefer an exchange, we will process it after we inspect and approve the returned item.
-                </p>
-              </section>
-
-              {/* Contact Section */}
-              <section className="bg-purple-50 p-4 rounded-lg">
-                <h2 className="text-xl font-bold text-purple-800">7. Contact Us</h2>
-                <div className="mt-3 space-y-2">
-                  <p className="flex items-center">
-                    <span className="mr-2">📞</span> WhatsApp: +234 901 4727 839
-                  </p>
-                  <p className="flex items-center">
-                    <span className="mr-2">📧</span> Email: bellebeauaesthetics001@gmail.com
-                  </p>
-                  <p className="flex items-center">
-                    <span className="mr-2">📍</span> 330 PH/Aba Express way Rumukwurushi Port Harcourt
-                  </p>
-                </div>
-              </section>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gold/10">
+      {/* Header Section */}
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-black to-gray-800"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1)_0%,transparent_50%)]"></div>
+        
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-center"
+          >
+            <div className="w-20 h-20 bg-gold/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-gold/30">
+              <FiRefreshCw className="text-gold text-2xl" />
             </div>
-          </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-serif">
+              Return & Exchange Policy
+            </h1>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
+              <p className="text-gold text-lg">Bellebyokien Ready-to-Wear</p>
+              <div className="bg-gold/10 border border-gold/20 rounded-lg px-4 py-2">
+                <p className="text-gold text-sm font-medium">
+                  Effective: January 22, 2025
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </div>
+
+        {/* Wave Decoration */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-12">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" className="fill-white"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" className="fill-white"></path>
+            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" className="fill-white"></path>
+          </svg>
+        </div>
+      </motion.div>
+
+      {/* Main Content */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 -mt-8 relative z-10"
+      >
+        {/* Introduction */}
+        <motion.div
+          variants={itemVariants}
+          className="text-center mb-12"
+        >
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            At <span className="font-semibold text-gold font-serif">Bellebyokien Ready-to-Wear</span>, 
+            your satisfaction with our contemporary fashion is essential. This policy outlines our 
+            guidelines for returns and exchanges to ensure your style journey remains exceptional.
+          </p>
+        </motion.div>
+
+        <div className="space-y-8">
+          {/* Section 1 */}
+          <PolicySection icon={FiPackage} title="1. Eligibility for Return or Exchange">
+            <p>
+              We accept returns or exchanges under these specific conditions to maintain quality standards:
+            </p>
+            <ul className="space-y-2 mt-3">
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Item received is damaged or has manufacturing defects
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Incorrect item delivered (wrong style, size, or color)
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Significant quality issues not meeting our standards
+              </li>
+            </ul>
+            <div className="mt-4 p-4 bg-gold/5 rounded-lg border border-gold/20">
+              <p className="text-gray-700 text-sm">
+                ⏰ <strong>Timeframe:</strong> Requests must be made within 48 hours of delivery receipt
+              </p>
+            </div>
+          </PolicySection>
+
+          {/* Section 2 */}
+          <PolicySection icon={FiAlertCircle} title="2. Items Not Eligible for Return">
+            <p>
+              To ensure hygiene and maintain quality, we cannot accept returns for:
+            </p>
+            <ul className="space-y-2 mt-3">
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Worn, altered, or washed garments
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Items without original tags and packaging
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Final sale or promotional items (unless defective)
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Personalized or custom-made pieces
+              </li>
+            </ul>
+          </PolicySection>
+
+          {/* Section 3 */}
+          <PolicySection icon={FiShoppingBag} title="3. How to Request a Return or Exchange">
+            <p>
+              Follow these steps for a smooth return or exchange process:
+            </p>
+            <ol className="space-y-3 mt-3 list-decimal pl-5">
+              <li className="pl-2">
+                <strong>Contact us within 48 hours</strong> via WhatsApp or email with your concerns
+              </li>
+              <li className="pl-2">
+                <strong>Provide order details</strong> including order number and clear photos/videos
+              </li>
+              <li className="pl-2">
+                <strong>Wait for approval</strong> - our team will review within 24 hours
+              </li>
+              <li className="pl-2">
+                <strong>Follow instructions</strong> for return shipping if applicable
+              </li>
+            </ol>
+          </PolicySection>
+
+          {/* Section 4 */}
+          <PolicySection icon={FiTruck} title="4. Return Shipping & Costs">
+            <p>
+              Shipping costs are handled as follows:
+            </p>
+            <ul className="space-y-2 mt-3">
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <strong>Our error:</strong> We cover all return shipping costs
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <strong>Customer preference:</strong> Return shipping is the customer's responsibility
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                All returns must use trackable shipping methods
+              </li>
+            </ul>
+          </PolicySection>
+
+          {/* Section 5 */}
+          <PolicySection icon={FiDollarSign} title="5. Refunds Process">
+            <p>
+              Refunds are processed under these conditions:
+            </p>
+            <ul className="space-y-2 mt-3">
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Issued when replacement is not possible due to stock availability
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Processed within 3-5 business days after return inspection
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Refunded to original payment method
+              </li>
+            </ul>
+          </PolicySection>
+
+          {/* Section 6 */}
+          <PolicySection icon={FiRefreshCw} title="6. Exchange Process">
+            <p>
+              We prioritize exchanges to ensure you get the perfect style:
+            </p>
+            <ul className="space-y-2 mt-3">
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Exchanges are subject to item availability
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Size exchanges processed within 24 hours of return receipt
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                Style exchanges may take 2-3 business days for processing
+              </li>
+            </ul>
+          </PolicySection>
+
+          {/* Contact Section */}
+          <motion.section
+            variants={itemVariants}
+            className="bg-gradient-to-r from-gray-900 to-black rounded-2xl p-6 md:p-8 text-white border border-gold/20"
+          >
+            <h2 className="text-2xl font-bold mb-6 font-serif text-gold">7. Style Support & Contact</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-gold/10 rounded-xl p-4 border border-gold/20"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                    <FiPhone className="text-white text-sm" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gold">WhatsApp Support</div>
+                    <div className="text-gold/80 text-sm">+234 901 4727 839</div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-gold/10 rounded-xl p-4 border border-gold/20"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <FiMail className="text-white text-sm" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gold">Email Support</div>
+                    <div className="text-gold/80 text-sm">bellebyokien@fashion.com</div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="bg-gold/10 rounded-xl p-4 border border-gold/20 md:col-span-2"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gold rounded-lg flex items-center justify-center">
+                    <FiMapPin className="text-black text-sm" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gold">Boutique Location</div>
+                    <div className="text-gold/80 text-sm">330 PH/Aba Express way Rumukwurushi Port Harcourt</div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.section>
+        </div>
+
+        {/* Closing Section */}
+        <motion.section
+          variants={itemVariants}
+          className="text-center mt-16 py-12 bg-gradient-to-br from-white to-gray-50 rounded-3xl border border-gold/20"
+        >
+          <h3 className="text-2xl md:text-3xl font-bold mb-4 font-serif text-gray-800">
+            Your Style Satisfaction Matters
+          </h3>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+            We're committed to ensuring every Bellebyokien piece meets your expectations for 
+            contemporary elegance and quality craftsmanship.
+          </p>
+        </motion.section>
+      </motion.div>
+
+      {/* Floating decorative elements */}
+      <motion.div
+        animate={{ 
+          y: [0, -20, 0],
+          opacity: [0.3, 0.6, 0.3]
+        }}
+        transition={{ 
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="fixed top-1/4 left-5 w-3 h-3 bg-gold rounded-full opacity-30"
+      />
+      <motion.div
+        animate={{ 
+          y: [0, 15, 0],
+          opacity: [0.4, 0.7, 0.4]
+        }}
+        transition={{ 
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2
+        }}
+        className="fixed top-1/3 right-10 w-2 h-2 bg-gold rounded-full opacity-40"
+      />
     </div>
   );
 }
