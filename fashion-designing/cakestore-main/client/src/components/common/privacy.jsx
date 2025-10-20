@@ -13,8 +13,8 @@ export default function PrivacyPolicy() {
                 Privacy Policy
               </h1>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <p className="text-gold/80 text-lg">Bellebyokien Ready-to-Wear</p>
-                <div className="bg-gold/10 border border-gold/20 rounded-lg px-4 py-2">
+                <p className="text-gold text-lg">Bellebyokien Ready-to-Wear</p>
+                <div className="bg-gold border border-gold/20 rounded-lg px-4 py-2">
                   <p className="text-gold text-sm font-medium">
                     Effective: January 22, 2025
                   </p>
