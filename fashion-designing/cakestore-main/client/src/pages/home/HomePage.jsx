@@ -50,7 +50,7 @@ const ImageSlideShow = ({ isMobile = false }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000);
+    }, 400000);
 
     return () => clearInterval(interval);
   }, [images.length]);
