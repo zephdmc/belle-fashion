@@ -620,15 +620,15 @@ const SimpleImageSlideShow = () => {
                                 <div key={setIndex} className="flex items-center space-x-8">
                                     <a href="tel:+1234567890" className="flex items-center text-white hover:text-gold transition-colors text-sm">
                                         <FiPhone className="mr-2" size={14} />
-                                        <span>+123 456 7890</span>
+                                        <span>+123 9010873215</span>
                                     </a>
                                     <a href="mailto:info@bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
                                         <FiMail className="mr-2" size={14} />
-                                        <span>info@bellebyokien.com</span>
+                                        <span>bellebyokien1@gmail.com</span>
                                     </a>
                                     <a href="https://bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
                                         <FiGlobe className="mr-2" size={14} />
-                                        <span>bellebyokien.com</span>
+                                        <span>www.bellebyokien.com</span>
                                     </a>
                                 </div>
                             ))}
@@ -821,7 +821,7 @@ const SimpleImageSlideShow = () => {
                                             <div>
                                                 <p className="text-white font-medium">Phone</p>
                                                 <a href="tel:+1234567890" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                                    +123 456 7890
+                                                    +123 9010873215
                                                 </a>
                                             </div>
                                         </div>
@@ -830,7 +830,7 @@ const SimpleImageSlideShow = () => {
                                             <div>
                                                 <p className="text-white font-medium">Email</p>
                                                 <a href="mailto:info@bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                                    info@bellebyokien.com
+                                                    bellebyokien@gmail.com
                                                 </a>
                                             </div>
                                         </div>
@@ -839,7 +839,7 @@ const SimpleImageSlideShow = () => {
                                             <div>
                                                 <p className="text-white font-medium">Website</p>
                                                 <a href="https://bellebyokien.com" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                                    bellebyokien.com
+                                                    www.bellebyokien.com
                                                 </a>
                                             </div>
                                         </div>
