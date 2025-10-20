@@ -3,16 +3,71 @@ import { useState, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createCustomOrder } from '../../services/customOrderService';
-import { FaWhatsApp } from 'react-icons/fa';
-
 import { 
   FiUpload, FiX, FiCheck, FiArrowLeft, FiArrowRight, 
   FiImage, FiCalendar, FiInfo, FiScissors,
   FiDroplet, FiPackage, FiMapPin, FiMessageCircle,
-  FiMail, FiPhone
+  FiWhatsApp, FiMail, FiPhone
 } from 'react-icons/fi';
 
-// ... (keep all the existing PRICING configuration and stepVariants)
+// Fashion Design Pricing Configuration
+const PRICING = {
+  basePrice: 25000,
+  designTypes: {
+    'dress': { multiplier: 1, baseTime: '2-3 weeks' },
+    'gown': { multiplier: 2, baseTime: '3-4 weeks' },
+    'suit': { multiplier: 1.8, baseTime: '2-3 weeks' },
+    'blouse': { multiplier: 0.8, baseTime: '1-2 weeks' },
+    'skirt': { multiplier: 0.6, baseTime: '1-2 weeks' },
+    'pants': { multiplier: 0.7, baseTime: '1-2 weeks' },
+    'jacket': { multiplier: 1.2, baseTime: '2-3 weeks' }
+  },
+  fabrics: {
+    'cotton': 0,
+    'linen': 3000,
+    'silk': 8000,
+    'satin': 5000,
+    'velvet': 6000,
+    'wool': 5500,
+    'chiffon': 4000
+  },
+  materialQuality: {
+    'standard': 1,
+    'premium': 1.5,
+    'luxury': 2.5
+  },
+  designFeatures: {
+    'basic': 0,
+    'embroidery': 5000,
+    'beading': 8000,
+    'lace': 4000,
+    'sequins': 6000,
+    'print': 2500
+  },
+  shipping: {
+    'standard': 2000,
+    'express': 4000,
+    'overnight': 7000
+  }
+};
+
+const stepVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0,
+    scale: 0.95
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1
+  },
+  exit: (direction) => ({
+    x: direction > 0 ? -300 : 300,
+    opacity: 0,
+    scale: 0.95
+  })
+};
 
 export default function CustomOrderForm({ onClose, onSubmit }) {
   const { currentUser } = useAuth();
@@ -26,10 +81,133 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
   const [createdOrderId, setCreatedOrderId] = useState(null);
   
   const [formData, setFormData] = useState({
-    // ... (keep all existing formData structure)
+    // Design Specifications
+    designType: '',
+    occasion: '',
+    styleDescription: '',
+    
+    // Fabric & Materials
+    fabricType: '',
+    fabricColor: '',
+    materialQuality: 'standard',
+    
+    // Measurements
+    measurements: {
+      bust: '',
+      waist: '',
+      hips: '',
+      shoulderWidth: '',
+      armLength: '',
+      totalLength: ''
+    },
+    
+    // Design Details
+    designFeatures: [],
+    embellishments: [],
+    specialRequests: '',
+    
+    // Timeline & Delivery
+    eventDate: '',
+    shippingMethod: 'standard',
+    deliveryAddress: {
+      street: '',
+      city: '',
+      state: '',
+      country: '',
+      zipCode: ''
+    },
+    
+    // Visual References
+    inspirationImages: [],
+    referenceLinks: []
   });
 
-  // ... (keep all existing helper functions: navigateStep, handleChange, handleFeatureToggle, etc.)
+  const navigateStep = (newStep) => {
+    setDirection(newStep > step ? 1 : -1);
+    setStep(newStep);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    
+    if (name.startsWith('measurements.')) {
+      const measurementField = name.split('.')[1];
+      setFormData(prev => ({
+        ...prev,
+        measurements: {
+          ...prev.measurements,
+          [measurementField]: value
+        }
+      }));
+    } else if (name.startsWith('deliveryAddress.')) {
+      const addressField = name.split('.')[1];
+      setFormData(prev => ({
+        ...prev,
+        deliveryAddress: {
+          ...prev.deliveryAddress,
+          [addressField]: value
+        }
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleFeatureToggle = (feature) => {
+    setFormData(prev => ({
+      ...prev,
+      designFeatures: prev.designFeatures.includes(feature)
+        ? prev.designFeatures.filter(f => f !== feature)
+        : [...prev.designFeatures, feature]
+    }));
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = Array.from(e.dataTransfer.files);
+    handleImageFiles(files);
+  };
+
+  const handleImageFiles = (files) => {
+    const validFiles = files.filter(file => {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Please select images smaller than 5MB');
+        return false;
+      }
+      return true;
+    });
+
+    validFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setUploadedImages(prev => [...prev, {
+          url: event.target.result,
+          file: file
+        }]);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    handleImageFiles(files);
+  };
+
+  const removeImage = (index) => {
+    setUploadedImages(prev => prev.filter((_, i) => i !== index));
+  };
 
   const calculatePrice = () => {
     let price = PRICING.basePrice;
@@ -119,7 +297,479 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
     }
   };
 
-  // ... (keep all existing renderStep functions: renderStep1, renderStep2, etc.)
+  const InputField = ({ label, name, type = 'text', required = false, children, ...props }) => (
+    <div className="mb-4">
+      <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
+        {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
+      </label>
+      {children || (
+        <input
+          type={type}
+          name={name}
+          value={formData[name]}
+          onChange={handleChange}
+          required={required}
+          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 placeholder-gray-400 font-serif"
+          {...props}
+        />
+      )}
+    </div>
+  );
+
+  const SelectField = ({ label, name, options, required = false, priceMap = {} }) => (
+    <div className="mb-4">
+      <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
+        {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
+      </label>
+      <select 
+        name={name} 
+        value={formData[name]}
+        onChange={handleChange}
+        required={required}
+        className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 appearance-none cursor-pointer font-serif"
+      >
+        <option value="">Select {label.toLowerCase()}</option>
+        {Object.entries(options).map(([key, value]) => (
+          <option key={key} value={key} className="py-1 text-xs">
+            {key.charAt(0).toUpperCase() + key.slice(1)} 
+            {priceMap[key] > 0 && ` (+₦${priceMap[key].toLocaleString()})`}
+            {typeof value === 'object' && value.baseTime && ` (${value.baseTime})`}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+
+  const renderStep1 = () => (
+    <motion.div
+      key="step1"
+      custom={direction}
+      variants={stepVariants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={{ duration: 0.3 }}
+      className="space-y-2"
+    >
+      <div className="text-center mb-4">
+        <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-gold/30">
+          <FiScissors className="text-white text-lg" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Design Vision</h3>
+        <p className="text-gray-600 text-xs font-serif">Tell us about your custom design</p>
+      </div>
+
+      <SelectField 
+        label="Design Type" 
+        name="designType" 
+        options={PRICING.designTypes}
+        required
+      />
+      
+      <SelectField 
+        label="Occasion" 
+        name="occasion" 
+        options={{
+          'wedding': 'Wedding',
+          'party': 'Party/Celebration',
+          'formal': 'Formal Event',
+          'casual': 'Casual Wear',
+          'corporate': 'Corporate',
+          'traditional': 'Traditional',
+          'other': 'Other'
+        }}
+        required
+      />
+      
+      <InputField 
+        label="Style Description" 
+        name="styleDescription"
+        placeholder="Describe the style, vibe, and any specific details..."
+        required
+      >
+        <textarea 
+          name="styleDescription" 
+          value={formData.styleDescription}
+          onChange={handleChange}
+          rows="3"
+          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 resize-none font-serif"
+          placeholder="E.g., A-line dress with floral embroidery, off-shoulder neckline..."
+        />
+      </InputField>
+    </motion.div>
+  );
+
+  const renderStep2 = () => (
+    <motion.div
+      key="step2"
+      custom={direction}
+      variants={stepVariants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={{ duration: 0.3 }}
+      className="space-y-2"
+    >
+      <div className="text-center mb-4">
+        <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-gold/30">
+          <FiDroplet className="text-white text-lg" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Fabric & Materials</h3>
+        <p className="text-gray-600 text-xs font-serif">Choose your materials and quality</p>
+      </div>
+
+      <SelectField 
+        label="Fabric Type" 
+        name="fabricType" 
+        options={PRICING.fabrics}
+        priceMap={PRICING.fabrics}
+        required
+      />
+      
+      <InputField 
+        label="Fabric Color" 
+        name="fabricColor"
+        placeholder="E.g., Navy Blue, Ivory, Emerald Green..."
+        required
+      />
+      
+      <div className="mb-4">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 font-serif">
+          Material Quality
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {Object.entries(PRICING.materialQuality).map(([quality, multiplier]) => (
+            <button
+              key={quality}
+              type="button"
+              onClick={() => setFormData(prev => ({ ...prev, materialQuality: quality }))}
+              className={`p-2 rounded-lg border text-xs font-medium transition-all duration-200 font-serif ${
+                formData.materialQuality === quality
+                  ? 'border-gold bg-gold/10 text-gold shadow-sm'
+                  : 'border-gray-200 bg-white text-gray-600 hover:border-gold/50'
+              }`}
+            >
+              {quality.charAt(0).toUpperCase() + quality.slice(1)}
+              <div className="text-[10px] text-gray-500 mt-0.5">
+                {multiplier === 1 ? 'Standard' : multiplier === 1.5 ? 'Premium' : 'Luxury'}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 font-serif">
+          Design Features
+        </label>
+        <div className="grid grid-cols-2 gap-2">
+          {Object.entries(PRICING.designFeatures).map(([feature, price]) => (
+            <button
+              key={feature}
+              type="button"
+              onClick={() => handleFeatureToggle(feature)}
+              className={`p-2 rounded-lg border text-xs font-medium transition-all duration-200 font-serif ${
+                formData.designFeatures.includes(feature)
+                  ? 'border-gold bg-gold/10 text-gold shadow-sm'
+                  : 'border-gray-200 bg-white text-gray-600 hover:border-gold/50'
+              }`}
+            >
+              {feature.charAt(0).toUpperCase() + feature.slice(1)}
+              {price > 0 && (
+                <div className="text-[10px] text-gray-500 mt-0.5">
+                  +₦{price.toLocaleString()}
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+
+  const renderStep3 = () => (
+    <motion.div
+      key="step3"
+      custom={direction}
+      variants={stepVariants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={{ duration: 0.3 }}
+      className="space-y-2"
+    >
+      <div className="text-center mb-4">
+        <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-gold/30">
+          <FiDroplet className="text-white text-lg" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Measurements</h3>
+        <p className="text-gray-600 text-xs font-serif">Provide your measurements for perfect fit</p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        {Object.entries(formData.measurements).map(([key, value]) => (
+          <InputField
+            key={key}
+            label={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
+            name={`measurements.${key}`}
+            type="number"
+            placeholder="cm"
+            value={value}
+            onChange={handleChange}
+            required
+          />
+        ))}
+      </div>
+
+      <InputField 
+        label="Special Requests" 
+        name="specialRequests"
+      >
+        <textarea 
+          name="specialRequests" 
+          value={formData.specialRequests}
+          onChange={handleChange}
+          rows="2"
+          placeholder="Any specific fit preferences or special requirements..."
+          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 resize-none font-serif"
+        />
+      </InputField>
+    </motion.div>
+  );
+
+  const renderStep4 = () => (
+    <motion.div
+      key="step4"
+      custom={direction}
+      variants={stepVariants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={{ duration: 0.3 }}
+      className="space-y-2"
+    >
+      <div className="text-center mb-4">
+        <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-gold/30">
+          <FiCalendar className="text-white text-lg" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Timeline & Delivery</h3>
+        <p className="text-gray-600 text-xs font-serif">When and where you need it</p>
+      </div>
+
+      <InputField 
+        label="Event Date" 
+        name="eventDate" 
+        type="date"
+        required
+        min={new Date().toISOString().split('T')[0]}
+      />
+      
+      <SelectField 
+        label="Shipping Method" 
+        name="shippingMethod" 
+        options={PRICING.shipping}
+        priceMap={PRICING.shipping}
+        required
+      />
+
+      <div className="mb-4">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
+          <FiMapPin className="mr-1" />
+          Delivery Address
+        </label>
+        <div className="space-y-2">
+          {Object.entries(formData.deliveryAddress).map(([key, value]) => (
+            <input
+              key={key}
+              type="text"
+              name={`deliveryAddress.${key}`}
+              value={value}
+              onChange={handleChange}
+              placeholder={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
+              className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 placeholder-gray-400 font-serif"
+              required={key !== 'zipCode'}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Image Upload Section */}
+      <div className="mb-4">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 font-serif">
+          Inspiration Images (Optional)
+        </label>
+        <div 
+          className={`border-2 border-dashed rounded-xl p-4 text-center transition-all duration-200 cursor-pointer ${
+            isDragging 
+              ? 'border-gold bg-gold/10' 
+              : uploadedImages.length > 0
+                ? 'border-green-500 bg-green-50'
+                : 'border-gray-300 bg-gray-50 hover:border-gold hover:bg-gold/5'
+          }`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          onClick={() => fileInputRef.current?.click()}
+        >
+          {uploadedImages.length > 0 ? (
+            <div className="space-y-2">
+              <div className="grid grid-cols-3 gap-2">
+                {uploadedImages.map((img, index) => (
+                  <div key={index} className="relative">
+                    <img src={img.url} alt="Inspiration" className="w-full h-16 object-cover rounded" />
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); removeImage(index); }}
+                      className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 hover:bg-red-600 transition-colors"
+                    >
+                      <FiX size={10} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <p className="text-green-600 text-xs font-serif">{uploadedImages.length} images uploaded</p>
+            </div>
+          ) : (
+            <>
+              <FiUpload className="mx-auto text-xl text-gray-400 mb-1" />
+              <p className="text-gray-600 text-xs mb-0.5 font-serif">
+                <span className="text-gold font-semibold">Click to upload</span> or drag and drop
+              </p>
+              <p className="text-[10px] text-gray-500 font-serif">PNG, JPG up to 5MB each</p>
+            </>
+          )}
+          <input 
+            ref={fileInputRef}
+            type="file" 
+            className="sr-only" 
+            accept="image/*"
+            multiple
+            onChange={handleImageUpload}
+          />
+        </div>
+      </div>
+
+      <InputField 
+        label="Reference Links (Optional)" 
+        name="referenceLinks"
+        placeholder="Pinterest, Instagram, or website links..."
+      />
+    </motion.div>
+  );
+
+  const renderStep5 = () => (
+    <motion.div
+      key="step5"
+      custom={direction}
+      variants={stepVariants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={{ duration: 0.3 }}
+      className="space-y-4"
+    >
+      <div className="text-center mb-4">
+        <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-2 border border-green-500/30">
+          <FiCheck className="text-white text-lg" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-800 mb-1 font-serif">Review Design</h3>
+        <p className="text-gray-600 text-xs font-serif">Review your custom design details</p>
+      </div>
+
+      {/* Design Details */}
+      <div className="bg-gradient-to-r from-gold/10 to-yellow-600/10 p-3 rounded-lg border border-gold/20">
+        <h4 className="font-bold text-gray-800 mb-2 text-sm font-serif">Design Specifications</h4>
+        <div className="space-y-2">
+          {[
+            ['Design Type', formData.designType],
+            ['Occasion', formData.occasion],
+            ['Fabric', formData.fabricType],
+            ['Color', formData.fabricColor],
+            ['Quality', formData.materialQuality],
+            ['Features', formData.designFeatures.join(', ') || 'None'],
+            ['Production Time', getProductionTime()]
+          ].map(([label, value]) => (
+            <div key={label} className="bg-white rounded p-2 border border-gray-100">
+              <span className="text-gray-600 text-xs font-serif">{label}:</span>
+              <p className="font-semibold text-gray-800 text-xs font-serif">{value || 'Not specified'}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Measurements */}
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 rounded-lg border border-gray-200">
+        <h4 className="font-bold text-gray-800 mb-2 text-sm font-serif">Measurements (cm)</h4>
+        <div className="grid grid-cols-2 gap-2">
+          {Object.entries(formData.measurements).map(([key, value]) => (
+            <div key={key} className="bg-white rounded p-2 text-center border border-gray-100">
+              <span className="text-gray-600 text-xs block font-serif">
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </span>
+              <p className="font-semibold text-gray-800 text-sm font-serif">{value || '-'}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Timeline & Delivery */}
+      <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-lg border border-green-100">
+        <h4 className="font-bold text-green-900 mb-2 text-sm font-serif">Timeline & Delivery</h4>
+        <div className="space-y-2">
+          {[
+            ['Event Date', formData.eventDate],
+            ['Shipping', formData.shippingMethod],
+            ['Address', `${formData.deliveryAddress.street}, ${formData.deliveryAddress.city}`]
+          ].map(([label, value]) => (
+            <div key={label} className="bg-white rounded p-2 border border-green-100">
+              <span className="text-gray-600 text-xs font-serif">{label}:</span>
+              <p className="font-semibold text-gray-800 text-xs font-serif">{value || 'Not specified'}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Price Breakdown */}
+      <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-3 rounded-lg border border-amber-100">
+        <h4 className="font-bold text-amber-900 mb-2 text-sm font-serif">Price Estimate</h4>
+        <div className="space-y-1">
+          {[
+            ['Base Price', PRICING.basePrice],
+            ...(formData.designType ? [
+              ['Design Type', (PRICING.basePrice * (PRICING.designTypes[formData.designType].multiplier - 1))]
+            ] : []),
+            ...(formData.fabricType ? [['Fabric', PRICING.fabrics[formData.fabricType]]] : []),
+            ...(formData.materialQuality !== 'standard' ? [
+              ['Quality', (PRICING.basePrice * (PRICING.materialQuality[formData.materialQuality] - 1))]
+            ] : []),
+            ...formData.designFeatures.map(feature => [
+              `${feature.charAt(0).toUpperCase() + feature.slice(1)}`,
+              PRICING.designFeatures[feature]
+            ]),
+            ...(formData.shippingMethod ? [['Shipping', PRICING.shipping[formData.shippingMethod]]] : [])
+          ].map(([label, amount]) => (
+            <div key={label} className="flex justify-between items-center py-1 border-b border-amber-100 last:border-b-0">
+              <span className="text-gray-700 text-xs font-serif">{label}:</span>
+              <span className="font-semibold text-gray-800 text-xs font-serif">
+                {amount > 0 ? `+₦${amount.toLocaleString()}` : 'Included'}
+              </span>
+            </div>
+          ))}
+          <div className="border-t border-amber-200 pt-2 mt-1">
+            <div className="flex justify-between items-center text-sm font-bold">
+              <span className="text-amber-900 font-serif">Total Estimate:</span>
+              <span className="text-amber-900 font-serif">₦{calculatePrice().toLocaleString()}</span>
+            </div>
+            <p className="text-[10px] text-amber-700 mt-1 font-serif">
+              *Final price may vary after design consultation
+            </p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
 
   const renderSuccessStep = () => (
     <motion.div
@@ -196,7 +846,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
 
       <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-200">
         <h4 className="font-bold text-gray-800 mb-4 font-serif flex items-center justify-center gap-2">
-          <FaWhatsApp className="text-green-500" />
+          <FiWhatsApp className="text-green-500" />
           Immediate Assistance
         </h4>
         
@@ -211,7 +861,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105"
           >
-            <FaWhatsApp className="text-lg" />
+            <FiWhatsApp className="text-lg" />
             Chat on WhatsApp
           </a>
           
@@ -248,7 +898,31 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
     </motion.div>
   );
 
-  // ... (keep existing StepIndicator component)
+  const StepIndicator = () => (
+    <div className="flex justify-between items-center mb-4 relative">
+      <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 -translate-y-1/2 -z-10"></div>
+      <div 
+        className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-gold to-yellow-600 -translate-y-1/2 transition-all duration-500 -z-10"
+        style={{ width: `${((step - 1) / 4) * 100}%` }}
+      ></div>
+      {[1, 2, 3, 4, 5].map((stepNumber) => (
+        <div key={stepNumber} className="flex flex-col items-center">
+          <div className={`w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all duration-300 text-xs ${
+            step >= stepNumber 
+              ? 'bg-gradient-to-r from-gold to-yellow-600 border-transparent text-white scale-110 shadow'
+              : 'bg-white border-gray-300 text-gray-400'
+          }`}>
+            {stepNumber}
+          </div>
+          <span className={`text-[10px] mt-1 font-medium font-serif ${
+            step >= stepNumber ? 'text-gold' : 'text-gray-400'
+          }`}>
+            {['Vision', 'Materials', 'Measure', 'Delivery', 'Review'][stepNumber - 1]}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <AnimatePresence mode="wait">
@@ -298,7 +972,19 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center py-6"
                 >
-                  {/* ... (keep existing login required message) */}
+                  <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3 border border-gold/30">
+                    <FiInfo className="text-white text-xl" />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-800 mb-2 font-serif">Login Required</h3>
+                  <p className="text-gray-600 text-xs mb-4 font-serif">
+                    Please log in to create a custom fashion design
+                  </p>
+                  <button 
+                    className="bg-gradient-to-r from-gold to-yellow-600 text-black py-2 px-6 rounded-full font-semibold hover:shadow transition-all duration-200 transform hover:scale-105 text-sm border border-gold/30 font-serif"
+                    onClick={() => window.location.href = '/login'}
+                  >
+                    Login to Continue
+                  </button>
                 </motion.div>
               ) : orderCreated ? (
                 renderSuccessStep()
