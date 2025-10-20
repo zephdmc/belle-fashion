@@ -10,9 +10,11 @@ import {
   FiGlobe,
   FiMail,
   FiPhone,
-  FiHeart
+  FiHeart,
+  FiScissors,
+  FiCheckCircle
 } from 'react-icons/fi';
-import { FaShippingFast, FaHandHoldingUsd } from 'react-icons/fa';
+import { FaShippingFast, FaHandHoldingUsd, FaRibbon } from 'react-icons/fa';
 
 // Animation variants
 const containerVariants = {
@@ -62,11 +64,11 @@ const PolicySection = ({ icon: Icon, title, children, delay = 0 }) => (
     <div className="flex items-start gap-4 mb-4">
       <motion.div
         variants={iconVariants}
-        className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+        className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-gold to-yellow-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
       >
         <Icon className="text-white text-lg" />
       </motion.div>
-      <h2 className="text-xl md:text-2xl font-bold text-gray-800 group-hover:text-purple-700 transition-colors duration-300">
+      <h2 className="text-xl md:text-2xl font-bold text-gray-800 group-hover:text-gold transition-colors duration-300">
         {title}
       </h2>
     </div>
@@ -77,19 +79,19 @@ const PolicySection = ({ icon: Icon, title, children, delay = 0 }) => (
 );
 
 // Feature Card Component
-const FeatureCard = ({ icon: Icon, title, items, color = "purple" }) => (
+const FeatureCard = ({ icon: Icon, title, items, color = "gold" }) => (
   <motion.div
     variants={itemVariants}
-    className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 border border-gray-200 hover:border-purple-200 transition-all duration-300"
+    className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 border border-gray-200 hover:border-gold/50 transition-all duration-300"
   >
-    <div className={`w-10 h-10 bg-gradient-to-r from-${color}-500 to-${color}-600 rounded-lg flex items-center justify-center mb-4`}>
+    <div className="w-10 h-10 bg-gradient-to-r from-gold to-yellow-600 rounded-lg flex items-center justify-center mb-4">
       <Icon className="text-white text-sm" />
     </div>
     <h3 className="font-semibold text-gray-800 mb-3">{title}</h3>
     <ul className="space-y-2">
       {items.map((item, index) => (
         <li key={index} className="flex items-center text-sm text-gray-600">
-          <div className={`w-1.5 h-1.5 bg-${color}-400 rounded-full mr-3`}></div>
+          <div className="w-1.5 h-1.5 bg-gold rounded-full mr-3"></div>
           {item}
         </li>
       ))}
@@ -99,19 +101,19 @@ const FeatureCard = ({ icon: Icon, title, items, color = "purple" }) => (
 
 export default function ShippingPolicy() {
   const domesticFeatures = [
-    { icon: FiClock, title: "Processing Time", items: ["1-2 business days", "Excludes weekends & holidays"] },
-    { icon: FiTruck, title: "Delivery Partners", items: ["GIG Logistics", "DHL", "Local dispatch"] },
-    { icon: FiMapPin, title: "Coverage", items: ["All 36 states + FCT", "Nationwide service"] }
+    { icon: FiClock, title: "Processing Time", items: ["1-2 business days", "Quality check & careful packaging"] },
+    { icon: FiTruck, title: "Delivery Partners", items: ["GIG Logistics", "DHL", "Local luxury couriers"] },
+    { icon: FiCheckCircle, title: "Quality Assurance", items: ["Each piece inspected", "Premium packaging included"] }
   ];
 
   const deliveryTimes = [
     { area: "Port Harcourt", duration: "1-2 business days", color: "green" },
     { area: "Major Cities", duration: "2-4 business days", color: "blue" },
-    { area: "Other Locations", duration: "3-7 business days", color: "purple" }
+    { area: "Other Locations", duration: "3-7 business days", color: "gold" }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gold/10">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
@@ -119,8 +121,8 @@ export default function ShippingPolicy() {
         transition={{ duration: 0.8 }}
         className="relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-black to-gray-800"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1)_0%,transparent_50%)]"></div>
         
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
           <motion.div
@@ -129,14 +131,14 @@ export default function ShippingPolicy() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-center"
           >
-            <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/30">
-              <FaShippingFast className="text-white text-2xl" />
+            <div className="w-20 h-20 bg-gold/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-gold/30">
+              <FaShippingFast className="text-gold text-2xl" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-serif">
               Shipping Policy
             </h1>
-            <p className="text-purple-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-              Fast, reliable delivery of your skincare essentials across Nigeria
+            <p className="text-gold text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+              Elegant delivery of your contemporary fashion pieces across Nigeria
             </p>
           </motion.div>
         </div>
@@ -165,9 +167,9 @@ export default function ShippingPolicy() {
           className="text-center mb-12 md:mb-16"
         >
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Welcome to <span className="font-semibold text-purple-600">Bellebeau Aesthetics</span>! 
-            We're committed to delivering your skincare essentials quickly, safely, and reliably. 
-            Please review our comprehensive shipping policy below.
+            Welcome to <span className="font-semibold text-gold font-serif">Bellebyokien Ready-to-Wear</span>! 
+            We're committed to delivering your contemporary fashion pieces with the same care and elegance 
+            we put into designing them.
           </p>
         </motion.div>
 
@@ -178,10 +180,10 @@ export default function ShippingPolicy() {
         </div>
 
         {/* Domestic Shipping */}
-        <PolicySection icon={FiMapPin} title="Shipping Within Nigeria">
+        <PolicySection icon={FiMapPin} title="Nationwide Fashion Delivery">
           <p>
-            We ship to all 36 states and the FCT via trusted courier partners including 
-            <strong> GIG Logistics, DHL,</strong> and local dispatch riders for optimal coverage and reliability.
+            We deliver contemporary women's wear to all 36 states and FCT via premium courier partners including 
+            <strong> GIG Logistics, DHL,</strong> and specialized luxury fashion carriers.
           </p>
           
           <div className="mt-6">
@@ -191,90 +193,115 @@ export default function ShippingPolicy() {
                 <motion.div
                   key={index}
                   whileHover={{ scale: 1.02, y: -2 }}
-                  className={`bg-gradient-to-br from-${item.color}-50 to-${item.color}-100 border border-${item.color}-200 rounded-xl p-4 text-center`}
+                  className="bg-gradient-to-br from-gold/10 to-gold/5 border border-gold/20 rounded-xl p-4 text-center"
                 >
-                  <div className={`text-${item.color}-600 font-bold text-lg mb-1`}>{item.area}</div>
-                  <div className={`text-${item.color}-700 font-semibold`}>{item.duration}</div>
+                  <div className="text-gray-800 font-bold text-lg mb-1">{item.area}</div>
+                  <div className="text-gold font-semibold">{item.duration}</div>
                 </motion.div>
               ))}
             </div>
           </div>
 
           <div className="mt-6 space-y-3">
-            <p><strong>Delivery Fee:</strong> Calculated at checkout based on your location and selected courier service.</p>
-            <p><strong>Order Tracking:</strong> Tracking number sent via email/WhatsApp once shipped. Monitor your package on the courier's platform.</p>
+            <p><strong>Delivery Fee:</strong> Calculated at checkout based on your location and service preference.</p>
+            <p><strong>Order Tracking:</strong> Receive tracking details via email/WhatsApp. Monitor your fashion delivery in real-time.</p>
+            <p><strong>Premium Packaging:</strong> Each piece arrives in our signature Bellebyokien packaging.</p>
           </div>
         </PolicySection>
 
         {/* International Shipping */}
         <PolicySection icon={FiGlobe} title="International Shipping" delay={0.1}>
           <p>
-            Currently, we focus on providing exceptional service within Nigeria. 
-            International shipping is not available at this time, but we're actively working 
-            to expand our reach. Follow us for updates on global availability!
+            Currently, we focus on providing exceptional service within Nigeria to maintain our quality standards. 
+            International shipping for our contemporary collections is coming soon!
           </p>
+          <div className="mt-4 p-4 bg-gold/10 rounded-lg border border-gold/20">
+            <p className="text-gray-700 text-sm">
+              🎀 <strong>Style Update:</strong> Follow our social media for international launch announcements and exclusive previews!
+            </p>
+          </div>
         </PolicySection>
 
         {/* Cash on Delivery */}
         <PolicySection icon={FaHandHoldingUsd} title="Cash on Delivery (COD)" delay={0.2}>
           <p>
-            COD is available for customers within Port Harcourt on selected items. 
-            To ensure smooth delivery:
+            COD available for customers in Port Harcourt and major cities. Experience the quality before payment:
           </p>
           <ul className="space-y-2 mt-3">
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
-              Provide complete and accurate delivery address
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Complete address with clear landmarks for easy delivery
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
-              Ensure your phone number is active and reachable
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Active contact number for delivery coordination
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
-              Have exact payment ready for the delivery agent
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Exact payment ready for the delivery agent
             </li>
           </ul>
         </PolicySection>
 
-        {/* Store Pickup */}
-        <PolicySection icon={FiHome} title="Store Pickup" delay={0.3}>
+        {/* Boutique Pickup */}
+        <PolicySection icon={FiHome} title="Boutique Pickup" delay={0.3}>
           <p>
-            Located in Port Harcourt? Skip the delivery wait with our convenient store pickup option. 
-            Your order will be ready within 24 hours, and we'll notify you as soon as it's available.
+            Visit our Port Harcourt boutique for a personalized experience. Collect your order within 24 hours 
+            and enjoy complimentary styling advice from our fashion experts.
           </p>
-          <div className="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200">
-            <p className="text-purple-700 text-sm">
-              💡 <strong>Pro Tip:</strong> Store pickup is perfect for last-minute needs and lets you consult with our skincare experts!
+          <div className="mt-4 p-4 bg-gold/10 rounded-lg border border-gold/20">
+            <p className="text-gray-700 text-sm">
+              👗 <strong>Style Tip:</strong> Boutique pickup lets you try different sizes and explore new arrivals with our stylists!
             </p>
           </div>
         </PolicySection>
 
-        {/* Delivery Delays */}
-        <PolicySection icon={FiAlertTriangle} title="Delivery Delays" delay={0.4}>
+        {/* Quality Assurance */}
+        <PolicySection icon={FaRibbon} title="Quality Assurance & Care" delay={0.4}>
           <p>
-            While we strive for timely delivery, certain circumstances may cause delays beyond our control:
+            Every Bellebyokien piece undergoes meticulous quality checks before shipping:
           </p>
           <ul className="space-y-2 mt-3">
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-              Adverse weather conditions affecting transportation
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Fabric inspection and finishing quality control
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-              Courier service disruptions or logistical challenges
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Stain-free packaging and careful handling
             </li>
             <li className="flex items-center">
-              <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-              Incorrect or incomplete shipping information provided
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Care instructions included with each garment
             </li>
           </ul>
         </PolicySection>
 
-        {/* Order Support */}
-        <PolicySection icon={FiPackage} title="Order Support & Inquiries" delay={0.5}>
+        {/* Delivery Delays */}
+        <PolicySection icon={FiAlertTriangle} title="Delivery Considerations" delay={0.5}>
           <p>
-            Your satisfaction is our priority. For any delivery concerns, please contact us within 24 hours of receiving your order:
+            While we ensure prompt delivery, certain factors may affect timing:
+          </p>
+          <ul className="space-y-2 mt-3">
+            <li className="flex items-center">
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Weather conditions affecting transportation
+            </li>
+            <li className="flex items-center">
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Courier service logistics during peak seasons
+            </li>
+            <li className="flex items-center">
+              <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+              Custom alterations or special requests
+            </li>
+          </ul>
+        </PolicySection>
+
+        {/* Style Support */}
+        <PolicySection icon={FiScissors} title="Style Support & Inquiries" delay={0.6}>
+          <p>
+            Your fashion journey matters to us. For any delivery or styling questions, contact us within 48 hours:
           </p>
           <div className="mt-4 grid md:grid-cols-2 gap-4">
             <motion.div
@@ -282,12 +309,12 @@ export default function ShippingPolicy() {
               className="bg-gray-50 rounded-xl p-4 border border-gray-200"
             >
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gold rounded-lg flex items-center justify-center">
                   <FiMail className="text-white text-sm" />
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-800">Email Support</div>
-                  <div className="text-sm text-gray-600">Quick response</div>
+                  <div className="font-semibold text-gray-800">Style Consultation</div>
+                  <div className="text-sm text-gray-600">Personalized advice</div>
                 </div>
               </div>
             </motion.div>
@@ -296,11 +323,11 @@ export default function ShippingPolicy() {
               className="bg-gray-50 rounded-xl p-4 border border-gray-200"
             >
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center">
                   <FiPhone className="text-white text-sm" />
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-800">Phone/WhatsApp</div>
+                  <div className="font-semibold text-gray-800">Delivery Support</div>
                   <div className="text-sm text-gray-600">Immediate assistance</div>
                 </div>
               </div>
@@ -311,7 +338,7 @@ export default function ShippingPolicy() {
         {/* Closing Section */}
         <motion.section
           variants={itemVariants}
-          className="text-center mt-16 py-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl text-white"
+          className="text-center mt-16 py-12 bg-gradient-to-r from-gray-900 to-black rounded-3xl text-white border border-gold/20"
         >
           <motion.div
             animate={{ 
@@ -325,14 +352,14 @@ export default function ShippingPolicy() {
             }}
             className="inline-block mb-4"
           >
-            <FiHeart className="text-2xl text-pink-200" />
+            <FaRibbon className="text-2xl text-gold" />
           </motion.div>
-          <h3 className="text-2xl md:text-3xl font-bold mb-4">
-            Thank You for Choosing Bellebeau Aesthetics!
+          <h3 className="text-2xl md:text-3xl font-bold mb-4 font-serif">
+            Thank You for Choosing Bellebyokien!
           </h3>
-          <p className="text-purple-100 text-lg max-w-2xl mx-auto leading-relaxed">
-            Your trust means everything to us. We're dedicated to not just delivering products, 
-            but ensuring your journey to glowing skin is smooth and exceptional.
+          <p className="text-gold text-lg max-w-2xl mx-auto leading-relaxed">
+            We're not just delivering clothing; we're bringing contemporary elegance to your doorstep. 
+            Your style journey is our passion.
           </p>
         </motion.section>
       </motion.div>
@@ -348,7 +375,7 @@ export default function ShippingPolicy() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="fixed top-1/4 left-5 w-3 h-3 bg-purple-300 rounded-full opacity-30"
+        className="fixed top-1/4 left-5 w-3 h-3 bg-gold rounded-full opacity-30"
       />
       <motion.div
         animate={{ 
@@ -361,7 +388,7 @@ export default function ShippingPolicy() {
           ease: "easeInOut",
           delay: 2
         }}
-        className="fixed top-1/3 right-10 w-2 h-2 bg-pink-300 rounded-full opacity-40"
+        className="fixed top-1/3 right-10 w-2 h-2 bg-gold rounded-full opacity-40"
       />
     </div>
   );
