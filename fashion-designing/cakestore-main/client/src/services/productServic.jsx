@@ -28,9 +28,26 @@ export const getProducts = async (params = {}) => {
         });
 
         const response = await API.get('api/products', { params: fashionParams });
+        
+        // Check if response is HTML (error page)
+        if (typeof response.data === 'string' && response.data.trim().startsWith('<!DOCTYPE')) {
+            throw new Error('Server returned HTML instead of JSON. Check API endpoint.');
+        }
+        
         return response;
     } catch (error) {
-        console.error('Get Products Error:', error.response?.data || error.message);
+        console.error('Get Products Error:', {
+            message: error.message,
+            response: error.response?.data,
+            status: error.response?.status,
+            headers: error.response?.headers
+        });
+        
+        // Check if error response is HTML
+        if (error.response && typeof error.response.data === 'string' && error.response.data.includes('<!DOCTYPE')) {
+            throw new Error('API endpoint returned HTML. Please check the server configuration.');
+        }
+        
         throw error;
     }
 };
