@@ -454,11 +454,18 @@ export default function OrderHistory() {
 
             try {
                 setLoading(true);
+                setError('');
                 
-                // Fetch both regular and custom orders
+                // Fetch both regular and custom orders with error handling
                 const [regularResponse, customResponse] = await Promise.allSettled([
-                    getOrdersByUser(),
-                    getCustomOrdersByUser()
+                    getOrdersByUser().catch(err => {
+                        console.log('Regular orders not available:', err.message);
+                        return { data: [] }; // Return empty array if regular orders fail
+                    }),
+                    getCustomOrdersByUser().catch(err => {
+                        console.log('Custom orders error:', err.message);
+                        return { data: [] }; // Return empty array if custom orders fail
+                    })
                 ]);
 
                 const regularOrdersData = regularResponse.status === 'fulfilled' 
@@ -469,11 +476,15 @@ export default function OrderHistory() {
                     ? (customResponse.value?.data || customResponse.value || [])
                     : [];
 
+                console.log('Regular orders:', regularOrdersData);
+                console.log('Custom orders:', customOrdersData);
+
                 setRegularOrders(regularOrdersData);
                 setCustomOrders(customOrdersData);
                 setOrders([...regularOrdersData, ...customOrdersData]);
 
             } catch (err) {
+                console.error('Error in fetchAllOrders:', err);
                 setError(err.message || 'Failed to load orders');
             } finally {
                 setLoading(false);
@@ -527,9 +538,16 @@ export default function OrderHistory() {
     const refreshOrders = async () => {
         try {
             setLoading(true);
+            setError('');
             const [regularResponse, customResponse] = await Promise.allSettled([
-                getOrdersByUser(),
-                getCustomOrdersByUser()
+                getOrdersByUser().catch(err => {
+                    console.log('Regular orders not available:', err.message);
+                    return { data: [] };
+                }),
+                getCustomOrdersByUser().catch(err => {
+                    console.log('Custom orders error:', err.message);
+                    return { data: [] };
+                })
             ]);
 
             const regularOrdersData = regularResponse.status === 'fulfilled' 
