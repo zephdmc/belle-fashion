@@ -30,17 +30,17 @@ const MotionLink = motion(Link);
 const OrderSkeleton = () => (
     <div className="space-y-4">
         {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 animate-pulse">
+            <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-gold/20 animate-pulse">
                 <div className="flex items-center justify-between">
                     <div className="space-y-2">
-                        <div className="h-6 bg-white/20 rounded w-32"></div>
-                        <div className="h-4 bg-white/20 rounded w-24"></div>
+                        <div className="h-6 bg-gold/20 rounded w-32"></div>
+                        <div className="h-4 bg-gold/20 rounded w-24"></div>
                     </div>
-                    <div className="h-8 bg-white/20 rounded w-20"></div>
+                    <div className="h-8 bg-gold/20 rounded w-20"></div>
                 </div>
                 <div className="flex justify-between items-center mt-4">
-                    <div className="h-6 bg-white/20 rounded w-24"></div>
-                    <div className="h-4 bg-white/20 rounded w-16"></div>
+                    <div className="h-6 bg-gold/20 rounded w-24"></div>
+                    <div className="h-4 bg-gold/20 rounded w-16"></div>
                 </div>
             </div>
         ))}
@@ -50,13 +50,13 @@ const OrderSkeleton = () => (
 // Status Badge Component
 const StatusBadge = ({ order }) => {
     const statusConfig = {
-        pending: { color: 'from-yellow-500 to-orange-500', text: 'Pending Payment', icon: FiClock },
-        confirmed: { color: 'from-blue-500 to-cyan-500', text: 'Confirmed', icon: FiCheckCircle },
-        processing: { color: 'from-purple-500 to-pink-500', text: 'Processing', icon: FiPackage },
-        ready_to_ship: { color: 'from-orange-500 to-red-500', text: 'Ready to Ship', icon: FiTruck },
-        shipped: { color: 'from-teal-500 to-green-500', text: 'Shipped', icon: FiTruck },
-        delivered: { color: 'from-green-500 to-emerald-500', text: 'Delivered', icon: FiCheckCircle },
-        cancelled: { color: 'from-red-500 to-pink-500', text: 'Cancelled', icon: FiAlertCircle }
+        pending: { color: 'from-yellow-500 to-yellow-600', text: 'Pending Payment', icon: FiClock },
+        confirmed: { color: 'from-blue-500 to-blue-600', text: 'Confirmed', icon: FiCheckCircle },
+        processing: { color: 'from-gold to-yellow-600', text: 'Processing', icon: FiPackage },
+        ready_to_ship: { color: 'from-orange-500 to-orange-600', text: 'Ready to Ship', icon: FiTruck },
+        shipped: { color: 'from-green-500 to-green-600', text: 'Shipped', icon: FiTruck },
+        delivered: { color: 'from-emerald-500 to-emerald-600', text: 'Delivered', icon: FiCheckCircle },
+        cancelled: { color: 'from-red-500 to-red-600', text: 'Cancelled', icon: FiAlertCircle }
     };
 
     const config = statusConfig[order.status] || statusConfig.pending;
@@ -66,7 +66,7 @@ const StatusBadge = ({ order }) => {
         <motion.span
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className={`inline-flex items-center gap-2 bg-gradient-to-r ${config.color} text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg`}
+            className={`inline-flex items-center gap-2 bg-gradient-to-r ${config.color} text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg border border-gold/20`}
         >
             <Icon className="text-xs" />
             {config.text}
@@ -77,9 +77,9 @@ const StatusBadge = ({ order }) => {
 // Order Type Badge
 const OrderTypeBadge = ({ orderType }) => {
     const typeConfig = {
-        standard: { color: 'bg-blue-500/20 text-blue-300 border-blue-500/30', text: 'Ready-to-Wear', icon: FiPackage },
-        custom: { color: 'bg-purple-500/20 text-purple-300 border-purple-500/30', text: 'Custom Design', icon: FiScissors },
-        mixed: { color: 'bg-pink-500/20 text-pink-300 border-pink-500/30', text: 'Mixed Order', icon: FiTag }
+        standard: { color: 'bg-gold/20 text-gold border-gold/30', text: 'Ready-to-Wear', icon: FiPackage },
+        custom: { color: 'bg-gray-800/50 text-gold border-gold/30', text: 'Custom Design', icon: FiScissors },
+        mixed: { color: 'bg-gray-700/50 text-gold border-gold/30', text: 'Mixed Order', icon: FiTag }
     };
 
     const config = typeConfig[orderType] || typeConfig.standard;
@@ -107,22 +107,22 @@ const OrderCard = ({ order, index }) => {
                 y: -4,
                 transition: { duration: 0.3 }
             }}
-            className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 overflow-hidden group hover:border-white/40 transition-all duration-500"
+            className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden group hover:border-gold/40 transition-all duration-500"
         >
             <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-r from-gold to-yellow-600 rounded-xl flex items-center justify-center border border-gold/30">
                             <FiPackage className="text-white text-lg" />
                         </div>
                         <div>
                             <div className="flex items-center gap-2 mb-1">
-                                <h3 className="text-lg font-semibold text-white">
+                                <h3 className="text-lg font-semibold text-white font-serif">
                                     {order.orderNumber || `Order #${order.id?.substring(0, 8)}`}
                                 </h3>
                                 <OrderTypeBadge orderType={order.orderType} />
                             </div>
-                            <p className="text-white/70 text-sm flex items-center gap-1">
+                            <p className="text-gold/70 text-sm flex items-center gap-1 font-serif">
                                 <FiCalendar className="text-xs" />
                                 {new Date(order.createdAt).toLocaleDateString()}
                             </p>
@@ -132,16 +132,16 @@ const OrderCard = ({ order, index }) => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="bg-white/5 rounded-xl p-3 border border-white/10">
-                        <p className="text-white/70 text-sm">Total Amount</p>
-                        <p className="text-white font-semibold text-lg flex items-center gap-1">
-                            <FiDollarSign className="text-purple-300" />
-                            ${order.totalPrice?.toLocaleString() || '0'}
+                    <div className="bg-gold/5 rounded-xl p-3 border border-gold/10">
+                        <p className="text-gold/70 text-sm font-serif">Total Amount</p>
+                        <p className="text-white font-semibold text-lg flex items-center gap-1 font-serif">
+                            <FiDollarSign className="text-gold" />
+                            ₦{order.totalPrice?.toLocaleString() || '0'}
                         </p>
                     </div>
-                    <div className="bg-white/5 rounded-xl p-3 border border-white/10">
-                        <p className="text-white/70 text-sm">Items</p>
-                        <p className="text-white font-semibold">
+                    <div className="bg-gold/5 rounded-xl p-3 border border-gold/10">
+                        <p className="text-gold/70 text-sm font-serif">Items</p>
+                        <p className="text-white font-semibold font-serif">
                             {totalItems} item{totalItems !== 1 ? 's' : ''}
                             {customItemsCount > 0 && ` + ${customItemsCount} custom`}
                         </p>
@@ -156,24 +156,24 @@ const OrderCard = ({ order, index }) => {
                                 <img
                                     src={item.image || '/images/placeholder-fashion.png'}
                                     alt={item.name}
-                                    className="w-12 h-12 rounded-lg object-cover border border-white/20"
+                                    className="w-12 h-12 rounded-lg object-cover border border-gold/20"
                                 />
                                 {item.quantity > 1 && (
-                                    <div className="absolute -top-1 -right-1 bg-purple-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                                    <div className="absolute -top-1 -right-1 bg-gold text-black text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
                                         {item.quantity}
                                     </div>
                                 )}
                             </div>
                         ))}
                         {(order.items?.length > 3 || customItemsCount > 0) && (
-                            <div className="text-white/60 text-sm">
+                            <div className="text-gold/60 text-sm font-serif">
                                 +{Math.max(0, (order.items?.length || 0) - 3) + customItemsCount} more
                             </div>
                         )}
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-white/20">
+                <div className="flex items-center justify-between pt-4 border-t border-gold/20">
                     <div className="flex items-center gap-2">
                         {order.trackingNumber && (
                             <span className="bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
@@ -181,7 +181,7 @@ const OrderCard = ({ order, index }) => {
                                 Tracked
                             </span>
                         )}
-                        <span className="text-white/60 text-sm">
+                        <span className="text-gold/60 text-sm font-serif">
                             {order.shippingMethod || 'Standard Shipping'}
                         </span>
                     </div>
@@ -189,7 +189,7 @@ const OrderCard = ({ order, index }) => {
                         to={`/orders/${order.id}`}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white py-2 px-4 rounded-xl font-medium transition-all duration-300 group-hover:bg-white/20"
+                        className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-2 px-4 rounded-xl font-medium transition-all duration-300 group-hover:bg-gold/20 font-serif"
                     >
                         View Details
                         <FiChevronRight className="transition-transform group-hover:translate-x-1" />
@@ -212,10 +212,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => (
             disabled={currentPage === 1}
             whileHover={{ scale: currentPage === 1 ? 1 : 1.05 }}
             whileTap={{ scale: currentPage === 1 ? 1 : 0.95 }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 font-serif ${
                 currentPage === 1 
-                    ? 'bg-white/10 text-white/40 cursor-not-allowed' 
-                    : 'bg-white/10 hover:bg-white/20 text-white'
+                    ? 'bg-gold/10 text-gold/40 cursor-not-allowed' 
+                    : 'bg-gold/10 hover:bg-gold/20 text-gold'
             }`}
         >
             <FiArrowLeft className="text-sm" />
@@ -229,10 +229,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => (
                     onClick={() => onPageChange(page)}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`w-10 h-10 rounded-xl font-medium transition-all duration-300 ${
+                    className={`w-10 h-10 rounded-xl font-medium transition-all duration-300 font-serif ${
                         currentPage === page 
-                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg' 
-                            : 'bg-white/10 hover:bg-white/20 text-white'
+                            ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg' 
+                            : 'bg-gold/10 hover:bg-gold/20 text-gold'
                     }`}
                 >
                     {page}
@@ -245,10 +245,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => (
             disabled={currentPage === totalPages}
             whileHover={{ scale: currentPage === totalPages ? 1 : 1.05 }}
             whileTap={{ scale: currentPage === totalPages ? 1 : 0.95 }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 font-serif ${
                 currentPage === totalPages 
-                    ? 'bg-white/10 text-white/40 cursor-not-allowed' 
-                    : 'bg-white/10 hover:bg-white/20 text-white'
+                    ? 'bg-gold/10 text-gold/40 cursor-not-allowed' 
+                    : 'bg-gold/10 hover:bg-gold/20 text-gold'
             }`}
         >
             Next
@@ -264,7 +264,7 @@ const OrderFilters = ({ filters, onFilterChange }) => (
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-wrap gap-3 mb-6"
     >
-        <div className="flex items-center gap-2 text-white/70">
+        <div className="flex items-center gap-2 text-gold/70 font-serif">
             <FiFilter className="text-sm" />
             <span className="text-sm">Filter by:</span>
         </div>
@@ -281,10 +281,10 @@ const OrderFilters = ({ filters, onFilterChange }) => (
                 onClick={() => onFilterChange(filter.value)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 font-serif ${
                     filters.status === filter.value
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                        : 'bg-white/10 hover:bg-white/20 text-white'
+                        ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg'
+                        : 'bg-gold/10 hover:bg-gold/20 text-gold'
                 }`}
             >
                 {filter.label}
@@ -363,7 +363,7 @@ export default function OrderHistory() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-pink-700 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <motion.div
@@ -372,24 +372,24 @@ export default function OrderHistory() {
                     className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8"
                 >
                     <div>
-                        <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2">Order History</h1>
-                        <p className="text-white/70">Track and manage all your fashion orders in one place</p>
+                        <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2 font-serif">Order History</h1>
+                        <p className="text-gold/70 font-serif">Track and manage all your fashion orders in one place</p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-3">
                         <motion.button
                             onClick={refreshOrders}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-white/20"
+                            className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
                         >
                             <FiRefreshCw className="text-sm" />
                             Refresh
                         </motion.button>
                         <MotionLink
-                            to="/shop"
+                            to="/collections"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg backdrop-blur-sm border border-white/20"
+                            className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg backdrop-blur-sm border border-gold/30 font-serif"
                         >
                             <FiShoppingBag className="text-sm" />
                             Continue Shopping
@@ -405,47 +405,47 @@ export default function OrderHistory() {
                         transition={{ delay: 0.2 }}
                         className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8"
                     >
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-xl flex items-center justify-center border border-gold/30">
                                     <FiPackage className="text-white text-xl" />
                                 </div>
                                 <div>
-                                    <p className="text-white/70 text-sm">Total Orders</p>
-                                    <p className="text-white text-2xl font-bold">{totalOrders}</p>
+                                    <p className="text-gold/70 text-sm font-serif">Total Orders</p>
+                                    <p className="text-white text-2xl font-bold font-serif">{totalOrders}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center border border-green-500/30">
                                     <FiTrendingUp className="text-white text-xl" />
                                 </div>
                                 <div>
-                                    <p className="text-white/70 text-sm">Total Spent</p>
-                                    <p className="text-white text-2xl font-bold">${totalSpent.toLocaleString()}</p>
+                                    <p className="text-gold/70 text-sm font-serif">Total Spent</p>
+                                    <p className="text-white text-2xl font-bold font-serif">₦{totalSpent.toLocaleString()}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center border border-blue-500/30">
                                     <FiTruck className="text-white text-xl" />
                                 </div>
                                 <div>
-                                    <p className="text-white/70 text-sm">Delivered</p>
-                                    <p className="text-white text-2xl font-bold">{deliveredOrders}</p>
+                                    <p className="text-gold/70 text-sm font-serif">Delivered</p>
+                                    <p className="text-white text-2xl font-bold font-serif">{deliveredOrders}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                                <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-xl flex items-center justify-center border border-gold/30">
                                     <FiScissors className="text-white text-xl" />
                                 </div>
                                 <div>
-                                    <p className="text-white/70 text-sm">Custom Designs</p>
-                                    <p className="text-white text-2xl font-bold">{customOrders}</p>
+                                    <p className="text-gold/70 text-sm font-serif">Custom Designs</p>
+                                    <p className="text-white text-2xl font-bold font-serif">{customOrders}</p>
                                 </div>
                             </div>
                         </div>
@@ -462,13 +462,13 @@ export default function OrderHistory() {
                     >
                         {/* Search Bar */}
                         <div className="relative max-w-md">
-                            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 text-lg" />
+                            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gold/60 text-lg" />
                             <input
                                 type="text"
                                 placeholder="Search orders by number, ID, or amount..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl pl-10 pr-4 py-3 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                className="w-full bg-black/40 backdrop-blur-sm border border-gold/20 rounded-2xl pl-10 pr-4 py-3 text-white placeholder-gold/60 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-serif"
                             />
                         </div>
 
@@ -487,13 +487,13 @@ export default function OrderHistory() {
                         className="bg-red-500/20 backdrop-blur-sm border border-red-500/30 rounded-2xl p-8 text-center"
                     >
                         <FiAlertCircle className="text-4xl text-red-400 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-white mb-2">Error Loading Orders</h3>
-                        <p className="text-white/80 mb-6">{error}</p>
+                        <h3 className="text-xl font-semibold text-white mb-2 font-serif">Error Loading Orders</h3>
+                        <p className="text-gold/80 mb-6 font-serif">{error}</p>
                         <motion.button
                             onClick={refreshOrders}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
+                            className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg border border-gold/30 font-serif"
                         >
                             Try Again
                         </motion.button>
@@ -504,29 +504,29 @@ export default function OrderHistory() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center py-16"
                     >
-                        <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-12 max-w-2xl mx-auto">
-                            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <div className="bg-black/40 backdrop-blur-sm border border-gold/20 rounded-2xl p-12 max-w-2xl mx-auto">
+                            <div className="w-20 h-20 bg-gradient-to-r from-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-gold/30">
                                 <FiPackage className="text-3xl text-white" />
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-3">No Orders Yet</h3>
-                            <p className="text-white/70 mb-8 max-w-md mx-auto">
+                            <h3 className="text-2xl font-bold text-white mb-3 font-serif">No Orders Yet</h3>
+                            <p className="text-gold/70 mb-8 max-w-md mx-auto font-serif">
                                 You haven't placed any orders yet. Start exploring our fashion collections and make your first purchase!
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <MotionLink
-                                    to="/shop"
+                                    to="/collections"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
+                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg border border-gold/30 font-serif"
                                 >
                                     <FiShoppingBag className="text-sm" />
-                                    Shop Ready-to-Wear
+                                    Shop Collections
                                 </MotionLink>
                                 <MotionLink
                                     to="/custom-order"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white py-3 px-8 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-white/20"
+                                    className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-3 px-8 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
                                 >
                                     <FiScissors className="text-sm" />
                                     Create Custom Design
@@ -542,7 +542,7 @@ export default function OrderHistory() {
                             animate={{ opacity: 1 }}
                             className="flex items-center justify-between mb-6"
                         >
-                            <p className="text-white/70">
+                            <p className="text-gold/70 font-serif">
                                 Showing {Math.min(filteredOrders.length, ordersPerPage)} of {filteredOrders.length} orders
                                 {filters.status !== 'all' && ` (${filters.status})`}
                             </p>
@@ -552,7 +552,7 @@ export default function OrderHistory() {
                                         setSearchTerm('');
                                         setFilters({ status: 'all', type: 'all' });
                                     }}
-                                    className="text-purple-300 hover:text-purple-200 text-sm font-medium flex items-center gap-1"
+                                    className="text-gold hover:text-yellow-400 text-sm font-medium flex items-center gap-1 font-serif"
                                 >
                                     Clear all filters
                                 </button>
@@ -585,10 +585,10 @@ export default function OrderHistory() {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="text-center py-12"
                             >
-                                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8">
-                                    <FiSearch className="text-4xl text-white/50 mx-auto mb-4" />
-                                    <h3 className="text-xl font-semibold text-white mb-2">No Orders Found</h3>
-                                    <p className="text-white/70 mb-4">
+                                <div className="bg-black/40 backdrop-blur-sm border border-gold/20 rounded-2xl p-8">
+                                    <FiSearch className="text-4xl text-gold/50 mx-auto mb-4" />
+                                    <h3 className="text-xl font-semibold text-white mb-2 font-serif">No Orders Found</h3>
+                                    <p className="text-gold/70 mb-4 font-serif">
                                         No orders match your current filters. Try adjusting your search criteria.
                                     </p>
                                     <button
@@ -596,7 +596,7 @@ export default function OrderHistory() {
                                             setSearchTerm('');
                                             setFilters({ status: 'all', type: 'all' });
                                         }}
-                                        className="text-purple-300 hover:text-purple-200 font-medium"
+                                        className="text-gold hover:text-yellow-400 font-medium font-serif"
                                     >
                                         Clear filters
                                     </button>
