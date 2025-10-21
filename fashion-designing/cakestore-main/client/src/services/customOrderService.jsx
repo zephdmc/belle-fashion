@@ -78,8 +78,15 @@ export const createCustomOrder = async (orderData, currentUser) => {
   }
 };
 
+// FIXED: Make userId parameter required and add validation
 export const getCustomOrdersByUser = async (userId, statusFilter = '') => {
   try {
+    // Validate userId
+    if (!userId) {
+      console.error('User ID is required for getCustomOrdersByUser');
+      return []; // Return empty array instead of throwing error
+    }
+
     let q;
     if (statusFilter && statusFilter !== 'all') {
       q = query(
@@ -105,7 +112,8 @@ export const getCustomOrdersByUser = async (userId, statusFilter = '') => {
     }));
   } catch (error) {
     console.error("Error getting custom orders: ", error);
-    throw error;
+    // Return empty array instead of throwing to prevent breaking the app
+    return [];
   }
 };
 
