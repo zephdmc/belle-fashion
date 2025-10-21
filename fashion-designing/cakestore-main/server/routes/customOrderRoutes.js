@@ -31,22 +31,19 @@ router.get('/my-orders', protect, getMyCustomOrders);
 router.get('/:id', protect, getCustomOrderById);
 
 // ===== ADMIN/DESIGNER ROUTES =====
-// Get ALL custom orders (admin only)
-router.get('/admin/all', protect, authorize('admin', 'designer'), getAllCustomOrders);
+// Get ALL custom orders with optional filtering (admin only)
+router.get('/', protect, authorize('admin', 'designer'), getAllCustomOrders);
 
 // Update custom order (admin only)
-router.put('/admin/:id', protect, authorize('admin', 'designer'), updateCustomOrder);
+router.put('/:id', protect, authorize('admin', 'designer'), updateCustomOrder);
 
 // Update order status (admin only)
-router.put('/admin/:id/status', protect, authorize('admin', 'designer'), updateCustomOrderStatus);
+router.put('/:id/status', protect, authorize('admin', 'designer'), updateCustomOrderStatus);
 
 // Add fitting session (admin only)
-router.post('/admin/:id/fitting', protect, authorize('admin', 'designer'), addFittingSession);
+router.post('/:id/fitting', protect, authorize('admin', 'designer'), addFittingSession);
 
 // Add tracking info (admin only)
-router.put('/admin/:id/tracking', protect, authorize('admin', 'designer'), addTrackingInfo);
-
-// Get orders by status (admin only)
-router.get('/admin/status/:status', protect, authorize('admin', 'designer'), getAllCustomOrders);
+router.put('/:id/tracking', protect, authorize('admin', 'designer'), addTrackingInfo);
 
 module.exports = router;
