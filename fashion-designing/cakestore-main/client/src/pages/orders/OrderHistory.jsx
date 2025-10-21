@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { getOrdersByUser } from '../../services/orderService';
+import { getCustomOrdersByUser } from '../../services/customOrderService';
 import { 
     FiPackage, 
     FiShoppingBag, 
@@ -20,7 +21,9 @@ import {
     FiScissors,
     FiTag,
     FiFilter,
-    FiRefreshCw
+    FiRefreshCw,
+    FiGrid,
+    FiList
 } from 'react-icons/fi';
 
 // Create motion-wrapped components at the top level
@@ -48,8 +51,22 @@ const OrderSkeleton = () => (
 );
 
 // Status Badge Component
-const StatusBadge = ({ order }) => {
-    const statusConfig = {
+const StatusBadge = ({ order, orderType }) => {
+    // Custom order status configuration
+    const customStatusConfig = {
+        consultation: { color: 'from-blue-500 to-blue-600', text: 'Consultation', icon: FiClock },
+        design: { color: 'from-purple-500 to-purple-600', text: 'Design Phase', icon: FiScissors },
+        measurement: { color: 'from-indigo-500 to-indigo-600', text: 'Measurement', icon: FiTag },
+        production: { color: 'from-gold to-yellow-600', text: 'In Production', icon: FiPackage },
+        fitting: { color: 'from-orange-500 to-orange-600', text: 'Fitting', icon: FiCheckCircle },
+        ready: { color: 'from-green-500 to-green-600', text: 'Ready', icon: FiCheckCircle },
+        shipped: { color: 'from-teal-500 to-teal-600', text: 'Shipped', icon: FiTruck },
+        delivered: { color: 'from-emerald-500 to-emerald-600', text: 'Delivered', icon: FiCheckCircle },
+        cancelled: { color: 'from-red-500 to-red-600', text: 'Cancelled', icon: FiAlertCircle }
+    };
+
+    // Regular order status configuration
+    const regularStatusConfig = {
         pending: { color: 'from-yellow-500 to-yellow-600', text: 'Pending Payment', icon: FiClock },
         confirmed: { color: 'from-blue-500 to-blue-600', text: 'Confirmed', icon: FiCheckCircle },
         processing: { color: 'from-gold to-yellow-600', text: 'Processing', icon: FiPackage },
@@ -59,7 +76,10 @@ const StatusBadge = ({ order }) => {
         cancelled: { color: 'from-red-500 to-red-600', text: 'Cancelled', icon: FiAlertCircle }
     };
 
-    const config = statusConfig[order.status] || statusConfig.pending;
+    const config = orderType === 'custom' 
+        ? customStatusConfig[order.status] || customStatusConfig.consultation
+        : regularStatusConfig[order.status] || regularStatusConfig.pending;
+    
     const Icon = config.icon;
 
     return (
@@ -78,7 +98,7 @@ const StatusBadge = ({ order }) => {
 const OrderTypeBadge = ({ orderType }) => {
     const typeConfig = {
         standard: { color: 'bg-gold/20 text-gold border-gold/30', text: 'Ready-to-Wear', icon: FiPackage },
-        custom: { color: 'bg-gray-800/50 text-gold border-gold/30', text: 'Custom Design', icon: FiScissors },
+        custom: { color: 'bg-purple-500/20 text-purple-300 border-purple-500/30', text: 'Custom Design', icon: FiScissors },
         mixed: { color: 'bg-gray-700/50 text-gold border-gold/30', text: 'Mixed Order', icon: FiTag }
     };
 
@@ -94,9 +114,15 @@ const OrderTypeBadge = ({ orderType }) => {
 };
 
 // Order Card Component
-const OrderCard = ({ order, index }) => {
+const OrderCard = ({ order, index, orderType }) => {
     const totalItems = order.items?.reduce((sum, item) => sum + (item.quantity || 1), 0) || 0;
     const customItemsCount = order.customOrders?.length || 0;
+
+    // Custom order specific details
+    const isCustomOrder = orderType === 'custom';
+    const designType = order.designType;
+    const occasion = order.occasion;
+    const eventDate = order.eventDate;
 
     return (
         <motion.div
@@ -112,15 +138,23 @@ const OrderCard = ({ order, index }) => {
             <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-r from-gold to-yellow-600 rounded-xl flex items-center justify-center border border-gold/30">
-                            <FiPackage className="text-white text-lg" />
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${
+                            isCustomOrder 
+                                ? 'bg-gradient-to-r from-purple-500 to-purple-600 border-purple-500/30' 
+                                : 'bg-gradient-to-r from-gold to-yellow-600 border-gold/30'
+                        }`}>
+                            {isCustomOrder ? (
+                                <FiScissors className="text-white text-lg" />
+                            ) : (
+                                <FiPackage className="text-white text-lg" />
+                            )}
                         </div>
                         <div>
                             <div className="flex items-center gap-2 mb-1">
                                 <h3 className="text-lg font-semibold text-white font-serif">
                                     {order.orderNumber || `Order #${order.id?.substring(0, 8)}`}
                                 </h3>
-                                <OrderTypeBadge orderType={order.orderType} />
+                                <OrderTypeBadge orderType={isCustomOrder ? 'custom' : 'standard'} />
                             </div>
                             <p className="text-gold/70 text-sm flex items-center gap-1 font-serif">
                                 <FiCalendar className="text-xs" />
@@ -128,50 +162,101 @@ const OrderCard = ({ order, index }) => {
                             </p>
                         </div>
                     </div>
-                    <StatusBadge order={order} />
+                    <StatusBadge order={order} orderType={isCustomOrder ? 'custom' : 'regular'} />
                 </div>
+
+                {/* Custom Order Specific Details */}
+                {isCustomOrder && (
+                    <div className="mb-4 space-y-2">
+                        <div className="flex items-center gap-4 text-sm">
+                            <span className="text-gold/70 font-serif">Design:</span>
+                            <span className="text-white font-medium font-serif">{designType}</span>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm">
+                            <span className="text-gold/70 font-serif">Occasion:</span>
+                            <span className="text-white font-medium font-serif">{occasion}</span>
+                        </div>
+                        {eventDate && (
+                            <div className="flex items-center gap-4 text-sm">
+                                <span className="text-gold/70 font-serif">Event Date:</span>
+                                <span className="text-white font-medium font-serif">
+                                    {new Date(eventDate).toLocaleDateString()}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="bg-gold/5 rounded-xl p-3 border border-gold/10">
                         <p className="text-gold/70 text-sm font-serif">Total Amount</p>
                         <p className="text-white font-semibold text-lg flex items-center gap-1 font-serif">
                             <FiDollarSign className="text-gold" />
-                            ₦{order.totalPrice?.toLocaleString() || '0'}
+                            ₦{order.totalPrice?.toLocaleString() || order.basePrice?.toLocaleString() || '0'}
                         </p>
                     </div>
                     <div className="bg-gold/5 rounded-xl p-3 border border-gold/10">
-                        <p className="text-gold/70 text-sm font-serif">Items</p>
+                        <p className="text-gold/70 text-sm font-serif">
+                            {isCustomOrder ? 'Type' : 'Items'}
+                        </p>
                         <p className="text-white font-semibold font-serif">
-                            {totalItems} item{totalItems !== 1 ? 's' : ''}
-                            {customItemsCount > 0 && ` + ${customItemsCount} custom`}
+                            {isCustomOrder ? (
+                                designType || 'Custom Design'
+                            ) : (
+                                `${totalItems} item${totalItems !== 1 ? 's' : ''}`
+                            )}
                         </p>
                     </div>
                 </div>
 
                 {/* Order Preview */}
-                <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                        {order.items?.slice(0, 3).map((item, idx) => (
-                            <div key={idx} className="relative">
+                {!isCustomOrder && order.items && order.items.length > 0 && (
+                    <div className="mb-4">
+                        <div className="flex items-center gap-2 mb-2">
+                            {order.items.slice(0, 3).map((item, idx) => (
+                                <div key={idx} className="relative">
+                                    <img
+                                        src={item.image || '/images/placeholder-fashion.png'}
+                                        alt={item.name}
+                                        className="w-12 h-12 rounded-lg object-cover border border-gold/20"
+                                    />
+                                    {item.quantity > 1 && (
+                                        <div className="absolute -top-1 -right-1 bg-gold text-black text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
+                                            {item.quantity}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                            {(order.items.length > 3 || customItemsCount > 0) && (
+                                <div className="text-gold/60 text-sm font-serif">
+                                    +{Math.max(0, order.items.length - 3) + customItemsCount} more
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {/* Custom Order Inspiration Images */}
+                {isCustomOrder && order.inspirationImages && order.inspirationImages.length > 0 && (
+                    <div className="mb-4">
+                        <p className="text-gold/70 text-sm mb-2 font-serif">Inspiration Images:</p>
+                        <div className="flex items-center gap-2">
+                            {order.inspirationImages.slice(0, 3).map((image, idx) => (
                                 <img
-                                    src={item.image || '/images/placeholder-fashion.png'}
-                                    alt={item.name}
+                                    key={idx}
+                                    src={image}
+                                    alt={`Inspiration ${idx + 1}`}
                                     className="w-12 h-12 rounded-lg object-cover border border-gold/20"
                                 />
-                                {item.quantity > 1 && (
-                                    <div className="absolute -top-1 -right-1 bg-gold text-black text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
-                                        {item.quantity}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                        {(order.items?.length > 3 || customItemsCount > 0) && (
-                            <div className="text-gold/60 text-sm font-serif">
-                                +{Math.max(0, (order.items?.length || 0) - 3) + customItemsCount} more
-                            </div>
-                        )}
+                            ))}
+                            {order.inspirationImages.length > 3 && (
+                                <div className="text-gold/60 text-sm font-serif">
+                                    +{order.inspirationImages.length - 3} more
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 <div className="flex items-center justify-between pt-4 border-t border-gold/20">
                     <div className="flex items-center gap-2">
@@ -186,7 +271,7 @@ const OrderCard = ({ order, index }) => {
                         </span>
                     </div>
                     <MotionLink
-                        to={`/orders/${order.id}`}
+                        to={isCustomOrder ? `/custom-orders/${order.id}` : `/orders/${order.id}`}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-2 px-4 rounded-xl font-medium transition-all duration-300 group-hover:bg-gold/20 font-serif"
@@ -196,6 +281,45 @@ const OrderCard = ({ order, index }) => {
                     </MotionLink>
                 </div>
             </div>
+        </motion.div>
+    );
+};
+
+// Order Type Toggle Component
+const OrderTypeToggle = ({ activeType, onTypeChange }) => {
+    const types = [
+        { value: 'all', label: 'All Orders', icon: FiGrid },
+        { value: 'regular', label: 'Ready-to-Wear', icon: FiPackage },
+        { value: 'custom', label: 'Custom Designs', icon: FiScissors }
+    ];
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex bg-black/40 backdrop-blur-sm rounded-2xl p-2 border border-gold/20 max-w-md"
+        >
+            {types.map((type) => {
+                const Icon = type.icon;
+                const isActive = activeType === type.value;
+                
+                return (
+                    <motion.button
+                        key={type.value}
+                        onClick={() => onTypeChange(type.value)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 flex-1 justify-center font-serif ${
+                            isActive
+                                ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg'
+                                : 'text-gold hover:bg-gold/10'
+                        }`}
+                    >
+                        <Icon className="text-sm" />
+                        {type.label}
+                    </motion.button>
+                );
+            })}
         </motion.div>
     );
 };
@@ -258,59 +382,97 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => (
 );
 
 // Filter Component
-const OrderFilters = ({ filters, onFilterChange }) => (
-    <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-wrap gap-3 mb-6"
-    >
-        <div className="flex items-center gap-2 text-gold/70 font-serif">
-            <FiFilter className="text-sm" />
-            <span className="text-sm">Filter by:</span>
-        </div>
-        
-        {[
+const OrderFilters = ({ filters, onFilterChange, orderType }) => {
+    const filterOptions = orderType === 'custom' 
+        ? [
+            { value: 'all', label: 'All Custom Orders' },
+            { value: 'consultation', label: 'Consultation' },
+            { value: 'design', label: 'Design Phase' },
+            { value: 'production', label: 'In Production' },
+            { value: 'delivered', label: 'Delivered' }
+        ]
+        : orderType === 'regular'
+        ? [
+            { value: 'all', label: 'All Ready-to-Wear' },
+            { value: 'processing', label: 'Processing' },
+            { value: 'delivered', label: 'Delivered' }
+        ]
+        : [
             { value: 'all', label: 'All Orders' },
             { value: 'standard', label: 'Ready-to-Wear' },
             { value: 'custom', label: 'Custom Designs' },
             { value: 'delivered', label: 'Delivered' },
             { value: 'processing', label: 'Processing' }
-        ].map(filter => (
-            <motion.button
-                key={filter.value}
-                onClick={() => onFilterChange(filter.value)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 font-serif ${
-                    filters.status === filter.value
-                        ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg'
-                        : 'bg-gold/10 hover:bg-gold/20 text-gold'
-                }`}
-            >
-                {filter.label}
-            </motion.button>
-        ))}
-    </motion.div>
-);
+        ];
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-wrap gap-3 mb-6"
+        >
+            <div className="flex items-center gap-2 text-gold/70 font-serif">
+                <FiFilter className="text-sm" />
+                <span className="text-sm">Filter by:</span>
+            </div>
+            
+            {filterOptions.map(filter => (
+                <motion.button
+                    key={filter.value}
+                    onClick={() => onFilterChange(filter.value)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 font-serif ${
+                        filters.status === filter.value
+                            ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg'
+                            : 'bg-gold/10 hover:bg-gold/20 text-gold'
+                    }`}
+                >
+                    {filter.label}
+                </motion.button>
+            ))}
+        </motion.div>
+    );
+};
 
 export default function OrderHistory() {
     const { currentUser } = useAuth();
     const [orders, setOrders] = useState([]);
+    const [customOrders, setCustomOrders] = useState([]);
+    const [regularOrders, setRegularOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filters, setFilters] = useState({ status: 'all', type: 'all' });
+    const [filters, setFilters] = useState({ status: 'all' });
+    const [orderType, setOrderType] = useState('all'); // 'all', 'regular', 'custom'
     const ordersPerPage = 6;
 
     useEffect(() => {
-        const fetchOrders = async () => {
+        const fetchAllOrders = async () => {
             if (!currentUser) return;
 
             try {
                 setLoading(true);
-                const response = await getOrdersByUser();
-                setOrders(response?.data || response || []);
+                
+                // Fetch both regular and custom orders
+                const [regularResponse, customResponse] = await Promise.allSettled([
+                    getOrdersByUser(),
+                    getCustomOrdersByUser()
+                ]);
+
+                const regularOrdersData = regularResponse.status === 'fulfilled' 
+                    ? (regularResponse.value?.data || regularResponse.value || [])
+                    : [];
+
+                const customOrdersData = customResponse.status === 'fulfilled'
+                    ? (customResponse.value?.data || customResponse.value || [])
+                    : [];
+
+                setRegularOrders(regularOrdersData);
+                setCustomOrders(customOrdersData);
+                setOrders([...regularOrdersData, ...customOrdersData]);
+
             } catch (err) {
                 setError(err.message || 'Failed to load orders');
             } finally {
@@ -318,22 +480,34 @@ export default function OrderHistory() {
             }
         };
 
-        fetchOrders();
+        fetchAllOrders();
     }, [currentUser]);
 
-    // Filter orders based on search term and filters
-    const filteredOrders = orders.filter(order => {
+    // Filter orders based on type, search term and filters
+    const filteredOrders = (orderType === 'all' ? orders : 
+                          orderType === 'regular' ? regularOrders : 
+                          customOrders).filter(order => {
+        const isCustom = orderType === 'custom' || (orderType === 'all' && customOrders.includes(order));
+        
         const matchesSearch = 
             order.orderNumber?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             order.id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            order.totalPrice?.toString().includes(searchTerm);
+            order.totalPrice?.toString().includes(searchTerm) ||
+            (isCustom && order.designType?.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (isCustom && order.occasion?.toLowerCase().includes(searchTerm.toLowerCase()));
 
         const matchesStatus = 
             filters.status === 'all' ||
-            (filters.status === 'delivered' && order.isDelivered) ||
-            (filters.status === 'processing' && !order.isDelivered && order.isPaid) ||
-            (filters.status === 'standard' && order.orderType === 'standard') ||
-            (filters.status === 'custom' && (order.orderType === 'custom' || order.orderType === 'mixed'));
+            (filters.status === 'delivered' && (order.isDelivered || order.status === 'delivered')) ||
+            (filters.status === 'processing' && (
+                (!order.isDelivered && order.isPaid) || 
+                ['consultation', 'design', 'measurement', 'production', 'fitting'].includes(order.status)
+            )) ||
+            (filters.status === 'standard' && !isCustom) ||
+            (filters.status === 'custom' && isCustom) ||
+            (filters.status === 'consultation' && order.status === 'consultation') ||
+            (filters.status === 'design' && order.status === 'design') ||
+            (filters.status === 'production' && order.status === 'production');
 
         return matchesSearch && matchesStatus;
     });
@@ -346,21 +520,40 @@ export default function OrderHistory() {
 
     // Stats calculation
     const totalOrders = orders.length;
-    const totalSpent = orders.reduce((sum, order) => sum + (order.totalPrice || 0), 0);
-    const deliveredOrders = orders.filter(order => order.isDelivered).length;
-    const customOrders = orders.filter(order => order.orderType === 'custom' || order.orderType === 'mixed').length;
+    const totalSpent = orders.reduce((sum, order) => sum + (order.totalPrice || order.basePrice || 0), 0);
+    const deliveredOrders = orders.filter(order => order.isDelivered || order.status === 'delivered').length;
+    const customOrdersCount = customOrders.length;
 
     const refreshOrders = async () => {
         try {
             setLoading(true);
-            const response = await getOrdersByUser();
-            setOrders(response?.data || response || []);
+            const [regularResponse, customResponse] = await Promise.allSettled([
+                getOrdersByUser(),
+                getCustomOrdersByUser()
+            ]);
+
+            const regularOrdersData = regularResponse.status === 'fulfilled' 
+                ? (regularResponse.value?.data || regularResponse.value || [])
+                : [];
+
+            const customOrdersData = customResponse.status === 'fulfilled'
+                ? (customResponse.value?.data || customResponse.value || [])
+                : [];
+
+            setRegularOrders(regularOrdersData);
+            setCustomOrders(customOrdersData);
+            setOrders([...regularOrdersData, ...customOrdersData]);
         } catch (err) {
             setError(err.message || 'Failed to refresh orders');
         } finally {
             setLoading(false);
         }
     };
+
+    // Reset to page 1 when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filters.status, orderType, searchTerm]);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
@@ -396,6 +589,11 @@ export default function OrderHistory() {
                         </MotionLink>
                     </div>
                 </motion.div>
+
+                {/* Order Type Toggle */}
+                <div className="flex justify-center mb-8">
+                    <OrderTypeToggle activeType={orderType} onTypeChange={setOrderType} />
+                </div>
 
                 {/* Stats Cards */}
                 {orders.length > 0 && (
@@ -440,12 +638,12 @@ export default function OrderHistory() {
                         </div>
                         <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-xl flex items-center justify-center border border-gold/30">
+                                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center border border-purple-500/30">
                                     <FiScissors className="text-white text-xl" />
                                 </div>
                                 <div>
                                     <p className="text-gold/70 text-sm font-serif">Custom Designs</p>
-                                    <p className="text-white text-2xl font-bold font-serif">{customOrders}</p>
+                                    <p className="text-white text-2xl font-bold font-serif">{customOrdersCount}</p>
                                 </div>
                             </div>
                         </div>
@@ -465,7 +663,13 @@ export default function OrderHistory() {
                             <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gold/60 text-lg" />
                             <input
                                 type="text"
-                                placeholder="Search orders by number, ID, or amount..."
+                                placeholder={
+                                    orderType === 'custom' 
+                                        ? "Search custom orders by design, occasion..." 
+                                        : orderType === 'regular'
+                                        ? "Search ready-to-wear orders..."
+                                        : "Search all orders..."
+                                }
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full bg-black/40 backdrop-blur-sm border border-gold/20 rounded-2xl pl-10 pr-4 py-3 text-white placeholder-gold/60 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-serif"
@@ -473,7 +677,11 @@ export default function OrderHistory() {
                         </div>
 
                         {/* Filters */}
-                        <OrderFilters filters={filters} onFilterChange={(status) => setFilters({ ...filters, status })} />
+                        <OrderFilters 
+                            filters={filters} 
+                            onFilterChange={(status) => setFilters({ ...filters, status })} 
+                            orderType={orderType}
+                        />
                     </motion.div>
                 )}
 
@@ -545,12 +753,13 @@ export default function OrderHistory() {
                             <p className="text-gold/70 font-serif">
                                 Showing {Math.min(filteredOrders.length, ordersPerPage)} of {filteredOrders.length} orders
                                 {filters.status !== 'all' && ` (${filters.status})`}
+                                {orderType !== 'all' && ` • ${orderType === 'custom' ? 'Custom Designs' : 'Ready-to-Wear'}`}
                             </p>
                             {(searchTerm || filters.status !== 'all') && (
                                 <button
                                     onClick={() => {
                                         setSearchTerm('');
-                                        setFilters({ status: 'all', type: 'all' });
+                                        setFilters({ status: 'all' });
                                     }}
                                     className="text-gold hover:text-yellow-400 text-sm font-medium flex items-center gap-1 font-serif"
                                 >
@@ -562,7 +771,7 @@ export default function OrderHistory() {
                         {/* Orders Grid */}
                         <AnimatePresence mode="wait">
                             <motion.div
-                                key={`${currentPage}-${filters.status}-${searchTerm}`}
+                                key={`${orderType}-${currentPage}-${filters.status}-${searchTerm}`}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
@@ -572,7 +781,11 @@ export default function OrderHistory() {
                                     <OrderCard 
                                         key={order.id} 
                                         order={order} 
-                                        index={index} 
+                                        index={index}
+                                        orderType={orderType === 'all' 
+                                            ? (customOrders.includes(order) ? 'custom' : 'regular')
+                                            : orderType
+                                        }
                                     />
                                 ))}
                             </motion.div>
@@ -594,7 +807,7 @@ export default function OrderHistory() {
                                     <button
                                         onClick={() => {
                                             setSearchTerm('');
-                                            setFilters({ status: 'all', type: 'all' });
+                                            setFilters({ status: 'all' });
                                         }}
                                         className="text-gold hover:text-yellow-400 font-medium font-serif"
                                     >
