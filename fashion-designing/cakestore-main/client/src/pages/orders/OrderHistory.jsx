@@ -456,28 +456,45 @@ export default function OrderHistory() {
                 setLoading(true);
                 setError('');
                 
+                console.log('Starting to fetch orders...');
+                
                 // Fetch both regular and custom orders with error handling
                 const [regularResponse, customResponse] = await Promise.allSettled([
                     getOrdersByUser().catch(err => {
                         console.log('Regular orders not available:', err.message);
-                        return { data: [] }; // Return empty array if regular orders fail
+                        return { data: { data: [] } }; // Return proper structure
                     }),
                     getCustomOrdersByUser().catch(err => {
                         console.log('Custom orders error:', err.message);
-                        return { data: [] }; // Return empty array if custom orders fail
+                        return { data: { data: [] } }; // Return proper structure
                     })
                 ]);
 
-                const regularOrdersData = regularResponse.status === 'fulfilled' 
-                    ? (regularResponse.value?.data || regularResponse.value || [])
-                    : [];
+                console.log('Regular response:', regularResponse);
+                console.log('Custom response:', customResponse);
 
-                const customOrdersData = customResponse.status === 'fulfilled'
-                    ? (customResponse.value?.data || customResponse.value || [])
-                    : [];
+                // Extract data from responses - handle different response structures
+                const getOrdersData = (response) => {
+                    if (!response || response.status !== 'fulfilled') return [];
+                    
+                    const value = response.value;
+                    // Handle different response structures
+                    if (value?.data?.data) {
+                        return value.data.data; // { data: { data: [...] } }
+                    } else if (value?.data) {
+                        return value.data; // { data: [...] }
+                    } else if (Array.isArray(value)) {
+                        return value; // [...]
+                    } else {
+                        return [];
+                    }
+                };
 
-                console.log('Regular orders:', regularOrdersData);
-                console.log('Custom orders:', customOrdersData);
+                const regularOrdersData = getOrdersData(regularResponse);
+                const customOrdersData = getOrdersData(customResponse);
+
+                console.log('Regular orders data:', regularOrdersData);
+                console.log('Custom orders data:', customOrdersData);
 
                 setRegularOrders(regularOrdersData);
                 setCustomOrders(customOrdersData);
@@ -498,6 +515,8 @@ export default function OrderHistory() {
     const filteredOrders = (orderType === 'all' ? orders : 
                           orderType === 'regular' ? regularOrders : 
                           customOrders).filter(order => {
+        if (!order) return false;
+        
         const isCustom = orderType === 'custom' || (orderType === 'all' && customOrders.includes(order));
         
         const matchesSearch = 
@@ -542,21 +561,32 @@ export default function OrderHistory() {
             const [regularResponse, customResponse] = await Promise.allSettled([
                 getOrdersByUser().catch(err => {
                     console.log('Regular orders not available:', err.message);
-                    return { data: [] };
+                    return { data: { data: [] } };
                 }),
                 getCustomOrdersByUser().catch(err => {
                     console.log('Custom orders error:', err.message);
-                    return { data: [] };
+                    return { data: { data: [] } };
                 })
             ]);
 
-            const regularOrdersData = regularResponse.status === 'fulfilled' 
-                ? (regularResponse.value?.data || regularResponse.value || [])
-                : [];
+            // Extract data from responses
+            const getOrdersData = (response) => {
+                if (!response || response.status !== 'fulfilled') return [];
+                
+                const value = response.value;
+                if (value?.data?.data) {
+                    return value.data.data;
+                } else if (value?.data) {
+                    return value.data;
+                } else if (Array.isArray(value)) {
+                    return value;
+                } else {
+                    return [];
+                }
+            };
 
-            const customOrdersData = customResponse.status === 'fulfilled'
-                ? (customResponse.value?.data || customResponse.value || [])
-                : [];
+            const regularOrdersData = getOrdersData(regularResponse);
+            const customOrdersData = getOrdersData(customResponse);
 
             setRegularOrders(regularOrdersData);
             setCustomOrders(customOrdersData);
