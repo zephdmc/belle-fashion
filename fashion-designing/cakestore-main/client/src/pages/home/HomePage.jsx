@@ -601,7 +601,7 @@ const SimpleImageSlideShow = () => {
                 {/* Mobile Contact Bar - Scrolling Animation */}
                 <div className="lg:hidden absolute top-4 left-0 right-0 z-20 overflow-hidden">
                     <motion.div
-                        className="bg-black/20 backdrop-blur-sm border-b border-gold/30 py-3"
+                        className="bg-black/20 backdrop-blur-sm border-b w-full border-gold/30 py-3"
                         animate={{
                             x: [0, -300, 0],
                         }}
@@ -614,7 +614,7 @@ const SimpleImageSlideShow = () => {
                             },
                         }}
                     >
-                        <div className="flex space-x-8 whitespace-nowrap min-w-full">
+                        <div className="flex space-x-8 whitespace-nowrap min-w-max">
                             {/* Multiple copies for seamless scroll */}
                             {[...Array(3)].map((_, setIndex) => (
                                 <div key={setIndex} className="flex items-center space-x-8">
