@@ -6,93 +6,7 @@ const CustomOrder = require('../models/CustomOrder');
 const { ref, uploadBytes, getDownloadURL } = require('firebase/storage');
 const { v4: uuidv4 } = require('uuid');
 
-// @desc    Create custom fashion order
-// @route   POST /api/custom-orders
-// @access  Private
-exports.createCustomOrder = asyncHandler(async (req, res, next) => {
-    try {
-        const {
-            userId,
-            userEmail,
-            userName,
-            designType,
-            occasion,
-            styleDescription,
-            fabricType,
-            fabricColor,
-            materialQuality,
-            measurements,
-            designFeatures,
-            embellishments,
-            specialRequests,
-            eventDate,
-            deliveryAddress,
-            shippingMethod,
-            referenceLinks
-        } = req.body;
-
-        // Validate required fields
-        if (!userId) throw new Error('User ID is required');
-        if (!userEmail) throw new Error('User email is required');
-        if (!designType) throw new Error('Design type is required');
-        if (!occasion) throw new Error('Occasion is required');
-        if (!fabricType) throw new Error('Fabric type is required');
-        if (!measurements) throw new Error('Measurements are required');
-        if (!eventDate) throw new Error('Event date is required');
-
-        let inspirationImages = [];
-
-        // Handle multiple image uploads
-        if (req.files && req.files.inspirationImages) {
-            const imageFiles = Array.isArray(req.files.inspirationImages) 
-                ? req.files.inspirationImages 
-                : [req.files.inspirationImages];
-
-            for (const imageFile of imageFiles) {
-                const imageRef = ref(storage, `custom-fashion-orders/${Date.now()}_${uuidv4()}_${imageFile.name}`);
-                const snapshot = await uploadBytes(imageRef, imageFile.data);
-                const imageUrl = await getDownloadURL(snapshot.ref);
-                inspirationImages.push(imageUrl);
-            }
-        }
-
-        // Calculate base price estimate
-        const basePrice = calculatePriceEstimate({
-            designType,
-            fabricType,
-            materialQuality,
-            designFeatures,
-            embellishments
-        });
-
-        const customOrderData = {
-            userId,
-            userEmail,
-            userName,
-            designType,
-            occasion,
-            styleDescription: styleDescription || '',
-            fabricType,
-            fabricColor: fabricColor || '',
-            materialQuality: materialQuality || 'standard',
-            measurements: typeof measurements === 'string' ? JSON.parse(measurements) : measurements,
-            designFeatures: Array.isArray(designFeatures) ? designFeatures : [designFeatures],
-            embellishments: Array.isArray(embellishments) ? embellishments : [embellishments],
-            specialRequests: specialRequests || '',
-            eventDate,
-            deliveryAddress: typeof deliveryAddress === 'string' ? JSON.parse(deliveryAddress) : deliveryAddress,
-            shippingMethod: shippingMethod || 'standard',
-            inspirationImages,
-            referenceLinks: Array.isArray(referenceLinks) ? referenceLinks : [referenceLinks],
-            basePrice,
-            status: 'consultation'
-        };
-
-        const customOrder = new CustomOrder(customOrderData);
-       // Replace line 92 in customOrderController.js
-// const requiredByDate = customOrder.calculateRequiredByDate();
-
-// With this:
+// Helper function to calculate required by date
 const calculateRequiredByDate = (eventDate, productionTime = '2-3 weeks') => {
     if (!eventDate) return new Date().toISOString().split('T')[0];
     
@@ -112,22 +26,167 @@ const calculateRequiredByDate = (eventDate, productionTime = '2-3 weeks') => {
     return requiredBy.toISOString().split('T')[0];
 };
 
-const requiredByDate = calculateRequiredByDate(customOrder.eventDate, customOrder.productionTime);
+// Helper function to calculate price estimate
+function calculatePriceEstimate(orderData) {
+    let basePrice = 0;
+    
+    // Base price by design type
+    const designTypePrices = {
+        'dress': 15000,
+        'gown': 30000,
+        'suit': 20000,
+        'blouse': 8000,
+        'skirt': 6000,
+        'pants': 7000,
+        'jacket': 12000
+    };
+    
+    basePrice = designTypePrices[orderData.designType] || 10000;
+    
+    // Fabric quality multiplier
+    const qualityMultipliers = {
+        'standard': 1,
+        'premium': 1.5,
+        'luxury': 2.5
+    };
+    
+    basePrice *= qualityMultipliers[orderData.materialQuality] || 1;
+    
+    // Add cost for design features
+    if (orderData.designFeatures && orderData.designFeatures.length > 0) {
+        basePrice += orderData.designFeatures.length * 2000;
+    }
+    
+    // Add cost for embellishments
+    if (orderData.embellishments && orderData.embellishments.length > 0) {
+        basePrice += orderData.embellishments.length * 3500;
+    }
+    
+    return Math.round(basePrice);
+}
+
+// @desc    Create custom fashion order
+// @route   POST /api/custom-orders
+// @access  Private
+exports.createCustomOrder = asyncHandler(async (req, res, next) => {
+    try {
+        console.log('Received custom order request body:', JSON.stringify(req.body, null, 2));
         
+        const {
+            designType,
+            occasion,
+            styleDescription,
+            fabricType,
+            fabricColor,
+            materialQuality,
+            measurements,
+            designFeatures,
+            embellishments,
+            specialRequests,
+            eventDate,
+            deliveryAddress,
+            shippingMethod,
+            referenceLinks,
+            inspirationImages: frontendImages, // This will be files, not in body
+            price, // From frontend calculation
+            productionTime // From frontend
+        } = req.body;
+
+        // Use user from auth middleware instead of body
+        const userId = req.user.uid;
+        const userEmail = req.user.email;
+        const userName = req.user.displayName || '';
+
+        // Validate required fields
+        if (!designType) throw new Error('Design type is required');
+        if (!occasion) throw new Error('Occasion is required');
+        if (!fabricType) throw new Error('Fabric type is required');
+        if (!measurements) throw new Error('Measurements are required');
+        if (!eventDate) throw new Error('Event date is required');
+
+        let inspirationImageUrls = [];
+
+        // Handle multiple image uploads from form data
+        if (req.files && req.files.length > 0) {
+            for (const imageFile of req.files) {
+                const imageRef = ref(storage, `custom-fashion-orders/${Date.now()}_${uuidv4()}_${imageFile.originalname}`);
+                const snapshot = await uploadBytes(imageRef, imageFile.buffer);
+                const imageUrl = await getDownloadURL(snapshot.ref);
+                inspirationImageUrls.push(imageUrl);
+            }
+        }
+
+        // Calculate required by date
+        const requiredByDate = calculateRequiredByDate(eventDate, productionTime);
+
+        // Parse measurements and deliveryAddress if they are strings
+        const parsedMeasurements = typeof measurements === 'string' 
+            ? JSON.parse(measurements) 
+            : measurements;
+
+        const parsedDeliveryAddress = typeof deliveryAddress === 'string'
+            ? JSON.parse(deliveryAddress)
+            : deliveryAddress;
+
+        // Create custom order data
+        const customOrderData = {
+            userId,
+            userEmail,
+            userName,
+            designType,
+            occasion,
+            styleDescription: styleDescription || '',
+            fabricType,
+            fabricColor: fabricColor || '',
+            materialQuality: materialQuality || 'standard',
+            measurements: parsedMeasurements,
+            designFeatures: Array.isArray(designFeatures) ? designFeatures : (designFeatures ? [designFeatures] : []),
+            embellishments: Array.isArray(embellishments) ? embellishments : (embellishments ? [embellishments] : []),
+            specialRequests: specialRequests || '',
+            eventDate,
+            requiredByDate,
+            deliveryAddress: parsedDeliveryAddress,
+            shippingMethod: shippingMethod || 'standard',
+            inspirationImages: inspirationImageUrls,
+            referenceLinks: Array.isArray(referenceLinks) ? referenceLinks : (referenceLinks ? [referenceLinks] : []),
+            basePrice: price || 0,
+            totalPrice: price || 0,
+            finalPrice: price || 0,
+            productionTime: productionTime || '2-3 weeks',
+            status: 'consultation',
+            priority: 'normal'
+        };
+
+        console.log('Creating custom order with data:', JSON.stringify(customOrderData, null, 2));
+
+        // Create CustomOrder instance
+        const customOrder = new CustomOrder(customOrderData);
+        
+        // Convert to Firestore format
+        const firestoreData = customOrder.toFirestore();
+        
+        console.log('Firestore data to save:', JSON.stringify(firestoreData, null, 2));
+
+        // Save to Firestore
         const customOrderRef = db.collection('customOrders').doc(customOrder.id);
-        await customOrderRef.set(customOrder.toFirestore());
+        await customOrderRef.set(firestoreData);
+
+        console.log('Custom order created successfully with ID:', customOrder.id);
 
         res.status(201).json({
             success: true,
             message: 'Custom fashion order created successfully',
-            data: customOrder
+            data: {
+                id: customOrder.id,
+                ...customOrder
+            }
         });
 
     } catch (error) {
         console.error('Custom fashion order creation failed:', error);
         res.status(500).json({
             success: false,
-            error: error.message
+            error: error.message || 'Failed to create custom order'
         });
     }
 });
@@ -211,7 +270,7 @@ exports.getAllCustomOrders = asyncHandler(async (req, res, next) => {
 exports.updateCustomOrderStatus = asyncHandler(async (req, res, next) => {
     try {
         const { status } = req.body;
-        const validStatuses = ['consultation', 'design', 'measurement', 'production', 'fitting', 'ready', 'shipped', 'delivered', 'cancelled'];
+        const validStatuses = ['consultation', 'confirmed', 'design', 'measurement', 'production', 'fitting', 'ready', 'shipped', 'delivered', 'cancelled'];
 
         if (!validStatuses.includes(status)) {
             return res.status(400).json({
@@ -230,10 +289,10 @@ exports.updateCustomOrderStatus = asyncHandler(async (req, res, next) => {
             });
         }
 
-        const order = CustomOrder.fromFirestore(orderSnap.id, orderSnap.data());
-        order.updateStatus(status);
-
-        await orderRef.update(order.toFirestore());
+        await orderRef.update({
+            status: status,
+            updatedAt: new Date().toISOString()
+        });
 
         res.status(200).json({
             success: true,
@@ -267,7 +326,7 @@ exports.getCustomOrderById = asyncHandler(async (req, res, next) => {
 
         // Verify ownership or admin/designer status
         if (order.userId !== req.user.uid && req.user.role !== 'admin' && req.user.role !== 'designer') {
-            return res.status(401).json({
+            return res.status(403).json({
                 success: false,
                 error: 'Not authorized to access this order'
             });
@@ -309,25 +368,29 @@ exports.updateCustomOrder = asyncHandler(async (req, res, next) => {
             'assignedDesigner', 'priority', 'notes', 'sketchUrl', 'nextFittingDate'
         ];
         
+        const updates = {};
         allowedUpdates.forEach(field => {
             if (req.body[field] !== undefined) {
-                order[field] = req.body[field];
+                updates[field] = req.body[field];
             }
         });
 
-        order.updatedAt = new Date().toISOString();
+        updates.updatedAt = new Date().toISOString();
         
         // Recalculate total if cost components changed
         if (req.body.fabricCost || req.body.laborCost || req.body.shippingCost) {
-            order.calculateTotalPrice();
+            updates.totalPrice = (updates.fabricCost || order.fabricCost) + 
+                               (updates.laborCost || order.laborCost) + 
+                               (updates.shippingCost || order.shippingCost);
+            updates.finalPrice = updates.totalPrice;
         }
 
-        await orderRef.update(order.toFirestore());
+        await orderRef.update(updates);
 
         res.status(200).json({
             success: true,
             message: 'Custom order updated successfully',
-            data: order
+            data: { id: req.params.id, ...updates }
         });
     } catch (error) {
         console.error('Error updating custom order:', error);
@@ -357,14 +420,25 @@ exports.addFittingSession = asyncHandler(async (req, res, next) => {
 
         const order = CustomOrder.fromFirestore(orderSnap.id, orderSnap.data());
         
-        order.addFittingSession({
-            notes,
-            measurements,
+        // Initialize fittingSessions array if it doesn't exist
+        if (!order.fittingSessions) {
+            order.fittingSessions = [];
+        }
+        
+        order.fittingSessions.push({
+            date: new Date().toISOString(),
+            notes: notes || '',
+            measurements: measurements || {},
             photos: photos || [],
-            nextSessionDate
+            nextSessionDate: nextSessionDate || null
         });
 
-        await orderRef.update(order.toFirestore());
+        order.updatedAt = new Date().toISOString();
+
+        await orderRef.update({
+            fittingSessions: order.fittingSessions,
+            updatedAt: order.updatedAt
+        });
 
         res.status(200).json({
             success: true,
@@ -453,42 +527,3 @@ exports.calculatePriceEstimate = asyncHandler(async (req, res, next) => {
         });
     }
 });
-
-// Helper function to calculate price estimate
-function calculatePriceEstimate(orderData) {
-    let basePrice = 0;
-    
-    // Base price by design type
-    const designTypePrices = {
-        'dress': 150,
-        'gown': 300,
-        'suit': 200,
-        'blouse': 80,
-        'skirt': 60,
-        'pants': 70,
-        'jacket': 120
-    };
-    
-    basePrice = designTypePrices[orderData.designType] || 100;
-    
-    // Fabric quality multiplier
-    const qualityMultipliers = {
-        'standard': 1,
-        'premium': 1.5,
-        'luxury': 2.5
-    };
-    
-    basePrice *= qualityMultipliers[orderData.materialQuality] || 1;
-    
-    // Add cost for design features
-    if (orderData.designFeatures && orderData.designFeatures.length > 0) {
-        basePrice += orderData.designFeatures.length * 20;
-    }
-    
-    // Add cost for embellishments
-    if (orderData.embellishments && orderData.embellishments.length > 0) {
-        basePrice += orderData.embellishments.length * 35;
-    }
-    
-    return Math.round(basePrice);
-}
