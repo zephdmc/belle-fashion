@@ -601,7 +601,7 @@ const SimpleImageSlideShow = () => {
                 {/* Mobile Contact Bar - Scrolling Animation */}
                 <div className="lg:hidden absolute top-4 left-0 right-0 z-20 overflow-hidden">
                     <motion.div
-                        className="bg-black/20 backdrop-blur-sm border-b w-full border-gold/30 py-3"
+                        className=" backdrop-blur-sm border-b  py-3"
                         animate={{
                             x: [0, -300, 0],
                         }}
