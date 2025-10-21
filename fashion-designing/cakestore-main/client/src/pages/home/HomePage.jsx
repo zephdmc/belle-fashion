@@ -614,13 +614,13 @@ const SimpleImageSlideShow = () => {
                             },
                         }}
                     >
-                        <div className="flex space-x-8 whitespace-nowrap min-w-max">
+                        <div className="flex space-x-8 whitespace-nowrap min-w-full">
                             {/* Multiple copies for seamless scroll */}
                             {[...Array(3)].map((_, setIndex) => (
                                 <div key={setIndex} className="flex items-center space-x-8">
-                                    <a href="tel:+1234567890" className="flex items-center text-white hover:text-gold transition-colors text-sm">
+                                    <a href="tel:+2349010873215" className="flex items-center text-white hover:text-gold transition-colors text-sm">
                                         <FiPhone className="mr-2" size={14} />
-                                        <span>+123 9010873215</span>
+                                        <span>+123 9010 873 215</span>
                                     </a>
                                     <a href="mailto:info@bellebyokien.com" className="flex items-center text-white hover:text-gold transition-colors text-sm">
                                         <FiMail className="mr-2" size={14} />
