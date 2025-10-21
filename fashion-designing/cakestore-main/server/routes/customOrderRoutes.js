@@ -16,38 +16,37 @@ const upload = require('../middlewares/uploadMiddleware');
 
 const router = express.Router();
 
-// Public routes
+// ===== PUBLIC ROUTES =====
 router.route('/calculate-price')
     .post(calculatePriceEstimate);
 
-// Customer routes
-router.route('/')
-    .post(protect, upload.array('inspirationImages', 5), createCustomOrder); // Allow multiple images
+// ===== CUSTOMER ROUTES =====
+// Create custom order
+router.post('/', protect, upload.array('inspirationImages', 5), createCustomOrder);
 
-router.route('/my-orders')
-    .get(protect, getMyCustomOrders);
+// Get current user's custom orders
+router.get('/my-orders', protect, getMyCustomOrders);
 
-router.route('/:id')
-    .get(protect, getCustomOrderById);
+// Get specific custom order by ID
+router.get('/:id', protect, getCustomOrderById);
 
-// Admin/Designer routes
-router.route('/admin/all')
-    .get(protect, authorize('admin', 'designer'), getAllCustomOrders);
+// ===== ADMIN/DESIGNER ROUTES =====
+// Get ALL custom orders (admin only)
+router.get('/admin/all', protect, authorize('admin', 'designer'), getAllCustomOrders);
 
-router.route('/admin/:id')
-    .put(protect, authorize('admin', 'designer'), updateCustomOrder);
+// Update custom order (admin only)
+router.put('/admin/:id', protect, authorize('admin', 'designer'), updateCustomOrder);
 
-router.route('/admin/:id/status')
-    .put(protect, authorize('admin', 'designer'), updateCustomOrderStatus);
+// Update order status (admin only)
+router.put('/admin/:id/status', protect, authorize('admin', 'designer'), updateCustomOrderStatus);
 
-router.route('/admin/:id/fitting')
-    .post(protect, authorize('admin', 'designer'), addFittingSession);
+// Add fitting session (admin only)
+router.post('/admin/:id/fitting', protect, authorize('admin', 'designer'), addFittingSession);
 
-router.route('/admin/:id/tracking')
-    .put(protect, authorize('admin', 'designer'), addTrackingInfo);
+// Add tracking info (admin only)
+router.put('/admin/:id/tracking', protect, authorize('admin', 'designer'), addTrackingInfo);
 
-// Optional: Routes for specific status filters
-router.route('/admin/status/:status')
-    .get(protect, authorize('admin', 'designer'), getAllCustomOrders);
+// Get orders by status (admin only)
+router.get('/admin/status/:status', protect, authorize('admin', 'designer'), getAllCustomOrders);
 
 module.exports = router;
