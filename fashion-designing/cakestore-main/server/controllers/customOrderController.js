@@ -89,7 +89,30 @@ exports.createCustomOrder = asyncHandler(async (req, res, next) => {
         };
 
         const customOrder = new CustomOrder(customOrderData);
-        customOrder.calculateRequiredByDate(); // Set required by date based on event date
+       // Replace line 92 in customOrderController.js
+// const requiredByDate = customOrder.calculateRequiredByDate();
+
+// With this:
+const calculateRequiredByDate = (eventDate, productionTime = '2-3 weeks') => {
+    if (!eventDate) return new Date().toISOString().split('T')[0];
+    
+    const event = new Date(eventDate);
+    const requiredBy = new Date(event);
+    
+    if (productionTime.includes('1-2')) {
+        requiredBy.setDate(event.getDate() - 10);
+    } else if (productionTime.includes('2-3')) {
+        requiredBy.setDate(event.getDate() - 7);
+    } else if (productionTime.includes('3-4')) {
+        requiredBy.setDate(event.getDate() - 5);
+    } else {
+        requiredBy.setDate(event.getDate() - 7);
+    }
+    
+    return requiredBy.toISOString().split('T')[0];
+};
+
+const requiredByDate = calculateRequiredByDate(customOrder.eventDate, customOrder.productionTime);
         
         const customOrderRef = db.collection('customOrders').doc(customOrder.id);
         await customOrderRef.set(customOrder.toFirestore());
