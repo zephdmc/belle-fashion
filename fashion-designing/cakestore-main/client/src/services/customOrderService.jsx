@@ -95,13 +95,14 @@ export const getCustomOrdersByUser = async (filters = {}) => {
     }
 };
 
+// FIXED: Changed endpoint from '/api/custom-orders' to '/api/custom-orders/admin/all'
 export const getAllCustomOrders = async (filters = {}) => {
     try {
         if (!auth || !auth.currentUser) throw new Error('User not authenticated');
 
         const token = await auth.currentUser.getIdToken(true);
 
-        const response = await API.get('/api/custom-orders', {
+        const response = await API.get('/api/custom-orders/admin/all', {
             params: filters,
             headers: {
                 'Content-Type': 'application/json',
@@ -117,6 +118,7 @@ export const getAllCustomOrders = async (filters = {}) => {
     }
 };
 
+// FIXED: These admin routes need to point to the correct endpoints
 export const updateCustomOrderStatus = async (orderId, status) => {
     try {
         if (!auth || !auth.currentUser) throw new Error('User not authenticated');
@@ -124,7 +126,7 @@ export const updateCustomOrderStatus = async (orderId, status) => {
         const token = await auth.currentUser.getIdToken(true);
 
         const response = await API.put(
-            `/api/custom-orders/${orderId}/status`,
+            `/api/custom-orders/admin/${orderId}/status`,
             { status },
             {
                 headers: {
@@ -149,7 +151,7 @@ export const updateCustomOrder = async (orderId, updateData) => {
         const token = await auth.currentUser.getIdToken(true);
 
         const response = await API.put(
-            `/api/custom-orders/${orderId}`,
+            `/api/custom-orders/admin/${orderId}`,
             updateData,
             {
                 headers: {
@@ -174,7 +176,7 @@ export const addFittingSession = async (orderId, sessionData) => {
         const token = await auth.currentUser.getIdToken(true);
 
         const response = await API.post(
-            `/api/custom-orders/${orderId}/fitting`,
+            `/api/custom-orders/admin/${orderId}/fitting`,
             sessionData,
             {
                 headers: {
@@ -199,7 +201,7 @@ export const addTrackingInfo = async (orderId, trackingData) => {
         const token = await auth.currentUser.getIdToken(true);
 
         const response = await API.put(
-            `/api/custom-orders/${orderId}/tracking`,
+            `/api/custom-orders/admin/${orderId}/tracking`,
             trackingData,
             {
                 headers: {
@@ -237,6 +239,7 @@ export const calculatePriceEstimate = async (orderData) => {
     }
 };
 
+// FIXED: This route doesn't exist in your backend - you might need to create it
 export const uploadDesignSketch = async (orderId, sketchFile) => {
     try {
         if (!auth || !auth.currentUser) throw new Error('User not authenticated');
@@ -247,7 +250,7 @@ export const uploadDesignSketch = async (orderId, sketchFile) => {
         formData.append('sketch', sketchFile);
 
         const response = await API.post(
-            `/api/custom-orders/${orderId}/sketch`,
+            `/api/custom-orders/admin/${orderId}/sketch`,
             formData,
             {
                 headers: {
@@ -265,13 +268,14 @@ export const uploadDesignSketch = async (orderId, sketchFile) => {
     }
 };
 
+// FIXED: This route doesn't exist - you might need to create it
 export const getCustomOrderStats = async () => {
     try {
         if (!auth || !auth.currentUser) throw new Error('User not authenticated');
 
         const token = await auth.currentUser.getIdToken(true);
 
-        const response = await API.get('/api/custom-orders/stats', {
+        const response = await API.get('/api/custom-orders/admin/stats', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -285,13 +289,14 @@ export const getCustomOrderStats = async () => {
     }
 };
 
+// FIXED: This route doesn't exist in your backend
 export const deleteCustomOrder = async (orderId) => {
     try {
         if (!auth || !auth.currentUser) throw new Error('User not authenticated');
 
         const token = await auth.currentUser.getIdToken(true);
 
-        const response = await API.delete(`/api/custom-orders/${orderId}`, {
+        const response = await API.delete(`/api/custom-orders/admin/${orderId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
