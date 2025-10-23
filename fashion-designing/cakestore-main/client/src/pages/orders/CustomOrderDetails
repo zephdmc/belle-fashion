@@ -105,9 +105,11 @@ export default function CustomOrderDetails() {
 
             try {
                 setLoading(true);
-                const response = await getCustomOrderById(id);
-                setOrder(response?.data || response || null);
+                const orderData = await getCustomOrderById(id);
+                console.log('Custom order data:', orderData); // Debug log
+                setOrder(orderData || null);
             } catch (err) {
+                console.error('Error fetching custom order:', err);
                 setError(err.message || 'Failed to load custom order details');
             } finally {
                 setLoading(false);
@@ -201,6 +203,23 @@ export default function CustomOrderDetails() {
             </div>
         );
     }
+
+    // Helper function to safely access nested properties
+    const getOrderValue = (path, defaultValue = '') => {
+        const value = path.split('.').reduce((obj, key) => obj?.[key], order);
+        return value || defaultValue;
+    };
+
+    // Safely get measurements
+    const measurements = typeof order.measurements === 'object' ? order.measurements : {};
+    
+    // Safely get delivery address
+    const deliveryAddress = typeof order.deliveryAddress === 'object' ? order.deliveryAddress : {};
+    
+    // Safely get arrays
+    const designFeatures = Array.isArray(order.designFeatures) ? order.designFeatures : [];
+    const embellishments = Array.isArray(order.embellishments) ? order.embellishments : [];
+    const inspirationImages = Array.isArray(order.inspirationImages) ? order.inspirationImages : [];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
@@ -299,7 +318,7 @@ export default function CustomOrderDetails() {
                         </motion.div>
 
                         {/* Measurements */}
-                        {order.measurements && (
+                        {Object.keys(measurements).length > 0 && (
                             <motion.div
                                 variants={itemVariants}
                                 className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
@@ -312,7 +331,7 @@ export default function CustomOrderDetails() {
                                 </div>
                                 <div className="p-6">
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                        {Object.entries(order.measurements).map(([key, value]) => (
+                                        {Object.entries(measurements).map(([key, value]) => (
                                             value && (
                                                 <div
                                                     key={key}
@@ -331,7 +350,7 @@ export default function CustomOrderDetails() {
                         )}
 
                         {/* Design Features */}
-                        {(order.designFeatures?.length > 0 || order.embellishments?.length > 0) && (
+                        {(designFeatures.length > 0 || embellishments.length > 0) && (
                             <motion.div
                                 variants={itemVariants}
                                 className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
@@ -344,7 +363,7 @@ export default function CustomOrderDetails() {
                                 </div>
                                 <div className="p-6">
                                     <div className="flex flex-wrap gap-2">
-                                        {order.designFeatures?.map((feature, idx) => (
+                                        {designFeatures.map((feature, idx) => (
                                             <span
                                                 key={idx}
                                                 className="bg-gold/20 text-gray-800 px-3 py-2 rounded-xl text-sm border border-gold/30 font-medium font-serif"
@@ -352,7 +371,7 @@ export default function CustomOrderDetails() {
                                                 {feature}
                                             </span>
                                         ))}
-                                        {order.embellishments?.map((embellishment, idx) => (
+                                        {embellishments.map((embellishment, idx) => (
                                             <span
                                                 key={idx}
                                                 className="bg-amber-500/20 text-amber-800 px-3 py-2 rounded-xl text-sm border border-amber-500/30 font-medium font-serif"
@@ -366,7 +385,7 @@ export default function CustomOrderDetails() {
                         )}
 
                         {/* Inspiration Images */}
-                        {order.inspirationImages?.length > 0 && (
+                        {inspirationImages.length > 0 && (
                             <motion.div
                                 variants={itemVariants}
                                 className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
@@ -379,7 +398,7 @@ export default function CustomOrderDetails() {
                                 </div>
                                 <div className="p-6">
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                        {order.inspirationImages.map((image, idx) => (
+                                        {inspirationImages.map((image, idx) => (
                                             <motion.div
                                                 key={idx}
                                                 whileHover={{ scale: 1.05 }}
@@ -434,7 +453,7 @@ export default function CustomOrderDetails() {
                                 {[
                                     { label: 'Base Design', value: order.basePrice },
                                     { label: 'Fabric Cost', value: order.fabricCost },
-                                    { label: 'Design Features', value: order.designFeatures?.reduce((sum, feature) => sum + (PRICING_CONFIG.designFeatures[feature] || 0), 0) },
+                                    { label: 'Design Features', value: designFeatures.reduce((sum, feature) => sum + (PRICING_CONFIG.designFeatures[feature] || 0), 0) },
                                     { label: 'Shipping', value: order.shippingCost },
                                 ].filter(item => item.value > 0).map((item, index) => (
                                     <div
@@ -442,12 +461,12 @@ export default function CustomOrderDetails() {
                                         className="flex justify-between items-center"
                                     >
                                         <span className="text-gray-600 font-serif">{item.label}</span>
-                                        <span className="text-gray-800 font-medium font-serif">₦{item.value?.toLocaleString()}</span>
+                                        <span className="text-gray-800 font-medium font-serif">₦{(item.value || 0)?.toLocaleString()}</span>
                                     </div>
                                 ))}
                                 <div className="flex justify-between items-center pt-4 border-t border-gold/20">
                                     <span className="text-lg font-bold text-gray-800 font-serif">Total Estimate</span>
-                                    <span className="text-lg font-bold text-gold font-serif">₦{order.totalPrice?.toLocaleString()}</span>
+                                    <span className="text-lg font-bold text-gold font-serif">₦{(order.totalPrice || 0)?.toLocaleString()}</span>
                                 </div>
                                 <p className="text-xs text-gray-500 text-center font-serif">
                                     *Final price confirmed after consultation
@@ -486,16 +505,16 @@ export default function CustomOrderDetails() {
                                     </div>
                                 )}
 
-                                {order.deliveryAddress && (
+                                {deliveryAddress.street && (
                                     <div className="bg-green-500/5 rounded-xl p-4 border border-green-500/20">
                                         <h3 className="text-sm font-medium text-gray-600 mb-1 flex items-center gap-2">
                                             <FiMapPin className="text-green-500 text-sm" />
                                             Delivery Address
                                         </h3>
                                         <p className="text-gray-800 text-sm leading-relaxed font-serif">
-                                            {order.deliveryAddress.street},<br />
-                                            {order.deliveryAddress.city}, {order.deliveryAddress.state}<br />
-                                            {order.deliveryAddress.country} {order.deliveryAddress.zipCode}
+                                            {deliveryAddress.street},<br />
+                                            {deliveryAddress.city}, {deliveryAddress.state}<br />
+                                            {deliveryAddress.country} {deliveryAddress.zipCode}
                                         </p>
                                     </div>
                                 )}
