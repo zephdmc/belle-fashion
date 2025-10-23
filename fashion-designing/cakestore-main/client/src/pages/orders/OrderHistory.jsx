@@ -25,6 +25,7 @@ import {
     FiGrid,
     FiList
 } from 'react-icons/fi';
+import CustomCakeForm from '../../components/orders/CustomCakeForm';
 
 // Create motion-wrapped components at the top level
 const MotionLink = motion(Link);
