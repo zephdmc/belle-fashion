@@ -876,6 +876,13 @@ export default function OrderHistory() {
                     </>
                 )}
             </div>
+                  {/* Modals */}
+            {showCustomOrderForm && (
+                <CustomCakeForm 
+                    onClose={() => setShowCustomOrderForm(false)} 
+                    onSubmit={handleCustomOrderSubmit}
+                />
+            )}
         </div>
     );
 }
