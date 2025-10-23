@@ -26,6 +26,18 @@ import { FaWhatsapp } from 'react-icons/fa';
 // Create motion-wrapped components
 const MotionLink = motion(Link);
 
+// Pricing configuration
+const PRICING_CONFIG = {
+    designFeatures: {
+        'basic': 0,
+        'embroidery': 5000,
+        'beading': 8000,
+        'lace': 4000,
+        'sequins': 6000,
+        'print': 2500
+    }
+};
+
 // Loading Skeleton Component
 const CustomOrderSkeleton = () => (
     <div className="container mx-auto px-4 py-8">
@@ -530,15 +542,3 @@ export default function CustomOrderDetails() {
         </div>
     );
 }
-
-// Add this pricing config at the bottom of the file
-const PRICING_CONFIG = {
-    designFeatures: {
-        'basic': 0,
-        'embroidery': 5000,
-        'beading': 8000,
-        'lace': 4000,
-        'sequins': 6000,
-        'print': 2500
-    }
-};
