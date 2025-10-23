@@ -1,0 +1,43 @@
+import api from './api';
+
+export const customOrderService = {
+    // Get custom order by ID
+    async getCustomOrderById(orderId) {
+        try {
+            const response = await api.get(`/custom-orders/${orderId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching custom order:', error);
+            throw error;
+        }
+    },
+
+    // Get all custom orders for user
+    async getUserCustomOrders(userId) {
+        try {
+            const response = await api.get(`/custom-orders/user/${userId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching user custom orders:', error);
+            throw error;
+        }
+    },
+
+    // Update custom order status
+    async updateCustomOrderStatus(orderId, status) {
+        try {
+            const response = await api.patch(`/custom-orders/${orderId}/status`, { status });
+            return response.data;
+        } catch (error) {
+            console.error('Error updating custom order status:', error);
+            throw error;
+        }
+    }
+};
+
+// Alias for easier import
+export const getCustomOrderById = customOrderService.getCustomOrderById;
+export const getUserCustomOrders = customOrderService.getUserCustomOrders;
+export const updateCustomOrderStatus = customOrderService.updateCustomOrderStatus;
+
+export default customOrderService;
