@@ -448,7 +448,7 @@ export default function OrderHistory() {
     const [filters, setFilters] = useState({ status: 'all' });
     const [orderType, setOrderType] = useState('all'); // 'all', 'regular', 'custom'
     const ordersPerPage = 6;
-
+  const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
     useEffect(() => {
         const fetchAllOrders = async () => {
             if (!currentUser) return;
