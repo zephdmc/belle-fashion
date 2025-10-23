@@ -512,6 +512,39 @@ export default function OrderHistory() {
         fetchAllOrders();
     }, [currentUser]);
 
+
+       const handleCustomOrderSubmit = async (orderData) => {
+        if (!currentUser) {
+            console.error("User is not authenticated. Cannot create order.");
+            alert("Your session has expired. Please log in again.");
+            navigate('/login');
+            return;
+        }
+
+        try {
+            navigate('/checkout', {
+                state: {
+                    customOrderData: orderData,
+                    isCustomOrder: true
+                }
+            });
+            setShowCustomOrderForm(false);
+        } catch (error) {
+            console.error("Error preparing custom order: ", error);
+            alert("There was an error preparing your order. Please try again.");
+        }
+    };
+
+    const handleCustomOrderClick = (e) => {
+        e.preventDefault();
+        if (!currentUser) {
+            navigate('/login', { state: { from: '/', message: 'Please login to place a custom order' } });
+        } else {
+            setShowCustomOrderForm(true);
+        }
+    };
+
+    
     // Filter orders based on type, search term and filters
     const filteredOrders = (orderType === 'all' ? orders : 
                           orderType === 'regular' ? regularOrders : 
