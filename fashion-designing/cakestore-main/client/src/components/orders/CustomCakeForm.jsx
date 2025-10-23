@@ -70,7 +70,7 @@ const stepVariants = {
   })
 };
 
-export default function CustomOrderForm({ onClose, onSubmit }) {
+export default function CustomOrderForm({ onClose }) {
   const { currentUser } = useAuth();
   const fileInputRef = useRef(null);
   const [step, setStep] = useState(1);
@@ -279,16 +279,13 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
       };
       
       // Create the order directly
-      const result = await createCustomOrder(orderData, currentUser);
+      const result = await createCustomOrder(orderData);
       
       // Set success state
-      setCreatedOrderId(result.id);
+      setCreatedOrderId(result.data?.id || result.id || 'N/A');
       setOrderCreated(true);
       
-      // Call the onSubmit callback if provided
-      if (onSubmit) {
-        onSubmit(result);
-      }
+      // REMOVED: onSubmit callback that was causing navigation to shipping page
       
     } catch (error) {
       console.error('Error creating custom order:', error);
@@ -847,7 +844,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
 
       <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-200">
         <h4 className="font-bold text-gray-800 mb-4 font-serif flex items-center justify-center gap-2">
-          <FaWhatsApp className="text-green-500" />
+          <FaWhatsapp className="text-green-500" />
           Immediate Assistance
         </h4>
         
@@ -862,7 +859,7 @@ export default function CustomOrderForm({ onClose, onSubmit }) {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105"
           >
-            <FaWhatsApp className="text-lg" />
+            <FaWhatsapp className="text-lg" />
             Chat on WhatsApp
           </a>
           
