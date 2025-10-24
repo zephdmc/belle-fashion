@@ -3,77 +3,524 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { getCustomOrderById } from '../../services/customOrderService';
-import { FiArrowLeft } from 'react-icons/fi';
+import { 
+    FiArrowLeft, 
+    FiScissors, 
+    FiCalendar, 
+    FiDroplet, 
+    FiPackage, 
+    FiMapPin,
+    FiUser,
+    FiPhone,
+    FiInfo,
+    FiCheckCircle,
+    FiClock,
+    FiEdit3,
+    FiImage,
+    FiMessageCircle,
+    FiTag
+} from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const MotionLink = motion(Link);
 
-function CustomOrderSkeleton() {
-  return (
+const PRICING_CONFIG = {
+    designFeatures: {
+        'basic': 0,
+        'embroidery': 5000,
+        'beading': 8000,
+        'lace': 4000,
+        'sequins': 6000,
+        'print': 2500
+    }
+};
+
+const CustomOrderSkeleton = () => (
     <div className="container mx-auto px-4 py-8">
-      <div className="animate-pulse">
-        <div className="mb-8">
-          <div className="h-6 bg-gray-200 rounded w-48 mb-4" />
-          <div className="h-8 bg-gray-200 rounded w-64 mb-2" />
-          <div className="h-4 bg-gray-200 rounded w-96" />
+        <div className="animate-pulse">
+            <div className="mb-8">
+                <div className="h-6 bg-gold/20 rounded w-48 mb-4"></div>
+                <div className="h-8 bg-gold/20 rounded w-64 mb-2"></div>
+                <div className="h-4 bg-gold/20 rounded w-96"></div>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="bg-gold/10 rounded-2xl p-6 h-64"></div>
+                    <div className="bg-gold/10 rounded-2xl p-6 h-48"></div>
+                </div>
+                <div className="space-y-6">
+                    <div className="bg-gold/10 rounded-2xl p-6 h-48"></div>
+                    <div className="bg-gold/10 rounded-2xl p-6 h-64"></div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  );
-}
+);
+
+const CustomOrderStatusBadge = ({ status }) => {
+    const statusConfig = {
+        consultation: { color: 'from-blue-500 to-blue-600', text: 'Consultation', icon: FiMessageCircle },
+        design_phase: { color: 'from-purple-500 to-purple-600', text: 'Design Phase', icon: FiEdit3 },
+        measurement: { color: 'from-yellow-500 to-yellow-600', text: 'Measurement', icon: FiUser },
+        production: { color: 'from-orange-500 to-orange-600', text: 'In Production', icon: FiPackage },
+        quality_check: { color: 'from-amber-500 to-amber-600', text: 'Quality Check', icon: FiCheckCircle },
+        ready: { color: 'from-green-500 to-green-600', text: 'Ready for Delivery', icon: FiCheckCircle },
+        completed: { color: 'from-green-600 to-emerald-500', text: 'Completed', icon: FiCheckCircle },
+        cancelled: { color: 'from-red-600 to-red-500', text: 'Cancelled', icon: FiClock }
+    };
+
+    const config = statusConfig[status] || statusConfig.consultation;
+    const Icon = config.icon;
+
+    return (
+        <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className={`inline-flex items-center gap-2 bg-gradient-to-r ${config.color} text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg border border-white/30`}
+        >
+            <Icon className="text-sm" />
+            {config.text}
+        </motion.div>
+    );
+};
 
 export default function CustomOrderDetails() {
-  const { id } = useParams();
-  const { currentUser } = useAuth();
-  const [order, setOrder] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+    const { id } = useParams();
+    const { currentUser } = useAuth();
+    const [order, setOrder] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchCustomOrder = async () => {
-      if (!currentUser) return;
-      try {
-        setLoading(true);
-        const orderData = await getCustomOrderById(id);
-        setOrder(orderData || null);
-      } catch (err) {
-        setError(err.message || 'Failed to load custom order details');
-      } finally {
-        setLoading(false);
-      }
+    useEffect(() => {
+        const fetchCustomOrder = async () => {
+            if (!currentUser) return;
+
+            try {
+                setLoading(true);
+                const orderData = await getCustomOrderById(id);
+                setOrder(orderData || null);
+            } catch (err) {
+                console.error('Error fetching custom order:', err);
+                setError(err.message || 'Failed to load custom order details');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCustomOrder();
+    }, [id, currentUser]);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
     };
-    fetchCustomOrder();
-  }, [id, currentUser]);
 
-  if (loading) return <CustomOrderSkeleton />;
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        show: { 
+            opacity: 1, 
+            y: 0,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut"
+            }
+        }
+    };
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-red-100 border border-red-400 rounded-xl p-8 text-center">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Error</h3>
-              <p className="text-gray-600 mb-6">{error}</p>
-              <MotionLink
-                to="/orders"
-                className="inline-flex items-center gap-2 bg-blue-600 text-white py-3 px-6 rounded-xl font-semibold"
-              >
-                <FiArrowLeft className="text-sm" />
-                Back to Orders
-              </MotionLink>
+    if (loading) return <CustomOrderSkeleton />;
+
+    if (error) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="max-w-2xl mx-auto"
+                    >
+                        <div className="bg-red-600/20 backdrop-blur-sm border border-red-500/30 rounded-2xl p-8 text-center">
+                            <FiInfo className="text-4xl text-red-400 mx-auto mb-4" />
+                            <h3 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Custom Order</h3>
+                            <p className="text-gray-600 mb-6">{error}</p>
+                            <MotionLink
+                                to="/orders"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
+                            >
+                                <FiArrowLeft className="text-sm" />
+                                Back to Orders
+                            </MotionLink>
+                        </div>
+                    </motion.div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 
-  return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-        <h1>Custom Order Details</h1>
-        {order && <pre>{JSON.stringify(order, null, 2)}</pre>}
-      </div>
-    </div>
-  );
+    if (!order) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="max-w-2xl mx-auto text-center"
+                    >
+                        <div className="bg-white/80 backdrop-blur-sm border border-gold/20 rounded-2xl p-12">
+                            <div className="w-16 h-16 bg-gradient-to-r from-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <FiScissors className="text-2xl text-white" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-800 mb-3">Custom Order Not Found</h3>
+                            <p className="text-gray-600 mb-8">We couldn't find the custom order you're looking for.</p>
+                            <MotionLink
+                                to="/orders"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-white py-3 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
+                            >
+                                <FiArrowLeft className="text-sm" />
+                                Back to Orders
+                            </MotionLink>
+                        </div>
+                    </motion.div>
+                </div>
+            </div>
+        );
+    }
+
+    const measurements = typeof order.measurements === 'object' ? order.measurements : {};
+    const deliveryAddress = typeof order.deliveryAddress === 'object' ? order.deliveryAddress : {};
+    const designFeatures = Array.isArray(order.designFeatures) ? order.designFeatures : [];
+    const embellishments = Array.isArray(order.embellishments) ? order.embellishments : [];
+    const inspirationImages = Array.isArray(order.inspirationImages) ? order.inspirationImages : [];
+
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+            <div className="container mx-auto px-4 max-w-6xl">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8"
+                >
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+                        <div className="flex items-center gap-4">
+                            <MotionLink
+                                to="/orders"
+                                whileHover={{ scale: 1.05, x: -5 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gray-800 py-3 px-4 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/20"
+                            >
+                                <FiArrowLeft className="text-sm" />
+                                Back to Orders
+                            </MotionLink>
+                            <div>
+                                <div className="flex items-center gap-3 mb-2">
+                                    <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 font-serif">
+                                        Custom Design #{order.id?.substring(0, 8) || 'N/A'}
+                                    </h1>
+                                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-amber-500/20 text-amber-700 border border-amber-500/30">
+                                        <FiScissors className="text-xs" />
+                                        Custom Design
+                                    </span>
+                                </div>
+                                <p className="text-gray-600 flex items-center gap-2 mt-1">
+                                    <FiCalendar className="text-sm" />
+                                    Created on {new Date(order.createdAt || order.createdDate).toLocaleDateString()}
+                                </p>
+                            </div>
+                        </div>
+                        <CustomOrderStatusBadge status={order.status} />
+                    </div>
+                </motion.div>
+
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="show"
+                    className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+                >
+                    <div className="lg:col-span-2 space-y-6">
+                        <motion.div
+                            variants={itemVariants}
+                            className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
+                        >
+                            <div className="bg-gradient-to-r from-gold/20 to-yellow-600/20 px-6 py-4 border-b border-gold/20">
+                                <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-3 font-serif">
+                                    <FiScissors className="text-gold" />
+                                    Design Specifications
+                                </h2>
+                            </div>
+                            <div className="p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {[
+                                        { label: 'Design Type', value: order.designType, icon: FiScissors },
+                                        { label: 'Occasion', value: order.occasion, icon: FiCalendar },
+                                        { label: 'Fabric Type', value: order.fabricType, icon: FiDroplet },
+                                        { label: 'Fabric Color', value: order.fabricColor, icon: FiDroplet },
+                                        { label: 'Material Quality', value: order.materialQuality, icon: FiPackage },
+                                        { label: 'Production Time', value: order.productionTime, icon: FiClock },
+                                    ].filter(item => item.value).map((item, idx) => (
+                                        <div
+                                            key={item.label}
+                                            className="bg-gold/5 rounded-xl p-4 border border-gold/20"
+                                        >
+                                            <h4 className="text-sm font-medium text-gray-600 mb-1 flex items-center gap-2">
+                                                <item.icon className="text-gold text-sm" />
+                                                {item.label}
+                                            </h4>
+                                            <p className="text-gray-800 font-medium capitalize font-serif">{item.value}</p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {order.styleDescription && (
+                                    <div className="mt-4 bg-gold/5 rounded-xl p-4 border border-gold/20">
+                                        <h4 className="text-sm font-medium text-gray-600 mb-2 flex items-center gap-2">
+                                            <FiEdit3 className="text-gold" />
+                                            Style Description
+                                        </h4>
+                                        <p className="text-gray-800 whitespace-pre-wrap font-serif">{order.styleDescription}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+
+                        {Object.keys(measurements).length > 0 && (
+                            <motion.div
+                                variants={itemVariants}
+                                className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
+                            >
+                                <div className="bg-gradient-to-r from-gold/20 to-yellow-600/20 px-6 py-4 border-b border-gold/20">
+                                    <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-3 font-serif">
+                                        <FiUser className="text-gold" />
+                                        Body Measurements (cm)
+                                    </h2>
+                                </div>
+                                <div className="p-6">
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                        {Object.entries(measurements).map(([key, value]) => (
+                                            value && (
+                                                <div
+                                                    key={key}
+                                                    className="bg-white rounded-xl p-4 border border-gold/20 text-center shadow-sm"
+                                                >
+                                                    <h4 className="text-sm font-medium text-gray-600 mb-1 capitalize font-serif">
+                                                        {key.replace(/([A-Z])/g, ' $1').trim()}
+                                                    </h4>
+                                                    <p className="text-gray-800 font-bold text-lg font-serif">{value}</p>
+                                                </div>
+                                            )
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {(designFeatures.length > 0 || embellishments.length > 0) && (
+                            <motion.div
+                                variants={itemVariants}
+                                className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
+                            >
+                                <div className="bg-gradient-to-r from-gold/20 to-yellow-600/20 px-6 py-4 border-b border-gold/20">
+                                    <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-3 font-serif">
+                                        <FiTag className="text-gold" />
+                                        Design Features
+                                    </h2>
+                                </div>
+                                <div className="p-6">
+                                    <div className="flex flex-wrap gap-2">
+                                        {designFeatures.map((feature, idx) => (
+                                            <span
+                                                key={idx}
+                                                className="bg-gold/20 text-gray-800 px-3 py-2 rounded-xl text-sm border border-gold/30 font-medium font-serif"
+                                            >
+                                                {feature}
+                                            </span>
+                                        ))}
+                                        {embellishments.map((embellishment, idx) => (
+                                            <span
+                                                key={idx}
+                                                className="bg-amber-500/20 text-amber-800 px-3 py-2 rounded-xl text-sm border border-amber-500/30 font-medium font-serif"
+                                            >
+                                                {embellishment}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {inspirationImages.length > 0 && (
+                            <motion.div
+                                variants={itemVariants}
+                                className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
+                            >
+                                <div className="bg-gradient-to-r from-gold/20 to-yellow-600/20 px-6 py-4 border-b border-gold/20">
+                                    <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-3 font-serif">
+                                        <FiImage className="text-gold" />
+                                        Inspiration Images
+                                    </h2>
+                                </div>
+                                <div className="p-6">
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                        {inspirationImages.map((image, idx) => (
+                                            <motion.div
+                                                key={idx}
+                                                whileHover={{ scale: 1.05 }}
+                                                className="relative rounded-2xl overflow-hidden border-2 border-gold/30 cursor-pointer shadow-md"
+                                                onClick={() => window.open(image, '_blank')}
+                                            >
+                                                <img 
+                                                    src={image} 
+                                                    alt={`Inspiration ${idx + 1}`}
+                                                    className="w-full h-32 object-cover"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-2">
+                                                    <span className="text-white text-xs font-serif">Click to view</span>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {order.specialRequests && (
+                            <motion.div
+                                variants={itemVariants}
+                                className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
+                            >
+                                <div className="bg-gradient-to-r from-amber-500/20 to-amber-600/20 px-6 py-4 border-b border-amber-500/20">
+                                    <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-3 font-serif">
+                                        <FiMessageCircle className="text-amber-600" />
+                                        Special Requests
+                                    </h2>
+                                </div>
+                                <div className="p-6">
+                                    <p className="text-gray-800 whitespace-pre-wrap font-serif">{order.specialRequests}</p>
+                                </div>
+                            </motion.div>
+                        )}
+                    </div>
+
+                    <div className="space-y-6">
+                        <motion.div
+                            variants={itemVariants}
+                            className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
+                        >
+                            <div className="bg-gradient-to-r from-gold/20 to-yellow-600/20 px-6 py-4 border-b border-gold/20">
+                                <h2 className="text-xl font-semibold text-gray-800 font-serif">Price Estimate</h2>
+                            </div>
+                            <div className="p-6 space-y-3">
+                                {[
+                                    { label: 'Base Design', value: order.basePrice },
+                                    { label: 'Fabric Cost', value: order.fabricCost },
+                                    { label: 'Design Features', value: designFeatures.reduce((sum, feature) => sum + (PRICING_CONFIG.designFeatures[feature] || 0), 0) },
+                                    { label: 'Shipping', value: order.shippingCost },
+                                ].filter(item => item.value > 0).map((item, index) => (
+                                    <div
+                                        key={item.label}
+                                        className="flex justify-between items-center"
+                                    >
+                                        <span className="text-gray-600 font-serif">{item.label}</span>
+                                        <span className="text-gray-800 font-medium font-serif">₦{(item.value || 0)?.toLocaleString()}</span>
+                                    </div>
+                                ))}
+                                <div className="flex justify-between items-center pt-4 border-t border-gold/20">
+                                    <span className="text-lg font-bold text-gray-800 font-serif">Total Estimate</span>
+                                    <span className="text-lg font-bold text-gold font-serif">₦{(order.totalPrice || 0)?.toLocaleString()}</span>
+                                </div>
+                                <p className="text-xs text-gray-500 text-center font-serif">
+                                    *Final price confirmed after consultation
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            variants={itemVariants}
+                            className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
+                        >
+                            <div className="bg-gradient-to-r from-gold/20 to-yellow-600/20 px-6 py-4 border-b border-gold/20">
+                                <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-3 font-serif">
+                                    <FiCalendar className="text-gold" />
+                                    Timeline & Delivery
+                                </h2>
+                            </div>
+                            <div className="p-6 space-y-4">
+                                {order.eventDate && (
+                                    <div className="bg-gold/5 rounded-xl p-4 border border-gold/20">
+                                        <h3 className="text-sm font-medium text-gray-600 mb-1 flex items-center gap-2">
+                                            <FiCalendar className="text-gold text-sm" />
+                                            Event Date
+                                        </h3>
+                                        <p className="text-gray-800 font-medium font-serif">
+                                            {new Date(order.eventDate).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                )}
+                                
+                                {order.productionTime && (
+                                    <div className="bg-blue-500/5 rounded-xl p-4 border border-blue-500/20">
+                                        <h3 className="text-sm font-medium text-gray-600 mb-1">Production Time</h3>
+                                        <p className="text-gray-800 font-medium font-serif">{order.productionTime}</p>
+                                    </div>
+                                )}
+
+                                {deliveryAddress.street && (
+                                    <div className="bg-green-500/5 rounded-xl p-4 border border-green-500/20">
+                                        <h3 className="text-sm font-medium text-gray-600 mb-1 flex items-center gap-2">
+                                            <FiMapPin className="text-green-500 text-sm" />
+                                            Delivery Address
+                                        </h3>
+                                        <p className="text-gray-800 text-sm leading-relaxed font-serif">
+                                            {deliveryAddress.street},<br />
+                                            {deliveryAddress.city}, {deliveryAddress.state}<br />
+                                            {deliveryAddress.country} {deliveryAddress.zipCode}
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            variants={itemVariants}
+                            className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-200 shadow-lg"
+                        >
+                            <h4 className="font-bold text-gray-800 mb-4 font-serif flex items-center justify-center gap-2">
+                                <FaWhatsapp className="text-green-500" />
+                                Need Assistance?
+                            </h4>
+                            <p className="text-gray-700 mb-4 text-sm text-center font-serif">
+                                Contact our design team for updates or changes
+                            </p>
+                            <div className="space-y-3">
+                                <a
+                                    href="https://wa.me/2349014727839"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 text-sm"
+                                >
+                                    <FaWhatsapp className="text-lg" />
+                                    WhatsApp Design Team
+                                </a>
+                                <a
+                                    href="tel:+2349014727839"
+                                    className="flex items-center justify-center gap-3 bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 text-sm"
+                                >
+                                    <FiPhone className="text-lg" />
+                                    Call Design Team
+                                </a>
+                            </div>
+                        </motion.div>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
+    );
 }
