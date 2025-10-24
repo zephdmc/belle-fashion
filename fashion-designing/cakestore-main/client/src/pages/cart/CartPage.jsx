@@ -27,36 +27,7 @@ const EmptyCart = () => (
 
     
     
- const handleCustomOrderSubmit = async (orderData) => {
-        if (!currentUser) {
-            console.error("User is not authenticated. Cannot create order.");
-            alert("Your session has expired. Please log in again.");
-            navigate('/login');
-            return;
-        }
 
-        try {
-            navigate('/checkout', {
-                state: {
-                    customOrderData: orderData,
-                    isCustomOrder: true
-                }
-            });
-            setShowCustomOrderForm(false);
-        } catch (error) {
-            console.error("Error preparing custom order: ", error);
-            alert("There was an error preparing your order. Please try again.");
-        }
-    };
-
-    const handleCustomOrderClick = (e) => {
-        e.preventDefault();
-        if (!currentUser) {
-            navigate('/login', { state: { from: '/', message: 'Please login to place a custom order' } });
-        } else {
-            setShowCustomOrderForm(true);
-        }
-    };
 
 
 
@@ -259,6 +230,38 @@ const SizeGuideHelper = () => (
 export default function CartPage() {
     const { cartItems, cartCount, clearCart } = useCart();
 const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
+
+     const handleCustomOrderSubmit = async (orderData) => {
+        if (!currentUser) {
+            console.error("User is not authenticated. Cannot create order.");
+            alert("Your session has expired. Please log in again.");
+            navigate('/login');
+            return;
+        }
+
+        try {
+            navigate('/checkout', {
+                state: {
+                    customOrderData: orderData,
+                    isCustomOrder: true
+                }
+            });
+            setShowCustomOrderForm(false);
+        } catch (error) {
+            console.error("Error preparing custom order: ", error);
+            alert("There was an error preparing your order. Please try again.");
+        }
+    };
+
+    const handleCustomOrderClick = (e) => {
+        e.preventDefault();
+        if (!currentUser) {
+            navigate('/login', { state: { from: '/', message: 'Please login to place a custom order' } });
+        } else {
+            setShowCustomOrderForm(true);
+        }
+    };
+    
     // Check if cart has custom items
     const hasCustomItems = cartItems.some(item => item.isCustom);
 
