@@ -183,7 +183,7 @@ const CartHeader = ({ cartCount, onClearCart, hasCustomItems }) => (
             </motion.button>
             
             <MotionLink
-                to="/collections"
+                to="/products"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
