@@ -251,7 +251,7 @@ const SimpleImageSlideShow = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 5000);
+        }, 5000000);
 
         return () => clearInterval(timer);
     }, [slides.length]);
@@ -532,7 +532,7 @@ export default function HomePage() {
                     <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-600/20 rounded-full blur-3xl"></div>
                 </div>
 
-                <div className="container mx-auto max-w-7xl relative z-6 pt-10 lg:pt-0">
+                <div className="container mx-auto max-w-7xl relative z-10 pt-2 lg:pt-0">
                     {/* Mobile Layout */}
                     <div className="lg:hidden">
                         {/* Animated Contact Banner - ADDED THIS */}
