@@ -20,9 +20,73 @@ import {
     FiStar,
     FiTag
 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Create MotionLink component
+const MotionLink = motion(Link);
+
+// Mobile Product Card Component
+const MobileProductCard = ({ product, index }) => {
+    const discountedPrice = product.discountPercentage > 0 
+        ? product.price - (product.price * (product.discountPercentage / 100))
+        : null;
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ 
+                scale: 1.02,
+                transition: { duration: 0.2 }
+            }}
+            className="bg-black/40 backdrop-blur-sm rounded-xl border border-gold/20 hover:border-gold/40 transition-all duration-300 overflow-hidden group cursor-pointer"
+        >
+            <Link to={`/products/${product.id}`} className="block">
+                {/* Image Container */}
+                <div className="relative pt-[100%] bg-gray-800 overflow-hidden">
+                    {/* Discount Badge */}
+                    {product.discountPercentage > 0 && (
+                        <div className="absolute top-2 left-2 z-10">
+                            <span className="bg-gradient-to-r from-gold to-yellow-600 text-black text-xs font-bold px-2 py-1 rounded-full">
+                                {product.discountPercentage}% OFF
+                            </span>
+                        </div>
+                    )}
+                    
+                    {/* Product Image */}
+                    <img 
+                        src={product.images?.[0] || '/api/placeholder/300/300'} 
+                        alt={product.name}
+                        className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                </div>
+
+                {/* Price Section - Only price and discount */}
+                <div className="p-3">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            {discountedPrice ? (
+                                <>
+                                    <span className="text-gold font-bold text-sm">
+                                        ₦{discountedPrice.toLocaleString()}
+                                    </span>
+                                    <span className="text-white/50 text-xs line-through">
+                                        ₦{product.price.toLocaleString()}
+                                    </span>
+                                </>
+                            ) : (
+                                <span className="text-gold font-bold text-sm">
+                                    ₦{product.price.toLocaleString()}
+                                </span>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </Link>
+        </motion.div>
+    );
+};
 
 // Loading Skeleton Component
 const ProductSkeleton = () => (
@@ -34,6 +98,21 @@ const ProductSkeleton = () => (
                     <div className="h-4 bg-gold/20 rounded w-3/4"></div>
                     <div className="h-4 bg-gold/20 rounded w-1/2"></div>
                     <div className="h-6 bg-gold/20 rounded w-1/3 mt-4"></div>
+                </div>
+            </div>
+        ))}
+    </div>
+);
+
+// Mobile Loading Skeleton Component
+const MobileProductSkeleton = () => (
+    <div className="grid grid-cols-3 gap-2">
+        {Array.from({ length: 12 }).map((_, index) => (
+            <div key={index} className="bg-black/20 backdrop-blur-sm rounded-xl border border-gold/30 animate-pulse">
+                <div className="relative pt-[100%] bg-gold/20 rounded-t-xl"></div>
+                <div className="p-2">
+                    <div className="h-4 bg-gold/20 rounded mb-1"></div>
+                    <div className="h-3 bg-gold/20 rounded w-2/3"></div>
                 </div>
             </div>
         ))}
@@ -107,14 +186,15 @@ export default function ProductListPage() {
         fetchProducts,
         refreshProducts 
     } = useProducts();
-    const MotionLink = motion(Link);
- const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
+    const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
     const [localLoading, setLocalLoading] = useState(false);
     const [viewMode, setViewMode] = useState('grid');
     const [searchQuery, setSearchQuery] = useState('');
     const [showFilters, setShowFilters] = useState(false);
     const [activeCollection, setActiveCollection] = useState('all');
-  const { currentUser } = useAuth();
+    const { currentUser } = useAuth();
+    const navigate = useNavigate();
+
     // Filter products based on search query and active collection
     const filteredProducts = products.filter(product => {
         const matchesSearch = 
@@ -133,6 +213,7 @@ export default function ProductListPage() {
 
         return matchesSearch && matchesCollection;
     });
+
     const handleCustomOrderSubmit = async (orderData) => {
         if (!currentUser) {
             console.error("User is not authenticated. Cannot create order.");
@@ -402,34 +483,58 @@ export default function ProductListPage() {
 
                 {/* Products Grid/List */}
                 <AnimatePresence mode="wait">
-                    <motion.div
-                        key={viewMode + filteredProducts.length + activeCollection}
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="show"
-                        className={
-                            viewMode === 'grid' 
-                                ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-                                : "grid grid-cols-1 gap-6"
-                        }
-                    >
-                        {filteredProducts.map((product, index) => (
-                            <motion.div
-                                key={product.id}
-                                variants={itemVariants}
-                                layout
-                                whileHover={{ 
-                                    y: -8,
-                                    transition: { duration: 0.3 }
-                                }}
-                            >
-                                <ProductCard 
-                                    product={product} 
-                                    viewMode={viewMode}
-                                />
-                            </motion.div>
-                        ))}
-                    </motion.div>
+                    {localLoading ? (
+                        // Show appropriate skeleton based on screen size
+                        <div className="block lg:hidden">
+                            <MobileProductSkeleton />
+                        </div>
+                    ) : (
+                        <motion.div
+                            key={viewMode + filteredProducts.length + activeCollection}
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="show"
+                        >
+                            {/* Mobile View - 3 Column Grid */}
+                            <div className="block lg:hidden">
+                                <div className="grid grid-cols-3 gap-2">
+                                    {filteredProducts.map((product, index) => (
+                                        <MobileProductCard 
+                                            key={product.id} 
+                                            product={product} 
+                                            index={index}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Desktop View - Original Layout */}
+                            <div className="hidden lg:block">
+                                <div className={
+                                    viewMode === 'grid' 
+                                        ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+                                        : "grid grid-cols-1 gap-6"
+                                }>
+                                    {filteredProducts.map((product, index) => (
+                                        <motion.div
+                                            key={product.id}
+                                            variants={itemVariants}
+                                            layout
+                                            whileHover={{ 
+                                                y: -8,
+                                                transition: { duration: 0.3 }
+                                            }}
+                                        >
+                                            <ProductCard 
+                                                product={product} 
+                                                viewMode={viewMode}
+                                            />
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
                 </AnimatePresence>
 
                 {/* Empty State */}
@@ -465,7 +570,7 @@ export default function ProductListPage() {
                                     Clear Filters
                                 </motion.button>
                                 <MotionLink
-                                      onClick={handleCustomOrderClick}
+                                    onClick={handleCustomOrderClick}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     className="inline-flex items-center gap-2 bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/30"
@@ -505,26 +610,26 @@ export default function ProductListPage() {
                                 className="bg-gradient-to-r from-gold to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 py-3 px-8 rounded-2xl font-semibold transition-all duration-300 whitespace-nowrap shadow-lg shadow-gold/30"
                             >
                                 Start Custom Design
-
-                              
                             </MotionLink>
                         </div>
                     </motion.div>
                 )}
 
                 {/* Loading Skeleton for Filtering */}
-                {localLoading && <ProductSkeleton />}
+                {localLoading && (
+                    <div className="block lg:hidden">
+                        <MobileProductSkeleton />
+                    </div>
+                )}
             </div>
 
-             {/* Modals */}
+            {/* Modals */}
             {showCustomOrderForm && (
                 <CustomCakeForm 
                     onClose={() => setShowCustomOrderForm(false)} 
                     onSubmit={handleCustomOrderSubmit}
                 />
             )}
-
-     
         </div>
     );
 }
