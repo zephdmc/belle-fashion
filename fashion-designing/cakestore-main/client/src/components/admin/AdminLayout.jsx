@@ -13,7 +13,9 @@ import {
     FiPackage,
     FiTrendingUp,
     FiUser,
-    FiShield
+    FiShield,
+    FiScissors,
+    FiGrid
 } from 'react-icons/fi';
 
 const AdminLayout = () => {
@@ -26,7 +28,7 @@ const AdminLayout = () => {
         { name: 'Dashboard', path: '/admin', icon: <FiHome className="text-xl" /> },
         { name: 'Products', path: '/admin/products', icon: <FiShoppingBag className="text-xl" /> },
         { name: 'Orders', path: '/admin/orders', icon: <FiDollarSign className="text-xl" /> },
-        { name: 'Custom Orders', path: '/admin/custom-orders', icon: <FiPackage className="text-xl" /> },
+        { name: 'Custom Orders', path: '/admin/custom-orders', icon: <FiScissors className="text-xl" /> },
         // { name: 'Users', path: '/admin/users', icon: <FiUsers className="text-xl" /> },
         // { name: 'Settings', path: '/admin/settings', icon: <FiSettings className="text-xl" /> },
     ];
@@ -52,27 +54,27 @@ const AdminLayout = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 flex">
             {/* Desktop Sidebar */}
-            <aside className={`hidden lg:flex flex-col bg-white shadow-xl transition-all duration-300 ${
+            <aside className={`hidden lg:flex flex-col bg-black/80 backdrop-blur-sm border-r border-gold/20 shadow-2xl transition-all duration-300 ${
                 sidebarCollapsed ? 'w-20' : 'w-64'
             }`}>
                 {/* Header */}
-                <div className="p-6 border-b border-gray-200">
+                <div className="p-6 border-b border-gold/20">
                     <div className="flex items-center justify-between">
                         {!sidebarCollapsed && (
                             <div>
-                                <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                                    Admin Panel
+                                <h2 className="text-2xl font-bold text-gold font-serif">
+                                    Belle Fashion
                                 </h2>
-                                <p className="text-xs text-gray-500 mt-1">Management Dashboard</p>
+                                <p className="text-xs text-gold/70 mt-1 font-serif">Admin Dashboard</p>
                             </div>
                         )}
                         <button
                             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                            className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                            className="p-2 rounded-lg hover:bg-gold/10 transition-colors duration-200 border border-gold/20"
                         >
-                            <FiMenu className="text-gray-600 text-lg" />
+                            <FiMenu className="text-gold text-lg" />
                         </button>
                     </div>
                 </div>
@@ -86,10 +88,10 @@ const AdminLayout = () => {
                                 <li key={item.name}>
                                     <Link
                                         to={item.path}
-                                        className={`flex items-center p-3 rounded-xl transition-all duration-200 group ${
+                                        className={`flex items-center p-3 rounded-xl transition-all duration-200 group border ${
                                             isActive
-                                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                                : 'text-gray-600 hover:bg-purple-50 hover:text-purple-600'
+                                                ? 'bg-gradient-to-r from-gold/20 to-yellow-600/20 text-gold border-gold/30 shadow-lg'
+                                                : 'text-gold/70 hover:bg-gold/10 hover:text-gold border-transparent hover:border-gold/20'
                                         } ${sidebarCollapsed ? 'justify-center' : ''}`}
                                     >
                                         <span className={`transition-transform duration-200 ${
@@ -98,7 +100,7 @@ const AdminLayout = () => {
                                             {item.icon}
                                         </span>
                                         {!sidebarCollapsed && (
-                                            <span className="ml-3 font-medium text-sm">{item.name}</span>
+                                            <span className="ml-3 font-medium text-sm font-serif">{item.name}</span>
                                         )}
                                     </Link>
                                 </li>
@@ -108,52 +110,52 @@ const AdminLayout = () => {
                 </nav>
 
                 {/* User Info & Logout */}
-                <div className="p-4 border-t border-gray-200">
+                <div className="p-4 border-t border-gold/20">
                     {!sidebarCollapsed && currentUser && (
-                        <div className="mb-4 p-3 bg-gray-50 rounded-xl">
+                        <div className="mb-4 p-3 bg-gold/5 rounded-xl border border-gold/10">
                             <div className="flex items-center">
-                                <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                                    <FiUser className="text-white text-sm" />
+                                <div className="w-8 h-8 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                                    <FiUser className="text-black text-sm" />
                                 </div>
                                 <div className="ml-3">
-                                    <p className="text-sm font-medium text-gray-900 truncate">
+                                    <p className="text-sm font-medium text-white truncate font-serif">
                                         {currentUser.email}
                                     </p>
-                                    <p className="text-xs text-gray-500">Administrator</p>
+                                    <p className="text-xs text-gold/70 font-serif">Administrator</p>
                                 </div>
                             </div>
                         </div>
                     )}
                     <button
                         onClick={handleSignOut}
-                        className={`flex items-center w-full p-3 rounded-xl text-gray-600 hover:bg-red-50 hover:text-red-600 transition-all duration-200 ${
+                        className={`flex items-center w-full p-3 rounded-xl text-gold/70 hover:bg-red-500/10 hover:text-red-400 transition-all duration-200 border border-transparent hover:border-red-500/20 ${
                             sidebarCollapsed ? 'justify-center' : ''
                         }`}
                     >
                         <FiLogOut className="text-lg" />
                         {!sidebarCollapsed && (
-                            <span className="ml-3 font-medium text-sm">Logout</span>
+                            <span className="ml-3 font-medium text-sm font-serif">Logout</span>
                         )}
                     </button>
                 </div>
             </aside>
 
             {/* Mobile Header */}
-            <header className="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-lg z-50 border-b border-gray-200">
+            <header className="lg:hidden fixed top-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-b border-gold/20 shadow-2xl z-50">
                 <div className="flex items-center justify-between px-4 py-3">
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+                        className="p-2 rounded-lg bg-gold/10 hover:bg-gold/20 transition-colors duration-200 border border-gold/20"
                     >
-                        {mobileMenuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+                        {mobileMenuOpen ? <FiX size={20} className="text-gold" /> : <FiMenu size={20} className="text-gold" />}
                     </button>
                     <div className="text-center">
-                        <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                            Admin Panel
+                        <h1 className="text-xl font-bold text-gold font-serif">
+                            Belle Fashion
                         </h1>
                     </div>
-                    <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <FiShield className="text-white" />
+                    <div className="w-10 h-10 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center border border-gold/30">
+                        <FiShield className="text-black" />
                     </div>
                 </div>
             </header>
@@ -163,37 +165,37 @@ const AdminLayout = () => {
                 mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}>
                 <div
-                    className="absolute inset-0 bg-black bg-opacity-50"
+                    className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm"
                     onClick={() => setMobileMenuOpen(false)}
                 />
-                <div className={`absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform transition-transform duration-300 ${
+                <div className={`absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-black/90 backdrop-blur-sm border-r border-gold/20 shadow-2xl transform transition-transform duration-300 ${
                     mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}>
                     {/* Mobile Sidebar Header */}
-                    <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+                    <div className="p-6 border-b border-gold/20 bg-gradient-to-r from-gold/20 to-yellow-600/20">
                         <div className="flex items-center justify-between">
                             <div>
-                                <h2 className="text-2xl font-bold">Admin Panel</h2>
-                                <p className="text-purple-100 text-sm mt-1">Management Dashboard</p>
+                                <h2 className="text-2xl font-bold text-gold font-serif">Belle Fashion</h2>
+                                <p className="text-gold/70 text-sm mt-1 font-serif">Admin Dashboard</p>
                             </div>
                             <button
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="p-2 rounded-lg hover:bg-purple-500 transition-colors duration-200"
+                                className="p-2 rounded-lg hover:bg-gold/20 transition-colors duration-200 border border-gold/30"
                             >
-                                <FiX size={20} />
+                                <FiX size={20} className="text-gold" />
                             </button>
                         </div>
                         {currentUser && (
-                            <div className="mt-4 p-3 bg-purple-500 rounded-xl">
+                            <div className="mt-4 p-3 bg-gold/10 rounded-xl border border-gold/20">
                                 <div className="flex items-center">
-                                    <div className="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                                        <FiUser className="text-white" />
+                                    <div className="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center border border-gold/30">
+                                        <FiUser className="text-gold" />
                                     </div>
                                     <div className="ml-3">
-                                        <p className="text-sm font-medium text-white truncate">
+                                        <p className="text-sm font-medium text-white truncate font-serif">
                                             {currentUser.email}
                                         </p>
-                                        <p className="text-xs text-purple-100">Administrator</p>
+                                        <p className="text-xs text-gold/70 font-serif">Administrator</p>
                                     </div>
                                 </div>
                             </div>
@@ -209,10 +211,10 @@ const AdminLayout = () => {
                                     <li key={item.name}>
                                         <Link
                                             to={item.path}
-                                            className={`flex items-center p-4 rounded-xl transition-all duration-200 ${
+                                            className={`flex items-center p-4 rounded-xl transition-all duration-200 border ${
                                                 isActive
-                                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                                    : 'text-gray-600 hover:bg-purple-50 hover:text-purple-600'
+                                                    ? 'bg-gradient-to-r from-gold/20 to-yellow-600/20 text-gold border-gold/30 shadow-lg'
+                                                    : 'text-gold/70 hover:bg-gold/10 hover:text-gold border-transparent hover:border-gold/20'
                                             }`}
                                             onClick={() => setMobileMenuOpen(false)}
                                         >
@@ -221,7 +223,7 @@ const AdminLayout = () => {
                                             }`}>
                                                 {item.icon}
                                             </span>
-                                            <span className="ml-4 font-medium">{item.name}</span>
+                                            <span className="ml-4 font-medium font-serif">{item.name}</span>
                                         </Link>
                                     </li>
                                 );
@@ -230,13 +232,13 @@ const AdminLayout = () => {
                     </nav>
 
                     {/* Mobile Logout */}
-                    <div className="p-4 border-t border-gray-200">
+                    <div className="p-4 border-t border-gold/20">
                         <button
                             onClick={handleSignOut}
-                            className="flex items-center w-full p-4 rounded-xl text-gray-600 hover:bg-red-50 hover:text-red-600 transition-all duration-200"
+                            className="flex items-center w-full p-4 rounded-xl text-gold/70 hover:bg-red-500/10 hover:text-red-400 transition-all duration-200 border border-transparent hover:border-red-500/20"
                         >
                             <FiLogOut className="text-lg" />
-                            <span className="ml-4 font-medium">Logout</span>
+                            <span className="ml-4 font-medium font-serif">Logout</span>
                         </button>
                     </div>
                 </div>
