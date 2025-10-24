@@ -60,15 +60,38 @@ export default function AdminCustomOrders() {
         try {
             setLoading(true);
             const ordersData = await getAllCustomOrders();
-            setOrders(ordersData);
+            
+            // Ensure arrays are properly formatted and handle potential null/undefined values
+            const sanitizedOrders = Array.isArray(ordersData) ? ordersData.map(order => ({
+                ...order,
+                designFeatures: Array.isArray(order.designFeatures) ? order.designFeatures : [],
+                embellishments: Array.isArray(order.embellishments) ? order.embellishments : [],
+                inspirationImages: Array.isArray(order.inspirationImages) ? order.inspirationImages : [],
+                measurements: order.measurements || {},
+                // Ensure other array fields are properly initialized
+                id: order.id || `order-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                status: order.status || 'consultation',
+                userName: order.userName || 'Unknown User',
+                userEmail: order.userEmail || 'No email',
+                totalPrice: order.totalPrice || order.basePrice || 0,
+                materialQuality: order.materialQuality || 'Standard'
+            })) : [];
+            
+            setOrders(sanitizedOrders);
         } catch (error) {
             console.error('Error loading custom orders:', error);
+            setOrders([]); // Set to empty array on error
         } finally {
             setLoading(false);
         }
     };
 
     const handleStatusUpdate = async (orderId, newStatus) => {
+        if (!orderId) {
+            console.error('No order ID provided for status update');
+            return;
+        }
+
         setUpdatingOrder(orderId);
         try {
             await updateCustomOrderStatus(orderId, newStatus);
@@ -101,7 +124,7 @@ export default function AdminCustomOrders() {
         };
         
         orders.forEach(order => {
-            if (order.status in counts) {
+            if (order.status && order.status in counts) {
                 counts[order.status]++;
             }
         });
@@ -110,6 +133,11 @@ export default function AdminCustomOrders() {
     };
 
     const statusCounts = getStatusCounts();
+
+    // Safe array check function
+    const hasArrayItems = (array) => {
+        return Array.isArray(array) && array.length > 0;
+    };
 
     if (loading) {
         return (
@@ -277,7 +305,7 @@ export default function AdminCustomOrders() {
                                                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                                                     <div className="text-right">
                                                         <p className="text-2xl font-bold text-white">
-                                                            ${order.totalPrice?.toLocaleString() || order.basePrice?.toLocaleString() || '0'}
+                                                            ${order.totalPrice?.toLocaleString() || '0'}
                                                         </p>
                                                         <p className="text-purple-100 text-sm">
                                                             {order.materialQuality || 'Standard'} Quality
@@ -349,16 +377,16 @@ export default function AdminCustomOrders() {
                                                     </div>
 
                                                     {/* Design Features */}
-                                                    {(order.designFeatures?.length > 0 || order.embellishments?.length > 0) && (
+                                                    {(hasArrayItems(order.designFeatures) || hasArrayItems(order.embellishments)) && (
                                                         <div className="mt-4">
                                                             <h5 className="text-sm font-medium text-gray-700 mb-2">Design Features</h5>
                                                             <div className="flex flex-wrap gap-2">
-                                                                {order.designFeatures?.map((feature, idx) => (
+                                                                {hasArrayItems(order.designFeatures) && order.designFeatures.map((feature, idx) => (
                                                                     <span key={idx} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
                                                                         {feature}
                                                                     </span>
                                                                 ))}
-                                                                {order.embellishments?.map((embellishment, idx) => (
+                                                                {hasArrayItems(order.embellishments) && order.embellishments.map((embellishment, idx) => (
                                                                     <span key={idx} className="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs">
                                                                         {embellishment}
                                                                     </span>
@@ -376,7 +404,7 @@ export default function AdminCustomOrders() {
                                                     </h4>
                                                     <div className="space-y-4">
                                                         {/* Measurements */}
-                                                        {order.measurements && (
+                                                        {order.measurements && Object.keys(order.measurements).length > 0 && (
                                                             <div>
                                                                 <h5 className="text-sm font-medium text-gray-700 mb-2">Body Measurements</h5>
                                                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -428,7 +456,7 @@ export default function AdminCustomOrders() {
                                                         )}
 
                                                         {/* Inspiration Images */}
-                                                        {order.inspirationImages?.length > 0 && (
+                                                        {hasArrayItems(order.inspirationImages) && (
                                                             <div className="bg-gray-50 rounded-lg p-4">
                                                                 <h5 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
                                                                     <FiImage className="mr-2" />
@@ -478,7 +506,7 @@ export default function AdminCustomOrders() {
                                                         </div>
                                                     )}
                                                     <div>
-                                                        Created: {new Date(order.createdAt).toLocaleDateString()}
+                                                        Created: {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'Unknown date'}
                                                     </div>
                                                 </div>
                                             </div>
