@@ -232,6 +232,7 @@ const SizeGuideHelper = () => (
 export default function CartPage() {
     const { cartItems, cartCount, clearCart } = useCart();
 const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
+  const { currentUser } = useAuth();
 
      const handleCustomOrderSubmit = async (orderData) => {
         if (!currentUser) {
