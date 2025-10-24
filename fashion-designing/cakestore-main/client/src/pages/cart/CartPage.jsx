@@ -5,6 +5,8 @@ import { useCart } from '../../context/CartContext';
 import CartItem from '../../components/cart/CartItem';
 import CustomCakeForm from '../../components/orders/CustomCakeForm';
 import CartSummary from '../../components/cart/CartSummary';
+import { useAuth } from '../../context/AuthContext';
+
 import { 
     FiShoppingBag, 
     FiArrowRight, 
