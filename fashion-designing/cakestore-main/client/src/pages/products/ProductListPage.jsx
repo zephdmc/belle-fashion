@@ -107,7 +107,7 @@ export default function ProductListPage() {
         refreshProducts 
     } = useProducts();
     const MotionLink = motion(Link);
-
+ const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
     const [localLoading, setLocalLoading] = useState(false);
     const [viewMode, setViewMode] = useState('grid');
     const [searchQuery, setSearchQuery] = useState('');
