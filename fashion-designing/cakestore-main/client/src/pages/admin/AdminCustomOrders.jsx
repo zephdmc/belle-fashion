@@ -165,7 +165,7 @@ export default function AdminCustomOrders() {
                 >
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
                         <div>
-                            <h1 className="text-3xl font-bold text-gold/20 mb-2">Custom Fashion Orders</h1>
+                            <h1 className="text-3xl font-bold text-gold/50 mb-2">Custom Fashion Orders</h1>
                             <p className="text-gold/30">Manage and track all custom design orders</p>
                         </div>
                         <button
