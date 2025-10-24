@@ -144,8 +144,8 @@ const Dashboard = () => {
                 className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
             >
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard Overview</h1>
-                    <p className="text-gray-600">
+                    <h1 className="text-3xl font-bold text-gold/90 mb-2">Dashboard Overview</h1>
+                    <p className="text-gold/70">
                         Welcome back, {currentUser?.email?.split('@')[0] || 'Admin'}! Here's what's happening today.
                     </p>
                 </div>
