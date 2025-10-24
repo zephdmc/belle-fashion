@@ -21,7 +21,7 @@ import {
     FiTag
 } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
-
+  
 const MotionLink = motion(Link);
 
 const PRICING_CONFIG = {
