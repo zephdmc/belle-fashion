@@ -465,7 +465,7 @@ export default function ProductListPage() {
                                     Clear Filters
                                 </motion.button>
                                 <MotionLink
-                                    to="/custom-order"
+                                      onClick={handleCustomOrderClick}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     className="inline-flex items-center gap-2 bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/30"
