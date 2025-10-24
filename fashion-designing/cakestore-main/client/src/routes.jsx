@@ -20,7 +20,7 @@ const SearchResultsPage = lazy(() => import('./pages/search/serachPage'));
 const OrderDetails = lazy(() => import('./pages/orders/OrderDetails'))
 const AdminOrders = lazy(() => import('./pages/admin/AdminOrders'));
 const AdminOrderDetails = lazy(() => import('./pages/admin/OrderDetails'));
-const CustomOrderDetails = lazy(() => import('./pages/orders/CustomOrderDetails'));
+const CustomOrderDetails = lazy(() => import('./pages/orders/CustormOrderDetails'));
 
 const NotFound = lazy(() => import('./pages/404'));
 const Privacy = lazy(() => import('./components/common/privacy'));
