@@ -74,7 +74,7 @@ const EmptyCart = () => (
                 </MotionLink>
                 
                 <MotionLink
-                    to="/custom-order"
+                   onClick={handleCustomOrderClick}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-3 bg-gold/10 hover:bg-gold/20 text-gold py-4 px-8 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
