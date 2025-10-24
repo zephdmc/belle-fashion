@@ -283,21 +283,21 @@ const PaymentForm = ({
                 animate="visible"
                 className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 max-w-md mx-auto"
             >
-                <div className="bg-gradient-to-r from-red-600 to-pink-600 px-6 py-6 text-white">
+                <div className="bg-gradient-to-r from-black to-gray-900 px-6 py-6 text-white border-b border-gold/30">
                     <div className="flex items-center justify-between">
                         <div>
                             <h3 className="text-xl font-bold">Payment Error</h3>
-                            <p className="text-red-100 text-sm mt-1">Configuration Issue</p>
+                            <p className="text-gold/80 text-sm mt-1">Configuration Issue</p>
                         </div>
-                        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/30">
-                            <FiAlertCircle className="text-xl" />
+                        <div className="w-12 h-12 bg-gold/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-gold/30">
+                            <FiAlertCircle className="text-xl text-gold" />
                         </div>
                     </div>
                 </div>
 
                 <div className="p-8 text-center">
-                    <div className="w-20 h-20 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <FiAlertCircle className="text-red-600 text-2xl" />
+                    <div className="w-20 h-20 bg-gold/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-gold/20">
+                        <FiAlertCircle className="text-gold text-2xl" />
                     </div>
                     <h4 className="text-xl font-bold text-gray-800 mb-2">Payment Service Unavailable</h4>
                     <p className="text-gray-600 mb-6">
@@ -305,7 +305,7 @@ const PaymentForm = ({
                     </p>
                     <button
                         onClick={onClose}
-                        className="w-full bg-gray-600 text-white py-4 px-6 rounded-2xl font-semibold hover:bg-gray-700 transition-all duration-300"
+                        className="w-full bg-black text-white py-4 px-6 rounded-2xl font-semibold hover:bg-gray-800 transition-all duration-300 border border-gold/30"
                     >
                         Return to Shipping
                     </button>
@@ -322,15 +322,15 @@ const PaymentForm = ({
             className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 max-w-md mx-auto"
         >
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-6 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+            <div className="bg-gradient-to-r from-black to-gray-900 px-6 py-6 text-white relative overflow-hidden border-b border-gold/30">
+                <div className="absolute inset-0 bg-gold/10 backdrop-blur-sm"></div>
                 <div className="relative z-10 flex items-center justify-between">
                     <div>
                         <h3 className="text-xl font-bold">Complete Payment</h3>
-                        <p className="text-purple-100 text-sm mt-1">Secure checkout with Flutterwave</p>
+                        <p className="text-gold/80 text-sm mt-1">Secure checkout with Flutterwave</p>
                     </div>
-                    <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/30">
-                        <FiCreditCard className="text-xl" />
+                    <div className="w-12 h-12 bg-gold/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-gold/30">
+                        <FiCreditCard className="text-xl text-gold" />
                     </div>
                 </div>
             </div>
@@ -350,15 +350,15 @@ const PaymentForm = ({
                             {/* Security Badge */}
                             <motion.div
                                 variants={itemVariants}
-                                className="bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-2xl border border-green-200"
+                                className="bg-gradient-to-r from-gold/10 to-yellow-50 p-4 rounded-2xl border border-gold/20"
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                        <FiShield className="text-white text-lg" />
+                                    <div className="w-10 h-10 bg-gold rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <FiShield className="text-black text-lg" />
                                     </div>
                                     <div>
-                                        <p className="font-semibold text-green-800">Secure Payment</p>
-                                        <p className="text-green-600 text-sm">Encrypted and protected by Flutterwave</p>
+                                        <p className="font-semibold text-gray-800">Secure Payment</p>
+                                        <p className="text-gray-600 text-sm">Encrypted and protected by Flutterwave</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -374,12 +374,12 @@ const PaymentForm = ({
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={copyOrderDetails}
-                                        className="text-gray-400 hover:text-purple-600 transition-colors"
+                                        className="text-gray-400 hover:text-gold transition-colors"
                                     >
                                         {copied ? <FiCheck className="text-green-500" /> : <FaRegCopy />}
                                     </motion.button>
                                 </div>
-                                <div className="text-3xl font-bold text-purple-600 mb-2">
+                                <div className="text-3xl font-bold text-gold mb-2">
                                     ₦{amount.toLocaleString()}
                                 </div>
                                 <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -400,7 +400,7 @@ const PaymentForm = ({
                                     {['Card', 'Bank Transfer', 'USSD'].map((method) => (
                                         <span 
                                             key={method}
-                                            className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium"
+                                            className="px-3 py-1 bg-gold/20 text-gray-800 rounded-full text-xs font-medium border border-gold/30"
                                         >
                                             {method}
                                         </span>
@@ -432,8 +432,8 @@ const PaymentForm = ({
                                 disabled={isLoading || !scriptReady}
                                 whileHover={!isLoading && scriptReady ? { scale: 1.02, y: -2 } : {}}
                                 whileTap={!isLoading && scriptReady ? { scale: 0.98 } : {}}
-                                className={`w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 px-6 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 ${
-                                    isLoading || !scriptReady ? 'opacity-75 cursor-not-allowed' : 'hover:shadow-2xl'
+                                className={`w-full bg-gradient-to-r from-black to-gray-900 text-white py-4 px-6 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 border border-gold/30 ${
+                                    isLoading || !scriptReady ? 'opacity-75 cursor-not-allowed' : 'hover:shadow-gold/20'
                                 }`}
                             >
                                 {isLoading ? (
@@ -468,7 +468,7 @@ const PaymentForm = ({
                     variants={itemVariants}
                     type="button"
                     onClick={handlePaymentClose}
-                    className="mt-6 w-full text-gray-600 hover:text-purple-600 font-medium flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-50 transition-all duration-300"
+                    className="mt-6 w-full text-gray-600 hover:text-gold font-medium flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gold/5 transition-all duration-300"
                 >
                     <FiArrowLeft />
                     Return to Shipping
@@ -478,7 +478,7 @@ const PaymentForm = ({
             {/* Footer Security */}
             <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
                 <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
-                    <FiShield className="text-green-500" />
+                    <FiShield className="text-gold" />
                     <span>256-bit SSL Secured • PCI DSS Compliant</span>
                 </div>
             </div>
