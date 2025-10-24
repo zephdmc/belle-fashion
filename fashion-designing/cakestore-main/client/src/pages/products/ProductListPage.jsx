@@ -524,9 +524,7 @@ export default function ProductListPage() {
                 />
             )}
 
-            {showQuizForm && (
-                <SkincareQuizForm onClose={() => setShowQuizForm(false)} />
-            )}
+     
         </div>
     );
 }
