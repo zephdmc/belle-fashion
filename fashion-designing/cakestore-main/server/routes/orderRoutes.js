@@ -16,8 +16,10 @@ const { protect, authorize } = require('../middlewares/authMiddleware');
 const router = express.Router();
 
 // Customer routes
+
 router.route('/')
-    .post(protect, createOrder);
+    .post(protect, createOrder)
+    .get(protect, authorize('admin', 'designer'), getOrdersWithPagination); // ADD THIS LINE
 
 router.route('/myorders')
     .get(protect, getMyOrders);
