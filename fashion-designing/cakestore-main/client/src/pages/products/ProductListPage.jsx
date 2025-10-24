@@ -499,12 +499,14 @@ export default function ProductListPage() {
                                 </div>
                             </div>
                             <MotionLink
-                                to="/custom-order"
+                                onClick={handleCustomOrderClick}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 className="bg-gradient-to-r from-gold to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 py-3 px-8 rounded-2xl font-semibold transition-all duration-300 whitespace-nowrap shadow-lg shadow-gold/30"
                             >
                                 Start Custom Design
+
+                              
                             </MotionLink>
                         </div>
                     </motion.div>
