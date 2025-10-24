@@ -134,7 +134,7 @@ const AdminLayout = () => {
                     >
                         <FiLogOut className="text-lg" />
                         {!sidebarCollapsed && (
-                            <span className="ml-3 font-medium text-sm font-serif">Logout</span>
+                            <span className="ml-3 font-medium text-sm text-gold/70 font-serif">Logout</span>
                         )}
                     </button>
                 </div>
