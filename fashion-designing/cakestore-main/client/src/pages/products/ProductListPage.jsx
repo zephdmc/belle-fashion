@@ -482,6 +482,18 @@ export default function ProductListPage() {
                 {/* Loading Skeleton for Filtering */}
                 {localLoading && <ProductSkeleton />}
             </div>
+
+             {/* Modals */}
+            {showCustomOrderForm && (
+                <CustomCakeForm 
+                    onClose={() => setShowCustomOrderForm(false)} 
+                    onSubmit={handleCustomOrderSubmit}
+                />
+            )}
+
+            {showQuizForm && (
+                <SkincareQuizForm onClose={() => setShowQuizForm(false)} />
+            )}
         </div>
     );
 }
