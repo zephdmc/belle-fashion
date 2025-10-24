@@ -62,7 +62,7 @@ const EmptyCart = () => (
                 className="flex flex-col sm:flex-row gap-4 justify-center"
             >
                 <MotionLink
-                    to="/collections"
+                     to="/products"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-3 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-4 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg group border border-gold/30 font-serif"
