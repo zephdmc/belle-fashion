@@ -34,6 +34,9 @@ router.get('/:id', protect, getCustomOrderById);
 // Get ALL custom orders with optional filtering (admin only)
 router.get('/', protect, authorize('admin', 'designer'), getAllCustomOrders);
 
+// Alternative admin route if needed
+router.get('/admin/all', protect, authorize('admin', 'designer'), getAllCustomOrders);
+
 // Update custom order (admin only)
 router.put('/:id', protect, authorize('admin', 'designer'), updateCustomOrder);
 
