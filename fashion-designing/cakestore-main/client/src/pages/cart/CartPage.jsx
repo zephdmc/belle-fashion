@@ -224,7 +224,37 @@ export default function CartPage() {
 const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
     // Check if cart has custom items
     const hasCustomItems = cartItems.some(item => item.isCustom);
+    
+ const handleCustomOrderSubmit = async (orderData) => {
+        if (!currentUser) {
+            console.error("User is not authenticated. Cannot create order.");
+            alert("Your session has expired. Please log in again.");
+            navigate('/login');
+            return;
+        }
 
+        try {
+            navigate('/checkout', {
+                state: {
+                    customOrderData: orderData,
+                    isCustomOrder: true
+                }
+            });
+            setShowCustomOrderForm(false);
+        } catch (error) {
+            console.error("Error preparing custom order: ", error);
+            alert("There was an error preparing your order. Please try again.");
+        }
+    };
+
+    const handleCustomOrderClick = (e) => {
+        e.preventDefault();
+        if (!currentUser) {
+            navigate('/login', { state: { from: '/', message: 'Please login to place a custom order' } });
+        } else {
+            setShowCustomOrderForm(true);
+        }
+    };
     if (cartCount === 0) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
