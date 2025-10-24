@@ -532,7 +532,7 @@ export default function HomePage() {
                     <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-600/20 rounded-full blur-3xl"></div>
                 </div>
 
-                <div className="container mx-auto max-w-7xl relative z-10 pt-20 lg:pt-0">
+                <div className="container mx-auto max-w-7xl relative z-10 pt-10 lg:pt-0">
                     {/* Mobile Layout */}
                     <div className="lg:hidden">
                         {/* Animated Contact Banner - ADDED THIS */}
