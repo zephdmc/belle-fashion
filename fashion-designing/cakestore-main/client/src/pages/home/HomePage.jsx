@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -27,6 +26,46 @@ import {
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import CustomCakeForm from '../../components/orders/CustomCakeForm';
+
+// Animated Contact Banner for Mobile
+const AnimatedContactBanner = () => {
+    return (
+        <div className="lg:hidden overflow-hidden py-3 mb-6 bg-black/40 backdrop-blur-sm rounded-xl border border-gold/20">
+            <motion.div
+                className="flex whitespace-nowrap"
+                animate={{
+                    x: [0, -300],
+                }}
+                transition={{
+                    x: {
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        duration: 15,
+                        ease: "linear",
+                    },
+                }}
+            >
+                {/* Multiple copies for seamless looping */}
+                {[...Array(3)].map((_, setIndex) => (
+                    <div key={setIndex} className="flex items-center space-x-6 px-4">
+                        <div className="flex items-center space-x-2">
+                            <FiPhone className="text-gold text-sm" />
+                            <span className="text-white text-sm font-medium">+234 901 087 3215</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <FiMail className="text-gold text-sm" />
+                            <span className="text-white text-sm font-medium">bellebyokien@gmail.com</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <FiGlobe className="text-gold text-sm" />
+                            <span className="text-white text-sm font-medium">www.bellebyokien.com</span>
+                        </div>
+                    </div>
+                ))}
+            </motion.div>
+        </div>
+    );
+};
 
 // Loading Slideshow Component for Mobile
 const LoadingSlideshow = () => {
@@ -496,6 +535,9 @@ export default function HomePage() {
                 <div className="container mx-auto max-w-7xl relative z-10 pt-20 lg:pt-0">
                     {/* Mobile Layout */}
                     <div className="lg:hidden">
+                        {/* Animated Contact Banner - ADDED THIS */}
+                        <AnimatedContactBanner />
+
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -639,7 +681,7 @@ export default function HomePage() {
                                         <div>
                                             <p className="text-white font-medium">Phone</p>
                                             <a href="tel:+1234567890" className="text-gold text-sm hover:text-yellow-300 transition-colors">
-                                                +123 9010873215
+                                                +234 901 087 3215
                                             </a>
                                         </div>
                                     </div>
