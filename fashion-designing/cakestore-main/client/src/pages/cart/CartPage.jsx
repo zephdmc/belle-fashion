@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../../context/CartContext';
 import CartItem from '../../components/cart/CartItem';
@@ -24,15 +24,8 @@ import {
 // Create motion-wrapped components at the top level
 const MotionLink = motion(Link);
 
-// Empty Cart Component
-const EmptyCart = () => (
-
-    
-    
-
-
-
-
+// Empty Cart Component - Now accepts handleCustomOrderClick as a prop
+const EmptyCart = ({ onCustomOrderClick }) => (
     <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -73,7 +66,7 @@ const EmptyCart = () => (
                 className="flex flex-col sm:flex-row gap-4 justify-center"
             >
                 <MotionLink
-                     to="/products"
+                    to="/products"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-3 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-4 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg group border border-gold/30 font-serif"
@@ -83,15 +76,15 @@ const EmptyCart = () => (
                     <FiArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
                 </MotionLink>
                 
-                <MotionLink
-                   onClick={handleCustomOrderClick}
+                <motion.button
+                    onClick={onCustomOrderClick}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-3 bg-gold/10 hover:bg-gold/20 text-gold py-4 px-8 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
                 >
                     <FiScissors className="text-sm" />
                     Create Custom Design
-                </MotionLink>
+                </motion.button>
             </motion.div>
 
             {/* Fashion Categories */}
@@ -231,10 +224,11 @@ const SizeGuideHelper = () => (
 
 export default function CartPage() {
     const { cartItems, cartCount, clearCart } = useCart();
-const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
-  const { currentUser } = useAuth();
+    const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
+    const { currentUser } = useAuth();
+    const navigate = useNavigate(); // Added missing navigate
 
-     const handleCustomOrderSubmit = async (orderData) => {
+    const handleCustomOrderSubmit = async (orderData) => {
         if (!currentUser) {
             console.error("User is not authenticated. Cannot create order.");
             alert("Your session has expired. Please log in again.");
@@ -272,7 +266,7 @@ const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
         return (
             <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
                 <div className="container mx-auto px-4 max-w-6xl">
-                    <EmptyCart />
+                    <EmptyCart onCustomOrderClick={handleCustomOrderClick} />
                 </div>
             </div>
         );
