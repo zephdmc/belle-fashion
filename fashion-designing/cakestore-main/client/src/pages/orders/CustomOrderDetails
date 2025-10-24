@@ -11,7 +11,6 @@ import {
     FiPackage, 
     FiMapPin,
     FiUser,
-    FiMail,
     FiPhone,
     FiInfo,
     FiCheckCircle,
@@ -23,10 +22,8 @@ import {
 } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 
-// Create motion-wrapped components
 const MotionLink = motion(Link);
 
-// Pricing configuration
 const PRICING_CONFIG = {
     designFeatures: {
         'basic': 0,
@@ -38,18 +35,14 @@ const PRICING_CONFIG = {
     }
 };
 
-// Loading Skeleton Component
 const CustomOrderSkeleton = () => (
     <div className="container mx-auto px-4 py-8">
         <div className="animate-pulse">
-            {/* Header Skeleton */}
             <div className="mb-8">
                 <div className="h-6 bg-gold/20 rounded w-48 mb-4"></div>
                 <div className="h-8 bg-gold/20 rounded w-64 mb-2"></div>
                 <div className="h-4 bg-gold/20 rounded w-96"></div>
             </div>
-            
-            {/* Content Skeleton */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-6">
                     <div className="bg-gold/10 rounded-2xl p-6 h-64"></div>
@@ -64,7 +57,6 @@ const CustomOrderSkeleton = () => (
     </div>
 );
 
-// Status Badge Component for Custom Orders
 const CustomOrderStatusBadge = ({ status }) => {
     const statusConfig = {
         consultation: { color: 'from-blue-500 to-blue-600', text: 'Consultation', icon: FiMessageCircle },
@@ -106,7 +98,6 @@ export default function CustomOrderDetails() {
             try {
                 setLoading(true);
                 const orderData = await getCustomOrderById(id);
-                console.log('Custom order data:', orderData); // Debug log
                 setOrder(orderData || null);
             } catch (err) {
                 console.error('Error fetching custom order:', err);
@@ -119,7 +110,6 @@ export default function CustomOrderDetails() {
         fetchCustomOrder();
     }, [id, currentUser]);
 
-    // Animation variants
     const containerVariants = {
         hidden: { opacity: 0 },
         show: {
@@ -204,19 +194,8 @@ export default function CustomOrderDetails() {
         );
     }
 
-    // Helper function to safely access nested properties
-    const getOrderValue = (path, defaultValue = '') => {
-        const value = path.split('.').reduce((obj, key) => obj?.[key], order);
-        return value || defaultValue;
-    };
-
-    // Safely get measurements
     const measurements = typeof order.measurements === 'object' ? order.measurements : {};
-    
-    // Safely get delivery address
     const deliveryAddress = typeof order.deliveryAddress === 'object' ? order.deliveryAddress : {};
-    
-    // Safely get arrays
     const designFeatures = Array.isArray(order.designFeatures) ? order.designFeatures : [];
     const embellishments = Array.isArray(order.embellishments) ? order.embellishments : [];
     const inspirationImages = Array.isArray(order.inspirationImages) ? order.inspirationImages : [];
@@ -224,7 +203,6 @@ export default function CustomOrderDetails() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
             <div className="container mx-auto px-4 max-w-6xl">
-                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -261,16 +239,13 @@ export default function CustomOrderDetails() {
                     </div>
                 </motion.div>
 
-                {/* Main Content */}
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     animate="show"
                     className="grid grid-cols-1 lg:grid-cols-3 gap-6"
                 >
-                    {/* Design Details - Left Column */}
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Design Specifications */}
                         <motion.div
                             variants={itemVariants}
                             className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
@@ -304,7 +279,6 @@ export default function CustomOrderDetails() {
                                     ))}
                                 </div>
 
-                                {/* Style Description */}
                                 {order.styleDescription && (
                                     <div className="mt-4 bg-gold/5 rounded-xl p-4 border border-gold/20">
                                         <h4 className="text-sm font-medium text-gray-600 mb-2 flex items-center gap-2">
@@ -317,7 +291,6 @@ export default function CustomOrderDetails() {
                             </div>
                         </motion.div>
 
-                        {/* Measurements */}
                         {Object.keys(measurements).length > 0 && (
                             <motion.div
                                 variants={itemVariants}
@@ -349,7 +322,6 @@ export default function CustomOrderDetails() {
                             </motion.div>
                         )}
 
-                        {/* Design Features */}
                         {(designFeatures.length > 0 || embellishments.length > 0) && (
                             <motion.div
                                 variants={itemVariants}
@@ -384,7 +356,6 @@ export default function CustomOrderDetails() {
                             </motion.div>
                         )}
 
-                        {/* Inspiration Images */}
                         {inspirationImages.length > 0 && (
                             <motion.div
                                 variants={itemVariants}
@@ -420,7 +391,6 @@ export default function CustomOrderDetails() {
                             </motion.div>
                         )}
 
-                        {/* Special Requests */}
                         {order.specialRequests && (
                             <motion.div
                                 variants={itemVariants}
@@ -439,9 +409,7 @@ export default function CustomOrderDetails() {
                         )}
                     </div>
 
-                    {/* Sidebar - Right Column */}
                     <div className="space-y-6">
-                        {/* Order Summary */}
                         <motion.div
                             variants={itemVariants}
                             className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
@@ -474,7 +442,6 @@ export default function CustomOrderDetails() {
                             </div>
                         </motion.div>
 
-                        {/* Timeline & Delivery */}
                         <motion.div
                             variants={itemVariants}
                             className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden shadow-lg"
@@ -521,7 +488,6 @@ export default function CustomOrderDetails() {
                             </div>
                         </motion.div>
 
-                        {/* Contact Support */}
                         <motion.div
                             variants={itemVariants}
                             className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-200 shadow-lg"
@@ -530,11 +496,9 @@ export default function CustomOrderDetails() {
                                 <FaWhatsapp className="text-green-500" />
                                 Need Assistance?
                             </h4>
-                            
                             <p className="text-gray-700 mb-4 text-sm text-center font-serif">
                                 Contact our design team for updates or changes
                             </p>
-                            
                             <div className="space-y-3">
                                 <a
                                     href="https://wa.me/2349014727839"
@@ -545,7 +509,6 @@ export default function CustomOrderDetails() {
                                     <FaWhatsapp className="text-lg" />
                                     WhatsApp Design Team
                                 </a>
-                                
                                 <a
                                     href="tel:+2349014727839"
                                     className="flex items-center justify-center gap-3 bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 text-sm"
