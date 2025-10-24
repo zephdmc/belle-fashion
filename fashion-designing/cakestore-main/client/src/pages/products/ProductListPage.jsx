@@ -113,7 +113,7 @@ export default function ProductListPage() {
     const [searchQuery, setSearchQuery] = useState('');
     const [showFilters, setShowFilters] = useState(false);
     const [activeCollection, setActiveCollection] = useState('all');
-
+  const { currentUser } = useAuth();
     // Filter products based on search query and active collection
     const filteredProducts = products.filter(product => {
         const matchesSearch = 
