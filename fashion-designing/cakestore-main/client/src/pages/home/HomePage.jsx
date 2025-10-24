@@ -102,7 +102,7 @@ const LoadingSlideshow = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 3000);
+        }, 300000);
 
         return () => clearInterval(timer);
     }, [slides.length]);
