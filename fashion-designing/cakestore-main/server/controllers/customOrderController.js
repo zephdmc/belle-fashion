@@ -65,6 +65,62 @@ function calculatePriceEstimate(orderData) {
     return Math.round(basePrice);
 }
 
+
+
+
+// Add to your orderController.js
+
+// @desc    Get all orders with pagination
+// @route   GET /api/orders
+// @access  Private/Admin
+exports.getOrdersWithPagination = asyncHandler(async (req, res, next) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const { status, orderType, priority } = req.query;
+    
+    let query = db.collection('orders').orderBy('createdAt', 'desc');
+    
+    // Apply filters if provided
+    if (status && status !== 'all') {
+        query = query.where('status', '==', status);
+    }
+    
+    if (orderType && orderType !== 'all') {
+        query = query.where('orderType', '==', orderType);
+    }
+    
+    if (priority && priority !== 'all') {
+        query = query.where('priority', '==', priority);
+    }
+
+    // Get total count for pagination
+    const totalSnapshot = await query.get();
+    const total = totalSnapshot.size;
+    const pages = Math.ceil(total / limit);
+    const skip = (page - 1) * limit;
+
+    // Apply pagination
+    const snapshot = await query.limit(limit).offset(skip).get();
+    const orders = [];
+
+    snapshot.forEach(doc => {
+        orders.push(Order.fromFirestore(doc.id, doc.data()));
+    });
+
+    res.status(200).json({
+        success: true,
+        count: orders.length,
+        total,
+        page,
+        pages,
+        hasNext: page < pages,
+        hasPrev: page > 1,
+        data: orders
+    });
+});
+
+
+
 // @desc    Create custom fashion order
 // @route   POST /api/custom-orders
 // @access  Private
