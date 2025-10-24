@@ -55,8 +55,8 @@ const OrderConfirmation = ({ order }) => {
   const shareOrder = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'My Zeph Fashion Order',
-        text: `I just placed an order with Zeph Fashion! Order #${order.data.orderNumber || order.data.id}`,
+        title: 'My Bellebeau Aesthetics Order',
+        text: `I just placed an order with Bellebeau Aesthetics! Order #${order.data.orderNumber || order.data.id}`,
         url: window.location.href,
       });
     }
@@ -82,25 +82,25 @@ const OrderConfirmation = ({ order }) => {
           step: 1,
           title: 'Design Consultation',
           description: 'Our designer will contact you within 24 hours to discuss your custom design',
-          color: 'blue'
+          color: 'gold'
         },
         {
           step: 2,
           title: 'Measurement & Fitting',
           description: 'Schedule your measurement session for perfect tailoring',
-          color: 'purple'
+          color: 'gold'
         },
         {
           step: 3,
           title: 'Production',
           description: 'Crafting your unique piece with premium materials',
-          color: 'green'
+          color: 'gold'
         },
         {
           step: 4,
           title: 'Delivery',
           description: 'Careful packaging and shipping of your custom creation',
-          color: 'pink'
+          color: 'gold'
         }
       ];
     }
@@ -110,25 +110,25 @@ const OrderConfirmation = ({ order }) => {
         step: 1,
         title: 'Order Processing',
         description: 'We\'ll prepare your items within 24 hours',
-        color: 'blue'
+        color: 'gold'
       },
       {
         step: 2,
         title: 'Quality Check',
         description: 'Each item undergoes thorough quality inspection',
-        color: 'purple'
+        color: 'gold'
       },
       {
         step: 3,
         title: 'Shipping',
         description: 'Track your package with real-time updates',
-        color: 'green'
+        color: 'gold'
       },
       {
         step: 4,
         title: 'Delivery',
         description: 'Receive your fashion items with care',
-        color: 'pink'
+        color: 'gold'
       }
     ];
   };
@@ -169,14 +169,11 @@ const OrderConfirmation = ({ order }) => {
   };
 
   const colorClasses = {
-    blue: 'bg-blue-500',
-    purple: 'bg-purple-500',
-    green: 'bg-green-500',
-    pink: 'bg-pink-500'
+    gold: 'bg-gold'
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 py-8 px-4 sm:px-6 lg:px-8">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -198,7 +195,7 @@ const OrderConfirmation = ({ order }) => {
                   style={{
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 100}%`,
-                    background: `hsl(${Math.random() * 360}, 70%, 60%)`,
+                    background: '#D4AF37', // Gold color
                   }}
                 />
               ))}
@@ -209,11 +206,11 @@ const OrderConfirmation = ({ order }) => {
         {/* Main Card */}
         <motion.div
           variants={itemVariants}
-          className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
+          className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200"
         >
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-8 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+          <div className="bg-gradient-to-r from-black to-gray-900 px-6 py-8 text-center relative overflow-hidden border-b border-gold/30">
+            <div className="absolute inset-0 bg-gold/10 backdrop-blur-sm"></div>
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -222,12 +219,12 @@ const OrderConfirmation = ({ order }) => {
                 stiffness: 200, 
                 delay: 0.5 
               }}
-              className="relative z-10 w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/30"
+              className="relative z-10 w-20 h-20 bg-gold/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gold/30"
             >
               {order.data.orderType === 'custom' ? (
-                <FiScissors className="text-white text-3xl" />
+                <FiScissors className="text-gold text-3xl" />
               ) : (
-                <FiCheck className="text-white text-3xl" />
+                <FiCheck className="text-gold text-3xl" />
               )}
             </motion.div>
             
@@ -236,12 +233,12 @@ const OrderConfirmation = ({ order }) => {
                 <h1 className="text-3xl font-bold text-white">
                   Order Confirmed!
                 </h1>
-                <span className="bg-white/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-full border border-white/30">
+                <span className="bg-gold/20 backdrop-blur-sm text-white text-sm font-medium px-4 py-2 rounded-full border border-gold/30">
                   {getOrderType()}
                 </span>
               </div>
               
-              <p className="text-blue-100 text-lg mb-4">
+              <p className="text-gold/80 text-lg mb-4">
                 {order.data.orderType === 'custom' 
                   ? "Your custom design journey begins now! We'll contact you shortly."
                   : "Thank you for your purchase! We're preparing your order with care."
@@ -249,7 +246,7 @@ const OrderConfirmation = ({ order }) => {
               </p>
 
               {/* Order ID with Copy */}
-              <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20 max-w-xs mx-auto">
+              <div className="flex items-center justify-center gap-3 bg-gold/10 backdrop-blur-sm rounded-xl p-3 border border-gold/20 max-w-xs mx-auto">
                 <code className="text-white font-mono text-sm">
                   #{order.data.orderNumber || order.data.id}
                 </code>
@@ -257,9 +254,9 @@ const OrderConfirmation = ({ order }) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={copyOrderNumber}
-                  className="text-white hover:text-blue-200 transition-colors"
+                  className="text-white hover:text-gold transition-colors"
                 >
-                  {copied ? <FiCheck className="text-green-300" /> : <FaRegCopy />}
+                  {copied ? <FiCheck className="text-gold" /> : <FaRegCopy />}
                 </motion.button>
               </div>
             </div>
@@ -274,26 +271,26 @@ const OrderConfirmation = ({ order }) => {
               {/* Order Details */}
               <div className="space-y-6">
                 <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                  <FiShoppingBag className="text-blue-500" />
+                  <FiShoppingBag className="text-gold" />
                   Order Details
                 </h3>
                 
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-blue-50 rounded-xl">
+                  <div className="flex justify-between items-center p-4 bg-gold/5 rounded-xl border border-gold/20">
                     <span className="text-gray-600">Amount Paid</span>
-                    <span className="text-xl font-bold text-blue-600">
+                    <span className="text-xl font-bold text-gold">
                       ₦{order.data.totalPrice?.toLocaleString()}
                     </span>
                   </div>
                   
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-xl border border-gray-200">
                     <span className="text-gray-600">Payment Method</span>
                     <span className="font-medium text-gray-800 capitalize">
                       {order.data.paymentMethod?.replace('_', ' ') || 'Card'}
                     </span>
                   </div>
                   
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-xl border border-gray-200">
                     <span className="text-gray-600">Estimated Delivery</span>
                     <span className="font-medium text-gray-800 text-sm text-right">
                       {getEstimatedDelivery()}
@@ -301,7 +298,7 @@ const OrderConfirmation = ({ order }) => {
                   </div>
 
                   {order.data.shippingAddress && (
-                    <div className="p-4 bg-gray-50 rounded-xl">
+                    <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
                       <p className="text-gray-600 mb-2">Shipping Address</p>
                       <p className="font-medium text-gray-800 text-sm">
                         {order.data.shippingAddress.street}, {order.data.shippingAddress.city}<br />
@@ -315,15 +312,15 @@ const OrderConfirmation = ({ order }) => {
               {/* Next Steps */}
               <div className="space-y-6">
                 <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                  <FiClock className="text-purple-500" />
+                  <FiClock className="text-gold" />
                   What's Next?
                 </h3>
                 
                 <div className="space-y-4">
                   {getNextSteps().map((step) => (
-                    <div key={step.step} className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
+                    <div key={step.step} className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
                       <div className={`w-8 h-8 ${colorClasses[step.color]} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                        <span className="text-white text-sm font-bold">{step.step}</span>
+                        <span className="text-black text-sm font-bold">{step.step}</span>
                       </div>
                       <div className="flex-1">
                         <p className="font-medium text-gray-800">{step.title}</p>
@@ -339,15 +336,15 @@ const OrderConfirmation = ({ order }) => {
             {(order.data.items && order.data.items.length > 0) && (
               <motion.div
                 variants={itemVariants}
-                className="mb-8 p-6 bg-gray-50 rounded-xl"
+                className="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200"
               >
                 <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  <FaTshirt className="text-blue-500" />
+                  <FaTshirt className="text-gold" />
                   Your Items
                 </h3>
                 <div className="space-y-3">
                   {order.data.items.slice(0, 3).map((item, index) => (
-                    <div key={index} className="flex items-center gap-4 p-3 bg-white rounded-lg">
+                    <div key={index} className="flex items-center gap-4 p-3 bg-white rounded-lg border border-gray-200">
                       {item.image && (
                         <img 
                           src={item.image} 
@@ -384,7 +381,7 @@ const OrderConfirmation = ({ order }) => {
                 to={`/orders/${order.data.id}`}
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-8 rounded-2xl font-semibold flex items-center gap-3 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto justify-center"
+                className="bg-gradient-to-r from-black to-gray-900 text-white py-4 px-8 rounded-2xl font-semibold flex items-center gap-3 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto justify-center border border-gold/30"
               >
                 View Order Details
                 <FiArrowRight className="text-lg" />
@@ -395,7 +392,7 @@ const OrderConfirmation = ({ order }) => {
                   to="/custom-order"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="border-2 border-blue-200 text-blue-600 py-4 px-8 rounded-2xl font-semibold flex items-center gap-3 hover:bg-blue-50 transition-all duration-300 w-full sm:w-auto justify-center"
+                  className="border-2 border-gold/30 text-gold py-4 px-8 rounded-2xl font-semibold flex items-center gap-3 hover:bg-gold/5 transition-all duration-300 w-full sm:w-auto justify-center"
                 >
                   Create Another Design
                   <FiScissors className="text-lg" />
@@ -405,7 +402,7 @@ const OrderConfirmation = ({ order }) => {
                   to="/products"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="border-2 border-blue-200 text-blue-600 py-4 px-8 rounded-2xl font-semibold flex items-center gap-3 hover:bg-blue-50 transition-all duration-300 w-full sm:w-auto justify-center"
+                  className="border-2 border-gold/30 text-gold py-4 px-8 rounded-2xl font-semibold flex items-center gap-3 hover:bg-gold/5 transition-all duration-300 w-full sm:w-auto justify-center"
                 >
                   Continue Shopping
                   <FiStar className="text-lg" />
@@ -424,7 +421,7 @@ const OrderConfirmation = ({ order }) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={shareOrder}
-                  className="bg-green-500 text-white p-3 rounded-xl hover:bg-green-600 transition-colors"
+                  className="bg-gold text-black p-3 rounded-xl hover:bg-yellow-600 transition-colors border border-gold/30"
                 >
                   <FaWhatsapp className="text-xl" />
                 </motion.button>
@@ -434,7 +431,7 @@ const OrderConfirmation = ({ order }) => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={shareOrder}
-                    className="bg-blue-500 text-white p-3 rounded-xl hover:bg-blue-600 transition-colors"
+                    className="bg-black text-gold p-3 rounded-xl hover:bg-gray-800 transition-colors border border-gold/30"
                   >
                     <FiShare2 className="text-xl" />
                   </motion.button>
@@ -447,7 +444,7 @@ const OrderConfirmation = ({ order }) => {
         {/* Support Card */}
         <motion.div
           variants={itemVariants}
-          className="mt-6 bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+          className="mt-6 bg-white rounded-2xl p-6 shadow-lg border border-gray-200"
         >
           <div className="text-center">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Need Fashion Advice?</h3>
@@ -456,15 +453,15 @@ const OrderConfirmation = ({ order }) => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a 
-                href="mailto:support@zephfashion.com" 
-                className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2"
+                href="mailto:support@bellebyokien.com" 
+                className="text-gold hover:text-yellow-600 font-medium flex items-center gap-2"
               >
                 <FiShare2 className="text-lg" />
                 Email Style Support
               </a>
               <a 
-                href="https://wa.me/your-number" 
-                className="text-green-600 hover:text-green-700 font-medium flex items-center gap-2"
+                href="https://wa.me/+2349010873215" 
+                className="text-gold hover:text-yellow-600 font-medium flex items-center gap-2"
               >
                 <FaWhatsapp className="text-lg" />
                 WhatsApp Consultation
@@ -476,18 +473,18 @@ const OrderConfirmation = ({ order }) => {
         {/* Track Order Card */}
         <motion.div
           variants={itemVariants}
-          className="mt-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl p-6 text-white text-center"
+          className="mt-6 bg-gradient-to-r from-black to-gray-900 rounded-2xl p-6 text-white text-center border border-gold/30"
         >
-          <FiTruck className="text-3xl mx-auto mb-3" />
+          <FiTruck className="text-3xl mx-auto mb-3 text-gold" />
           <h3 className="text-xl font-bold mb-2">Track Your Order</h3>
-          <p className="mb-4 opacity-90">
+          <p className="mb-4 text-gold/80">
             Get real-time updates on your order status and delivery timeline
           </p>
           <MotionLink
             to="/track-order"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white text-blue-600 py-3 px-6 rounded-xl font-semibold inline-flex items-center gap-2 hover:bg-blue-50 transition-colors"
+            className="bg-gold text-black py-3 px-6 rounded-xl font-semibold inline-flex items-center gap-2 hover:bg-yellow-600 transition-colors border border-gold/30"
           >
             Track Order
             <FiArrowRight className="text-lg" />
