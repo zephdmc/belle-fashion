@@ -45,7 +45,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
             price: 0, 
             description: 'Collect from our store',
             icon: FiHome,
-            color: 'green'
+            color: 'gold'
         },
         { 
             value: 'portHarcourt', 
@@ -53,7 +53,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
             price: 3500, 
             description: 'Fast city delivery',
             icon: FiNavigation,
-            color: 'blue'
+            color: 'gold'
         },
         { 
             value: 'outsidePortHarcourt', 
@@ -61,7 +61,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
             price: 6500, 
             description: 'Nationwide delivery',
             icon: FiTruck,
-            color: 'purple'
+            color: 'gold'
         }
     ];
 
@@ -143,16 +143,16 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
             {/* Header */}
             <motion.div
                 variants={itemVariants}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-4 text-white mb-4 relative overflow-hidden"
+                className="bg-gradient-to-r from-black to-gray-900 rounded-2xl p-4 text-white mb-4 relative overflow-hidden border border-gold/30"
             >
-                <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+                <div className="absolute inset-0 bg-gold/10 backdrop-blur-sm"></div>
                 <div className="relative z-10 flex items-center gap-3">
-                    <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30">
-                        <FiMapPin className="text-xl" />
+                    <div className="w-12 h-12 bg-gold/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-gold/30">
+                        <FiMapPin className="text-xl text-gold" />
                     </div>
                     <div>
                         <h2 className="text-lg font-bold mb-1">Shipping Information</h2>
-                        <p className="text-purple-100 text-xs">
+                        <p className="text-gold/80 text-xs">
                             {isCustomOrder ? 'Enter custom cake delivery details' : 'Enter your delivery details'}
                         </p>
                     </div>
@@ -165,12 +165,12 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                     <motion.form
                         variants={itemVariants}
                         onSubmit={handleSubmit}
-                        className="bg-white rounded-2xl shadow-lg p-4 border border-gray-100"
+                        className="bg-white rounded-2xl shadow-lg p-4 border border-gray-200"
                     >
                         {/* Personal Information */}
                         <div className="mb-6">
                             <h3 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                                <FiUser className="text-purple-500 text-sm" />
+                                <FiUser className="text-gold text-sm" />
                                 Personal Information
                             </h3>
                             <div className="grid gap-3">
@@ -181,7 +181,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                         name="firstName"
                                         value={formData.firstName}
                                         onChange={handleChange}
-                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300"
                                         required
                                         placeholder="First name"
                                     />
@@ -193,7 +193,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                         name="lastName"
                                         value={formData.lastName}
                                         onChange={handleChange}
-                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300"
                                         required
                                         placeholder="Last name"
                                     />
@@ -204,7 +204,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                         {/* Contact Information */}
                         <div className="mb-6">
                             <h3 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                                <FiMail className="text-purple-500 text-sm" />
+                                <FiMail className="text-gold text-sm" />
                                 Contact Information
                             </h3>
                             <div className="grid gap-3">
@@ -215,7 +215,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 bg-gray-50"
+                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300 bg-gray-50"
                                         required
                                         disabled={!!currentUser?.email}
                                     />
@@ -227,7 +227,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                         name="phone"
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300"
                                         required
                                         placeholder="08012345678"
                                     />
@@ -238,7 +238,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                         {/* Shipping Address */}
                         <div className="mb-6">
                             <h3 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                                <FiHome className="text-purple-500 text-sm" />
+                                <FiHome className="text-gold text-sm" />
                                 Shipping Address
                             </h3>
                             <div className="grid gap-3">
@@ -249,7 +249,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                         name="address"
                                         value={formData.address}
                                         onChange={handleChange}
-                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                                        className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300"
                                         required
                                         placeholder="Complete address"
                                     />
@@ -262,7 +262,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                             name="city"
                                             value={formData.city}
                                             onChange={handleChange}
-                                            className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300"
                                             required
                                             placeholder="Port Harcourt"
                                         />
@@ -274,7 +274,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                             name="state"
                                             value={formData.state}
                                             onChange={handleChange}
-                                            className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300"
                                             required
                                             placeholder="Rivers"
                                         />
@@ -288,7 +288,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                             name="postalCode"
                                             value={formData.postalCode}
                                             onChange={handleChange}
-                                            className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300"
                                             placeholder="Optional"
                                         />
                                     </div>
@@ -298,7 +298,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                             name="country"
                                             value={formData.country}
                                             onChange={handleChange}
-                                            className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 bg-white"
+                                            className="w-full p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300 bg-white"
                                             required
                                         >
                                             <option value="Nigeria">Nigeria</option>
@@ -313,7 +313,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                         {/* Delivery Method */}
                         <div className="mb-6">
                             <h3 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                                <FiTruck className="text-purple-500 text-sm" />
+                                <FiTruck className="text-gold text-sm" />
                                 Delivery Method
                             </h3>
                             <div className="grid gap-3">
@@ -326,15 +326,15 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                             whileTap={{ scale: 0.99 }}
                                             className={`p-3 border-2 rounded-xl cursor-pointer transition-all duration-300 ${
                                                 formData.deliveryMethod === option.value
-                                                    ? `border-${option.color}-500 bg-${option.color}-50`
+                                                    ? 'border-gold bg-gold/10'
                                                     : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                             onClick={() => handleDeliveryChange(option.value)}
                                         >
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`w-8 h-8 bg-${option.color}-100 rounded-lg flex items-center justify-center`}>
-                                                        <Icon className={`text-${option.color}-600 text-sm`} />
+                                                    <div className="w-8 h-8 bg-gold/20 rounded-lg flex items-center justify-center">
+                                                        <Icon className="text-gold text-sm" />
                                                     </div>
                                                     <div>
                                                         <div className="font-semibold text-gray-800 text-sm">{option.label}</div>
@@ -356,7 +356,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                         {/* Promo Code */}
                         <div className="mb-6">
                             <h3 className="text-base font-semibold text-gray-800 mb-3 flex items-center gap-2">
-                                <FiTag className="text-purple-500 text-sm" />
+                                <FiTag className="text-gold text-sm" />
                                 Promo Code
                             </h3>
                             <div className="flex gap-2">
@@ -365,7 +365,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                     name="promocode"
                                     value={formData.promocode}
                                     onChange={handleChange}
-                                    className="flex-1 p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                                    className="flex-1 p-3 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-300"
                                     placeholder="Promo code (optional)"
                                 />
                                 <button
@@ -383,8 +383,8 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                             disabled={isSubmitting}
                             whileHover={!isSubmitting ? { scale: 1.01 } : {}}
                             whileTap={!isSubmitting ? { scale: 0.99 } : {}}
-                            className={`w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-4 rounded-xl font-semibold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm ${
-                                isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
+                            className={`w-full bg-gradient-to-r from-black to-gray-900 text-white py-3 px-4 rounded-xl font-semibold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm border border-gold/30 ${
+                                isSubmitting ? 'opacity-75 cursor-not-allowed' : 'hover:shadow-gold/20'
                             }`}
                         >
                             {isSubmitting ? (
@@ -392,7 +392,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                                     <motion.div
                                         animate={{ rotate: 360 }}
                                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                        className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                                        className="w-4 h-4 border-2 border-gold border-t-transparent rounded-full"
                                     />
                                     Processing...
                                 </>
@@ -410,10 +410,10 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                 <div>
                     <motion.div
                         variants={itemVariants}
-                        className="bg-white rounded-2xl shadow-lg p-4 border border-gray-100"
+                        className="bg-white rounded-2xl shadow-lg p-4 border border-gray-200"
                     >
                         <h3 className="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                            <FiShoppingBag className="text-purple-500 text-sm" />
+                            <FiShoppingBag className="text-gold text-sm" />
                             Order Summary
                         </h3>
 
@@ -439,11 +439,11 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-gray-50 rounded-xl p-3 border border-gray-200 mb-4"
+                                className="bg-gold/5 rounded-xl p-3 border border-gold/20 mb-4"
                             >
                                 <div className="flex items-center gap-2 mb-1">
-                                    <div className={`w-6 h-6 bg-${selectedDelivery.color}-100 rounded flex items-center justify-center`}>
-                                        <selectedDelivery.icon className={`text-${selectedDelivery.color}-600 text-xs`} />
+                                    <div className="w-6 h-6 bg-gold/20 rounded flex items-center justify-center">
+                                        <selectedDelivery.icon className="text-gold text-xs" />
                                     </div>
                                     <span className="font-medium text-gray-800 text-sm">{selectedDelivery.label}</span>
                                 </div>
@@ -453,7 +453,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
 
                         <Link
                             to="/products"
-                            className="w-full border border-purple-200 text-purple-600 py-2 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-purple-50 transition-all duration-300 text-sm"
+                            className="w-full border border-gold/30 text-gold py-2 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-gold/5 transition-all duration-300 text-sm"
                         >
                             <FiArrowRight className="transform rotate-180 text-xs" />
                             Continue Shopping
