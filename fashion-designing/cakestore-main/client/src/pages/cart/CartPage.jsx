@@ -221,7 +221,7 @@ const SizeGuideHelper = () => (
 
 export default function CartPage() {
     const { cartItems, cartCount, clearCart } = useCart();
-
+const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
     // Check if cart has custom items
     const hasCustomItems = cartItems.some(item => item.isCustom);
 
