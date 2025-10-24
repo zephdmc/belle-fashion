@@ -346,7 +346,7 @@ export default function CartPage() {
                                 <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
                                     <div className="flex items-center gap-4">
                                         <MotionLink
-                                            to="/collections"
+                                            to="/products"
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             className="flex items-center gap-2 text-gold/70 hover:text-gold transition-colors duration-300 font-serif"
@@ -366,7 +366,7 @@ export default function CartPage() {
                                         </MotionLink>
 
                                         <MotionLink
-                                            to="/custom-order"
+                                              onClick={handleCustomOrderClick}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             className="flex items-center gap-2 text-gold/70 hover:text-gold transition-colors duration-300 font-serif"
@@ -459,7 +459,7 @@ export default function CartPage() {
                                         </div>
                                     </div>
                                     <MotionLink
-                                        to="/custom-order"
+                                         onClick={handleCustomOrderClick}
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         className="bg-gold text-black hover:bg-yellow-500 py-3 px-6 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap border border-gold/30 font-serif"
