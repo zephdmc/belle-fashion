@@ -3,6 +3,7 @@ import ProductCard from '../../components/products/ProductCard';
 import ProductFilter from '../../components/products/ProductFilter';
 import { useProducts } from '../../context/ProductContext';
 import CustomCakeForm from '../../components/orders/CustomCakeForm';
+import { useAuth } from '../../context/AuthContext';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
