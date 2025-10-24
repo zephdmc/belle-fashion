@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../../context/CartContext';
 import CartItem from '../../components/cart/CartItem';
+import CustomCakeForm from '../../components/orders/CustomCakeForm';
 import CartSummary from '../../components/cart/CartSummary';
 import { 
     FiShoppingBag, 
