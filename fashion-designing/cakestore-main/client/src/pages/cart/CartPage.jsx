@@ -446,6 +446,14 @@ export default function CartPage() {
                     </div>
                 </div>
             </div>
+
+               {/* Modals */}
+            {showCustomOrderForm && (
+                <CustomCakeForm 
+                    onClose={() => setShowCustomOrderForm(false)} 
+                    onSubmit={handleCustomOrderSubmit}
+                />
+            )}
         </div>
     );
 }
