@@ -85,12 +85,12 @@ export default function ProductDetail() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-8">
                 <div className="container mx-auto px-4">
                     <div className="flex justify-center items-center h-96">
                         <div className="text-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                            <p className="text-gray-600 font-medium">Loading fashion item details...</p>
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
+                            <p className="text-gray-600 font-medium font-serif">Loading fashion item details...</p>
                         </div>
                     </div>
                 </div>
@@ -100,21 +100,21 @@ export default function ProductDetail() {
     
     if (error) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-8">
                 <div className="container mx-auto px-4">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-2xl shadow-lg p-8 text-center"
+                        className="bg-white rounded-2xl shadow-lg p-8 text-center border border-gold/20"
                     >
                         <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <FiPackage className="text-red-500 text-2xl" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-4">Fashion Item Not Found</h3>
+                        <h3 className="text-2xl font-bold text-black mb-4 font-serif">Fashion Item Not Found</h3>
                         <p className="text-gray-600 mb-6">{error}</p>
                         <button
                             onClick={() => navigate('/products')}
-                            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold"
+                            className="bg-black text-gold py-3 px-8 rounded-xl hover:bg-gray-800 transition-all duration-200 font-semibold font-serif border border-gold/30 shadow-lg"
                         >
                             Browse Fashion Items
                         </button>
@@ -126,21 +126,21 @@ export default function ProductDetail() {
 
     if (!product) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-8">
                 <div className="container mx-auto px-4">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-2xl shadow-lg p-8 text-center"
+                        className="bg-white rounded-2xl shadow-lg p-8 text-center border border-gold/20"
                     >
                         <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <FiPackage className="text-gray-500 text-2xl" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-4">Fashion Item Not Available</h3>
+                        <h3 className="text-2xl font-bold text-black mb-4 font-serif">Fashion Item Not Available</h3>
                         <p className="text-gray-600 mb-6">The fashion item you're looking for is no longer available.</p>
                         <button
                             onClick={() => navigate('/products')}
-                            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold"
+                            className="bg-black text-gold py-3 px-8 rounded-xl hover:bg-gray-800 transition-all duration-200 font-semibold font-serif border border-gold/30 shadow-lg"
                         >
                             Browse Fashion Items
                         </button>
@@ -166,7 +166,7 @@ export default function ProductDetail() {
     const canAddToCart = product.isCustomizable || (product.countInStock > 0 && selectedSize && selectedColor);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Breadcrumb Navigation */}
                 <motion.nav
@@ -176,7 +176,7 @@ export default function ProductDetail() {
                 >
                     <button 
                         onClick={() => navigate(-1)} 
-                        className="flex items-center text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-200 group"
+                        className="flex items-center text-black hover:text-gold font-semibold transition-colors duration-200 group font-serif"
                     >
                         <FiArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
                         Back to Fashion Items
@@ -189,7 +189,7 @@ export default function ProductDetail() {
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-white rounded-2xl shadow-xl overflow-hidden relative"
+                        className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gold/20"
                     >
                         {/* Badges */}
                         <div className="absolute top-4 left-4 z-10 space-y-2">
@@ -197,7 +197,7 @@ export default function ProductDetail() {
                                 <motion.span
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    className="bg-gradient-to-r from-red-500 to-pink-500 text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg transform -rotate-6"
+                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black text-sm font-bold px-3 py-2 rounded-full shadow-lg transform -rotate-6 font-serif"
                                 >
                                     {product.discountPercentage}% OFF
                                 </motion.span>
@@ -208,7 +208,7 @@ export default function ProductDetail() {
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ delay: 0.2 }}
-                                    className="bg-gradient-to-r from-purple-500 to-blue-500 text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg block"
+                                    className="bg-black text-gold text-sm font-bold px-3 py-2 rounded-full shadow-lg block font-serif"
                                 >
                                     Customizable
                                 </motion.span>
@@ -219,7 +219,7 @@ export default function ProductDetail() {
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ delay: 0.3 }}
-                                    className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg block"
+                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black text-sm font-bold px-3 py-2 rounded-full shadow-lg block font-serif"
                                 >
                                     New Arrival
                                 </motion.span>
@@ -230,7 +230,7 @@ export default function ProductDetail() {
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ delay: 0.4 }}
-                                    className="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg block"
+                                    className="bg-black text-gold text-sm font-bold px-3 py-2 rounded-full shadow-lg block font-serif"
                                 >
                                     Bestseller
                                 </motion.span>
@@ -257,13 +257,13 @@ export default function ProductDetail() {
                                 <>
                                     <button
                                         onClick={() => navigateImage('prev')}
-                                        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all duration-200"
+                                        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-2 shadow-lg transition-all duration-200 border border-gold/20"
                                     >
                                         <FiChevronLeft size={20} />
                                     </button>
                                     <button
                                         onClick={() => navigateImage('next')}
-                                        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all duration-200"
+                                        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-2 shadow-lg transition-all duration-200 border border-gold/20"
                                     >
                                         <FiChevronRight size={20} />
                                     </button>
@@ -283,8 +283,8 @@ export default function ProductDetail() {
                                             onClick={() => setSelectedImageIndex(index)}
                                             className={`flex-shrink-0 w-16 h-20 border-2 rounded-xl overflow-hidden transition-all duration-200 ${
                                                 selectedImageIndex === index 
-                                                    ? 'border-blue-500 shadow-md' 
-                                                    : 'border-gray-200 hover:border-blue-300'
+                                                    ? 'border-gold shadow-md' 
+                                                    : 'border-gray-200 hover:border-gold/50'
                                             }`}
                                         >
                                             <img
@@ -304,12 +304,12 @@ export default function ProductDetail() {
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-white rounded-2xl shadow-xl p-8"
+                        className="bg-white rounded-2xl shadow-xl p-8 border border-gold/20"
                     >
                         <div className="space-y-6">
                             {/* Header */}
                             <div>
-                                <div className="flex items-center text-sm text-gray-500 mb-2">
+                                <div className="flex items-center text-sm text-gray-500 mb-2 font-serif">
                                     <FiTag className="mr-2" />
                                     <span className="uppercase tracking-wide font-medium">{product.category}</span>
                                     {product.subcategory && (
@@ -320,18 +320,18 @@ export default function ProductDetail() {
                                     )}
                                 </div>
                                 
-                                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
+                                <h1 className="text-3xl lg:text-4xl font-bold text-black mb-3 font-serif">
                                     {product.name}
                                 </h1>
                                 
                                 {(product.designer || product.brand) && (
-                                    <p className="text-lg text-gray-600 mb-4">
+                                    <p className="text-lg text-gray-600 mb-4 font-serif">
                                         by <span className="font-semibold">{product.designer || product.brand}</span>
                                     </p>
                                 )}
 
                                 {product.collection && (
-                                    <div className="flex items-center text-gray-600 mb-4">
+                                    <div className="flex items-center text-gray-600 mb-4 font-serif">
                                         <FiMapPin className="mr-2" />
                                         <span className="font-medium">{product.collection} Collection</span>
                                     </div>
@@ -339,19 +339,19 @@ export default function ProductDetail() {
                             </div>
 
                             {/* Price Section */}
-                            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 border border-blue-100">
+                            <div className="bg-gradient-to-r from-gold/10 to-yellow-600/10 rounded-2xl p-6 border border-gold/20">
                                 <div className="flex items-center gap-4 mb-3">
                                     {hasDiscount ? (
                                         <>
-                                            <span className="text-3xl font-bold text-blue-600">
+                                            <span className="text-3xl font-bold text-black font-serif">
                                                 ₦{discountedPrice.toLocaleString()}
                                             </span>
-                                            <span className="text-xl text-gray-500 line-through">
+                                            <span className="text-xl text-gray-500 line-through font-serif">
                                                 ₦{originalPrice.toLocaleString()}
                                             </span>
                                         </>
                                     ) : (
-                                        <span className="text-3xl font-bold text-blue-600">
+                                        <span className="text-3xl font-bold text-black font-serif">
                                             ₦{product.price.toLocaleString()}
                                         </span>
                                     )}
@@ -359,7 +359,7 @@ export default function ProductDetail() {
 
                                 {/* Stock Status */}
                                 {!product.isCustomizable && (
-                                    <div className="flex items-center">
+                                    <div className="flex items-center font-serif">
                                         <div className={`w-3 h-3 rounded-full mr-2 ${
                                             product.countInStock > 0 
                                                 ? product.countInStock < 10 
@@ -388,8 +388,8 @@ export default function ProductDetail() {
                             {/* Size Selection */}
                             {product.sizes && product.sizes.length > 0 && (
                                 <div>
-                                    <h3 className="text-xl font-semibold mb-3 text-gray-900 flex items-center">
-                                        <FiDroplet className="mr-2 text-blue-500" />
+                                    <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
+                                        <FiDroplet className="mr-2 text-gold" />
                                         Select Size
                                     </h3>
                                     <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
@@ -399,10 +399,10 @@ export default function ProductDetail() {
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
                                                 onClick={() => setSelectedSize(size)}
-                                                className={`p-3 border-2 rounded-xl font-semibold transition-all duration-200 ${
+                                                className={`p-3 border-2 rounded-xl font-semibold transition-all duration-200 font-serif ${
                                                     selectedSize === size
-                                                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm'
-                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300'
+                                                        ? 'border-gold bg-gold/10 text-black shadow-sm'
+                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
                                                 }`}
                                             >
                                                 {size}
@@ -415,8 +415,8 @@ export default function ProductDetail() {
                             {/* Color Selection */}
                             {product.colors && product.colors.length > 0 && (
                                 <div>
-                                    <h3 className="text-xl font-semibold mb-3 text-gray-900 flex items-center">
-                                        <FiDroplet className="mr-2 text-blue-500" />
+                                    <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
+                                        <FiDroplet className="mr-2 text-gold" />
                                         Select Color
                                     </h3>
                                     <div className="flex flex-wrap gap-3">
@@ -426,10 +426,10 @@ export default function ProductDetail() {
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
                                                 onClick={() => setSelectedColor(color)}
-                                                className={`p-3 border-2 rounded-xl font-semibold transition-all duration-200 ${
+                                                className={`p-3 border-2 rounded-xl font-semibold transition-all duration-200 font-serif ${
                                                     selectedColor === color
-                                                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm'
-                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300'
+                                                        ? 'border-gold bg-gold/10 text-black shadow-sm'
+                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
                                                 }`}
                                             >
                                                 {color}
@@ -441,26 +441,26 @@ export default function ProductDetail() {
 
                             {/* Description */}
                             <div>
-                                <h3 className="text-xl font-semibold mb-3 text-gray-900 flex items-center">
-                                    <FiPackage className="mr-2 text-blue-500" />
+                                <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
+                                    <FiPackage className="mr-2 text-gold" />
                                     Product Description
                                 </h3>
-                                <p className="text-gray-700 leading-relaxed text-lg">{product.description}</p>
+                                <p className="text-gray-700 leading-relaxed text-lg font-serif">{product.description}</p>
                             </div>
 
                             {/* Material & Care */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {product.material && (
                                     <div>
-                                        <h3 className="text-lg font-semibold mb-2 text-gray-900">Material</h3>
-                                        <p className="text-gray-700">{product.material}</p>
+                                        <h3 className="text-lg font-semibold mb-2 text-black font-serif">Material</h3>
+                                        <p className="text-gray-700 font-serif">{product.material}</p>
                                     </div>
                                 )}
                                 
                                 {product.careInstructions && (
                                     <div>
-                                        <h3 className="text-lg font-semibold mb-2 text-gray-900">Care Instructions</h3>
-                                        <p className="text-gray-700">{product.careInstructions}</p>
+                                        <h3 className="text-lg font-semibold mb-2 text-black font-serif">Care Instructions</h3>
+                                        <p className="text-gray-700 font-serif">{product.careInstructions}</p>
                                     </div>
                                 )}
                             </div>
@@ -468,30 +468,30 @@ export default function ProductDetail() {
                             {/* Fit & Style Details */}
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {product.fitType && (
-                                    <div className="text-center bg-gray-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Fit</div>
-                                        <div className="font-semibold text-gray-900">{product.fitType}</div>
+                                    <div className="text-center bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                        <div className="text-sm text-gray-600 mb-1 font-serif">Fit</div>
+                                        <div className="font-semibold text-black font-serif">{product.fitType}</div>
                                     </div>
                                 )}
                                 
                                 {product.length && (
-                                    <div className="text-center bg-gray-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Length</div>
-                                        <div className="font-semibold text-gray-900">{product.length}</div>
+                                    <div className="text-center bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                        <div className="text-sm text-gray-600 mb-1 font-serif">Length</div>
+                                        <div className="font-semibold text-black font-serif">{product.length}</div>
                                     </div>
                                 )}
                                 
                                 {product.neckline && (
-                                    <div className="text-center bg-gray-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Neckline</div>
-                                        <div className="font-semibold text-gray-900">{product.neckline}</div>
+                                    <div className="text-center bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                        <div className="text-sm text-gray-600 mb-1 font-serif">Neckline</div>
+                                        <div className="font-semibold text-black font-serif">{product.neckline}</div>
                                     </div>
                                 )}
                                 
                                 {product.sleeveType && (
-                                    <div className="text-center bg-gray-50 rounded-xl p-4">
-                                        <div className="text-sm text-gray-600 mb-1">Sleeve</div>
-                                        <div className="font-semibold text-gray-900">{product.sleeveType}</div>
+                                    <div className="text-center bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                        <div className="text-sm text-gray-600 mb-1 font-serif">Sleeve</div>
+                                        <div className="font-semibold text-black font-serif">{product.sleeveType}</div>
                                     </div>
                                 )}
                             </div>
@@ -499,7 +499,7 @@ export default function ProductDetail() {
                             {/* Style Tags */}
                             {product.styleTags && product.styleTags.length > 0 && (
                                 <div>
-                                    <h3 className="text-xl font-semibold mb-3 text-gray-900">Style</h3>
+                                    <h3 className="text-xl font-semibold mb-3 text-black font-serif">Style</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {product.styleTags.map((tag, index) => (
                                             <motion.span
@@ -507,7 +507,7 @@ export default function ProductDetail() {
                                                 initial={{ opacity: 0, scale: 0.8 }}
                                                 animate={{ opacity: 1, scale: 1 }}
                                                 transition={{ delay: index * 0.1 }}
-                                                className="bg-blue-100 text-blue-800 px-3 py-2 rounded-xl text-sm font-semibold"
+                                                className="bg-gold/20 text-black px-3 py-2 rounded-xl text-sm font-semibold font-serif border border-gold/30"
                                             >
                                                 {tag}
                                             </motion.span>
@@ -519,8 +519,8 @@ export default function ProductDetail() {
                             {/* Occasion Tags */}
                             {product.occasion && product.occasion.length > 0 && (
                                 <div>
-                                    <h3 className="text-xl font-semibold mb-3 text-gray-900 flex items-center">
-                                        <FiHeart className="mr-2 text-blue-500" />
+                                    <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
+                                        <FiHeart className="mr-2 text-gold" />
                                         Perfect For
                                     </h3>
                                     <div className="flex flex-wrap gap-2">
@@ -530,7 +530,7 @@ export default function ProductDetail() {
                                                 initial={{ opacity: 0, scale: 0.8 }}
                                                 animate={{ opacity: 1, scale: 1 }}
                                                 transition={{ delay: index * 0.1 }}
-                                                className="bg-purple-100 text-purple-800 px-3 py-2 rounded-xl text-sm font-semibold"
+                                                className="bg-black text-gold px-3 py-2 rounded-xl text-sm font-semibold font-serif border border-gold/30"
                                             >
                                                 {occasion}
                                             </motion.span>
@@ -542,21 +542,21 @@ export default function ProductDetail() {
                             {/* Production & Delivery */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {product.productionTime && (
-                                    <div className="flex items-center bg-orange-50 rounded-xl p-4">
-                                        <FiClock className="text-orange-500 mr-3 text-xl" />
+                                    <div className="flex items-center bg-gold/10 rounded-xl p-4 border border-gold/20">
+                                        <FiClock className="text-black mr-3 text-xl" />
                                         <div>
-                                            <div className="font-semibold text-gray-900">Production Time</div>
-                                            <div className="text-gray-700">{product.productionTime}</div>
+                                            <div className="font-semibold text-black font-serif">Production Time</div>
+                                            <div className="text-gray-700 font-serif">{product.productionTime}</div>
                                         </div>
                                     </div>
                                 )}
                                 
                                 {product.deliveryEstimate && (
-                                    <div className="flex items-center bg-green-50 rounded-xl p-4">
-                                        <FiTruck className="text-green-500 mr-3 text-xl" />
+                                    <div className="flex items-center bg-black/5 rounded-xl p-4 border border-gray-200">
+                                        <FiTruck className="text-black mr-3 text-xl" />
                                         <div>
-                                            <div className="font-semibold text-gray-900">Delivery Estimate</div>
-                                            <div className="text-gray-700">{product.deliveryEstimate}</div>
+                                            <div className="font-semibold text-black font-serif">Delivery Estimate</div>
+                                            <div className="text-gray-700 font-serif">{product.deliveryEstimate}</div>
                                         </div>
                                     </div>
                                 )}
@@ -572,11 +572,11 @@ export default function ProductDetail() {
                                 >
                                     {!product.isCustomizable && (
                                         <div className="mb-4">
-                                            <label className="block text-gray-700 mb-3 font-semibold text-lg">Quantity</label>
+                                            <label className="block text-gray-700 mb-3 font-semibold text-lg font-serif">Quantity</label>
                                             <select
                                                 value={quantity}
                                                 onChange={(e) => setQuantity(parseInt(e.target.value))}
-                                                className="border-2 border-gray-300 rounded-xl p-3 w-24 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 font-semibold"
+                                                className="border-2 border-gray-300 rounded-xl p-3 w-24 bg-white focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-200 font-semibold font-serif"
                                             >
                                                 {[...Array(Math.min(product.countInStock, 10)).keys()].map((x) => (
                                                     <option key={x + 1} value={x + 1}>
@@ -591,7 +591,7 @@ export default function ProductDetail() {
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                         onClick={handleAddToCart}
-                                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold text-lg flex items-center justify-center"
+                                        className="w-full bg-black text-gold py-4 px-6 rounded-xl hover:bg-gray-800 transition-all duration-200 font-semibold text-lg flex items-center justify-center font-serif border border-gold/30 shadow-lg"
                                     >
                                         {product.isCustomizable ? (
                                             <>
@@ -618,10 +618,10 @@ export default function ProductDetail() {
                                     <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                         <FiPackage className="text-red-500 text-xl" />
                                     </div>
-                                    <p className="text-red-700 font-semibold mb-4 text-lg">This fashion item is currently unavailable</p>
+                                    <p className="text-red-700 font-semibold mb-4 text-lg font-serif">This fashion item is currently unavailable</p>
                                     <button
                                         onClick={() => navigate('/products')}
-                                        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold"
+                                        className="bg-black text-gold py-3 px-8 rounded-xl hover:bg-gray-800 transition-all duration-200 font-semibold font-serif border border-gold/30 shadow-lg"
                                     >
                                         Browse Other Fashion Items
                                     </button>
@@ -652,7 +652,7 @@ export default function ProductDetail() {
                         />
                         <button
                             onClick={() => setIsImageZoomed(false)}
-                            className="absolute top-4 right-4 text-white text-2xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70 transition-all duration-200"
+                            className="absolute top-4 right-4 text-white text-2xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70 transition-all duration-200 border border-gold/30"
                         >
                             ×
                         </button>
