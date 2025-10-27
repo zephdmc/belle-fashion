@@ -295,25 +295,31 @@ export default function CustomOrderForm({ onClose }) {
     }
   };
 
-  const InputField = ({ label, name, type = 'text', required = false, children, ...props }) => (
-    <div className="mb-4">
-      <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
-        {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
-      </label>
-      {children || (
-        <input
-          type={type}
-          name={name}
-          value={formData[name]}
-          onChange={handleChange}
-          required={required}
-          className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 placeholder-gray-400 font-serif"
-          {...props}
-        />
-      )}
-    </div>
-  );
+  const InputField = ({ label, name, type = 'text', required = false, children, ...props }) => {
+    // Use useRef to maintain focus
+    const inputRef = useRef(null);
+    
+    return (
+      <div className="mb-4">
+        <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
+          {label}
+          {required && <span className="text-red-500 ml-1">*</span>}
+        </label>
+        {children || (
+          <input
+            ref={inputRef}
+            type={type}
+            name={name}
+            value={formData[name]}
+            onChange={handleChange}
+            required={required}
+            className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 placeholder-gray-400 font-serif"
+            {...props}
+          />
+        )}
+      </div>
+    );
+  };
 
   const SelectField = ({ label, name, options, required = false, priceMap = {} }) => (
     <div className="mb-4">
@@ -508,16 +514,21 @@ export default function CustomOrderForm({ onClose }) {
 
       <div className="grid grid-cols-2 gap-3">
         {Object.entries(formData.measurements).map(([key, value]) => (
-          <InputField
-            key={key}
-            label={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
-            name={`measurements.${key}`}
-            type="number"
-            placeholder="cm"
-            value={value}
-            onChange={handleChange}
-            required
-          />
+          <div key={key} className="mb-4">
+            <label className="block text-xs font-semibold text-gray-700 mb-2 flex items-center font-serif">
+              {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
+              {<span className="text-red-500 ml-1">*</span>}
+            </label>
+            <input
+              type="number"
+              name={`measurements.${key}`}
+              value={value}
+              onChange={handleChange}
+              required
+              placeholder="cm"
+              className="w-full px-3 py-2 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent transition-all duration-200 placeholder-gray-400 font-serif"
+            />
+          </div>
         ))}
       </div>
 
