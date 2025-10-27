@@ -166,7 +166,7 @@ export default function ProductDetail() {
     const canAddToCart = product.isCustomizable || (product.countInStock > 0 && selectedSize && selectedColor);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-8">
+        <div className="min-h-screen bg-gradient-to-br pt-8 from-white to-gray-50 py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Breadcrumb Navigation */}
                 <motion.nav
