@@ -596,7 +596,7 @@ export default function ProductDetail() {
                                         {product.isCustomizable ? (
                                             <>
                                                 <FiScissors className="mr-3 text-xl" />
-                                                Customize This Item
+                                                Add to Cart
                                             </>
                                         ) : (
                                             <>
