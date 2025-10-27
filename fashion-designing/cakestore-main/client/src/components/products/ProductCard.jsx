@@ -47,7 +47,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ y: -5 }}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 relative group"
+            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 relative group border border-gold/20"
         >
             {/* Image Container */}
             <div className="relative overflow-hidden">
@@ -71,7 +71,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                         <motion.span
                             initial={{ scale: 0, rotate: -45 }}
                             animate={{ scale: 1, rotate: -12 }}
-                            className="bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg block"
+                            className="bg-gradient-to-r from-gold to-yellow-600 text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg block font-serif"
                         >
                             {product.discountPercentage}% OFF
                         </motion.span>
@@ -83,7 +83,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.1 }}
-                            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg block"
+                            className="bg-black text-gold text-xs font-bold px-3 py-1 rounded-full shadow-lg block font-serif"
                         >
                             Customizable
                         </motion.span>
@@ -95,7 +95,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg block"
+                            className="bg-gradient-to-r from-gold to-yellow-600 text-black text-xs font-bold px-3 py-1 rounded-full shadow-lg block font-serif"
                         >
                             New Arrival
                         </motion.span>
@@ -107,7 +107,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.3 }}
-                            className="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg block"
+                            className="bg-black text-gold text-xs font-bold px-3 py-1 rounded-full shadow-lg block font-serif"
                         >
                             Bestseller
                         </motion.span>
@@ -122,10 +122,10 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                             whileTap={{ scale: 0.9 }}
                             onClick={handleAddToCart}
                             disabled={!product.isCustomizable && product.countInStock === 0}
-                            className={`bg-white text-blue-600 rounded-full p-3 shadow-lg ${
+                            className={`bg-white text-black rounded-full p-3 shadow-lg border border-gold/30 ${
                                 (!product.isCustomizable && product.countInStock === 0) 
                                     ? 'opacity-50 cursor-not-allowed' 
-                                    : 'hover:bg-blue-600 hover:text-white'
+                                    : 'hover:bg-black hover:text-gold'
                             } transition-all duration-200`}
                         >
                             <FiShoppingCart size={20} />
@@ -138,7 +138,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
             <div className="p-5">
                 {/* Category */}
                 {product.category && (
-                    <div className="flex items-center text-xs text-gray-500 mb-2">
+                    <div className="flex items-center text-xs text-gray-500 mb-2 font-serif">
                         <FiTag size={12} className="mr-1" />
                         <span className="uppercase tracking-wide font-medium">{product.category}</span>
                     </div>
@@ -146,14 +146,14 @@ export default function ProductCard({ product, showQuickAdd = true }) {
 
                 {/* Product Name */}
                 <Link to={`/products/${product.id}`}>
-                    <h3 className="font-bold text-lg text-gray-900 mb-2 hover:text-blue-600 transition-colors duration-200 line-clamp-2 group-hover:underline">
+                    <h3 className="font-bold text-lg text-black mb-2 hover:text-gold transition-colors duration-200 line-clamp-2 group-hover:underline font-serif">
                         {product.name}
                     </h3>
                 </Link>
 
                 {/* Designer/Brand */}
                 {(product.designer || product.brand) && (
-                    <p className="text-sm text-gray-600 mb-3">
+                    <p className="text-sm text-gray-600 mb-3 font-serif">
                         by {product.designer || product.brand}
                     </p>
                 )}
@@ -162,8 +162,8 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                 <div className="flex flex-wrap gap-2 mb-3">
                     {/* Sizes */}
                     {displaySizes.length > 0 && (
-                        <div className="flex items-center text-xs text-gray-600">
-                            <FiPackage size={12} className="mr-1 text-blue-500" />
+                        <div className="flex items-center text-xs text-gray-600 font-serif">
+                            <FiPackage size={12} className="mr-1 text-gold" />
                             <span className="font-medium">Sizes: </span>
                             <span className="ml-1">{displaySizes.join(', ')}</span>
                             {product.sizes?.length > 3 && (
@@ -174,8 +174,8 @@ export default function ProductCard({ product, showQuickAdd = true }) {
 
                     {/* Colors */}
                     {displayColors.length > 0 && (
-                        <div className="flex items-center text-xs text-gray-600">
-                            <FiDroplet size={12} className="mr-1 text-blue-500" />
+                        <div className="flex items-center text-xs text-gray-600 font-serif">
+                            <FiDroplet size={12} className="mr-1 text-gold" />
                             <span className="font-medium">Colors: </span>
                             <span className="ml-1">{displayColors.join(', ')}</span>
                             {product.colors?.length > 2 && (
@@ -187,8 +187,8 @@ export default function ProductCard({ product, showQuickAdd = true }) {
 
                 {/* Material */}
                 {product.material && (
-                    <div className="flex items-center text-xs text-gray-600 mb-3">
-                        <FiPackage size={12} className="mr-1 text-blue-500" />
+                    <div className="flex items-center text-xs text-gray-600 mb-3 font-serif">
+                        <FiPackage size={12} className="mr-1 text-gold" />
                         <span>{product.material}</span>
                     </div>
                 )}
@@ -202,13 +202,13 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: index * 0.1 }}
-                                className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium"
+                                className="text-xs bg-gold/20 text-black px-2 py-1 rounded-full font-medium font-serif border border-gold/30"
                             >
                                 {tag}
                             </motion.span>
                         ))}
                         {product.styleTags.length > 3 && (
-                            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full font-serif">
                                 +{product.styleTags.length - 3}
                             </span>
                         )}
@@ -221,7 +221,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                         {product.occasion.slice(0, 2).map((occasion, index) => (
                             <span
                                 key={index}
-                                className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-medium flex items-center"
+                                className="text-xs bg-black text-gold px-2 py-1 rounded-full font-medium flex items-center font-serif border border-gold/30"
                             >
                                 <FiHeart size={10} className="mr-1" />
                                 {occasion}
@@ -232,8 +232,8 @@ export default function ProductCard({ product, showQuickAdd = true }) {
 
                 {/* Production Time */}
                 {product.productionTime && (
-                    <div className="flex items-center text-xs text-gray-600 mb-3">
-                        <FiTruck size={12} className="mr-1 text-green-500" />
+                    <div className="flex items-center text-xs text-gray-600 mb-3 font-serif">
+                        <FiTruck size={12} className="mr-1 text-gold" />
                         <span>{product.productionTime}</span>
                     </div>
                 )}
@@ -244,15 +244,15 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                     <div className="flex flex-col">
                         {hasDiscount ? (
                             <div className="flex items-center gap-2">
-                                <span className="text-lg font-bold text-blue-600">
+                                <span className="text-lg font-bold text-black font-serif">
                                     ₦{displayPrice.toLocaleString()}
                                 </span>
-                                <span className="text-sm text-gray-500 line-through">
+                                <span className="text-sm text-gray-500 line-through font-serif">
                                     ₦{originalPrice.toLocaleString()}
                                 </span>
                             </div>
                         ) : (
-                            <span className="text-lg font-bold text-blue-600">
+                            <span className="text-lg font-bold text-black font-serif">
                                 ₦{product.price.toLocaleString()}
                             </span>
                         )}
@@ -264,12 +264,12 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                         whileTap={{ scale: 0.95 }}
                         onClick={handleAddToCart}
                         disabled={!product.isCustomizable && product.countInStock === 0}
-                        className={`flex items-center px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-200 ${
+                        className={`flex items-center px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-200 font-serif border border-gold/30 ${
                             (!product.isCustomizable && product.countInStock === 0) 
                                 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
                                 : isCustomizable
-                                    ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-lg'
-                                    : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg'
+                                    ? 'bg-black text-gold hover:bg-gray-800 hover:shadow-lg'
+                                    : 'bg-black text-gold hover:bg-gray-800 hover:shadow-lg'
                         }`}
                     >
                         {isCustomizable ? (
@@ -294,14 +294,14 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                         <div className="flex items-center">
                             <div className="flex items-center">
                                 <FiStar className="text-yellow-400 mr-1" size={14} />
-                                <span className="text-sm font-medium text-gray-700">
+                                <span className="text-sm font-medium text-gray-700 font-serif">
                                     {product.rating?.toFixed(1) || '4.5'}
                                 </span>
                             </div>
                             {product.reviewCount && (
                                 <>
                                     <span className="text-xs text-gray-500 mx-2">•</span>
-                                    <span className="text-xs text-gray-500">
+                                    <span className="text-xs text-gray-500 font-serif">
                                         {product.reviewCount} review{product.reviewCount !== 1 ? 's' : ''}
                                     </span>
                                 </>
@@ -310,7 +310,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                         
                         {/* Delivery Estimate */}
                         {product.deliveryEstimate && (
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-gray-500 font-serif">
                                 {product.deliveryEstimate}
                             </span>
                         )}
@@ -346,7 +346,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                         
                         {/* Featured Badge */}
                         {product.isFeatured && (
-                            <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">
+                            <span className="bg-gold/20 text-black px-2 py-1 rounded-full text-xs font-medium font-serif border border-gold/30">
                                 Featured
                             </span>
                         )}
@@ -355,7 +355,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
             </div>
 
             {/* Hover Effect Border */}
-            <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-200 rounded-2xl pointer-events-none transition-all duration-300"></div>
+            <div className="absolute inset-0 border-2 border-transparent group-hover:border-gold/50 rounded-2xl pointer-events-none transition-all duration-300"></div>
         </motion.div>
     );
 }
