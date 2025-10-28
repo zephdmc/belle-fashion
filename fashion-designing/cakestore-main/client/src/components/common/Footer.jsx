@@ -253,8 +253,8 @@ export default function Footer() {
                         <h4 className="text-sm font-semibold text-yellow-400 mb-4 pb-2 border-b border-yellow-400/20">Get In Touch</h4>
                         <ul className="space-y-1 mb-6">
                             <ContactItem icon={FiMapPin} delay={0.1}>
-                                330 PH/Aba Express way<br />
-                                Rumukwurushi<br />
+                               Echendu Street, Off Alcon road.  .<br />
+                               The street opposite the Estate market junction <br />
                                 Port Harcourt
                             </ContactItem>
                             <ContactItem icon={FiMail} delay={0.2}>
