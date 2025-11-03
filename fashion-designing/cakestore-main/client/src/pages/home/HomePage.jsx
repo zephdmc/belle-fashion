@@ -582,8 +582,39 @@ export default function HomePage() {
                 </motion.div>
             )}
 
-            {/* Hero Section */}
+            {/* Hero Section with Background Images */}
             <section className="relative overflow-hidden min-h-[90vh] flex items-center px-4">
+                {/* Background Images */}
+                <div className="absolute inset-0 z-0">
+                    {/* Mobile Background Image */}
+                    <div className="lg:hidden absolute inset-0">
+                        <img 
+                            src="/images/hero-mobile-bg.jpg" 
+                            alt="Bellebyokien Fashion Mobile Background"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                                e.target.src = `https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80`;
+                            }}
+                        />
+                        {/* Overlay for better text readability */}
+                        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+                    </div>
+                    
+                    {/* Desktop Background Image */}
+                    <div className="hidden lg:block absolute inset-0">
+                        <img 
+                            src="/images/hero-desktop-bg.jpg" 
+                            alt="Bellebyokien Fashion Desktop Background"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                                e.target.src = `https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80`;
+                            }}
+                        />
+                        {/* Overlay for better text readability */}
+                        <div className="absolute inset-0 bg-white/90 backdrop-blur-sm"></div>
+                    </div>
+                </div>
+
                 <div className="container mx-auto max-w-7xl relative z-10 pt-2 lg:pt-0">
                     {/* Mobile Layout */}
                     <div className="lg:hidden">
@@ -661,7 +692,7 @@ export default function HomePage() {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="lg:col-span-3 flex flex-col"
                         >
-                            <div className="bg-white backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
+                            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
                                 <h3 className="text-gray-800 font-bold text-lg mb-4 flex items-center">
                                     <FiGrid className="mr-2 text-gold" />
                                     Categories
@@ -723,7 +754,7 @@ export default function HomePage() {
                             transition={{ duration: 0.8, delay: 0.6 }}
                             className="lg:col-span-3 flex flex-col"
                         >
-                            <div className="bg-white backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
+                            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
                                 <h3 className="text-gray-800 font-bold text-lg mb-4 flex items-center">
                                     <FiPhone className="mr-2 text-gold" />
                                     Contact Us
