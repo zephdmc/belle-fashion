@@ -279,15 +279,15 @@ export default function Header() {
     // Dynamic classes based on scroll state
     const headerClass = `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
-            ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200' 
-            : 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200'
+            ? 'bg-white shadow-lg border-b border-gray-200' 
+            : 'bg-white shadow-lg border-b border-gray-200'
     }`;
 
-    const iconButtonClass = `p-2 rounded-2xl transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold hover:border-gold/50`;
+    const iconButtonClass = `p-2 rounded-2xl transition-all duration-300 border bg-white border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold hover:border-gold/50`;
 
-    const searchInputClass = `w-full pl-5 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent`;
+    const searchInputClass = `w-full pl-5 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 border bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent`;
 
-    const dropdownClass = `backdrop-blur-sm border border-gray-200 rounded-2xl shadow-2xl z-50 bg-white/95`;
+    const dropdownClass = `border border-gray-200 rounded-2xl shadow-2xl z-50 bg-white`;
 
     if (isAdmin) {
         return (
@@ -297,7 +297,7 @@ export default function Header() {
                         to="/admin"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white py-2 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg flex items-center gap-2 backdrop-blur-sm border border-gold/30"
+                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white py-2 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg flex items-center gap-2 border border-gold/30"
                     >
                         Admin Dashboard
                         <FiArrowRight className="text-sm" />
@@ -343,7 +343,7 @@ export default function Header() {
                             whileHover={{ scale: 1.02 }}
                             className="flex items-center gap-3 hover:opacity-90 transition-all duration-300 group"
                         >
-                            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center p-2 transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gold/30">
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center p-2 transition-all duration-300 border bg-white border-gold/30">
                                 <img 
                                     src="/images/logo.png" 
                                     alt="Bellebyokien Fashion"
@@ -622,7 +622,7 @@ export default function Header() {
                                 <input
                                     type="text"
                                     placeholder="Search dresses, and more..."
-                                    className="mobile-search-input w-full pl-4 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent"
+                                    className="mobile-search-input w-full pl-4 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 border bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onKeyDown={handleKeyDown}
@@ -642,14 +642,14 @@ export default function Header() {
                 </AnimatePresence>
             </div>
 
-            {/* Mobile Menu - White Background */}
+            {/* Mobile Menu - Solid White Background */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
                         initial={{ opacity: 0, x: -300 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -300 }}
-                        className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white/95 backdrop-blur-md fixed inset-0 z-40 pt-20"
+                        className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white fixed inset-0 z-40 pt-20"
                     >
                         {/* Close Button */}
                         <div className="absolute top-4 right-4">
@@ -657,7 +657,7 @@ export default function Header() {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="p-3 rounded-2xl transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold"
+                                className="p-3 rounded-2xl transition-all duration-300 border bg-white border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold"
                             >
                                 <FiX size={24} />
                             </motion.button>
