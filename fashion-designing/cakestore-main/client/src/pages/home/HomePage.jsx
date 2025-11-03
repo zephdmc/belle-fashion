@@ -558,7 +558,7 @@ export default function HomePage() {
                     {/* Mobile Background Image */}
                     <div className="lg:hidden absolute inset-0">
                         <img 
-                            src="/images/hero-mobile-bg.jpg" 
+                            src="/images/hero-mobile-bg.jpeg" 
                             alt="Bellebyokien Fashion Mobile Background"
                             className="w-full h-full object-cover"
                             onError={(e) => {
