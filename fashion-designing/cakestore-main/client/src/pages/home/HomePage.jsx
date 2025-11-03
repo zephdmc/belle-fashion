@@ -25,7 +25,6 @@ import {
 } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
-import CustomCakeForm from '../../components/orders/CustomCakeForm';
 
 // Animated Contact Banner for Mobile
 const AnimatedContactBanner = () => {
@@ -477,7 +476,6 @@ const mockProducts = [
 export default function HomePage() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const { currentUser } = useAuth();
@@ -504,35 +502,6 @@ export default function HomePage() {
 
         fetchProducts();
     }, []);
-
-    const handleCustomOrderSubmit = async (orderData) => {
-        if (!currentUser) {
-            alert("Your session has expired. Please log in again.");
-            navigate('/login');
-            return;
-        }
-
-        try {
-            navigate('/checkout', {
-                state: {
-                    customOrderData: orderData,
-                    isCustomOrder: true
-                }
-            });
-            setShowCustomOrderForm(false);
-        } catch (error) {
-            alert("There was an error preparing your order. Please try again.");
-        }
-    };
-
-    const handleCustomOrderClick = (e) => {
-        e.preventDefault();
-        if (!currentUser) {
-            navigate('/login', { state: { from: '/', message: 'Please login to place a custom order' } });
-        } else {
-            setShowCustomOrderForm(true);
-        }
-    };
 
     return (
         <div className="min-h-screen bg-white">
@@ -657,7 +626,7 @@ export default function HomePage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.8 }}
-                                className="flex flex-col sm:flex-row gap-3 justify-center"
+                                className="flex justify-center"
                             >
                                 <motion.div
                                     whileHover={{ scale: 1.05 }}
@@ -665,20 +634,11 @@ export default function HomePage() {
                                 >
                                     <Link
                                         to="/products"
-                                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30 block"
+                                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white py-3 px-8 rounded-xl font-semibold transition-all duration-300 shadow-2xl text-center backdrop-blur-sm border border-gold/30 block"
                                     >
-                                        Shop Ready-to-Wear
+                                        Shop Our Collection
                                     </Link>
                                 </motion.div>
-                                
-                                <motion.button
-                                    onClick={handleCustomOrderClick}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-white hover:bg-gold/10 text-gray-800 py-3 px-6 rounded-xl font-semibold transition-all duration-300 shadow-lg text-center backdrop-blur-sm border border-gold/30 hover:border-gold"
-                                >
-                                    Create Custom Design
-                                </motion.button>
                             </motion.div>
                         </motion.div>
                     </div>
@@ -703,8 +663,7 @@ export default function HomePage() {
                                         { name: 'Wedding Dresses', icon: FiHeart, count: 18 },
                                         { name: 'Casual Wear', icon: FiUser, count: 32 },
                                         { name: 'Traditional', icon: FiFeather, count: 15 },
-                                        { name: 'Accessories', icon: FiShoppingBag, count: 45 },
-                                        { name: 'Custom Designs', icon: FiScissors, count: 'New' }
+                                        { name: 'Accessories', icon: FiShoppingBag, count: 45 }
                                     ].map((category, index) => (
                                         <motion.div
                                             key={category.name}
@@ -912,14 +871,6 @@ export default function HomePage() {
                     <FaWhatsapp size={28} />
                 </motion.a>
             </motion.div>
-
-            {/* Modals */}
-            {showCustomOrderForm && (
-                <CustomCakeForm 
-                    onClose={() => setShowCustomOrderForm(false)} 
-                    onSubmit={handleCustomOrderSubmit}
-                />
-            )}
         </div>
     );
 }
