@@ -38,25 +38,17 @@ const MotionLink = motion(Link);
 const MotionNavLink = motion(NavLink);
 
 // Notification Item Component
-const NotificationItem = ({ notification, onMarkAsRead, isScrolled }) => (
+const NotificationItem = ({ notification, onMarkAsRead }) => (
     <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className={`p-4 border-b flex justify-between items-start group hover:bg-gold/10 transition-all duration-300 ${
+        className={`p-4 border-b border-gray-200 flex justify-between items-start group hover:bg-gold/10 transition-all duration-300 ${
             !notification.read ? 'bg-yellow-500/10' : ''
-        } ${
-            isScrolled 
-                ? 'border-gray-200 hover:bg-gold/5' 
-                : 'border-gold/20 hover:bg-gold/10'
         }`}
     >
         <div className="flex-1 min-w-0">
-            <div className={`text-sm leading-relaxed ${
-                isScrolled ? 'text-gray-800' : 'text-white'
-            }`}>{notification.text}</div>
-            <div className={`text-xs mt-2 ${
-                isScrolled ? 'text-gray-500' : 'text-white/60'
-            }`}>{notification.date}</div>
+            <div className="text-gray-800 text-sm leading-relaxed">{notification.text}</div>
+            <div className="text-gray-500 text-xs mt-2">{notification.date}</div>
         </div>
         {!notification.read && (
             <motion.button
@@ -66,7 +58,7 @@ const NotificationItem = ({ notification, onMarkAsRead, isScrolled }) => (
                     e.stopPropagation();
                     onMarkAsRead(notification.id || notification._id);
                 }}
-                className="text-yellow-400 hover:text-yellow-300 ml-3 transition-colors duration-200"
+                className="text-gold hover:text-yellow-600 ml-3 transition-colors duration-200"
                 title="Mark as read"
             >
                 <FiCheck size={16} />
@@ -76,28 +68,18 @@ const NotificationItem = ({ notification, onMarkAsRead, isScrolled }) => (
 );
 
 // Search Suggestion Item
-const SearchSuggestion = ({ item, onClick, isScrolled }) => (
+const SearchSuggestion = ({ item, onClick }) => (
     <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`p-3 hover:bg-gold/10 cursor-pointer border-b last:border-b-0 flex justify-between items-center group transition-all duration-300 ${
-            isScrolled 
-                ? 'border-gray-200 hover:bg-gold/5' 
-                : 'border-gold/20 hover:bg-gold/10'
-        }`}
+        className="p-3 hover:bg-gold/10 cursor-pointer border-b border-gray-200 last:border-b-0 flex justify-between items-center group transition-all duration-300"
         onClick={onClick}
     >
         <div className="flex-1 min-w-0">
-            <div className={`font-medium truncate ${
-                isScrolled ? 'text-gray-800' : 'text-white'
-            }`}>{item.name}</div>
-            <div className={`text-xs mt-1 ${
-                isScrolled ? 'text-gray-500' : 'text-white/60'
-            }`}>{item.category}</div>
+            <div className="text-gray-800 font-medium truncate">{item.name}</div>
+            <div className="text-gray-500 text-xs mt-1">{item.category}</div>
         </div>
-        <FiArrowRight className={`transform group-hover:translate-x-1 transition-all duration-300 ${
-            isScrolled ? 'text-gray-400 group-hover:text-gray-600' : 'text-white/40 group-hover:text-white'
-        }`} />
+        <FiArrowRight className="text-gray-400 group-hover:text-gray-600 transform group-hover:translate-x-1 transition-all duration-300" />
     </motion.div>
 );
 
@@ -298,31 +280,14 @@ export default function Header() {
     const headerClass = `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
             ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200' 
-            : 'bg-transparent'
+            : 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200'
     }`;
 
-    const textClass = (isHover = false) => 
-        isScrolled 
-            ? isHover ? 'text-gold' : 'text-gray-800' 
-            : isHover ? 'text-yellow-200' : 'text-white';
+    const iconButtonClass = `p-2 rounded-2xl transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold hover:border-gold/50`;
 
-    const iconButtonClass = `p-2 rounded-2xl transition-all duration-300 backdrop-blur-sm border ${
-        isScrolled 
-            ? 'bg-white/80 border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold hover:border-gold/50' 
-            : 'bg-white/10 border-yellow-400/20 text-white hover:text-yellow-200 hover:border-yellow-400/40'
-    }`;
+    const searchInputClass = `w-full pl-5 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent`;
 
-    const searchInputClass = `w-full pl-5 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 backdrop-blur-sm border ${
-        isScrolled 
-            ? 'bg-white/80 border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent' 
-            : 'bg-white/10 border-yellow-400/20 text-white placeholder-white/60 focus:ring-yellow-400 focus:border-transparent'
-    }`;
-
-    const dropdownClass = `backdrop-blur-sm border rounded-2xl shadow-2xl z-50 ${
-        isScrolled 
-            ? 'bg-white/95 border-gray-200' 
-            : 'bg-black/90 border-yellow-400/20'
-    }`;
+    const dropdownClass = `backdrop-blur-sm border border-gray-200 rounded-2xl shadow-2xl z-50 bg-white/95`;
 
     if (isAdmin) {
         return (
@@ -351,11 +316,7 @@ export default function Header() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className={`p-3 text-sm flex items-center justify-center gap-3 border-b ${
-                            isScrolled 
-                                ? 'bg-yellow-500/10 border-yellow-500/20 text-yellow-700' 
-                                : 'bg-yellow-500/20 border-yellow-500/30 text-yellow-200'
-                        }`}
+                        className="p-3 text-sm flex items-center justify-center gap-3 border-b border-yellow-500/20 bg-yellow-500/10 text-yellow-700"
                     >
                         <FiAlertTriangle className="flex-shrink-0" />
                         <span>Session expires in {formatTime(timeLeft)}. Move your mouse to extend.</span>
@@ -382,11 +343,7 @@ export default function Header() {
                             whileHover={{ scale: 1.02 }}
                             className="flex items-center gap-3 hover:opacity-90 transition-all duration-300 group"
                         >
-                            <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center p-2 transition-all duration-300 backdrop-blur-sm border ${
-                                isScrolled 
-                                    ? 'bg-white/80 border-gold/30' 
-                                    : 'bg-white/10 border-yellow-400/20'
-                            }`}>
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center p-2 transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gold/30">
                                 <img 
                                     src="/images/logo.png" 
                                     alt="Bellebyokien Fashion"
@@ -394,14 +351,10 @@ export default function Header() {
                                 />
                             </div>
                             <div className="flex flex-col leading-none">
-                                <span className={`text-2xl sm:text-3xl font-bold tracking-tight -mb-1 transition-colors duration-300 ${
-                                    textClass()
-                                }`}>
+                                <span className="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight -mb-1 transition-colors duration-300">
                                     Bellebyokien
                                 </span>
-                                <span className={`text-sm sm:text-base font-medium tracking-wider mt-0.5 transition-colors duration-300 ${
-                                    isScrolled ? 'text-gray-600' : 'text-white/80'
-                                }`}>
+                                <span className="text-sm sm:text-base font-medium text-gray-600 tracking-wider mt-0.5 transition-colors duration-300">
                                     Fashion 
                                 </span>
                             </div>
@@ -425,9 +378,7 @@ export default function Header() {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={handleSearch}
-                                    className={`absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${
-                                        isScrolled ? 'text-gray-500 hover:text-gold' : 'text-white/60 hover:text-white'
-                                    }`}
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gold transition-colors duration-300"
                                 >
                                     <FiSearch size={20} />
                                 </motion.button>
@@ -446,7 +397,6 @@ export default function Header() {
                                             <SearchSuggestion
                                                 key={item.id || `search-${index}`}
                                                 item={item}
-                                                isScrolled={isScrolled}
                                                 onClick={() => {
                                                     navigate(`/products/${item.id}`);
                                                     setShowSuggestions(false);
@@ -476,11 +426,7 @@ export default function Header() {
                                         <motion.span
                                             initial={{ scale: 0 }}
                                             animate={{ scale: 1 }}
-                                            className={`absolute -top-1 -right-1 text-xs rounded-full h-5 w-5 flex items-center justify-center border-2 ${
-                                                isScrolled 
-                                                    ? 'bg-red-500 text-white border-white' 
-                                                    : 'bg-red-500 text-white border-black'
-                                            }`}
+                                            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center border-2 border-white"
                                         >
                                             {unreadNotifications}
                                         </motion.span>
@@ -495,18 +441,12 @@ export default function Header() {
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                             className={`absolute right-0 mt-2 w-80 z-50 ${dropdownClass}`}
                                         >
-                                            <div className={`p-4 font-semibold border-b flex justify-between items-center ${
-                                                isScrolled 
-                                                    ? 'text-gray-800 border-gray-200' 
-                                                    : 'text-white border-yellow-400/20'
-                                            }`}>
+                                            <div className="p-4 font-semibold text-gray-800 border-b border-gray-200 flex justify-between items-center">
                                                 <span>Notifications</span>
                                                 {unreadNotifications > 0 && (
                                                     <button
                                                         onClick={handleMarkAllAsRead}
-                                                        className={`text-sm transition-colors duration-300 ${
-                                                            isScrolled ? 'text-gold hover:text-yellow-600' : 'text-yellow-300 hover:text-yellow-200'
-                                                        }`}
+                                                        className="text-sm text-gold hover:text-yellow-600 transition-colors duration-300"
                                                     >
                                                         Mark all as read
                                                     </button>
@@ -518,14 +458,11 @@ export default function Header() {
                                                         <NotificationItem
                                                             key={notification.id || notification._id || `notification-${index}`}
                                                             notification={notification}
-                                                            isScrolled={isScrolled}
                                                             onMarkAsRead={handleMarkAsRead}
                                                         />
                                                     ))
                                                 ) : (
-                                                    <div className={`p-6 text-center ${
-                                                        isScrolled ? 'text-gray-500' : 'text-white/60'
-                                                    }`}>
+                                                    <div className="p-6 text-gray-500 text-center">
                                                         No notifications
                                                     </div>
                                                 )}
@@ -548,11 +485,7 @@ export default function Header() {
                                 <motion.span
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    className={`absolute -top-2 -right-2 text-xs rounded-full h-6 w-6 flex items-center justify-center font-semibold border-2 ${
-                                        isScrolled 
-                                            ? 'bg-gradient-to-r from-gold to-yellow-600 text-white border-white' 
-                                            : 'bg-gradient-to-r from-yellow-600 to-yellow-500 text-white border-black'
-                                    }`}
+                                    className="absolute -top-2 -right-2 bg-gradient-to-r from-gold to-yellow-600 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-semibold border-2 border-white"
                                 >
                                     {cartCount}
                                 </motion.span>
@@ -568,9 +501,7 @@ export default function Header() {
                                     onClick={() => setShowUserDropdown(!showUserDropdown)}
                                     className={`flex items-center gap-3 transition-colors duration-300 ${iconButtonClass}`}
                                 >
-                                    <div className={`w-10 h-10 rounded-2xl bg-gradient-to-r from-gold to-yellow-600 flex items-center justify-center overflow-hidden border-2 ${
-                                        isScrolled ? 'border-gold/30' : 'border-yellow-400/30'
-                                    }`}>
+                                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-r from-gold to-yellow-600 flex items-center justify-center overflow-hidden border-2 border-gold/30">
                                         {currentUser.photoURL ? (
                                             <img
                                                 src={currentUser.photoURL}
@@ -581,9 +512,9 @@ export default function Header() {
                                             <FiUser className="text-white text-lg" />
                                         )}
                                     </div>
-                                    <FiChevronDown className={`transition-transform duration-300 ${
+                                    <FiChevronDown className={`transition-transform duration-300 text-gray-700 ${
                                         showUserDropdown ? 'rotate-180' : ''
-                                    } ${textClass()}`} />
+                                    }`} />
                                 </motion.button>
 
                                 {/* User Dropdown */}
@@ -595,17 +526,11 @@ export default function Header() {
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                             className={`absolute right-0 mt-2 w-64 z-50 ${dropdownClass}`}
                                         >
-                                            <div className={`p-4 border-b ${
-                                                isScrolled ? 'border-gray-200' : 'border-yellow-400/20'
-                                            }`}>
-                                                <div className={`font-semibold text-lg ${
-                                                    textClass()
-                                                }`}>
+                                            <div className="p-4 border-b border-gray-200">
+                                                <div className="font-semibold text-gray-800 text-lg">
                                                     {currentUser.displayName || currentUser.email.split('@')[0]}
                                                 </div>
-                                                <div className={`text-sm mt-1 ${
-                                                    isScrolled ? 'text-gray-500' : 'text-white/60'
-                                                }`}>{currentUser.email}</div>
+                                                <div className="text-gray-500 text-sm mt-1">{currentUser.email}</div>
                                             </div>
                                             
                                             <div className="p-2 space-y-1">
@@ -613,11 +538,7 @@ export default function Header() {
                                                     <NavLink
                                                         to="/admin"
                                                         onClick={() => setShowUserDropdown(false)}
-                                                        className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 text-sm font-medium ${
-                                                            isScrolled 
-                                                                ? 'text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                                                : 'text-white hover:bg-yellow-500/20'
-                                                        }`}
+                                                        className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-xl transition-all duration-300 text-sm font-medium"
                                                     >
                                                         <FiPackage className="text-lg" />
                                                         Dashboard
@@ -626,11 +547,7 @@ export default function Header() {
                                                 <NavLink
                                                     to="/orders"
                                                     onClick={() => setShowUserDropdown(false)}
-                                                    className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 text-sm font-medium ${
-                                                        isScrolled 
-                                                            ? 'text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                                            : 'text-white hover:bg-yellow-500/20'
-                                                    }`}
+                                                    className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-xl transition-all duration-300 text-sm font-medium"
                                                 >
                                                     <FiShoppingBag className="text-lg" />
                                                     My Orders
@@ -638,31 +555,21 @@ export default function Header() {
                                                 <NavLink
                                                     to="/products"
                                                     onClick={() => setShowUserDropdown(false)}
-                                                    className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 text-sm font-medium ${
-                                                        isScrolled 
-                                                            ? 'text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                                            : 'text-white hover:bg-yellow-500/20'
-                                                    }`}
+                                                    className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-xl transition-all duration-300 text-sm font-medium"
                                                 >
                                                     <FiHeart className="text-lg" />
                                                     Products
                                                 </NavLink>
                                             </div>
                                             
-                                            <div className={`p-2 border-t ${
-                                                isScrolled ? 'border-gray-200' : 'border-yellow-400/20'
-                                            }`}>
+                                            <div className="p-2 border-t border-gray-200">
                                                 <motion.button
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
                                                     onClick={handleLogout}
                                                     disabled={logoutLoading}
-                                                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 text-sm font-medium ${
+                                                    className={`w-full flex items-center gap-3 px-3 py-3 text-red-600 hover:bg-red-500/10 rounded-xl transition-all duration-300 text-sm font-medium ${
                                                         logoutLoading ? 'opacity-50 cursor-wait' : ''
-                                                    } ${
-                                                        isScrolled 
-                                                            ? 'text-red-600 hover:bg-red-500/10' 
-                                                            : 'text-red-200 hover:bg-red-500/20'
                                                     }`}
                                                 >
                                                     <FiLogOut className="text-lg" />
@@ -678,14 +585,14 @@ export default function Header() {
                                 <MotionLink
                                     to="/about"
                                     whileHover={{ scale: 1.05 }}
-                                    className={`font-medium transition-colors duration-300 ${textClass(true)}`}
+                                    className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
                                 >
                                     About
                                 </MotionLink>
                                 <MotionLink
                                     to="/login"
                                     whileHover={{ scale: 1.05 }}
-                                    className={`font-medium transition-colors duration-300 ${textClass(true)}`}
+                                    className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
                                 >
                                     Login
                                 </MotionLink>
@@ -715,11 +622,7 @@ export default function Header() {
                                 <input
                                     type="text"
                                     placeholder="Search dresses, and more..."
-                                    className={`mobile-search-input w-full pl-4 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 backdrop-blur-sm border ${
-                                        isScrolled 
-                                            ? 'bg-white/80 border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent' 
-                                            : 'bg-white/10 border-yellow-400/20 text-white placeholder-white/60 focus:ring-yellow-400 focus:border-transparent'
-                                    }`}
+                                    className="mobile-search-input w-full pl-4 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onKeyDown={handleKeyDown}
@@ -729,9 +632,7 @@ export default function Header() {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={handleSearch}
-                                    className={`mobile-search-input absolute right-3 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${
-                                        isScrolled ? 'text-gray-500 hover:text-gold' : 'text-white/60 hover:text-white'
-                                    }`}
+                                    className="mobile-search-input absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gold transition-colors duration-300"
                                 >
                                     <FiSearch size={20} />
                                 </motion.button>
@@ -748,11 +649,7 @@ export default function Header() {
                         initial={{ opacity: 0, x: -300 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -300 }}
-                        className={`mobile-menu-container lg:hidden border-t fixed inset-0 z-40 pt-20 ${
-                            isScrolled 
-                                ? 'bg-white/95 backdrop-blur-md border-gray-200' 
-                                : 'bg-black/95 backdrop-blur-md border-yellow-400/20'
-                        }`}
+                        className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white/95 backdrop-blur-md fixed inset-0 z-40 pt-20"
                     >
                         {/* Close Button */}
                         <div className="absolute top-4 right-4">
@@ -760,11 +657,7 @@ export default function Header() {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className={`p-3 rounded-2xl transition-all duration-300 backdrop-blur-sm border ${
-                                    isScrolled 
-                                        ? 'bg-white/80 border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                        : 'bg-white/10 border-yellow-400/20 text-white hover:text-yellow-200'
-                                }`}
+                                className="p-3 rounded-2xl transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold"
                             >
                                 <FiX size={24} />
                             </motion.button>
@@ -772,11 +665,9 @@ export default function Header() {
 
                         {/* User Profile Section */}
                         {currentUser && (
-                            <div className={`px-6 py-4 border-b mb-4 ${
-                                isScrolled ? 'border-gray-200' : 'border-yellow-400/20'
-                            }`}>
+                            <div className="px-6 py-4 border-b border-gray-200 mb-4">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-gold to-yellow-600 flex items-center justify-center overflow-hidden border-2 border-yellow-400/30">
+                                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-gold to-yellow-600 flex items-center justify-center overflow-hidden border-2 border-gold/30">
                                         {currentUser.photoURL ? (
                                             <img
                                                 src={currentUser.photoURL}
@@ -788,14 +679,10 @@ export default function Header() {
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className={`font-semibold text-lg truncate ${
-                                            textClass()
-                                        }`}>
+                                        <div className="font-semibold text-gray-800 text-lg truncate">
                                             {currentUser.displayName || currentUser.email.split('@')[0]}
                                         </div>
-                                        <div className={`text-sm truncate ${
-                                            isScrolled ? 'text-gray-500' : 'text-white/60'
-                                        }`}>
+                                        <div className="text-gray-500 text-sm truncate">
                                             {currentUser.email}
                                         </div>
                                     </div>
@@ -810,12 +697,8 @@ export default function Header() {
                                 className={({ isActive }) =>
                                     `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                         isActive 
-                                            ? isScrolled 
-                                                ? 'bg-gold/20 text-gold' 
-                                                : 'bg-yellow-500/20 text-white'
-                                            : isScrolled 
-                                                ? 'text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                                : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
+                                            ? 'bg-gold/20 text-gold' 
+                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
@@ -829,12 +712,8 @@ export default function Header() {
                                 className={({ isActive }) =>
                                     `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                         isActive 
-                                            ? isScrolled 
-                                                ? 'bg-gold/20 text-gold' 
-                                                : 'bg-yellow-500/20 text-white'
-                                            : isScrolled 
-                                                ? 'text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                                : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
+                                            ? 'bg-gold/20 text-gold' 
+                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
@@ -850,12 +729,8 @@ export default function Header() {
                                         className={({ isActive }) =>
                                             `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                                 isActive 
-                                                    ? isScrolled 
-                                                        ? 'bg-gold/20 text-gold' 
-                                                        : 'bg-yellow-500/20 text-white'
-                                                    : isScrolled 
-                                                        ? 'text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                                        : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
+                                                    ? 'bg-gold/20 text-gold' 
+                                                    : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                             }`
                                         }
                                     >
@@ -870,12 +745,8 @@ export default function Header() {
                                             className={({ isActive }) =>
                                                 `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                                     isActive 
-                                                        ? isScrolled 
-                                                            ? 'bg-gold/20 text-gold' 
-                                                            : 'bg-yellow-500/20 text-white'
-                                                        : isScrolled 
-                                                            ? 'text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                                            : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
+                                                        ? 'bg-gold/20 text-gold' 
+                                                        : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                                 }`
                                             }
                                         >
@@ -887,9 +758,7 @@ export default function Header() {
                             )}
 
                             {currentUser ? (
-                                <div className={`pt-6 border-t mt-4 ${
-                                    isScrolled ? 'border-gray-200' : 'border-yellow-400/20'
-                                }`}>
+                                <div className="pt-6 border-t border-gray-200 mt-4">
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
@@ -897,10 +766,8 @@ export default function Header() {
                                         disabled={logoutLoading}
                                         className={`w-full flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                             logoutLoading 
-                                                ? 'opacity-50 cursor-wait' 
-                                                : isScrolled 
-                                                    ? 'bg-red-500/10 text-red-600 hover:bg-red-500/20' 
-                                                    : 'bg-red-500/20 text-red-200 hover:bg-red-500/30'
+                                                ? 'opacity-50 cursor-wait bg-gray-100 text-gray-500' 
+                                                : 'bg-red-500/10 text-red-600 hover:bg-red-500/20'
                                         }`}
                                     >
                                         <FiLogOut className="text-xl" />
@@ -908,17 +775,11 @@ export default function Header() {
                                     </motion.button>
                                 </div>
                             ) : (
-                                <div className={`pt-6 border-t mt-4 space-y-2 ${
-                                    isScrolled ? 'border-gray-200' : 'border-yellow-400/20'
-                                }`}>
+                                <div className="pt-6 border-t border-gray-200 mt-4 space-y-2">
                                     <MotionLink
                                         to="/login"
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className={`flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
-                                            isScrolled 
-                                                ? 'text-gray-700 hover:bg-gold/10 hover:text-gold' 
-                                                : 'text-white/80 hover:bg-yellow-500/10 hover:text-white'
-                                        }`}
+                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium text-gray-700 hover:bg-gold/10 hover:text-gold transition-all duration-300"
                                     >
                                         <FiUser className="text-xl" />
                                         Login
