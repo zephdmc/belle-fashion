@@ -642,17 +642,14 @@ export default function Header() {
                 </AnimatePresence>
             </div>
 
-            {/* Mobile Menu - No White Background */}
+            {/* Mobile Menu - White Background */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
                         initial={{ opacity: 0, x: -300 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -300 }}
-                        className="mobile-menu-container lg:hidden fixed inset-0 z-40 pt-20"
-                        style={{
-                            background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(107,67,0,0.8) 100%)'
-                        }}
+                        className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white/95 backdrop-blur-md fixed inset-0 z-40 pt-20"
                     >
                         {/* Close Button */}
                         <div className="absolute top-4 right-4">
@@ -660,7 +657,7 @@ export default function Header() {
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="p-3 rounded-2xl transition-all duration-300 backdrop-blur-sm border border-gold/30 text-white hover:bg-gold/20 hover:border-gold/50"
+                                className="p-3 rounded-2xl transition-all duration-300 backdrop-blur-sm border bg-white/80 border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold"
                             >
                                 <FiX size={24} />
                             </motion.button>
@@ -668,7 +665,7 @@ export default function Header() {
 
                         {/* User Profile Section */}
                         {currentUser && (
-                            <div className="px-6 py-4 border-b border-gold/20 mb-4">
+                            <div className="px-6 py-4 border-b border-gray-200 mb-4">
                                 <div className="flex items-center gap-4">
                                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-gold to-yellow-600 flex items-center justify-center overflow-hidden border-2 border-gold/30">
                                         {currentUser.photoURL ? (
@@ -682,10 +679,10 @@ export default function Header() {
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="font-semibold text-white text-lg truncate">
+                                        <div className="font-semibold text-gray-800 text-lg truncate">
                                             {currentUser.displayName || currentUser.email.split('@')[0]}
                                         </div>
-                                        <div className="text-gold/80 text-sm truncate">
+                                        <div className="text-gray-500 text-sm truncate">
                                             {currentUser.email}
                                         </div>
                                     </div>
@@ -700,8 +697,8 @@ export default function Header() {
                                 className={({ isActive }) =>
                                     `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                         isActive 
-                                            ? 'bg-gold/20 text-white border border-gold/30' 
-                                            : 'text-white/80 hover:bg-gold/10 hover:text-white border border-transparent hover:border-gold/20'
+                                            ? 'bg-gold/20 text-gold' 
+                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
@@ -715,8 +712,8 @@ export default function Header() {
                                 className={({ isActive }) =>
                                     `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                         isActive 
-                                            ? 'bg-gold/20 text-white border border-gold/30' 
-                                            : 'text-white/80 hover:bg-gold/10 hover:text-white border border-transparent hover:border-gold/20'
+                                            ? 'bg-gold/20 text-gold' 
+                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
@@ -732,8 +729,8 @@ export default function Header() {
                                         className={({ isActive }) =>
                                             `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                                 isActive 
-                                                    ? 'bg-gold/20 text-white border border-gold/30' 
-                                                    : 'text-white/80 hover:bg-gold/10 hover:text-white border border-transparent hover:border-gold/20'
+                                                    ? 'bg-gold/20 text-gold' 
+                                                    : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                             }`
                                         }
                                     >
@@ -748,8 +745,8 @@ export default function Header() {
                                             className={({ isActive }) =>
                                                 `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                                     isActive 
-                                                        ? 'bg-gold/20 text-white border border-gold/30' 
-                                                        : 'text-white/80 hover:bg-gold/10 hover:text-white border border-transparent hover:border-gold/20'
+                                                        ? 'bg-gold/20 text-gold' 
+                                                        : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                                 }`
                                             }
                                         >
@@ -761,7 +758,7 @@ export default function Header() {
                             )}
 
                             {currentUser ? (
-                                <div className="pt-6 border-t border-gold/20 mt-4">
+                                <div className="pt-6 border-t border-gray-200 mt-4">
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
@@ -769,8 +766,8 @@ export default function Header() {
                                         disabled={logoutLoading}
                                         className={`w-full flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
                                             logoutLoading 
-                                                ? 'opacity-50 cursor-wait bg-white/10 text-white/60' 
-                                                : 'bg-red-500/20 text-red-200 hover:bg-red-500/30 border border-red-500/30'
+                                                ? 'opacity-50 cursor-wait bg-gray-100 text-gray-500' 
+                                                : 'bg-red-500/10 text-red-600 hover:bg-red-500/20'
                                         }`}
                                     >
                                         <FiLogOut className="text-xl" />
@@ -778,11 +775,11 @@ export default function Header() {
                                     </motion.button>
                                 </div>
                             ) : (
-                                <div className="pt-6 border-t border-gold/20 mt-4 space-y-2">
+                                <div className="pt-6 border-t border-gray-200 mt-4 space-y-2">
                                     <MotionLink
                                         to="/login"
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium text-white/80 hover:bg-gold/10 hover:text-white transition-all duration-300 border border-transparent hover:border-gold/20"
+                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium text-gray-700 hover:bg-gold/10 hover:text-gold transition-all duration-300"
                                     >
                                         <FiUser className="text-xl" />
                                         Login
@@ -790,7 +787,7 @@ export default function Header() {
                                     <MotionLink
                                         to="/register"
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium bg-gradient-to-r from-gold to-yellow-600 text-white hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 border border-gold/30"
+                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium bg-gradient-to-r from-gold to-yellow-600 text-white hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300"
                                     >
                                         <FiUser className="text-xl" />
                                         Register
