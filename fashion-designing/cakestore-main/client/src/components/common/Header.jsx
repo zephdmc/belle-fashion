@@ -671,14 +671,14 @@ export default function Header() {
                     </AnimatePresence>
                 </div>
 
-                {/* Mobile Menu - Solid White Background */}
+                {/* Mobile Menu - Fixed at top with solid white background */}
                 <AnimatePresence>
                     {mobileMenuOpen && (
                         <motion.div
                             initial={{ opacity: 0, x: -300 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -300 }}
-                            className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white fixed inset-0 z-40 pt-16"
+                            className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white fixed top-0 left-0 right-0 bottom-0 z-40 pt-16"
                         >
                             {/* Close Button */}
                             <div className="absolute top-3 right-3">
