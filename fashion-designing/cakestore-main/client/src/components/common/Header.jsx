@@ -110,11 +110,11 @@ export default function Header() {
     const searchRef = useRef(null);
     const userMenuRef = useRef(null);
 
-    // Scroll effect for header background
+    // Scroll effect for header background - only add shadow/border when scrolled
     useEffect(() => {
         const handleScroll = () => {
             const scrollTop = window.scrollY;
-            setIsScrolled(scrollTop > 20);
+            setIsScrolled(scrollTop > 10); // Reduced threshold for quicker effect
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -279,10 +279,10 @@ export default function Header() {
         }
     };
 
-    // Dynamic classes based on scroll state
+    // Dynamic classes based on scroll state - only overlay effect when scrolled
     const headerClass = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-            ? 'bg-white shadow-md border-b border-gray-200' 
+            ? 'bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200' 
             : 'bg-white'
     }`;
 
