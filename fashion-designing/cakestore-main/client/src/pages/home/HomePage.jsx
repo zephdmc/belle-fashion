@@ -134,7 +134,7 @@ const FashionLoadingAnimation = () => {
 // Animated Contact Banner for Mobile
 const AnimatedContactBanner = () => {
     return (
-        <div className="lg:hidden overflow-hidden py-3 mb-6 bg-gradient-to-r from-gold/10 to-yellow-100 backdrop-blur-sm rounded-xl border border-gold/30 shadow-lg">
+        <div className="lg:hidden overflow-hidden py-2 mb-6 bg-gradient-to-r from-gold/10 to-yellow-100 backdrop-blur-sm rounded-xl border border-gold/30 shadow-lg">
             <motion.div
                 className="flex whitespace-nowrap"
                 animate={{
@@ -682,7 +682,7 @@ export default function HomePage() {
             )}
 
             {/* Hero Section - Background Images Removed */}
-            <section className="relative overflow-hidden min-h-[90vh] flex items-center px-4 bg-white">
+            <section className="relative overflow-hidden min-h-[80vh] flex items-center px-4 bg-white">
                 <div className="container mx-auto max-w-7xl relative z-10 pt-2 lg:pt-0">
                     {/* Mobile Layout */}
                     <div className="lg:hidden">
