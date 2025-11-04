@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { FiRuler, FiUser, FiInfo, FiCheck, FiArrowRight, FiDownload } from 'react-icons/fi';
+import { FiUser, FiInfo, FiCheck, FiArrowRight, FiDownload } from 'react-icons/fi';
 
 const SizeGuidePage = () => {
     const [activeCategory, setActiveCategory] = useState('dresses');
@@ -94,7 +94,7 @@ const SizeGuidePage = () => {
                         animate={{ scale: 1 }}
                         className="inline-flex items-center gap-3 bg-gold/10 text-gold px-6 py-3 rounded-2xl mb-6"
                     >
-                        <FiRuler className="text-lg" />
+                        <FiHeart className="text-lg" />
                         <span className="font-semibold">Perfect Fit Guarantee</span>
                     </motion.div>
                     
