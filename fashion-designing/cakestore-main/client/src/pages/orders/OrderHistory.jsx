@@ -34,17 +34,17 @@ const MotionLink = motion(Link);
 const OrderSkeleton = () => (
     <div className="space-y-4">
         {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-gold/20 animate-pulse">
+            <div key={index} className="bg-gray-100 rounded-lg p-6 border border-gray-200 animate-pulse">
                 <div className="flex items-center justify-between">
                     <div className="space-y-2">
-                        <div className="h-6 bg-gold/20 rounded w-32"></div>
-                        <div className="h-4 bg-gold/20 rounded w-24"></div>
+                        <div className="h-6 bg-gray-300 rounded w-32"></div>
+                        <div className="h-4 bg-gray-300 rounded w-24"></div>
                     </div>
-                    <div className="h-8 bg-gold/20 rounded w-20"></div>
+                    <div className="h-8 bg-gray-300 rounded w-20"></div>
                 </div>
                 <div className="flex justify-between items-center mt-4">
-                    <div className="h-6 bg-gold/20 rounded w-24"></div>
-                    <div className="h-4 bg-gold/20 rounded w-16"></div>
+                    <div className="h-6 bg-gray-300 rounded w-24"></div>
+                    <div className="h-4 bg-gray-300 rounded w-16"></div>
                 </div>
             </div>
         ))}
@@ -55,26 +55,26 @@ const OrderSkeleton = () => (
 const StatusBadge = ({ order, orderType }) => {
     // Custom order status configuration
     const customStatusConfig = {
-        consultation: { color: 'from-blue-500 to-blue-600', text: 'Consultation', icon: FiClock },
-        design: { color: 'from-purple-500 to-purple-600', text: 'Design Phase', icon: FiScissors },
-        measurement: { color: 'from-indigo-500 to-indigo-600', text: 'Measurement', icon: FiTag },
-        production: { color: 'from-gold to-yellow-600', text: 'In Production', icon: FiPackage },
-        fitting: { color: 'from-orange-500 to-orange-600', text: 'Fitting', icon: FiCheckCircle },
-        ready: { color: 'from-green-500 to-green-600', text: 'Ready', icon: FiCheckCircle },
-        shipped: { color: 'from-teal-500 to-teal-600', text: 'Shipped', icon: FiTruck },
-        delivered: { color: 'from-emerald-500 to-emerald-600', text: 'Delivered', icon: FiCheckCircle },
-        cancelled: { color: 'from-red-500 to-red-600', text: 'Cancelled', icon: FiAlertCircle }
+        consultation: { color: 'bg-blue-100 text-blue-700 border-blue-200', text: 'Consultation', icon: FiClock },
+        design: { color: 'bg-purple-100 text-purple-700 border-purple-200', text: 'Design Phase', icon: FiScissors },
+        measurement: { color: 'bg-indigo-100 text-indigo-700 border-indigo-200', text: 'Measurement', icon: FiTag },
+        production: { color: 'bg-gold/20 text-yellow-700 border-gold/30', text: 'In Production', icon: FiPackage },
+        fitting: { color: 'bg-orange-100 text-orange-700 border-orange-200', text: 'Fitting', icon: FiCheckCircle },
+        ready: { color: 'bg-green-100 text-green-700 border-green-200', text: 'Ready', icon: FiCheckCircle },
+        shipped: { color: 'bg-teal-100 text-teal-700 border-teal-200', text: 'Shipped', icon: FiTruck },
+        delivered: { color: 'bg-emerald-100 text-emerald-700 border-emerald-200', text: 'Delivered', icon: FiCheckCircle },
+        cancelled: { color: 'bg-red-100 text-red-700 border-red-200', text: 'Cancelled', icon: FiAlertCircle }
     };
 
     // Regular order status configuration
     const regularStatusConfig = {
-        pending: { color: 'from-yellow-500 to-yellow-600', text: 'Pending Payment', icon: FiClock },
-        confirmed: { color: 'from-blue-500 to-blue-600', text: 'Confirmed', icon: FiCheckCircle },
-        processing: { color: 'from-gold to-yellow-600', text: 'Processing', icon: FiPackage },
-        ready_to_ship: { color: 'from-orange-500 to-orange-600', text: 'Ready to Ship', icon: FiTruck },
-        shipped: { color: 'from-green-500 to-green-600', text: 'Shipped', icon: FiTruck },
-        delivered: { color: 'from-emerald-500 to-emerald-600', text: 'Delivered', icon: FiCheckCircle },
-        cancelled: { color: 'from-red-500 to-red-600', text: 'Cancelled', icon: FiAlertCircle }
+        pending: { color: 'bg-yellow-100 text-yellow-700 border-yellow-200', text: 'Pending Payment', icon: FiClock },
+        confirmed: { color: 'bg-blue-100 text-blue-700 border-blue-200', text: 'Confirmed', icon: FiCheckCircle },
+        processing: { color: 'bg-gold/20 text-yellow-700 border-gold/30', text: 'Processing', icon: FiPackage },
+        ready_to_ship: { color: 'bg-orange-100 text-orange-700 border-orange-200', text: 'Ready to Ship', icon: FiTruck },
+        shipped: { color: 'bg-green-100 text-green-700 border-green-200', text: 'Shipped', icon: FiTruck },
+        delivered: { color: 'bg-emerald-100 text-emerald-700 border-emerald-200', text: 'Delivered', icon: FiCheckCircle },
+        cancelled: { color: 'bg-red-100 text-red-700 border-red-200', text: 'Cancelled', icon: FiAlertCircle }
     };
 
     const config = orderType === 'custom' 
@@ -87,7 +87,7 @@ const StatusBadge = ({ order, orderType }) => {
         <motion.span
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className={`inline-flex items-center gap-2 bg-gradient-to-r ${config.color} text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg border border-gold/20`}
+            className={`inline-flex items-center gap-2 ${config.color} px-3 py-1 rounded-full text-xs font-semibold border`}
         >
             <Icon className="text-xs" />
             {config.text}
@@ -98,9 +98,9 @@ const StatusBadge = ({ order, orderType }) => {
 // Order Type Badge
 const OrderTypeBadge = ({ orderType }) => {
     const typeConfig = {
-        standard: { color: 'bg-gold/20 text-gold border-gold/30', text: 'Ready-to-Wear', icon: FiPackage },
-        custom: { color: 'bg-purple-500/20 text-purple-300 border-purple-500/30', text: 'Custom Design', icon: FiScissors },
-        mixed: { color: 'bg-gray-700/50 text-gold border-gold/30', text: 'Mixed Order', icon: FiTag }
+        standard: { color: 'bg-gold/20 text-yellow-700 border-gold/30', text: 'Ready-to-Wear', icon: FiPackage },
+        custom: { color: 'bg-purple-100 text-purple-700 border-purple-200', text: 'Custom Design', icon: FiScissors },
+        mixed: { color: 'bg-gray-100 text-gray-700 border-gray-200', text: 'Mixed Order', icon: FiTag }
     };
 
     const config = typeConfig[orderType] || typeConfig.standard;
@@ -134,30 +134,30 @@ const OrderCard = ({ order, index, orderType }) => {
                 y: -4,
                 transition: { duration: 0.3 }
             }}
-            className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden group hover:border-gold/40 transition-all duration-500"
+            className="bg-white rounded-lg border border-gray-200 overflow-hidden group hover:border-gold transition-all duration-500 shadow-sm"
         >
             <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center border ${
                             isCustomOrder 
-                                ? 'bg-gradient-to-r from-purple-500 to-purple-600 border-purple-500/30' 
-                                : 'bg-gradient-to-r from-gold to-yellow-600 border-gold/30'
+                                ? 'bg-purple-100 text-purple-600 border-purple-200' 
+                                : 'bg-gold text-white border-gold'
                         }`}>
                             {isCustomOrder ? (
-                                <FiScissors className="text-white text-lg" />
+                                <FiScissors className="text-lg" />
                             ) : (
-                                <FiPackage className="text-white text-lg" />
+                                <FiPackage className="text-lg" />
                             )}
                         </div>
                         <div>
                             <div className="flex items-center gap-2 mb-1">
-                                <h3 className="text-lg font-semibold text-white font-serif">
+                                <h3 className="text-lg font-semibold text-gray-900">
                                     {order.orderNumber || `Order #${order.id?.substring(0, 8)}`}
                                 </h3>
                                 <OrderTypeBadge orderType={isCustomOrder ? 'custom' : 'standard'} />
                             </div>
-                            <p className="text-gold/70 text-sm flex items-center gap-1 font-serif">
+                            <p className="text-gray-600 text-sm flex items-center gap-1">
                                 <FiCalendar className="text-xs" />
                                 {new Date(order.createdAt).toLocaleDateString()}
                             </p>
@@ -170,17 +170,17 @@ const OrderCard = ({ order, index, orderType }) => {
                 {isCustomOrder && (
                     <div className="mb-4 space-y-2">
                         <div className="flex items-center gap-4 text-sm">
-                            <span className="text-gold/70 font-serif">Design:</span>
-                            <span className="text-white font-medium font-serif">{designType}</span>
+                            <span className="text-gray-600">Design:</span>
+                            <span className="text-gray-900 font-medium">{designType}</span>
                         </div>
                         <div className="flex items-center gap-4 text-sm">
-                            <span className="text-gold/70 font-serif">Occasion:</span>
-                            <span className="text-white font-medium font-serif">{occasion}</span>
+                            <span className="text-gray-600">Occasion:</span>
+                            <span className="text-gray-900 font-medium">{occasion}</span>
                         </div>
                         {eventDate && (
                             <div className="flex items-center gap-4 text-sm">
-                                <span className="text-gold/70 font-serif">Event Date:</span>
-                                <span className="text-white font-medium font-serif">
+                                <span className="text-gray-600">Event Date:</span>
+                                <span className="text-gray-900 font-medium">
                                     {new Date(eventDate).toLocaleDateString()}
                                 </span>
                             </div>
@@ -189,18 +189,18 @@ const OrderCard = ({ order, index, orderType }) => {
                 )}
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="bg-gold/5 rounded-xl p-3 border border-gold/10">
-                        <p className="text-gold/70 text-sm font-serif">Total Amount</p>
-                        <p className="text-white font-semibold text-lg flex items-center gap-1 font-serif">
+                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                        <p className="text-gray-600 text-sm">Total Amount</p>
+                        <p className="text-gray-900 font-semibold text-lg flex items-center gap-1">
                             <FiDollarSign className="text-gold" />
                             ₦{order.totalPrice?.toLocaleString() || order.basePrice?.toLocaleString() || '0'}
                         </p>
                     </div>
-                    <div className="bg-gold/5 rounded-xl p-3 border border-gold/10">
-                        <p className="text-gold/70 text-sm font-serif">
+                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                        <p className="text-gray-600 text-sm">
                             {isCustomOrder ? 'Type' : 'Items'}
                         </p>
-                        <p className="text-white font-semibold font-serif">
+                        <p className="text-gray-900 font-semibold">
                             {isCustomOrder ? (
                                 designType || 'Custom Design'
                             ) : (
@@ -219,17 +219,17 @@ const OrderCard = ({ order, index, orderType }) => {
                                     <img
                                         src={item.image || '/images/placeholder-fashion.png'}
                                         alt={item.name}
-                                        className="w-12 h-12 rounded-lg object-cover border border-gold/20"
+                                        className="w-12 h-12 rounded-lg object-cover border border-gray-200"
                                     />
                                     {item.quantity > 1 && (
-                                        <div className="absolute -top-1 -right-1 bg-gold text-black text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
+                                        <div className="absolute -top-1 -right-1 bg-gold text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
                                             {item.quantity}
                                         </div>
                                     )}
                                 </div>
                             ))}
                             {(order.items.length > 3 || customItemsCount > 0) && (
-                                <div className="text-gold/60 text-sm font-serif">
+                                <div className="text-gray-500 text-sm">
                                     +{Math.max(0, order.items.length - 3) + customItemsCount} more
                                 </div>
                             )}
@@ -240,18 +240,18 @@ const OrderCard = ({ order, index, orderType }) => {
                 {/* Custom Order Inspiration Images */}
                 {isCustomOrder && order.inspirationImages && order.inspirationImages.length > 0 && (
                     <div className="mb-4">
-                        <p className="text-gold/70 text-sm mb-2 font-serif">Inspiration Images:</p>
+                        <p className="text-gray-600 text-sm mb-2">Inspiration Images:</p>
                         <div className="flex items-center gap-2">
                             {order.inspirationImages.slice(0, 3).map((image, idx) => (
                                 <img
                                     key={idx}
                                     src={image}
                                     alt={`Inspiration ${idx + 1}`}
-                                    className="w-12 h-12 rounded-lg object-cover border border-gold/20"
+                                    className="w-12 h-12 rounded-lg object-cover border border-gray-200"
                                 />
                             ))}
                             {order.inspirationImages.length > 3 && (
-                                <div className="text-gold/60 text-sm font-serif">
+                                <div className="text-gray-500 text-sm">
                                     +{order.inspirationImages.length - 3} more
                                 </div>
                             )}
@@ -259,15 +259,15 @@ const OrderCard = ({ order, index, orderType }) => {
                     </div>
                 )}
 
-                <div className="flex items-center justify-between pt-4 border-t border-gold/20">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                     <div className="flex items-center gap-2">
                         {order.trackingNumber && (
-                            <span className="bg-green-500/20 text-green-300 border border-green-500/30 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                            <span className="bg-green-100 text-green-700 border border-green-200 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
                                 <FiTruck className="text-xs" />
                                 Tracked
                             </span>
                         )}
-                        <span className="text-gold/60 text-sm font-serif">
+                        <span className="text-gray-500 text-sm">
                             {order.shippingMethod || 'Standard Shipping'}
                         </span>
                     </div>
@@ -275,7 +275,7 @@ const OrderCard = ({ order, index, orderType }) => {
                         to={isCustomOrder ? `/custom-orders/${order.id}` : `/orders/${order.id}`}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-2 px-4 rounded-xl font-medium transition-all duration-300 group-hover:bg-gold/20 font-serif"
+                        className="inline-flex items-center gap-2 bg-gold hover:bg-yellow-600 text-white py-2 px-4 rounded-lg font-medium transition-all duration-300 group-hover:bg-yellow-600"
                     >
                         View Details
                         <FiChevronRight className="transition-transform group-hover:translate-x-1" />
@@ -298,7 +298,7 @@ const OrderTypeToggle = ({ activeType, onTypeChange }) => {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex bg-black/40 backdrop-blur-sm rounded-2xl p-2 border border-gold/20 max-w-md"
+            className="flex bg-gray-100 rounded-lg p-2 border border-gray-200 max-w-md"
         >
             {types.map((type) => {
                 const Icon = type.icon;
@@ -310,10 +310,10 @@ const OrderTypeToggle = ({ activeType, onTypeChange }) => {
                         onClick={() => onTypeChange(type.value)}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 flex-1 justify-center font-serif ${
+                        className={`flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 flex-1 justify-center ${
                             isActive
-                                ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg'
-                                : 'text-gold hover:bg-gold/10'
+                                ? 'bg-gold text-white shadow-sm'
+                                : 'text-gray-700 hover:bg-gray-200'
                         }`}
                     >
                         <Icon className="text-sm" />
@@ -337,10 +337,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => (
             disabled={currentPage === 1}
             whileHover={{ scale: currentPage === 1 ? 1 : 1.05 }}
             whileTap={{ scale: currentPage === 1 ? 1 : 0.95 }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 font-serif ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                 currentPage === 1 
-                    ? 'bg-gold/10 text-gold/40 cursor-not-allowed' 
-                    : 'bg-gold/10 hover:bg-gold/20 text-gold'
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
             }`}
         >
             <FiArrowLeft className="text-sm" />
@@ -354,10 +354,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => (
                     onClick={() => onPageChange(page)}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`w-10 h-10 rounded-xl font-medium transition-all duration-300 font-serif ${
+                    className={`w-10 h-10 rounded-lg font-medium transition-all duration-300 ${
                         currentPage === page 
-                            ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg' 
-                            : 'bg-gold/10 hover:bg-gold/20 text-gold'
+                            ? 'bg-gold text-white shadow-sm' 
+                            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                     }`}
                 >
                     {page}
@@ -370,10 +370,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => (
             disabled={currentPage === totalPages}
             whileHover={{ scale: currentPage === totalPages ? 1 : 1.05 }}
             whileTap={{ scale: currentPage === totalPages ? 1 : 0.95 }}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 font-serif ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                 currentPage === totalPages 
-                    ? 'bg-gold/10 text-gold/40 cursor-not-allowed' 
-                    : 'bg-gold/10 hover:bg-gold/20 text-gold'
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
             }`}
         >
             Next
@@ -412,7 +412,7 @@ const OrderFilters = ({ filters, onFilterChange, orderType }) => {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-wrap gap-3 mb-6"
         >
-            <div className="flex items-center gap-2 text-gold/70 font-serif">
+            <div className="flex items-center gap-2 text-gray-600">
                 <FiFilter className="text-sm" />
                 <span className="text-sm">Filter by:</span>
             </div>
@@ -423,10 +423,10 @@ const OrderFilters = ({ filters, onFilterChange, orderType }) => {
                     onClick={() => onFilterChange(filter.value)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 font-serif ${
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                         filters.status === filter.value
-                            ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg'
-                            : 'bg-gold/10 hover:bg-gold/20 text-gold'
+                            ? 'bg-gold text-white shadow-sm'
+                            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                     }`}
                 >
                     {filter.label}
@@ -448,7 +448,8 @@ export default function OrderHistory() {
     const [filters, setFilters] = useState({ status: 'all' });
     const [orderType, setOrderType] = useState('all'); // 'all', 'regular', 'custom'
     const ordersPerPage = 6;
-  const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
+    const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
+
     useEffect(() => {
         const fetchAllOrders = async () => {
             if (!currentUser) return;
@@ -512,22 +513,15 @@ export default function OrderHistory() {
         fetchAllOrders();
     }, [currentUser]);
 
-
-       const handleCustomOrderSubmit = async (orderData) => {
+    const handleCustomOrderSubmit = async (orderData) => {
         if (!currentUser) {
             console.error("User is not authenticated. Cannot create order.");
             alert("Your session has expired. Please log in again.");
-            navigate('/login');
             return;
         }
 
         try {
-            navigate('/checkout', {
-                state: {
-                    customOrderData: orderData,
-                    isCustomOrder: true
-                }
-            });
+            // Handle custom order submission
             setShowCustomOrderForm(false);
         } catch (error) {
             console.error("Error preparing custom order: ", error);
@@ -538,13 +532,13 @@ export default function OrderHistory() {
     const handleCustomOrderClick = (e) => {
         e.preventDefault();
         if (!currentUser) {
-            navigate('/login', { state: { from: '/', message: 'Please login to place a custom order' } });
+            // Handle login redirect
+            return;
         } else {
             setShowCustomOrderForm(true);
         }
     };
 
-    
     // Filter orders based on type, search term and filters
     const filteredOrders = (orderType === 'all' ? orders : 
                           orderType === 'regular' ? regularOrders : 
@@ -638,7 +632,7 @@ export default function OrderHistory() {
     }, [filters.status, orderType, searchTerm]);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
+        <div className="min-h-screen bg-white py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <motion.div
@@ -647,15 +641,15 @@ export default function OrderHistory() {
                     className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8"
                 >
                     <div>
-                        <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2 font-serif">Order History</h1>
-                        <p className="text-gold/70 font-serif">Track and manage all your fashion orders in one place</p>
+                        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Order History</h1>
+                        <p className="text-gray-600">Track and manage all your fashion orders in one place</p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-3">
                         <motion.button
                             onClick={refreshOrders}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
+                            className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-medium transition-all duration-300 border border-gray-200"
                         >
                             <FiRefreshCw className="text-sm" />
                             Refresh
@@ -664,7 +658,7 @@ export default function OrderHistory() {
                             to="/collections"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg backdrop-blur-sm border border-gold/30 font-serif"
+                            className="inline-flex items-center gap-2 bg-gold hover:bg-yellow-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 border border-gold"
                         >
                             <FiShoppingBag className="text-sm" />
                             Continue Shopping
@@ -685,47 +679,47 @@ export default function OrderHistory() {
                         transition={{ delay: 0.2 }}
                         className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8"
                     >
-                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
+                        <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-xl flex items-center justify-center border border-gold/30">
+                                <div className="w-12 h-12 bg-gold rounded-lg flex items-center justify-center border border-gold">
                                     <FiPackage className="text-white text-xl" />
                                 </div>
                                 <div>
-                                    <p className="text-gold/70 text-sm font-serif">Total Orders</p>
-                                    <p className="text-white text-2xl font-bold font-serif">{totalOrders}</p>
+                                    <p className="text-gray-600 text-sm">Total Orders</p>
+                                    <p className="text-gray-900 text-2xl font-bold">{totalOrders}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
+                        <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center border border-green-500/30">
+                                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center border border-green-500">
                                     <FiTrendingUp className="text-white text-xl" />
                                 </div>
                                 <div>
-                                    <p className="text-gold/70 text-sm font-serif">Total Spent</p>
-                                    <p className="text-white text-2xl font-bold font-serif">₦{totalSpent.toLocaleString()}</p>
+                                    <p className="text-gray-600 text-sm">Total Spent</p>
+                                    <p className="text-gray-900 text-2xl font-bold">₦{totalSpent.toLocaleString()}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
+                        <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center border border-blue-500/30">
+                                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center border border-blue-500">
                                     <FiTruck className="text-white text-xl" />
                                 </div>
                                 <div>
-                                    <p className="text-gold/70 text-sm font-serif">Delivered</p>
-                                    <p className="text-white text-2xl font-bold font-serif">{deliveredOrders}</p>
+                                    <p className="text-gray-600 text-sm">Delivered</p>
+                                    <p className="text-gray-900 text-2xl font-bold">{deliveredOrders}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-gold/20">
+                        <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center border border-purple-500/30">
+                                <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center border border-purple-500">
                                     <FiScissors className="text-white text-xl" />
                                 </div>
                                 <div>
-                                    <p className="text-gold/70 text-sm font-serif">Custom Designs</p>
-                                    <p className="text-white text-2xl font-bold font-serif">{customOrdersCount}</p>
+                                    <p className="text-gray-600 text-sm">Custom Designs</p>
+                                    <p className="text-gray-900 text-2xl font-bold">{customOrdersCount}</p>
                                 </div>
                             </div>
                         </div>
@@ -742,7 +736,7 @@ export default function OrderHistory() {
                     >
                         {/* Search Bar */}
                         <div className="relative max-w-md">
-                            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gold/60 text-lg" />
+                            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
                             <input
                                 type="text"
                                 placeholder={
@@ -754,7 +748,7 @@ export default function OrderHistory() {
                                 }
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-black/40 backdrop-blur-sm border border-gold/20 rounded-2xl pl-10 pr-4 py-3 text-white placeholder-gold/60 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent font-serif"
+                                className="w-full bg-white border border-gray-300 rounded-lg pl-10 pr-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
                             />
                         </div>
 
@@ -774,16 +768,16 @@ export default function OrderHistory() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-red-500/20 backdrop-blur-sm border border-red-500/30 rounded-2xl p-8 text-center"
+                        className="bg-red-50 border border-red-200 rounded-lg p-8 text-center"
                     >
-                        <FiAlertCircle className="text-4xl text-red-400 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-white mb-2 font-serif">Error Loading Orders</h3>
-                        <p className="text-gold/80 mb-6 font-serif">{error}</p>
+                        <FiAlertCircle className="text-4xl text-red-500 mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Orders</h3>
+                        <p className="text-gray-600 mb-6">{error}</p>
                         <motion.button
                             onClick={refreshOrders}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg border border-gold/30 font-serif"
+                            className="inline-flex items-center gap-2 bg-gold text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 border border-gold"
                         >
                             Try Again
                         </motion.button>
@@ -794,12 +788,12 @@ export default function OrderHistory() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center py-16"
                     >
-                        <div className="bg-black/40 backdrop-blur-sm border border-gold/20 rounded-2xl p-12 max-w-2xl mx-auto">
-                            <div className="w-20 h-20 bg-gradient-to-r from-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-gold/30">
+                        <div className="bg-white border border-gray-200 rounded-lg p-12 max-w-2xl mx-auto shadow-sm">
+                            <div className="w-20 h-20 bg-gold rounded-lg flex items-center justify-center mx-auto mb-6 border border-gold">
                                 <FiPackage className="text-3xl text-white" />
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-3 font-serif">No Orders Yet</h3>
-                            <p className="text-gold/70 mb-8 max-w-md mx-auto font-serif">
+                            <h3 className="text-2xl font-bold text-gray-900 mb-3">No Orders Yet</h3>
+                            <p className="text-gray-600 mb-8 max-w-md mx-auto">
                                 You haven't placed any orders yet. Start exploring our fashion collections and make your first purchase!
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -807,7 +801,7 @@ export default function OrderHistory() {
                                     to="/collections"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg border border-gold/30 font-serif"
+                                    className="inline-flex items-center gap-2 bg-gold hover:bg-yellow-600 text-white py-3 px-8 rounded-lg font-semibold transition-all duration-300 border border-gold"
                                 >
                                     <FiShoppingBag className="text-sm" />
                                     Shop Collections
@@ -816,7 +810,7 @@ export default function OrderHistory() {
                                     to="/custom-order"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-3 px-8 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
+                                    className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-8 rounded-lg font-semibold transition-all duration-300 border border-gray-200"
                                 >
                                     <FiScissors className="text-sm" />
                                     Create Custom Design
@@ -832,7 +826,7 @@ export default function OrderHistory() {
                             animate={{ opacity: 1 }}
                             className="flex items-center justify-between mb-6"
                         >
-                            <p className="text-gold/70 font-serif">
+                            <p className="text-gray-600">
                                 Showing {Math.min(filteredOrders.length, ordersPerPage)} of {filteredOrders.length} orders
                                 {filters.status !== 'all' && ` (${filters.status})`}
                                 {orderType !== 'all' && ` • ${orderType === 'custom' ? 'Custom Designs' : 'Ready-to-Wear'}`}
@@ -843,7 +837,7 @@ export default function OrderHistory() {
                                         setSearchTerm('');
                                         setFilters({ status: 'all' });
                                     }}
-                                    className="text-gold hover:text-yellow-400 text-sm font-medium flex items-center gap-1 font-serif"
+                                    className="text-gold hover:text-yellow-600 text-sm font-medium flex items-center gap-1"
                                 >
                                     Clear all filters
                                 </button>
@@ -880,10 +874,10 @@ export default function OrderHistory() {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="text-center py-12"
                             >
-                                <div className="bg-black/40 backdrop-blur-sm border border-gold/20 rounded-2xl p-8">
-                                    <FiSearch className="text-4xl text-gold/50 mx-auto mb-4" />
-                                    <h3 className="text-xl font-semibold text-white mb-2 font-serif">No Orders Found</h3>
-                                    <p className="text-gold/70 mb-4 font-serif">
+                                <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+                                    <FiSearch className="text-4xl text-gray-400 mx-auto mb-4" />
+                                    <h3 className="text-xl font-semibold text-gray-900 mb-2">No Orders Found</h3>
+                                    <p className="text-gray-600 mb-4">
                                         No orders match your current filters. Try adjusting your search criteria.
                                     </p>
                                     <button
@@ -891,7 +885,7 @@ export default function OrderHistory() {
                                             setSearchTerm('');
                                             setFilters({ status: 'all' });
                                         }}
-                                        className="text-gold hover:text-yellow-400 font-medium font-serif"
+                                        className="text-gold hover:text-yellow-600 font-medium"
                                     >
                                         Clear filters
                                     </button>
@@ -910,7 +904,7 @@ export default function OrderHistory() {
                     </>
                 )}
             </div>
-                  {/* Modals */}
+            {/* Modals */}
             {showCustomOrderForm && (
                 <CustomCakeForm 
                     onClose={() => setShowCustomOrderForm(false)} 
