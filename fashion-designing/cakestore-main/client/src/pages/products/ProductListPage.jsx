@@ -575,37 +575,7 @@ export default function ProductListPage() {
                     </motion.div>
                 )}
 
-                {/* Custom Design CTA */}
-                {filteredProducts.length > 0 && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
-                        className="mt-12 bg-gold/10 border border-gold/30 rounded-lg p-8 text-center"
-                    >
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                            <div className="flex items-center gap-4">
-                                <div className="w-16 h-16 bg-gold rounded-lg flex items-center justify-center">
-                                    <FiScissors className="text-white text-2xl" />
-                                </div>
-                                <div className="text-left">
-                                    <h3 className="text-xl font-bold text-gray-900 mb-2">Need Something Unique?</h3>
-                                    <p className="text-gray-600">
-                                        Create your perfect custom design with our expert fashion designers
-                                    </p>
-                                </div>
-                            </div>
-                            <MotionLink
-                                onClick={handleCustomOrderClick}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="bg-gold text-white hover:bg-yellow-600 py-3 px-8 rounded-lg font-semibold transition-all duration-300 whitespace-nowrap"
-                            >
-                                Start Custom Design
-                            </MotionLink>
-                        </div>
-                    </motion.div>
-                )}
+     
 
                 {/* Loading Skeleton for Filtering */}
                 {localLoading && (
