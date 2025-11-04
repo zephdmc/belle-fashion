@@ -36,16 +36,16 @@ const EmptyCart = ({ onCustomOrderClick }) => (
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="w-24 h-24 bg-gradient-to-br from-gold/20 to-yellow-600/20 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-gold/30"
+                className="w-24 h-24 bg-gold/10 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-gold/20"
             >
-                <FiShoppingCart className="text-4xl text-gold/60" />
+                <FiShoppingCart className="text-4xl text-gold" />
             </motion.div>
             
             <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-3xl font-bold text-white mb-4 font-serif"
+                className="text-3xl font-bold text-gray-900 mb-4"
             >
                 Your Style Cart is Empty
             </motion.h1>
@@ -54,7 +54,7 @@ const EmptyCart = ({ onCustomOrderClick }) => (
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-gold/70 mb-8 text-lg font-serif"
+                className="text-gray-600 mb-8 text-lg"
             >
                 Discover our latest contemporary collections and custom design services to elevate your style.
             </motion.p>
@@ -69,7 +69,7 @@ const EmptyCart = ({ onCustomOrderClick }) => (
                     to="/products"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-3 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-4 px-8 rounded-2xl font-semibold transition-all duration-300 shadow-lg group border border-gold/30 font-serif"
+                    className="inline-flex items-center gap-3 bg-gold text-white py-4 px-8 rounded-lg font-semibold transition-all duration-300 hover:bg-yellow-600 group border border-gold"
                 >
                     <FiShoppingBag className="text-sm" />
                     Shop Collections
@@ -80,7 +80,7 @@ const EmptyCart = ({ onCustomOrderClick }) => (
                     onClick={onCustomOrderClick}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-3 bg-gold/10 hover:bg-gold/20 text-gold py-4 px-8 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
+                    className="inline-flex items-center gap-3 bg-gray-100 text-gray-700 py-4 px-8 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-200 border border-gray-200"
                 >
                     <FiScissors className="text-sm" />
                     Create Custom Design
@@ -95,17 +95,17 @@ const EmptyCart = ({ onCustomOrderClick }) => (
                 className="mt-12 grid grid-cols-2 gap-4"
             >
                 {[
-                    { name: 'Dresses', color: 'from-gold to-yellow-600', href: '/collections?category=dresses' },
-                    { name: 'Tops & Blouses', color: 'from-gray-800 to-gray-600', href: '/collections?category=tops' },
-                    { name: 'Bottoms', color: 'from-gold to-yellow-600', href: '/collections?category=bottoms' },
-                    { name: 'Custom Designs', color: 'from-gray-800 to-gray-600', href: '/custom-order' }
+                    { name: 'Dresses', color: 'bg-gold text-white', href: '/collections?category=dresses' },
+                    { name: 'Tops & Blouses', color: 'bg-gray-100 text-gray-700', href: '/collections?category=tops' },
+                    { name: 'Bottoms', color: 'bg-gold text-white', href: '/collections?category=bottoms' },
+                    { name: 'Custom Designs', color: 'bg-gray-100 text-gray-700', href: '/custom-order' }
                 ].map((category, index) => (
                     <MotionLink
                         key={category.name}
                         to={category.href}
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`bg-gradient-to-r ${category.color} text-white p-4 rounded-2xl text-center font-medium shadow-lg hover:shadow-xl transition-all duration-300 font-serif`}
+                        className={`${category.color} p-4 rounded-lg text-center font-medium shadow-sm hover:shadow-md transition-all duration-300`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.7 + index * 0.1 }}
@@ -122,7 +122,7 @@ const EmptyCart = ({ onCustomOrderClick }) => (
                 transition={{ delay: 0.9 }}
                 className="mt-8"
             >
-                <h3 className="text-gold/70 text-sm font-semibold mb-4 font-serif">Featured Collections</h3>
+                <h3 className="text-gray-600 text-sm font-semibold mb-4">Featured Collections</h3>
                 <div className="grid grid-cols-2 gap-3">
                     {[
                         { name: 'Summer Collection', href: '/collections?collection=summer' },
@@ -134,7 +134,7 @@ const EmptyCart = ({ onCustomOrderClick }) => (
                             key={collection.name}
                             to={collection.href}
                             whileHover={{ scale: 1.02 }}
-                            className="bg-gold/5 hover:bg-gold/10 text-gold/80 hover:text-gold text-xs p-3 rounded-xl text-center transition-all duration-300 border border-gold/10 hover:border-gold/20 font-serif"
+                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs p-3 rounded-lg text-center transition-all duration-300 border border-gray-200"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.0 + index * 0.1 }}
@@ -156,14 +156,14 @@ const CartHeader = ({ cartCount, onClearCart, hasCustomItems }) => (
         className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8"
     >
         <div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2 font-serif">Style Cart</h1>
-            <div className="flex flex-wrap items-center gap-4 text-gold/70">
-                <p className="flex items-center gap-2 font-serif">
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Style Cart</h1>
+            <div className="flex flex-wrap items-center gap-4 text-gray-600">
+                <p className="flex items-center gap-2">
                     <FiShoppingBag className="text-sm" />
                     {cartCount} fashion {cartCount === 1 ? 'piece' : 'pieces'} selected
                 </p>
                 {hasCustomItems && (
-                    <span className="flex items-center gap-1 bg-gold/30 text-gold px-3 py-1 rounded-full text-sm font-serif">
+                    <span className="flex items-center gap-1 bg-gold text-white px-3 py-1 rounded-full text-sm">
                         <FiScissors className="text-xs" />
                         Custom Designs
                     </span>
@@ -176,7 +176,7 @@ const CartHeader = ({ cartCount, onClearCart, hasCustomItems }) => (
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={onClearCart}
-                className="flex items-center gap-2 bg-gold/10 hover:bg-red-500/20 text-gold/70 hover:text-red-300 py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-gold/20 hover:border-red-500/30 font-serif"
+                className="flex items-center gap-2 bg-red-50 text-red-600 hover:bg-red-100 py-3 px-4 rounded-lg font-medium transition-all duration-300 border border-red-200"
             >
                 <FiTrash2 className="text-sm" />
                 Clear Style Cart
@@ -186,7 +186,7 @@ const CartHeader = ({ cartCount, onClearCart, hasCustomItems }) => (
                 to="/products"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold py-3 px-4 rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm border border-gold/20 font-serif"
+                className="flex items-center gap-2 bg-gray-100 text-gray-700 hover:bg-gray-200 py-3 px-4 rounded-lg font-medium transition-all duration-300 border border-gray-200"
             >
                 <FiArrowRight className="text-sm rotate-180" />
                 Continue Shopping
@@ -200,19 +200,19 @@ const SizeGuideHelper = () => (
     <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gold/20 border border-gold/30 rounded-2xl p-4 mb-6"
+        className="bg-gold/10 border border-gold/20 rounded-lg p-4 mb-6"
     >
         <div className="flex items-start gap-3">
             <FiStar className="text-gold mt-0.5 flex-shrink-0" />
             <div>
-                <h4 className="text-gold font-semibold mb-1 font-serif">Perfect Fit Guide</h4>
-                <p className="text-gold/80 text-sm font-serif">
+                <h4 className="text-gray-900 font-semibold mb-1">Perfect Fit Guide</h4>
+                <p className="text-gray-600 text-sm">
                     Unsure about your size? Check our comprehensive size guide for the perfect fit.
                 </p>
                 <MotionLink
                     to="/size-guide"
                     whileHover={{ scale: 1.02 }}
-                    className="inline-flex items-center gap-1 text-gold hover:text-yellow-400 text-sm font-medium mt-2 transition-colors font-serif"
+                    className="inline-flex items-center gap-1 text-gold hover:text-yellow-600 text-sm font-medium mt-2 transition-colors"
                 >
                     View Size Guide
                     <FiArrowRight className="text-xs" />
@@ -226,7 +226,7 @@ export default function CartPage() {
     const { cartItems, cartCount, clearCart } = useCart();
     const [showCustomOrderForm, setShowCustomOrderForm] = useState(false);
     const { currentUser } = useAuth();
-    const navigate = useNavigate(); // Added missing navigate
+    const navigate = useNavigate();
 
     const handleCustomOrderSubmit = async (orderData) => {
         if (!currentUser) {
@@ -264,7 +264,7 @@ export default function CartPage() {
 
     if (cartCount === 0) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
+            <div className="min-h-screen bg-white py-8">
                 <div className="container mx-auto px-4 max-w-6xl">
                     <EmptyCart onCustomOrderClick={handleCustomOrderClick} />
                 </div>
@@ -274,7 +274,7 @@ export default function CartPage() {
     
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
+        <div className="min-h-screen bg-white py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <CartHeader cartCount={cartCount} onClearCart={clearCart} hasCustomItems={hasCustomItems} />
@@ -286,16 +286,16 @@ export default function CartPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-black/40 backdrop-blur-sm rounded-3xl border border-gold/20 overflow-hidden"
+                            className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm"
                         >
                             {/* Cart Items Header */}
-                            <div className="bg-gradient-to-r from-gold/20 to-yellow-600/20 px-6 py-4 border-b border-gold/20">
+                            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
                                 <div className="flex items-center justify-between">
-                                    <h2 className="text-xl font-semibold text-gold flex items-center gap-3 font-serif">
+                                    <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-3">
                                         <FiShoppingBag className="text-gold" />
                                         Your Style Selection ({cartCount})
                                         {hasCustomItems && (
-                                            <span className="bg-gold/30 text-black px-2 py-1 rounded-full text-sm font-normal font-serif">
+                                            <span className="bg-gold text-white px-2 py-1 rounded-full text-sm font-normal">
                                                 + Custom Designs
                                             </span>
                                         )}
@@ -304,7 +304,7 @@ export default function CartPage() {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={clearCart}
-                                        className="flex items-center gap-2 text-gold/70 hover:text-red-300 text-sm font-medium transition-colors duration-300 font-serif"
+                                        className="flex items-center gap-2 text-red-600 hover:text-red-700 text-sm font-medium transition-colors duration-300"
                                     >
                                         <FiTrash2 className="text-sm" />
                                         Clear All
@@ -316,7 +316,7 @@ export default function CartPage() {
                             <SizeGuideHelper />
 
                             {/* Cart Items List */}
-                            <div className="divide-y divide-gold/10">
+                            <div className="divide-y divide-gray-100">
                                 <AnimatePresence>
                                     {cartItems.map((item, index) => (
                                         <motion.div
@@ -341,7 +341,7 @@ export default function CartPage() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.8 }}
-                                className="p-6 bg-gold/5 border-t border-gold/10"
+                                className="p-6 bg-gray-50 border-t border-gray-200"
                             >
                                 <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
                                     <div className="flex items-center gap-4">
@@ -349,7 +349,7 @@ export default function CartPage() {
                                             to="/products"
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="flex items-center gap-2 text-gold/70 hover:text-gold transition-colors duration-300 font-serif"
+                                            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors duration-300"
                                         >
                                             <FiArrowRight className="text-sm rotate-180" />
                                             Continue Shopping
@@ -359,17 +359,17 @@ export default function CartPage() {
                                             to="/wishlist"
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="flex items-center gap-2 text-gold/70 hover:text-gold transition-colors duration-300 font-serif"
+                                            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors duration-300"
                                         >
                                             <FiHeart className="text-sm" />
                                             View Wishlist
                                         </MotionLink>
 
                                         <MotionLink
-                                              onClick={handleCustomOrderClick}
+                                            onClick={handleCustomOrderClick}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            className="flex items-center gap-2 text-gold/70 hover:text-gold transition-colors duration-300 font-serif"
+                                            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors duration-300"
                                         >
                                             <FiScissors className="text-sm" />
                                             Custom Design
@@ -378,9 +378,9 @@ export default function CartPage() {
                                     
                                     <motion.div
                                         whileHover={{ scale: 1.02 }}
-                                        className="bg-gold/5 rounded-xl px-4 py-2 border border-gold/10"
+                                        className="bg-gray-100 rounded-lg px-4 py-2 border border-gray-200"
                                     >
-                                        <span className="text-gold font-semibold font-serif">
+                                        <span className="text-gray-900 font-semibold">
                                             Total: {cartCount} {cartCount === 1 ? 'fashion piece' : 'fashion pieces'}
                                         </span>
                                     </motion.div>
@@ -399,26 +399,22 @@ export default function CartPage() {
                                 { 
                                     icon: FiTruck, 
                                     title: 'Premium Shipping', 
-                                    description: 'Careful handling',
-                                    color: 'from-gold to-yellow-600'
+                                    description: 'Careful handling'
                                 },
                                 { 
                                     icon: FiRefreshCw, 
                                     title: 'Easy Returns', 
-                                    description: 'Quality guarantee',
-                                    color: 'from-gray-800 to-gray-600'
+                                    description: 'Quality guarantee'
                                 },
                                 { 
                                     icon: FiShield, 
                                     title: 'Quality Craftsmanship', 
-                                    description: 'Premium materials',
-                                    color: 'from-gold to-yellow-600'
+                                    description: 'Premium materials'
                                 },
                                 { 
                                     icon: FiScissors, 
                                     title: 'Perfect Fit', 
-                                    description: 'Size guidance',
-                                    color: 'from-gray-800 to-gray-600'
+                                    description: 'Size guidance'
                                 }
                             ].map((badge, index) => (
                                 <motion.div
@@ -427,13 +423,13 @@ export default function CartPage() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 1.1 + index * 0.1 }}
                                     whileHover={{ y: -4 }}
-                                    className="bg-black/40 backdrop-blur-sm rounded-2xl p-4 border border-gold/20 text-center group hover:border-gold/40 transition-all duration-300"
+                                    className="bg-white rounded-lg p-4 border border-gray-200 text-center group hover:border-gold transition-all duration-300 shadow-sm"
                                 >
-                                    <div className={`w-12 h-12 bg-gradient-to-r ${badge.color} rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`}>
+                                    <div className="w-12 h-12 bg-gold rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
                                         <badge.icon className="text-white text-lg" />
                                     </div>
-                                    <h3 className="text-gold font-semibold mb-1 text-sm font-serif">{badge.title}</h3>
-                                    <p className="text-gold/60 text-xs font-serif">{badge.description}</p>
+                                    <h3 className="text-gray-900 font-semibold mb-1 text-sm">{badge.title}</h3>
+                                    <p className="text-gray-600 text-xs">{badge.description}</p>
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -444,25 +440,25 @@ export default function CartPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.3 }}
-                                className="mt-6 bg-gradient-to-r from-gold/20 to-yellow-600/20 border border-gold/30 rounded-2xl p-6"
+                                className="mt-6 bg-gold/10 border border-gold/20 rounded-lg p-6"
                             >
                                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center border border-gold/20">
-                                            <FiScissors className="text-gold text-xl" />
+                                        <div className="w-12 h-12 bg-gold rounded-lg flex items-center justify-center border border-gold">
+                                            <FiScissors className="text-white text-xl" />
                                         </div>
                                         <div>
-                                            <h3 className="text-gold font-semibold mb-1 font-serif">Need Something Unique?</h3>
-                                            <p className="text-gold/70 text-sm font-serif">
+                                            <h3 className="text-gray-900 font-semibold mb-1">Need Something Unique?</h3>
+                                            <p className="text-gray-600 text-sm">
                                                 Create your custom designed outfit with our expert tailors.
                                             </p>
                                         </div>
                                     </div>
                                     <MotionLink
-                                         onClick={handleCustomOrderClick}
+                                        onClick={handleCustomOrderClick}
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className="bg-gold text-black hover:bg-yellow-500 py-3 px-6 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap border border-gold/30 font-serif"
+                                        className="bg-gold text-white hover:bg-yellow-600 py-3 px-6 rounded-lg font-semibold transition-all duration-300 whitespace-nowrap border border-gold"
                                     >
                                         Start Custom Design
                                     </MotionLink>
@@ -485,13 +481,7 @@ export default function CartPage() {
                 </div>
             </div>
 
-               {/* Modals */}
-            {showCustomOrderForm && (
-                <CustomCakeForm 
-                    onClose={() => setShowCustomOrderForm(false)} 
-                    onSubmit={handleCustomOrderSubmit}
-                />
-            )}
+        
         </div>
     );
 }
