@@ -354,9 +354,7 @@ export default function Header() {
                                 <span className="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight -mb-1 transition-colors duration-300">
                                     Bellebyokien
                                 </span>
-                                <span className="text-sm sm:text-base font-medium text-gray-600 tracking-wider mt-0.5 transition-colors duration-300">
-                                    Fashion 
-                                </span>
+                               
                             </div>
                         </MotionLink>
                     </div>
