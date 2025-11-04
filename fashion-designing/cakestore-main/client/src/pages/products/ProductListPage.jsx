@@ -4,7 +4,6 @@ import ProductFilter from '../../components/products/ProductFilter';
 import { useProducts } from '../../context/ProductContext';
 import CustomCakeForm from '../../components/orders/CustomCakeForm';
 import { useAuth } from '../../context/AuthContext';
-
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
     FiLoader, 
@@ -15,10 +14,7 @@ import {
     FiRefreshCw,
     FiX,
     FiShoppingBag,
-    FiScissors,
-    FiTrendingUp,
-    FiStar,
-    FiTag
+    FiScissors
 } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -40,15 +36,15 @@ const MobileProductCard = ({ product, index }) => {
                 scale: 1.02,
                 transition: { duration: 0.2 }
             }}
-            className="bg-black/40 backdrop-blur-sm rounded-xl border border-gold/20 hover:border-gold/40 transition-all duration-300 overflow-hidden group cursor-pointer"
+            className="bg-white rounded-lg border border-gray-200 hover:border-gold transition-all duration-300 overflow-hidden group cursor-pointer shadow-sm"
         >
             <Link to={`/products/${product.id}`} className="block">
                 {/* Image Container */}
-                <div className="relative pt-[100%] bg-gray-800 overflow-hidden">
+                <div className="relative pt-[100%] bg-gray-100 overflow-hidden">
                     {/* Discount Badge */}
                     {product.discountPercentage > 0 && (
                         <div className="absolute top-2 left-2 z-10">
-                            <span className="bg-gradient-to-r from-gold to-yellow-600 text-black text-xs font-bold px-2 py-1 rounded-full">
+                            <span className="bg-gold text-black text-xs font-bold px-2 py-1 rounded-full">
                                 {product.discountPercentage}% OFF
                             </span>
                         </div>
@@ -62,7 +58,7 @@ const MobileProductCard = ({ product, index }) => {
                     />
                 </div>
 
-                {/* Price Section - Only price and discount */}
+                {/* Price Section */}
                 <div className="p-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -71,7 +67,7 @@ const MobileProductCard = ({ product, index }) => {
                                     <span className="text-gold font-bold text-sm">
                                         ₦{discountedPrice.toLocaleString()}
                                     </span>
-                                    <span className="text-white/50 text-xs line-through">
+                                    <span className="text-gray-500 text-xs line-through">
                                         ₦{product.price.toLocaleString()}
                                     </span>
                                 </>
@@ -92,12 +88,12 @@ const MobileProductCard = ({ product, index }) => {
 const ProductSkeleton = () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Array.from({ length: 8 }).map((_, index) => (
-            <div key={index} className="bg-black/20 backdrop-blur-sm rounded-2xl border border-gold/30 p-4 animate-pulse">
-                <div className="relative pt-[125%] bg-gold/20 rounded-xl mb-4"></div>
+            <div key={index} className="bg-gray-100 rounded-lg border border-gray-200 p-4 animate-pulse">
+                <div className="relative pt-[125%] bg-gray-300 rounded-lg mb-4"></div>
                 <div className="space-y-2">
-                    <div className="h-4 bg-gold/20 rounded w-3/4"></div>
-                    <div className="h-4 bg-gold/20 rounded w-1/2"></div>
-                    <div className="h-6 bg-gold/20 rounded w-1/3 mt-4"></div>
+                    <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                    <div className="h-6 bg-gray-300 rounded w-1/3 mt-4"></div>
                 </div>
             </div>
         ))}
@@ -108,11 +104,11 @@ const ProductSkeleton = () => (
 const MobileProductSkeleton = () => (
     <div className="grid grid-cols-3 gap-2">
         {Array.from({ length: 12 }).map((_, index) => (
-            <div key={index} className="bg-black/20 backdrop-blur-sm rounded-xl border border-gold/30 animate-pulse">
-                <div className="relative pt-[100%] bg-gold/20 rounded-t-xl"></div>
+            <div key={index} className="bg-gray-100 rounded-lg border border-gray-200 animate-pulse">
+                <div className="relative pt-[100%] bg-gray-300 rounded-t-lg"></div>
                 <div className="p-2">
-                    <div className="h-4 bg-gold/20 rounded mb-1"></div>
-                    <div className="h-3 bg-gold/20 rounded w-2/3"></div>
+                    <div className="h-4 bg-gray-300 rounded mb-1"></div>
+                    <div className="h-3 bg-gray-300 rounded w-2/3"></div>
                 </div>
             </div>
         ))}
@@ -121,23 +117,23 @@ const MobileProductSkeleton = () => (
 
 // View Toggle Component
 const ViewToggle = ({ viewMode, setViewMode }) => (
-    <div className="flex items-center gap-1 bg-black/20 backdrop-blur-sm rounded-2xl p-1 border border-gold/30">
+    <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1 border border-gray-200">
         <button
             onClick={() => setViewMode('grid')}
-            className={`p-2 rounded-xl transition-all duration-300 ${
+            className={`p-2 rounded-lg transition-all duration-300 ${
                 viewMode === 'grid' 
-                    ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg shadow-gold/30' 
-                    : 'text-white/70 hover:text-gold hover:bg-gold/10'
+                    ? 'bg-gold text-white shadow-sm' 
+                    : 'text-gray-600 hover:text-gold hover:bg-gold/10'
             }`}
         >
             <FiGrid className="text-lg" />
         </button>
         <button
             onClick={() => setViewMode('list')}
-            className={`p-2 rounded-xl transition-all duration-300 ${
+            className={`p-2 rounded-lg transition-all duration-300 ${
                 viewMode === 'list' 
-                    ? 'bg-gradient-to-r from-gold to-yellow-600 text-black shadow-lg shadow-gold/30' 
-                    : 'text-white/70 hover:text-gold hover:bg-gold/10'
+                    ? 'bg-gold text-white shadow-sm' 
+                    : 'text-gray-600 hover:text-gold hover:bg-gold/10'
             }`}
         >
             <FiList className="text-lg" />
@@ -154,26 +150,26 @@ const CollectionBadges = ({ onCollectionSelect }) => (
         className="flex flex-wrap gap-3 mb-6"
     >
         {[
-            { name: 'All Collections', value: 'all', color: 'from-gray-600 to-gray-700' },
-            { name: 'New Arrivals', value: 'new', color: 'from-gold to-yellow-600', icon: FiTrendingUp },
-            { name: 'Featured', value: 'featured', color: 'from-gold to-yellow-500', icon: FiStar },
-            { name: 'Summer Collection', value: 'summer', color: 'from-yellow-500 to-yellow-600', icon: FiTag },
-            { name: 'Custom Designs', value: 'custom', color: 'from-gold to-yellow-700', icon: FiScissors },
-        ].map((collection) => {
-            const Icon = collection.icon;
-            return (
-                <motion.button
-                    key={collection.value}
-                    onClick={() => onCollectionSelect(collection.value)}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`bg-gradient-to-r ${collection.color} text-black px-4 py-2 rounded-2xl font-medium shadow-lg shadow-gold/20 hover:shadow-xl transition-all duration-300 flex items-center gap-2`}
-                >
-                    {Icon && <Icon className="text-sm" />}
-                    {collection.name}
-                </motion.button>
-            );
-        })}
+            { name: 'All', value: 'all' },
+            { name: 'New Arrivals', value: 'new' },
+            { name: 'Featured', value: 'featured' },
+            { name: 'Summer', value: 'summer' },
+            { name: 'Custom', value: 'custom' },
+        ].map((collection) => (
+            <motion.button
+                key={collection.value}
+                onClick={() => onCollectionSelect(collection.value)}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    collection.value === 'all'
+                        ? 'bg-gold text-white shadow-sm hover:bg-yellow-600'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gold hover:text-white border border-gray-200'
+                }`}
+            >
+                {collection.name}
+            </motion.button>
+        ))}
     </motion.div>
 );
 
@@ -290,7 +286,7 @@ export default function ProductListPage() {
     };
 
     if (loading) return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 py-8">
+        <div className="min-h-screen bg-white py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 <div className="text-center py-12">
                     <motion.div
@@ -300,30 +296,30 @@ export default function ProductListPage() {
                     >
                         <FiLoader className="text-4xl text-gold" />
                     </motion.div>
-                    <p className="text-white/80 text-lg">Loading fashion collection...</p>
+                    <p className="text-gray-600 text-lg">Loading fashion collection...</p>
                 </div>
             </div>
         </div>
     );
 
     if (error) return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 py-8">
+        <div className="min-h-screen bg-white py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="bg-red-500/20 backdrop-blur-sm border border-red-500/30 rounded-2xl p-8 text-center max-w-2xl mx-auto"
+                    className="bg-red-50 border border-red-200 rounded-lg p-8 text-center max-w-2xl mx-auto"
                 >
-                    <div className="w-16 h-16 bg-red-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <FiX className="text-2xl text-red-400" />
+                    <div className="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <FiX className="text-2xl text-red-500" />
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Error Loading Products</h3>
-                    <p className="text-white/80 mb-6">{error}</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Products</h3>
+                    <p className="text-gray-600 mb-6">{error}</p>
                     <motion.button
                         onClick={refreshProducts}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg shadow-gold/30"
+                        className="inline-flex items-center gap-2 bg-gold text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 hover:bg-yellow-600"
                     >
                         <FiRefreshCw className="text-sm" />
                         Try Again
@@ -334,7 +330,7 @@ export default function ProductListPage() {
     );
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 py-8">
+        <div className="min-h-screen bg-white py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header Section */}
                 <motion.div
@@ -343,10 +339,10 @@ export default function ProductListPage() {
                     className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8"
                 >
                     <div>
-                        <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                             Fashion Collection
                         </h1>
-                        <p className="text-white/70">
+                        <p className="text-gray-600">
                             Discover our curated collection of ready-to-wear and custom designs
                         </p>
                     </div>
@@ -356,9 +352,9 @@ export default function ProductListPage() {
                             <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
-                                className="bg-black/20 backdrop-blur-sm rounded-2xl px-4 py-2 border border-gold/30"
+                                className="bg-gray-100 rounded-lg px-4 py-2 border border-gray-200"
                             >
-                                <span className="text-white font-semibold">
+                                <span className="text-gray-900 font-semibold">
                                     {filteredProducts.length} {filteredProducts.length === 1 ? 'design' : 'designs'}
                                 </span>
                             </motion.div>
@@ -378,18 +374,18 @@ export default function ProductListPage() {
                 >
                     {/* Search Bar */}
                     <div className="flex-1 relative">
-                        <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 text-lg" />
+                        <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg" />
                         <input
                             type="text"
                             placeholder="Search by name, description, style, or occasion..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-black/20 backdrop-blur-sm border border-gold/30 rounded-2xl pl-12 pr-4 py-3 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
+                            className="w-full bg-white border border-gray-300 rounded-lg pl-12 pr-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
                         />
                         {searchQuery && (
                             <button
                                 onClick={() => setSearchQuery('')}
-                                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-gold"
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                             >
                                 <FiX className="text-lg" />
                             </button>
@@ -401,15 +397,11 @@ export default function ProductListPage() {
                         onClick={() => setShowFilters(!showFilters)}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="inline-flex items-center gap-2 bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/30"
+                        className="inline-flex items-center gap-2 bg-gold text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 hover:bg-yellow-600"
                     >
                         <FiFilter className="text-sm" />
                         Filters
-                        {showFilters ? (
-                            <FiX className="text-sm transition-transform" />
-                        ) : (
-                            <span className="w-2 h-2 bg-gradient-to-r from-gold to-yellow-600 rounded-full"></span>
-                        )}
+                        {showFilters && <FiX className="text-sm transition-transform" />}
                     </motion.button>
                 </motion.div>
 
@@ -437,7 +429,7 @@ export default function ProductListPage() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="flex items-center justify-center gap-3 bg-black/20 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-gold/30"
+                            className="flex items-center justify-center gap-3 bg-gray-100 rounded-lg p-4 mb-6 border border-gray-200"
                         >
                             <motion.div
                                 animate={{ rotate: 360 }}
@@ -445,7 +437,7 @@ export default function ProductListPage() {
                             >
                                 <FiLoader className="text-gold text-lg" />
                             </motion.div>
-                            <span className="text-white font-medium">Applying filters...</span>
+                            <span className="text-gray-700 font-medium">Applying filters...</span>
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -458,13 +450,13 @@ export default function ProductListPage() {
                         className="flex items-center justify-between mb-6"
                     >
                         <div className="flex items-center gap-4">
-                            <p className="text-white/70">
+                            <p className="text-gray-600">
                                 Showing {filteredProducts.length} {filteredProducts.length === 1 ? 'design' : 'designs'}
                                 {searchQuery && ` for "${searchQuery}"`}
                                 {activeCollection !== 'all' && ` in ${activeCollection.replace(/([A-Z])/g, ' $1').trim()}`}
                             </p>
                             {activeCollection !== 'all' && (
-                                <span className="bg-gold/20 text-gold border border-gold/30 px-3 py-1 rounded-full text-sm font-medium">
+                                <span className="bg-gold text-white px-3 py-1 rounded-full text-sm font-medium">
                                     {activeCollection.replace(/([A-Z])/g, ' $1').trim()}
                                 </span>
                             )}
@@ -472,7 +464,7 @@ export default function ProductListPage() {
                         {(searchQuery || products.length !== filteredProducts.length || activeCollection !== 'all') && (
                             <button
                                 onClick={handleClearFilters}
-                                className="text-gold hover:text-yellow-300 text-sm font-medium flex items-center gap-1"
+                                className="text-gold hover:text-yellow-600 text-sm font-medium flex items-center gap-1"
                             >
                                 <FiRefreshCw className="text-xs" />
                                 Clear all
@@ -544,14 +536,14 @@ export default function ProductListPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center py-16"
                     >
-                        <div className="bg-black/20 backdrop-blur-sm border border-gold/30 rounded-2xl p-12 max-w-2xl mx-auto">
-                            <div className="w-20 h-20 bg-gradient-to-r from-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <FiShoppingBag className="text-3xl text-black" />
+                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-12 max-w-2xl mx-auto">
+                            <div className="w-20 h-20 bg-gold rounded-lg flex items-center justify-center mx-auto mb-6">
+                                <FiShoppingBag className="text-3xl text-white" />
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-3">
+                            <h3 className="text-2xl font-bold text-gray-900 mb-3">
                                 {searchQuery || activeCollection !== 'all' ? 'No designs found' : 'No designs available'}
                             </h3>
-                            <p className="text-white/70 mb-8 max-w-md mx-auto">
+                            <p className="text-gray-600 mb-8 max-w-md mx-auto">
                                 {searchQuery 
                                     ? `We couldn't find any designs matching "${searchQuery}". Try adjusting your search or filters.`
                                     : activeCollection !== 'all'
@@ -564,7 +556,7 @@ export default function ProductListPage() {
                                     onClick={handleClearFilters}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black py-3 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg shadow-gold/30"
+                                    className="inline-flex items-center gap-2 bg-gold text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 hover:bg-yellow-600"
                                 >
                                     <FiRefreshCw className="text-sm" />
                                     Clear Filters
@@ -573,7 +565,7 @@ export default function ProductListPage() {
                                     onClick={handleCustomOrderClick}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="inline-flex items-center gap-2 bg-black/20 hover:bg-gold/20 text-white py-3 px-6 rounded-2xl font-semibold transition-all duration-300 backdrop-blur-sm border border-gold/30"
+                                    className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 py-3 px-6 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-200 border border-gray-200"
                                 >
                                     <FiScissors className="text-sm" />
                                     Create Custom Design
@@ -589,16 +581,16 @@ export default function ProductListPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="mt-12 bg-gradient-to-r from-gold/20 to-yellow-600/20 border border-gold/30 rounded-2xl p-8 text-center"
+                        className="mt-12 bg-gold/10 border border-gold/30 rounded-lg p-8 text-center"
                     >
                         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                             <div className="flex items-center gap-4">
-                                <div className="w-16 h-16 bg-black/20 rounded-2xl flex items-center justify-center">
-                                    <FiScissors className="text-gold text-2xl" />
+                                <div className="w-16 h-16 bg-gold rounded-lg flex items-center justify-center">
+                                    <FiScissors className="text-white text-2xl" />
                                 </div>
                                 <div className="text-left">
-                                    <h3 className="text-xl font-bold text-white mb-2">Need Something Unique?</h3>
-                                    <p className="text-white/70">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-2">Need Something Unique?</h3>
+                                    <p className="text-gray-600">
                                         Create your perfect custom design with our expert fashion designers
                                     </p>
                                 </div>
@@ -607,7 +599,7 @@ export default function ProductListPage() {
                                 onClick={handleCustomOrderClick}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="bg-gradient-to-r from-gold to-yellow-600 text-black hover:from-yellow-500 hover:to-yellow-700 py-3 px-8 rounded-2xl font-semibold transition-all duration-300 whitespace-nowrap shadow-lg shadow-gold/30"
+                                className="bg-gold text-white hover:bg-yellow-600 py-3 px-8 rounded-lg font-semibold transition-all duration-300 whitespace-nowrap"
                             >
                                 Start Custom Design
                             </MotionLink>
