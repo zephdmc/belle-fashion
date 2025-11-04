@@ -670,33 +670,36 @@ export default function Header() {
                         )}
                     </AnimatePresence>
                 </div>
+            </header>
 
-                {/* Mobile Menu - Fixed at top with solid white background */}
-                <AnimatePresence>
-                    {mobileMenuOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, x: -300 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -300 }}
-                            className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white fixed top-0 left-0 right-0 bottom-0 z-40 pt-16"
-                        >
-                            {/* Close Button */}
-                            <div className="absolute top-3 right-3">
-                                <motion.button
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="p-2 rounded-xl transition-all duration-300 border bg-white border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold"
-                                >
-                                    <FiX size={20} />
-                                </motion.button>
-                            </div>
+            {/* Mobile Menu - Separate from header, fixed overlay that covers entire screen */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, x: -300 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -300 }}
+                        className="mobile-menu-container lg:hidden fixed inset-0 z-40 bg-white"
+                    >
+                        {/* Close Button */}
+                        <div className="absolute top-4 right-4 z-50">
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="p-3 rounded-xl transition-all duration-300 border bg-white border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold shadow-lg"
+                            >
+                                <FiX size={22} />
+                            </motion.button>
+                        </div>
 
+                        {/* Content Container with Padding */}
+                        <div className="h-full overflow-y-auto pt-20 pb-8">
                             {/* User Profile Section */}
                             {currentUser && (
-                                <div className="px-4 py-3 border-b border-gray-200 mb-3">
+                                <div className="px-6 py-4 border-b border-gray-200 mb-4 bg-white">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-12 h-12 rounded-xl bg-gold flex items-center justify-center overflow-hidden border border-gold">
+                                        <div className="w-14 h-14 rounded-xl bg-gold flex items-center justify-center overflow-hidden border border-gold">
                                             {currentUser.photoURL ? (
                                                 <img
                                                     src={currentUser.photoURL}
@@ -708,7 +711,7 @@ export default function Header() {
                                             )}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <div className="font-semibold text-gray-800 text-base truncate">
+                                            <div className="font-semibold text-gray-800 text-lg truncate">
                                                 {currentUser.displayName || currentUser.email.split('@')[0]}
                                             </div>
                                             <div className="text-gray-500 text-sm truncate">
@@ -719,19 +722,19 @@ export default function Header() {
                                 </div>
                             )}
 
-                            <nav className="container mx-auto px-4 py-3 flex flex-col space-y-1">
+                            <nav className="px-6 py-4 flex flex-col space-y-2">
                                 <NavLink
                                     to="/"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
                                             isActive 
-                                                ? 'bg-gold/20 text-gold' 
-                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                                ? 'bg-gold/20 text-gold border border-gold/30' 
+                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
                                         }`
                                     }
                                 >
-                                    <FiHome className="text-lg" />
+                                    <FiHome className="text-xl" />
                                     Home
                                 </NavLink>
                                 
@@ -739,14 +742,14 @@ export default function Header() {
                                     to="/products"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
                                             isActive 
-                                                ? 'bg-gold/20 text-gold' 
-                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                                ? 'bg-gold/20 text-gold border border-gold/30' 
+                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
                                         }`
                                     }
                                 >
-                                    <FiShoppingBag className="text-lg" />
+                                    <FiShoppingBag className="text-xl" />
                                     Collections
                                 </NavLink>
 
@@ -755,14 +758,14 @@ export default function Header() {
                                     to="/about"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
                                             isActive 
-                                                ? 'bg-gold/20 text-gold' 
-                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                                ? 'bg-gold/20 text-gold border border-gold/30' 
+                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
                                         }`
                                     }
                                 >
-                                    <FiInfo className="text-lg" />
+                                    <FiInfo className="text-xl" />
                                     About
                                 </NavLink>
 
@@ -770,14 +773,14 @@ export default function Header() {
                                     to="/size-guide"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
                                             isActive 
-                                                ? 'bg-gold/20 text-gold' 
-                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                                ? 'bg-gold/20 text-gold border border-gold/30' 
+                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
                                         }`
                                     }
                                 >
-                                    <FiHeart className="text-lg" />
+                                    <FiHeart className="text-xl" />
                                     Size Guide
                                 </NavLink>
 
@@ -785,14 +788,14 @@ export default function Header() {
                                     to="/faq"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
                                             isActive 
-                                                ? 'bg-gold/20 text-gold' 
-                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                                ? 'bg-gold/20 text-gold border border-gold/30' 
+                                                : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
                                         }`
                                     }
                                 >
-                                    <FiHelpCircle className="text-lg" />
+                                    <FiHelpCircle className="text-xl" />
                                     FAQ
                                 </NavLink>
 
@@ -802,14 +805,14 @@ export default function Header() {
                                             to="/orders"
                                             onClick={() => setMobileMenuOpen(false)}
                                             className={({ isActive }) =>
-                                                `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                                                `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
                                                     isActive 
-                                                        ? 'bg-gold/20 text-gold' 
-                                                        : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                                        ? 'bg-gold/20 text-gold border border-gold/30' 
+                                                        : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
                                                 }`
                                             }
                                         >
-                                            <FiPackage className="text-lg" />
+                                            <FiPackage className="text-xl" />
                                             Orders
                                         </NavLink>
                                         
@@ -818,14 +821,14 @@ export default function Header() {
                                                 to="/admin"
                                                 onClick={() => setMobileMenuOpen(false)}
                                                 className={({ isActive }) =>
-                                                    `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                                                    `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
                                                         isActive 
-                                                            ? 'bg-gold/20 text-gold' 
-                                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                                            ? 'bg-gold/20 text-gold border border-gold/30' 
+                                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
                                                     }`
                                                 }
                                             >
-                                                <FiUser className="text-lg" />
+                                                <FiUser className="text-xl" />
                                                 Dashboard
                                             </NavLink>
                                         )}
@@ -833,47 +836,47 @@ export default function Header() {
                                 )}
 
                                 {currentUser ? (
-                                    <div className="pt-4 border-t border-gray-200 mt-3">
+                                    <div className="pt-6 border-t border-gray-200 mt-4">
                                         <motion.button
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                             onClick={handleLogout}
                                             disabled={logoutLoading}
-                                            className={`w-full flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                                            className={`w-full flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
                                                 logoutLoading 
-                                                    ? 'opacity-50 cursor-wait bg-gray-100 text-gray-500' 
-                                                    : 'bg-red-500/10 text-red-600 hover:bg-red-500/20'
+                                                    ? 'opacity-50 cursor-wait bg-gray-100 text-gray-500 border border-gray-300' 
+                                                    : 'bg-red-500/10 text-red-600 hover:bg-red-500/20 border border-red-300/50'
                                             }`}
                                         >
-                                            <FiLogOut className="text-lg" />
+                                            <FiLogOut className="text-xl" />
                                             {logoutLoading ? 'Signing out...' : 'Sign out'}
                                         </motion.button>
                                     </div>
                                 ) : (
-                                    <div className="pt-4 border-t border-gray-200 mt-3 space-y-1">
+                                    <div className="pt-6 border-t border-gray-200 mt-4 space-y-3">
                                         <MotionLink
                                             to="/login"
                                             onClick={() => setMobileMenuOpen(false)}
-                                            className="flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium text-gray-700 hover:bg-gold/10 hover:text-gold transition-all duration-300"
+                                            className="flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium text-gray-700 hover:bg-gold/10 hover:text-gold transition-all duration-300 border border-gray-200 hover:border-gold/30"
                                         >
-                                            <FiUser className="text-lg" />
+                                            <FiUser className="text-xl" />
                                             Login
                                         </MotionLink>
                                         <MotionLink
                                             to="/register"
                                             onClick={() => setMobileMenuOpen(false)}
-                                            className="flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium bg-gold text-white hover:bg-yellow-600 transition-all duration-300"
+                                            className="flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium bg-gold text-white hover:bg-yellow-600 transition-all duration-300 border border-gold shadow-lg"
                                         >
-                                            <FiUser className="text-lg" />
+                                            <FiUser className="text-xl" />
                                             Register
                                         </MotionLink>
                                     </div>
                                 )}
                             </nav>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </header>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 }
