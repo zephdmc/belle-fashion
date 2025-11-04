@@ -836,22 +836,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Testimonials Section */}
-            <section className="py-20 bg-white">
-                <div className="container mx-auto max-w-7xl px-4">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
-                    >
-                        <h2 className="text-5xl font-bold text-gray-800 mb-6 font-serif">What Our Customers Say</h2>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto font-serif">Real results from real people</p>
-                    </motion.div>
-                    <TestimonialSlider />
-                </div>
-            </section>
+     
 
             {/* WhatsApp Button */}
             <motion.div
