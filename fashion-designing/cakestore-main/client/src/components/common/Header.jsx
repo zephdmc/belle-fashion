@@ -114,7 +114,7 @@ export default function Header() {
     useEffect(() => {
         const handleScroll = () => {
             const scrollTop = window.scrollY;
-            setIsScrolled(scrollTop > 50);
+            setIsScrolled(scrollTop > 20);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -280,27 +280,27 @@ export default function Header() {
     };
 
     // Dynamic classes based on scroll state
-    const headerClass = `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    const headerClass = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-            ? 'bg-white shadow-lg border-b border-gray-200' 
-            : 'bg-white shadow-lg border-b border-gray-200'
+            ? 'bg-white shadow-md border-b border-gray-200' 
+            : 'bg-white'
     }`;
 
-    const iconButtonClass = `p-2 rounded-2xl transition-all duration-300 border bg-white border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold hover:border-gold/50`;
+    const iconButtonClass = `p-2 rounded-xl transition-all duration-300 border bg-white border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold hover:border-gold/50`;
 
-    const searchInputClass = `w-full pl-5 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 border bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent`;
+    const searchInputClass = `w-full pl-4 pr-10 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 border bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent`;
 
-    const dropdownClass = `border border-gray-200 rounded-2xl shadow-2xl z-50 bg-white`;
+    const dropdownClass = `border border-gray-200 rounded-xl shadow-lg z-50 bg-white`;
 
     if (isAdmin) {
         return (
             <header className={headerClass}>
-                <div className="container mx-auto px-4 py-3 flex justify-end">
+                <div className="container mx-auto px-4 py-2 flex justify-end">
                     <MotionLink
                         to="/admin"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white py-2 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg flex items-center gap-2 border border-gold/30"
+                        className="bg-gold hover:bg-yellow-600 text-white py-2 px-4 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 border border-gold"
                     >
                         Admin Dashboard
                         <FiArrowRight className="text-sm" />
@@ -319,34 +319,34 @@ export default function Header() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="p-3 text-sm flex items-center justify-center gap-3 border-b border-yellow-500/20 bg-yellow-500/10 text-yellow-700"
+                        className="p-2 text-sm flex items-center justify-center gap-2 border-b border-yellow-500/20 bg-yellow-500/10 text-yellow-700"
                     >
-                        <FiAlertTriangle className="flex-shrink-0" />
-                        <span>Session expires in {formatTime(timeLeft)}. Move your mouse to extend.</span>
+                        <FiAlertTriangle className="flex-shrink-0 text-xs" />
+                        <span className="text-xs">Session expires in {formatTime(timeLeft)}. Move your mouse to extend.</span>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            <div className="container mx-auto px-4 py-3">
+            <div className="container mx-auto px-4 py-2">
                 {/* Main Header */}
                 <div className="flex justify-between items-center">
                     {/* Logo and Mobile Menu */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className={`lg:hidden transition-all duration-300 ${iconButtonClass}`}
                         >
-                            {mobileMenuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+                            {mobileMenuOpen ? <FiX size={18} /> : <FiMenu size={18} />}
                         </motion.button>
                         
                         <MotionLink
                             to="/"
                             whileHover={{ scale: 1.02 }}
-                            className="flex items-center gap-3 hover:opacity-90 transition-all duration-300 group"
+                            className="flex items-center gap-2 hover:opacity-90 transition-all duration-300 group"
                         >
-                            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center p-2 transition-all duration-300 border bg-white border-gold/30">
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center transition-all duration-300">
                                 <img 
                                     src="/images/logo.png" 
                                     alt="Bellebyokien Fashion"
@@ -357,45 +357,44 @@ export default function Header() {
                                 <span className="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight -mb-1 transition-colors duration-300">
                                     Bellebyokien
                                 </span>
-                               
                             </div>
                         </MotionLink>
                     </div>
 
                     {/* Desktop Navigation Links */}
-                    <div className="hidden lg:flex items-center gap-6 mx-8">
+                    <div className="hidden lg:flex items-center gap-6 mx-6">
                         <MotionLink
                             to="/about"
                             whileHover={{ scale: 1.05 }}
-                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300 text-sm"
                         >
                             About
                         </MotionLink>
                         <MotionLink
                             to="/collections"
                             whileHover={{ scale: 1.05 }}
-                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300 text-sm"
                         >
                             Collections
                         </MotionLink>
                         <MotionLink
                             to="/size-guide"
                             whileHover={{ scale: 1.05 }}
-                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300 text-sm"
                         >
                             Size Guide
                         </MotionLink>
                         <MotionLink
                             to="/faq"
                             whileHover={{ scale: 1.05 }}
-                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300 text-sm"
                         >
                             FAQ
                         </MotionLink>
                     </div>
 
                     {/* Desktop Search Bar */}
-                    <div className="hidden lg:flex flex-1 max-w-xl mx-8 relative">
+                    <div className="hidden lg:flex flex-1 max-w-lg mx-6 relative">
                         <div className="relative w-full" ref={searchRef}>
                             <div className="relative">
                                 <input
@@ -411,9 +410,9 @@ export default function Header() {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={handleSearch}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gold transition-colors duration-300"
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gold transition-colors duration-300"
                                 >
-                                    <FiSearch size={20} />
+                                    <FiSearch size={18} />
                                 </motion.button>
                             </div>
 
@@ -424,7 +423,7 @@ export default function Header() {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
-                                        className={`absolute top-full left-0 right-0 mt-2 rounded-2xl z-50 max-h-96 overflow-y-auto ${dropdownClass}`}
+                                        className={`absolute top-full left-0 right-0 mt-1 rounded-xl z-50 max-h-80 overflow-y-auto ${dropdownClass}`}
                                     >
                                         {searchSuggestions.map((item, index) => (
                                             <SearchSuggestion
@@ -444,7 +443,7 @@ export default function Header() {
                     </div>
 
                     {/* Right-side Icons */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                         {/* Notifications */}
                         {currentUser && (
                             <div className="relative notifications-container">
@@ -454,12 +453,12 @@ export default function Header() {
                                     className={`relative transition-colors duration-300 ${iconButtonClass}`}
                                     onClick={() => setShowNotifications(!showNotifications)}
                                 >
-                                    <FiBell size={20} />
+                                    <FiBell size={18} />
                                     {unreadNotifications > 0 && (
                                         <motion.span
                                             initial={{ scale: 0 }}
                                             animate={{ scale: 1 }}
-                                            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center border-2 border-white"
+                                            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center border border-white text-[10px]"
                                         >
                                             {unreadNotifications}
                                         </motion.span>
@@ -472,20 +471,20 @@ export default function Header() {
                                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            className={`absolute right-0 mt-2 w-80 z-50 ${dropdownClass}`}
+                                            className={`absolute right-0 mt-2 w-72 z-50 ${dropdownClass}`}
                                         >
-                                            <div className="p-4 font-semibold text-gray-800 border-b border-gray-200 flex justify-between items-center">
+                                            <div className="p-3 font-semibold text-gray-800 border-b border-gray-200 flex justify-between items-center text-sm">
                                                 <span>Notifications</span>
                                                 {unreadNotifications > 0 && (
                                                     <button
                                                         onClick={handleMarkAllAsRead}
-                                                        className="text-sm text-gold hover:text-yellow-600 transition-colors duration-300"
+                                                        className="text-xs text-gold hover:text-yellow-600 transition-colors duration-300"
                                                     >
                                                         Mark all as read
                                                     </button>
                                                 )}
                                             </div>
-                                            <div className="max-h-96 overflow-y-auto">
+                                            <div className="max-h-80 overflow-y-auto">
                                                 {notifications.length > 0 ? (
                                                     notifications.map((notification, index) => (
                                                         <NotificationItem
@@ -495,7 +494,7 @@ export default function Header() {
                                                         />
                                                     ))
                                                 ) : (
-                                                    <div className="p-6 text-gray-500 text-center">
+                                                    <div className="p-4 text-gray-500 text-center text-sm">
                                                         No notifications
                                                     </div>
                                                 )}
@@ -513,12 +512,12 @@ export default function Header() {
                             whileTap={{ scale: 0.9 }}
                             className={`relative group transition-all duration-300 ${iconButtonClass}`}
                         >
-                            <FiShoppingCart size={20} className="transition-colors duration-300" />
+                            <FiShoppingCart size={18} className="transition-colors duration-300" />
                             {cartCount > 0 && (
                                 <motion.span
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    className="absolute -top-2 -right-2 bg-gradient-to-r from-gold to-yellow-600 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-semibold border-2 border-white"
+                                    className="absolute -top-1 -right-1 bg-gold text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold border border-white text-[10px]"
                                 >
                                     {cartCount}
                                 </motion.span>
@@ -532,9 +531,9 @@ export default function Header() {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setShowUserDropdown(!showUserDropdown)}
-                                    className={`flex items-center gap-3 transition-colors duration-300 ${iconButtonClass}`}
+                                    className={`flex items-center gap-2 transition-colors duration-300 ${iconButtonClass}`}
                                 >
-                                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-r from-gold to-yellow-600 flex items-center justify-center overflow-hidden border-2 border-gold/30">
+                                    <div className="w-8 h-8 rounded-xl bg-gold flex items-center justify-center overflow-hidden border border-gold">
                                         {currentUser.photoURL ? (
                                             <img
                                                 src={currentUser.photoURL}
@@ -542,10 +541,10 @@ export default function Header() {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <FiUser className="text-white text-lg" />
+                                            <FiUser className="text-white text-sm" />
                                         )}
                                     </div>
-                                    <FiChevronDown className={`transition-transform duration-300 text-gray-700 ${
+                                    <FiChevronDown className={`transition-transform duration-300 text-gray-700 text-sm ${
                                         showUserDropdown ? 'rotate-180' : ''
                                     }`} />
                                 </motion.button>
@@ -557,55 +556,55 @@ export default function Header() {
                                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                            className={`absolute right-0 mt-2 w-64 z-50 ${dropdownClass}`}
+                                            className={`absolute right-0 mt-2 w-56 z-50 ${dropdownClass}`}
                                         >
-                                            <div className="p-4 border-b border-gray-200">
-                                                <div className="font-semibold text-gray-800 text-lg">
+                                            <div className="p-3 border-b border-gray-200">
+                                                <div className="font-semibold text-gray-800 text-sm">
                                                     {currentUser.displayName || currentUser.email.split('@')[0]}
                                                 </div>
-                                                <div className="text-gray-500 text-sm mt-1">{currentUser.email}</div>
+                                                <div className="text-gray-500 text-xs mt-1">{currentUser.email}</div>
                                             </div>
                                             
-                                            <div className="p-2 space-y-1">
+                                            <div className="p-1 space-y-1">
                                                 {currentUser.isAdmin && (
                                                     <NavLink
                                                         to="/admin"
                                                         onClick={() => setShowUserDropdown(false)}
-                                                        className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-xl transition-all duration-300 text-sm font-medium"
+                                                        className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-lg transition-all duration-300 text-sm font-medium"
                                                     >
-                                                        <FiPackage className="text-lg" />
+                                                        <FiPackage className="text-base" />
                                                         Dashboard
                                                     </NavLink>
                                                 )}
                                                 <NavLink
                                                     to="/orders"
                                                     onClick={() => setShowUserDropdown(false)}
-                                                    className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-xl transition-all duration-300 text-sm font-medium"
-                                                >
-                                                    <FiShoppingBag className="text-lg" />
+                                                    className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-lg transition-all duration-300 text-sm font-medium"
+                                                    >
+                                                    <FiShoppingBag className="text-base" />
                                                     My Orders
                                                 </NavLink>
                                                 <NavLink
                                                     to="/products"
                                                     onClick={() => setShowUserDropdown(false)}
-                                                    className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-xl transition-all duration-300 text-sm font-medium"
+                                                    className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-lg transition-all duration-300 text-sm font-medium"
                                                 >
-                                                    <FiHeart className="text-lg" />
+                                                    <FiHeart className="text-base" />
                                                     Collections
                                                 </NavLink>
                                             </div>
                                             
-                                            <div className="p-2 border-t border-gray-200">
+                                            <div className="p-1 border-t border-gray-200">
                                                 <motion.button
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
                                                     onClick={handleLogout}
                                                     disabled={logoutLoading}
-                                                    className={`w-full flex items-center gap-3 px-3 py-3 text-red-600 hover:bg-red-500/10 rounded-xl transition-all duration-300 text-sm font-medium ${
+                                                    className={`w-full flex items-center gap-2 px-3 py-2 text-red-600 hover:bg-red-500/10 rounded-lg transition-all duration-300 text-sm font-medium ${
                                                         logoutLoading ? 'opacity-50 cursor-wait' : ''
                                                     }`}
                                                 >
-                                                    <FiLogOut className="text-lg" />
+                                                    <FiLogOut className="text-base" />
                                                     {logoutLoading ? 'Signing out...' : 'Sign out'}
                                                 </motion.button>
                                             </div>
@@ -614,11 +613,11 @@ export default function Header() {
                                 </AnimatePresence>
                             </div>
                         ) : (
-                            <div className="hidden lg:flex items-center gap-3">
+                            <div className="hidden lg:flex items-center gap-2">
                                 <MotionLink
                                     to="/login"
                                     whileHover={{ scale: 1.05 }}
-                                    className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                                    className="font-medium text-gray-800 hover:text-gold transition-colors duration-300 text-sm"
                                 >
                                     Login
                                 </MotionLink>
@@ -626,7 +625,7 @@ export default function Header() {
                                     to="/register"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white py-2 px-6 rounded-2xl font-semibold transition-all duration-300 shadow-lg"
+                                    className="bg-gold hover:bg-yellow-600 text-white py-2 px-4 rounded-xl font-semibold transition-all duration-300 text-sm"
                                 >
                                     Register
                                 </MotionLink>
@@ -642,13 +641,13 @@ export default function Header() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="mt-3 lg:hidden"
+                            className="mt-2 lg:hidden"
                         >
                             <div className="relative">
                                 <input
                                     type="text"
                                     placeholder="Search dresses, and more..."
-                                    className="mobile-search-input w-full pl-4 pr-12 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 border bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent"
+                                    className="mobile-search-input w-full pl-3 pr-10 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all duration-300 border bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gold focus:border-transparent"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onKeyDown={handleKeyDown}
@@ -658,9 +657,9 @@ export default function Header() {
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     onClick={handleSearch}
-                                    className="mobile-search-input absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gold transition-colors duration-300"
+                                    className="mobile-search-input absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gold transition-colors duration-300"
                                 >
-                                    <FiSearch size={20} />
+                                    <FiSearch size={18} />
                                 </motion.button>
                             </div>
                         </motion.div>
@@ -675,25 +674,25 @@ export default function Header() {
                         initial={{ opacity: 0, x: -300 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -300 }}
-                        className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white fixed inset-0 z-40 pt-20"
+                        className="mobile-menu-container lg:hidden border-t border-gray-200 bg-white fixed inset-0 z-40 pt-16"
                     >
                         {/* Close Button */}
-                        <div className="absolute top-4 right-4">
+                        <div className="absolute top-3 right-3">
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="p-3 rounded-2xl transition-all duration-300 border bg-white border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold"
+                                className="p-2 rounded-xl transition-all duration-300 border bg-white border-gold/30 text-gray-700 hover:bg-gold/10 hover:text-gold"
                             >
-                                <FiX size={24} />
+                                <FiX size={20} />
                             </motion.button>
                         </div>
 
                         {/* User Profile Section */}
                         {currentUser && (
-                            <div className="px-6 py-4 border-b border-gray-200 mb-4">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-gold to-yellow-600 flex items-center justify-center overflow-hidden border-2 border-gold/30">
+                            <div className="px-4 py-3 border-b border-gray-200 mb-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-12 h-12 rounded-xl bg-gold flex items-center justify-center overflow-hidden border border-gold">
                                         {currentUser.photoURL ? (
                                             <img
                                                 src={currentUser.photoURL}
@@ -701,11 +700,11 @@ export default function Header() {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <FiUser className="text-white text-2xl" />
+                                            <FiUser className="text-white text-xl" />
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="font-semibold text-gray-800 text-lg truncate">
+                                        <div className="font-semibold text-gray-800 text-base truncate">
                                             {currentUser.displayName || currentUser.email.split('@')[0]}
                                         </div>
                                         <div className="text-gray-500 text-sm truncate">
@@ -716,19 +715,19 @@ export default function Header() {
                             </div>
                         )}
 
-                        <nav className="container mx-auto px-6 py-4 flex flex-col space-y-2">
+                        <nav className="container mx-auto px-4 py-3 flex flex-col space-y-1">
                             <NavLink
                                 to="/"
                                 onClick={() => setMobileMenuOpen(false)}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                    `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
                                         isActive 
                                             ? 'bg-gold/20 text-gold' 
                                             : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
-                                <FiHome className="text-xl" />
+                                <FiHome className="text-lg" />
                                 Home
                             </NavLink>
                             
@@ -736,14 +735,14 @@ export default function Header() {
                                 to="/products"
                                 onClick={() => setMobileMenuOpen(false)}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                    `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
                                         isActive 
                                             ? 'bg-gold/20 text-gold' 
                                             : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
-                                <FiShoppingBag className="text-xl" />
+                                <FiShoppingBag className="text-lg" />
                                 Collections
                             </NavLink>
 
@@ -752,31 +751,29 @@ export default function Header() {
                                 to="/about"
                                 onClick={() => setMobileMenuOpen(false)}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                    `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
                                         isActive 
                                             ? 'bg-gold/20 text-gold' 
                                             : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
-                                <FiInfo className="text-xl" />
+                                <FiInfo className="text-lg" />
                                 About
                             </NavLink>
-
-                        
 
                             <NavLink
                                 to="/size-guide"
                                 onClick={() => setMobileMenuOpen(false)}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                    `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
                                         isActive 
                                             ? 'bg-gold/20 text-gold' 
                                             : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
-                                <FiHeart className="text-xl" />
+                                <FiHeart className="text-lg" />
                                 Size Guide
                             </NavLink>
 
@@ -784,14 +781,14 @@ export default function Header() {
                                 to="/faq"
                                 onClick={() => setMobileMenuOpen(false)}
                                 className={({ isActive }) =>
-                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                    `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
                                         isActive 
                                             ? 'bg-gold/20 text-gold' 
                                             : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                     }`
                                 }
                             >
-                                <FiHelpCircle className="text-xl" />
+                                <FiHelpCircle className="text-lg" />
                                 FAQ
                             </NavLink>
 
@@ -801,14 +798,14 @@ export default function Header() {
                                         to="/orders"
                                         onClick={() => setMobileMenuOpen(false)}
                                         className={({ isActive }) =>
-                                            `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                            `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
                                                 isActive 
                                                     ? 'bg-gold/20 text-gold' 
                                                     : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                             }`
                                         }
                                     >
-                                        <FiPackage className="text-xl" />
+                                        <FiPackage className="text-lg" />
                                         Orders
                                     </NavLink>
                                     
@@ -817,14 +814,14 @@ export default function Header() {
                                             to="/admin"
                                             onClick={() => setMobileMenuOpen(false)}
                                             className={({ isActive }) =>
-                                                `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                                `flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
                                                     isActive 
                                                         ? 'bg-gold/20 text-gold' 
                                                         : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
                                                 }`
                                             }
                                         >
-                                            <FiUser className="text-xl" />
+                                            <FiUser className="text-lg" />
                                             Dashboard
                                         </NavLink>
                                     )}
@@ -832,38 +829,38 @@ export default function Header() {
                             )}
 
                             {currentUser ? (
-                                <div className="pt-6 border-t border-gray-200 mt-4">
+                                <div className="pt-4 border-t border-gray-200 mt-3">
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                         onClick={handleLogout}
                                         disabled={logoutLoading}
-                                        className={`w-full flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                        className={`w-full flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium transition-all duration-300 ${
                                             logoutLoading 
                                                 ? 'opacity-50 cursor-wait bg-gray-100 text-gray-500' 
                                                 : 'bg-red-500/10 text-red-600 hover:bg-red-500/20'
                                         }`}
                                     >
-                                        <FiLogOut className="text-xl" />
+                                        <FiLogOut className="text-lg" />
                                         {logoutLoading ? 'Signing out...' : 'Sign out'}
                                     </motion.button>
                                 </div>
                             ) : (
-                                <div className="pt-6 border-t border-gray-200 mt-4 space-y-2">
+                                <div className="pt-4 border-t border-gray-200 mt-3 space-y-1">
                                     <MotionLink
                                         to="/login"
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium text-gray-700 hover:bg-gold/10 hover:text-gold transition-all duration-300"
+                                        className="flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium text-gray-700 hover:bg-gold/10 hover:text-gold transition-all duration-300"
                                     >
-                                        <FiUser className="text-xl" />
+                                        <FiUser className="text-lg" />
                                         Login
                                     </MotionLink>
                                     <MotionLink
                                         to="/register"
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className="flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium bg-gradient-to-r from-gold to-yellow-600 text-white hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300"
+                                        className="flex items-center gap-3 py-3 px-3 rounded-xl text-base font-medium bg-gold text-white hover:bg-yellow-600 transition-all duration-300"
                                     >
-                                        <FiUser className="text-xl" />
+                                        <FiUser className="text-lg" />
                                         Register
                                     </MotionLink>
                                 </div>
