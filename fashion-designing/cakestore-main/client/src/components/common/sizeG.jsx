@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { FiUser, FiInfo, FiCheck, FiArrowRight, FiDownload } from 'react-icons/fi';
+import {FiHeart, FiUser, FiInfo, FiCheck, FiArrowRight, FiDownload } from 'react-icons/fi';
 
 const SizeGuidePage = () => {
     const [activeCategory, setActiveCategory] = useState('dresses');
