@@ -24,6 +24,7 @@ const CustomOrderDetails = lazy(() => import('./pages/orders/CustormOrderDetails
 
 const NotFound = lazy(() => import('./pages/404'));
 const Privacy = lazy(() => import('./components/common/privacy'));
+const SizeG = lazy(() => import('./components/common/sizeG'));
 const Returns = lazy(() => import('./components/common/returns'));
 const FAq = lazy(() => import('./components/common/faq'));
 const Shipping = lazy(() => import('./components/common/shipping'));
@@ -52,6 +53,7 @@ const AppRoutes = () => {
               
                 <Route path="/returns" element={<Returns />} />
                 <Route path="/shipping" element={<Shipping />} />
+               <Route path="/size-guide" element={<SizeG />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
               <Route path="/faq" element={<FAq />} />
