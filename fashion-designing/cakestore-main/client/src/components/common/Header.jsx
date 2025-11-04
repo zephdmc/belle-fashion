@@ -20,7 +20,11 @@ import {
     FiHeart,
     FiPackage,
     FiHome,
-    FiShoppingBag
+    FiShoppingBag,
+    FiInfo,
+    FiGrid,
+    FiRuler,
+    FiHelpCircle
 } from 'react-icons/fi';
 import debounce from 'lodash.debounce';
 import {
@@ -359,6 +363,38 @@ export default function Header() {
                         </MotionLink>
                     </div>
 
+                    {/* Desktop Navigation Links */}
+                    <div className="hidden lg:flex items-center gap-6 mx-8">
+                        <MotionLink
+                            to="/about"
+                            whileHover={{ scale: 1.05 }}
+                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                        >
+                            About
+                        </MotionLink>
+                        <MotionLink
+                            to="/collections"
+                            whileHover={{ scale: 1.05 }}
+                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                        >
+                            Collections
+                        </MotionLink>
+                        <MotionLink
+                            to="/size-guide"
+                            whileHover={{ scale: 1.05 }}
+                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                        >
+                            Size Guide
+                        </MotionLink>
+                        <MotionLink
+                            to="/faq"
+                            whileHover={{ scale: 1.05 }}
+                            className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
+                        >
+                            FAQ
+                        </MotionLink>
+                    </div>
+
                     {/* Desktop Search Bar */}
                     <div className="hidden lg:flex flex-1 max-w-xl mx-8 relative">
                         <div className="relative w-full" ref={searchRef}>
@@ -581,13 +617,6 @@ export default function Header() {
                         ) : (
                             <div className="hidden lg:flex items-center gap-3">
                                 <MotionLink
-                                    to="/about"
-                                    whileHover={{ scale: 1.05 }}
-                                    className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
-                                >
-                                    About
-                                </MotionLink>
-                                <MotionLink
                                     to="/login"
                                     whileHover={{ scale: 1.05 }}
                                     className="font-medium text-gray-800 hover:text-gold transition-colors duration-300"
@@ -717,6 +746,67 @@ export default function Header() {
                             >
                                 <FiShoppingBag className="text-xl" />
                                 Products
+                            </NavLink>
+
+                            {/* Additional Links for Mobile */}
+                            <NavLink
+                                to="/about"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                        isActive 
+                                            ? 'bg-gold/20 text-gold' 
+                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                    }`
+                                }
+                            >
+                                <FiInfo className="text-xl" />
+                                About
+                            </NavLink>
+
+                            <NavLink
+                                to="/collections"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                        isActive 
+                                            ? 'bg-gold/20 text-gold' 
+                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                    }`
+                                }
+                            >
+                                <FiGrid className="text-xl" />
+                                Collections
+                            </NavLink>
+
+                            <NavLink
+                                to="/size-guide"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                        isActive 
+                                            ? 'bg-gold/20 text-gold' 
+                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                    }`
+                                }
+                            >
+                                <FiRuler className="text-xl" />
+                                Size Guide
+                            </NavLink>
+
+                            <NavLink
+                                to="/faq"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={({ isActive }) =>
+                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
+                                        isActive 
+                                            ? 'bg-gold/20 text-gold' 
+                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
+                                    }`
+                                }
+                            >
+                                <FiHelpCircle className="text-xl" />
+                                FAQ
                             </NavLink>
 
                             {currentUser && (
