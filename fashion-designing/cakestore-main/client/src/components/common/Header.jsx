@@ -679,7 +679,7 @@ export default function Header() {
                         initial={{ opacity: 0, x: -300 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -300 }}
-                        className="mobile-menu-container lg:hidden fixed inset-0 z-40 bg-white"
+                        className="mobile-menu-container lg:hidden fixed inset-0 z-40  bg-white"
                     >
                         {/* Close Button */}
                         <div className="absolute top-4 right-4 z-50">
@@ -697,7 +697,7 @@ export default function Header() {
                         <div className="h-full overflow-y-auto pt-20 pb-8">
                             {/* User Profile Section */}
                             {currentUser && (
-                                <div className="px-6 py-4 border-b border-gray-200 mb-4 bg-white">
+                                <div className="px-6 py-4 border-b border-gray-200 mb-4 pt-12 bg-white">
                                     <div className="flex items-center gap-3">
                                         <div className="w-14 h-14 rounded-xl bg-gold flex items-center justify-center overflow-hidden border border-gold">
                                             {currentUser.photoURL ? (
@@ -742,7 +742,7 @@ export default function Header() {
                                     to="/products"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium transition-all duration-300 ${
                                             isActive 
                                                 ? 'bg-gold/20 text-gold border border-gold/30' 
                                                 : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
@@ -758,7 +758,7 @@ export default function Header() {
                                     to="/about"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium transition-all duration-300 ${
                                             isActive 
                                                 ? 'bg-gold/20 text-gold border border-gold/30' 
                                                 : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
@@ -773,7 +773,7 @@ export default function Header() {
                                     to="/size-guide"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium transition-all duration-300 ${
                                             isActive 
                                                 ? 'bg-gold/20 text-gold border border-gold/30' 
                                                 : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
@@ -788,7 +788,7 @@ export default function Header() {
                                     to="/faq"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={({ isActive }) =>
-                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                                        `flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium transition-all duration-300 ${
                                             isActive 
                                                 ? 'bg-gold/20 text-gold border border-gold/30' 
                                                 : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
@@ -805,7 +805,7 @@ export default function Header() {
                                             to="/orders"
                                             onClick={() => setMobileMenuOpen(false)}
                                             className={({ isActive }) =>
-                                                `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                                                `flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium transition-all duration-300 ${
                                                     isActive 
                                                         ? 'bg-gold/20 text-gold border border-gold/30' 
                                                         : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
@@ -821,7 +821,7 @@ export default function Header() {
                                                 to="/admin"
                                                 onClick={() => setMobileMenuOpen(false)}
                                                 className={({ isActive }) =>
-                                                    `flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                                                    `flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium transition-all duration-300 ${
                                                         isActive 
                                                             ? 'bg-gold/20 text-gold border border-gold/30' 
                                                             : 'text-gray-700 hover:bg-gold/10 hover:text-gold border border-transparent'
@@ -842,7 +842,7 @@ export default function Header() {
                                             whileTap={{ scale: 0.98 }}
                                             onClick={handleLogout}
                                             disabled={logoutLoading}
-                                            className={`w-full flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium transition-all duration-300 ${
+                                            className={`w-full flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium transition-all duration-300 ${
                                                 logoutLoading 
                                                     ? 'opacity-50 cursor-wait bg-gray-100 text-gray-500 border border-gray-300' 
                                                     : 'bg-red-500/10 text-red-600 hover:bg-red-500/20 border border-red-300/50'
@@ -857,7 +857,7 @@ export default function Header() {
                                         <MotionLink
                                             to="/login"
                                             onClick={() => setMobileMenuOpen(false)}
-                                            className="flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium text-gray-700 hover:bg-gold/10 hover:text-gold transition-all duration-300 border border-gray-200 hover:border-gold/30"
+                                            className="flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium text-gray-700 hover:bg-gold/10 hover:text-gold transition-all duration-300 border border-gray-200 hover:border-gold/30"
                                         >
                                             <FiUser className="text-xl" />
                                             Login
@@ -865,7 +865,7 @@ export default function Header() {
                                         <MotionLink
                                             to="/register"
                                             onClick={() => setMobileMenuOpen(false)}
-                                            className="flex items-center gap-4 py-4 px-4 rounded-xl text-lg font-medium bg-gold text-white hover:bg-yellow-600 transition-all duration-300 border border-gold shadow-lg"
+                                            className="flex items-center gap-4 py-4 px-4 rounded-xl text-md font-medium bg-gold text-white hover:bg-yellow-600 transition-all duration-300 border border-gold shadow-lg"
                                         >
                                             <FiUser className="text-xl" />
                                             Register
