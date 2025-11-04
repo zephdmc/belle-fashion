@@ -26,6 +26,111 @@ import {
 import { FaWhatsapp } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 
+// Fashion Loading Animation Component
+const FashionLoadingAnimation = () => {
+    return (
+        <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+            <motion.div
+                className="relative w-64 h-64 flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+            >
+                {/* Needle */}
+                <motion.div
+                    className="absolute w-2 h-32 bg-gray-800 rounded-full z-20"
+                    initial={{ rotate: 0 }}
+                    animate={{ 
+                        rotate: [0, 15, 0, -15, 0],
+                    }}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                >
+                    {/* Needle Eye */}
+                    <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gold rounded-full border-2 border-gray-800" />
+                </motion.div>
+
+                {/* Thread */}
+                <motion.div
+                    className="absolute w-1 h-24 bg-gradient-to-b from-gold to-yellow-300 rounded-full z-10"
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ 
+                        y: [ -100, 120, -100 ],
+                        opacity: [0, 1, 0]
+                    }}
+                    transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        times: [0, 0.5, 1]
+                    }}
+                />
+
+                {/* Fabric */}
+                <motion.div
+                    className="absolute bottom-0 w-48 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-80"
+                    initial={{ scaleY: 0.5 }}
+                    animate={{ 
+                        scaleY: [0.5, 1, 0.5],
+                    }}
+                    transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+
+                {/* Stitching Lines */}
+                <motion.div
+                    className="absolute bottom-12 w-48 h-1 bg-white opacity-70"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+            </motion.div>
+
+            {/* Loading Text */}
+            <motion.div
+                className="mt-8 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+            >
+                <motion.h3
+                    className="text-2xl font-serif text-gray-800 mb-2"
+                    animate={{ opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                >
+                    Crafting Your Style
+                </motion.h3>
+                <p className="text-gray-600 font-serif">Preparing the latest fashion collections...</p>
+            </motion.div>
+
+            {/* Progress Bar */}
+            <motion.div
+                className="mt-6 w-64 h-2 bg-gray-200 rounded-full overflow-hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+            >
+                <motion.div
+                    className="h-full bg-gradient-to-r from-gold to-yellow-600"
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 4, ease: "easeInOut" }}
+                />
+            </motion.div>
+        </div>
+    );
+};
+
 // Animated Contact Banner for Mobile
 const AnimatedContactBanner = () => {
     return (
@@ -153,7 +258,7 @@ const LoadingSlideshow = () => {
     );
 };
 
-// Product Grid Card Component
+// Product Grid Card Component - UPDATED FOR MOBILE TEXT
 const ProductGridCard = ({ product, index }) => {
     const discountedPrice = product.discountPercentage > 0 
         ? product.price - (product.price * (product.discountPercentage / 100))
@@ -208,27 +313,27 @@ const ProductGridCard = ({ product, index }) => {
                     />
                 </div>
 
-                {/* Product Info */}
-                <div className="p-3">
-                    {/* Product Name */}
-                    <h3 className="text-gray-800 text-sm font-medium mb-2 line-clamp-2 group-hover:text-gold transition-colors font-serif">
+                {/* Product Info - UPDATED FOR MOBILE */}
+                <div className="p-2 sm:p-3">
+                    {/* Product Name - Smaller text on mobile */}
+                    <h3 className="text-gray-800 text-xs sm:text-sm font-medium mb-1 sm:mb-2 line-clamp-2 group-hover:text-gold transition-colors font-serif leading-tight">
                         {product.name}
                     </h3>
 
-                    {/* Price Section */}
+                    {/* Price Section - Smaller text on mobile */}
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 sm:gap-2">
                             {discountedPrice ? (
                                 <>
-                                    <span className="text-gold font-bold text-sm">
+                                    <span className="text-gold font-bold text-xs sm:text-sm">
                                         ₦{discountedPrice.toLocaleString()}
                                     </span>
-                                    <span className="text-gray-500 text-xs line-through">
+                                    <span className="text-gray-500 text-xs line-through hidden sm:inline">
                                         ₦{product.price.toLocaleString()}
                                     </span>
                                 </>
                             ) : (
-                                <span className="text-gold font-bold text-sm">
+                                <span className="text-gold font-bold text-xs sm:text-sm">
                                     ₦{product.price.toLocaleString()}
                                 </span>
                             )}
@@ -239,7 +344,7 @@ const ProductGridCard = ({ product, index }) => {
                             className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                             whileHover={{ scale: 1.2 }}
                         >
-                            <FiEye className="text-gold w-4 h-4" />
+                            <FiEye className="text-gold w-3 h-3 sm:w-4 sm:h-4" />
                         </motion.div>
                     </div>
                 </div>
@@ -476,6 +581,7 @@ const mockProducts = [
 export default function HomePage() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [pageLoaded, setPageLoaded] = useState(false);
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const { currentUser } = useAuth();
@@ -497,11 +603,20 @@ export default function HomePage() {
                 setError('Using demo data - API connection issue');
             } finally {
                 setLoading(false);
+                // Set a minimum display time for the loading animation
+                setTimeout(() => {
+                    setPageLoaded(true);
+                }, 3000);
             }
         };
 
         fetchProducts();
     }, []);
+
+    // Show loading animation until page is fully loaded
+    if (!pageLoaded) {
+        return <FashionLoadingAnimation />;
+    }
 
     return (
         <div className="min-h-screen bg-white">
