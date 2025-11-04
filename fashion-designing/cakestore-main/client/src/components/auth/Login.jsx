@@ -65,8 +65,7 @@ export default function Login() {
     return (
         <div className="max-w-md mx-4 sm:mx-auto my-2 md:my-8 sm:my-2 p-2 sm:p-8 bg-white rounded-2xl shadow-lg border border-gold/20">
             <div className="text-center mb-6 sm:mb-8">
-                <h2 className="text-2xl sm:text-3xl font-bold text-black mb-2 font-serif">Welcome Back</h2>
-                <p className="text-sm sm:text-base text-gray-600 font-serif">Sign in to access your account</p>
+             
             </div>
 
             {error && (
