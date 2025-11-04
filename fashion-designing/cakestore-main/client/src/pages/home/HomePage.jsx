@@ -71,7 +71,7 @@ const FashionLoadingAnimation = () => {
 
                 {/* Fabric */}
                 <motion.div
-                    className="absolute bottom-0 w-48 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-80"
+                    className="absolute bottom-0 w-48 h-24 bg-gradient-to-r from-gold to-black-500 rounded-lg opacity-80"
                     initial={{ scaleY: 0.5 }}
                     animate={{ 
                         scaleY: [0.5, 1, 0.5],
