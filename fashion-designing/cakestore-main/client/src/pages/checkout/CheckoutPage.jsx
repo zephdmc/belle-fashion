@@ -144,7 +144,7 @@ export default function CheckoutPage() {
         <div className="flex-1 flex flex-col items-center">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300 ${
                 step >= stepNumber 
-                    ? 'bg-gold text-black shadow-lg' 
+                    ? 'bg-gold text-white shadow-sm' 
                     : 'bg-gray-200 text-gray-500'
             }`}>
                 {step > stepNumber ? <FiCheck className="text-xs" /> : <Icon className="text-xs" />}
@@ -158,20 +158,20 @@ export default function CheckoutPage() {
     );
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-yellow-900 py-2 px-2">
+        <div className="min-h-screen bg-white py-2 px-2">
             <div className="max-w-md mx-auto">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                         <button
                             onClick={goBack}
-                            className="bg-gold/10 hover:bg-gold/20 text-white p-1.5 rounded-lg transition-all duration-300 backdrop-blur-sm border border-gold/20"
+                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 p-1.5 rounded-lg transition-all duration-300 border border-gray-200"
                         >
                             <FiArrowLeft className="text-xs" />
                         </button>
                         <div>
-                            <h1 className="text-lg font-bold text-white">Checkout</h1>
-                            <p className="text-gold/70 text-[10px]">
+                            <h1 className="text-lg font-bold text-gray-900">Checkout</h1>
+                            <p className="text-gray-600 text-[10px]">
                                 {isCustomOrder ? 'Custom cake order' : 'Complete purchase'}
                             </p>
                         </div>
@@ -180,7 +180,7 @@ export default function CheckoutPage() {
 
                 {/* Progress Steps */}
                 <div className="flex justify-between mb-6 relative px-2">
-                    <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-white/20 -translate-y-1/2 -z-10"></div>
+                    <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 -translate-y-1/2 -z-10"></div>
                     <div 
                         className="absolute top-1/2 left-0 h-0.5 bg-gold -translate-y-1/2 transition-all duration-500 -z-10"
                         style={{ width: `${((step - 1) / 2) * 100}%` }}
@@ -191,7 +191,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Content Area */}
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl border border-gold/20 overflow-hidden">
+                <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
                     {step === 1 && (
                         <ShippingForm 
                             onSubmit={handleShippingSubmit} 
@@ -219,8 +219,8 @@ export default function CheckoutPage() {
                                         <FiLoader className="absolute inset-0 m-auto text-gold text-xs" />
                                     </div>
                                     <div>
-                                        <p className="text-white font-semibold text-sm mb-1">Processing transaction</p>
-                                        <p className="text-white/70 text-xs">Please wait...</p>
+                                        <p className="text-gray-900 font-semibold text-sm mb-1">Processing transaction</p>
+                                        <p className="text-gray-600 text-xs">Please wait...</p>
                                     </div>
                                 </div>
                             </div>
@@ -232,37 +232,37 @@ export default function CheckoutPage() {
 
                 {/* Order Summary - Mobile Bottom Sheet */}
                 {(step === 1 || step === 2) && (
-                    <div className="mt-3 bg-white/10 backdrop-blur-sm rounded-xl border border-gold/20 p-3">
-                        <h3 className="text-white font-semibold text-sm mb-2">Order Summary</h3>
+                    <div className="mt-3 bg-gray-50 rounded-lg border border-gray-200 p-3 shadow-sm">
+                        <h3 className="text-gray-900 font-semibold text-sm mb-2">Order Summary</h3>
                         
                         {isCustomOrder ? (
                             <div className="space-y-2">
-                                <div className="flex justify-between items-center text-white/80 text-xs">
+                                <div className="flex justify-between items-center text-gray-700 text-xs">
                                     <span>Custom Cake</span>
                                     <span>₦{Number(customOrderData?.price || 0).toLocaleString()}</span>
                                 </div>
-                                <div className="text-gold/60 text-[10px]">
+                                <div className="text-gray-500 text-[10px]">
                                     {customOrderData?.occasion} • {customOrderData?.size}
                                 </div>
                             </div>
                         ) : (
                             <div className="space-y-1">
                                 {cartItems.slice(0, 2).map((item) => (
-                                    <div key={item.id} className="flex justify-between items-center text-white/80 text-xs">
+                                    <div key={item.id} className="flex justify-between items-center text-gray-700 text-xs">
                                         <span className="truncate flex-1 mr-2">{item.name}</span>
                                         <span>₦{(item.price * item.quantity).toLocaleString()}</span>
                                     </div>
                                 ))}
                                 {cartItems.length > 2 && (
-                                    <div className="text-gold/60 text-[10px]">
+                                    <div className="text-gray-500 text-[10px]">
                                         +{cartItems.length - 2} more items
                                     </div>
                                 )}
                             </div>
                         )}
 
-                        <div className="border-t border-gold/20 mt-2 pt-2">
-                            <div className="flex justify-between text-white text-xs">
+                        <div className="border-t border-gray-200 mt-2 pt-2">
+                            <div className="flex justify-between text-gray-900 text-xs">
                                 <span>Total</span>
                                 <span className="font-semibold text-gold">
                                     ₦{(
@@ -279,12 +279,12 @@ export default function CheckoutPage() {
             {/* Processing Overlay */}
             {isProcessingOrder && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-3">
-                    <div className="bg-white/10 backdrop-blur-sm border border-gold/20 rounded-xl p-4 max-w-xs w-full text-center">
-                        <div className="w-12 h-12 bg-gold rounded-xl flex items-center justify-center mx-auto mb-3">
-                            <FiLoader className="text-black text-lg animate-spin" />
+                    <div className="bg-white border border-gray-200 rounded-lg p-4 max-w-xs w-full text-center shadow-lg">
+                        <div className="w-12 h-12 bg-gold rounded-lg flex items-center justify-center mx-auto mb-3">
+                            <FiLoader className="text-white text-lg animate-spin" />
                         </div>
-                        <h3 className="text-white font-bold text-sm mb-1">Processing Order</h3>
-                        <p className="text-gold/70 text-xs">
+                        <h3 className="text-gray-900 font-bold text-sm mb-1">Processing Order</h3>
+                        <p className="text-gray-600 text-xs">
                             Securing your {isCustomOrder ? 'custom cake' : 'items'}...
                         </p>
                     </div>
