@@ -69,7 +69,6 @@ export default function Register() {
 
     return (
         <div className="max-w-md mx-auto mt-2 md:mt-4 p-6 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gold/20">
-            <h2 className="text-2xl font-bold mb-6 text-center text-black font-serif">Create Account</h2>
             {error && (
                 <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-xl flex items-center border border-red-200">
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
