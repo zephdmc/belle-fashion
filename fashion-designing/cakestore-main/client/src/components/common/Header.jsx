@@ -375,7 +375,7 @@ export default function Header() {
                                 About
                             </MotionLink>
                             <MotionLink
-                                to="/collections"
+                                to="/products"
                                 whileHover={{ scale: 1.05 }}
                                 className="font-medium text-gray-800 hover:text-gold transition-colors duration-300 text-sm"
                             >
