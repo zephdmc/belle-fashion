@@ -581,6 +581,7 @@ const mockProducts = [
 export default function HomePage() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showLoadingAnimation, setShowLoadingAnimation] = useState(false);
     const [pageLoaded, setPageLoaded] = useState(false);
     const navigate = useNavigate();
     const [error, setError] = useState('');
@@ -588,6 +589,17 @@ export default function HomePage() {
     const isAdmin = currentUser?.isAdmin;
 
     useEffect(() => {
+        // Check if this is the first load using localStorage
+        const hasSeenLoading = localStorage.getItem('hasSeenLoadingAnimation');
+        
+        if (!hasSeenLoading) {
+            setShowLoadingAnimation(true);
+            // Mark that user has seen the loading animation
+            localStorage.setItem('hasSeenLoadingAnimation', 'true');
+        } else {
+            setPageLoaded(true);
+        }
+
         const fetchProducts = async () => {
             try {
                 setLoading(true);
@@ -603,18 +615,21 @@ export default function HomePage() {
                 setError('Using demo data - API connection issue');
             } finally {
                 setLoading(false);
-                // Set a minimum display time for the loading animation
-                setTimeout(() => {
-                    setPageLoaded(true);
-                }, 3000);
+                
+                // Only set minimum display time if showing loading animation
+                if (showLoadingAnimation) {
+                    setTimeout(() => {
+                        setPageLoaded(true);
+                    }, 3000);
+                }
             }
         };
 
         fetchProducts();
-    }, []);
+    }, [showLoadingAnimation]);
 
-    // Show loading animation until page is fully loaded
-    if (!pageLoaded) {
+    // Show loading animation only on first load
+    if (showLoadingAnimation && !pageLoaded) {
         return <FashionLoadingAnimation />;
     }
 
