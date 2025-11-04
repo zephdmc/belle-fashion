@@ -25,6 +25,7 @@ const CustomOrderDetails = lazy(() => import('./pages/orders/CustormOrderDetails
 const NotFound = lazy(() => import('./pages/404'));
 const Privacy = lazy(() => import('./components/common/privacy'));
 const Returns = lazy(() => import('./components/common/returns'));
+const FAq = lazy(() => import('./components/common/faq'));
 const Shipping = lazy(() => import('./components/common/shipping'));
 const Terms = lazy(() => import('./components/common/terms'));
 const UserManagement = lazy(() => import('./pages/admin/UserManagement'));
@@ -53,6 +54,7 @@ const AppRoutes = () => {
                 <Route path="/shipping" element={<Shipping />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
+              <Route path="/faq" element={<FAq />} />
                 <Route path="/custom-orders/:id" element={<CustomOrderDetails />} />
                 {/* ... other public routes */}
 
