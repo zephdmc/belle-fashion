@@ -591,7 +591,7 @@ export default function Header() {
                                                     className="flex items-center gap-3 px-3 py-3 text-gray-700 hover:bg-gold/10 hover:text-gold rounded-xl transition-all duration-300 text-sm font-medium"
                                                 >
                                                     <FiHeart className="text-lg" />
-                                                    Products
+                                                    Collections
                                                 </NavLink>
                                             </div>
                                             
@@ -744,7 +744,7 @@ export default function Header() {
                                 }
                             >
                                 <FiShoppingBag className="text-xl" />
-                                Products
+                                Collections
                             </NavLink>
 
                             {/* Additional Links for Mobile */}
@@ -763,20 +763,7 @@ export default function Header() {
                                 About
                             </NavLink>
 
-                            <NavLink
-                                to="/collections"
-                                onClick={() => setMobileMenuOpen(false)}
-                                className={({ isActive }) =>
-                                    `flex items-center gap-4 py-4 px-4 rounded-2xl text-lg font-medium transition-all duration-300 ${
-                                        isActive 
-                                            ? 'bg-gold/20 text-gold' 
-                                            : 'text-gray-700 hover:bg-gold/10 hover:text-gold'
-                                    }`
-                                }
-                            >
-                                <FiGrid className="text-xl" />
-                                Collections
-                            </NavLink>
+                        
 
                             <NavLink
                                 to="/size-guide"
