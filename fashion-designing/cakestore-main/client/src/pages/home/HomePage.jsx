@@ -378,7 +378,7 @@ const SimpleImageSlideShow = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 5000);
+        }, 200000);
 
         return () => clearInterval(timer);
     }, [slides.length]);
@@ -693,12 +693,12 @@ export default function HomePage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
-                            className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gold/20 mb-6"
+                            className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gold/20 mb-2"
                         >
                             <SimpleImageSlideShow />
                         </motion.div>
 
-                        <div className="mt-4 mb-6 overflow-hidden">
+                        <div className="mt-4 mb-2 overflow-hidden">
                             <MovingImagesGrid />
                         </div>
 
