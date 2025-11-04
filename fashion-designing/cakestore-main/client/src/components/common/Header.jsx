@@ -23,7 +23,6 @@ import {
     FiShoppingBag,
     FiInfo,
     FiGrid,
-    FiRuler,
     FiHelpCircle
 } from 'react-icons/fi';
 import debounce from 'lodash.debounce';
@@ -790,7 +789,7 @@ export default function Header() {
                                     }`
                                 }
                             >
-                                <FiRuler className="text-xl" />
+                                <FiHeart className="text-xl" />
                                 Size Guide
                             </NavLink>
 
