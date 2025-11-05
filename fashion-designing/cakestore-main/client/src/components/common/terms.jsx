@@ -45,20 +45,20 @@ const PolicySection = ({ icon: Icon, title, children, delay = 0 }) => (
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, margin: "-50px" }}
-    className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+    className="bg-white rounded-2xl p-6 md:p-8 border border-yellow-500 transition-all duration-300 group"
   >
     <div className="flex items-start gap-4 mb-4">
       <motion.div
         variants={iconVariants}
-        className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-gold to-yellow-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+        className="flex-shrink-0 w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
       >
-        <Icon className="text-white text-lg" />
+        <Icon className="text-black text-lg" />
       </motion.div>
-      <h2 className="text-xl md:text-2xl font-bold text-gray-800 group-hover:text-gold transition-colors duration-300 font-serif">
+      <h2 className="text-xl md:text-2xl font-bold text-black font-serif">
         {title}
       </h2>
     </div>
-    <div className="text-gray-600 leading-relaxed space-y-3">
+    <div className="text-black leading-relaxed space-y-3">
       {children}
     </div>
   </motion.section>
@@ -66,7 +66,7 @@ const PolicySection = ({ icon: Icon, title, children, delay = 0 }) => (
 
 export default function TermsOfService() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gold/10">
+    <div className="min-h-screen bg-white">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
@@ -74,8 +74,7 @@ export default function TermsOfService() {
         transition={{ duration: 0.8 }}
         className="relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-black to-gray-800"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1)_0%,transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-white"></div>
         
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
           <motion.div
@@ -84,16 +83,16 @@ export default function TermsOfService() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-center"
           >
-            <div className="w-20 h-20 bg-gold/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-gold/30">
-              <FiGlobe className="text-gold text-2xl" />
+            <div className="w-20 h-20 bg-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-yellow-500">
+              <FiGlobe className="text-black text-2xl" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-serif">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 font-serif">
               Terms of Service
             </h1>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
-              <p className="text-gold text-lg">Bellebyokien Ready-to-Wear</p>
-              <div className="bg-gold/10 border border-gold/20 rounded-lg px-4 py-2">
-                <p className="text-gold text-sm font-medium">
+              <p className="text-black text-lg">Bellebyokien Ready-to-Wear</p>
+              <div className="bg-yellow-500 border border-yellow-500 rounded-lg px-4 py-2">
+                <p className="text-black text-sm font-medium">
                   Effective: January 22, 2025
                 </p>
               </div>
@@ -124,8 +123,8 @@ export default function TermsOfService() {
           variants={itemVariants}
           className="text-center mb-12"
         >
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Welcome to <span className="font-semibold text-gold font-serif">Bellebyokien Ready-to-Wear</span>! 
+          <p className="text-lg md:text-xl text-black max-w-3xl mx-auto leading-relaxed">
+            Welcome to <span className="font-semibold text-black font-serif">Bellebyokien Ready-to-Wear</span>! 
             These Terms of Service govern your experience with our contemporary fashion collections, 
             website, and services. By engaging with our brand, you agree to these terms.
           </p>
@@ -147,8 +146,8 @@ export default function TermsOfService() {
               All pieces are subject to availability, and we reserve the right to limit quantities or 
               discontinue styles to maintain exclusivity.
             </p>
-            <div className="mt-4 p-4 bg-gold/5 rounded-lg border border-gold/20">
-              <p className="text-gray-700 text-sm">
+            <div className="mt-4 p-4 bg-yellow-500/10 rounded-lg border border-yellow-500">
+              <p className="text-black text-sm">
                 🎀 <strong>Style Note:</strong> Our collections are released seasonally. Follow us for launch announcements!
               </p>
             </div>
@@ -170,7 +169,7 @@ export default function TermsOfService() {
           <PolicySection icon={FiTruck} title="4. Delivery & Fashion Shipping">
             <p>
               Your style deserves careful handling. Please review our comprehensive 
-              <a href="/shipping" className="text-gold hover:underline font-medium mx-1">Shipping Policy</a> 
+              <a href="/shipping" className="text-black hover:underline font-medium mx-1">Shipping Policy</a> 
               for detailed information on delivery timelines, fees, and package tracking for your fashion items.
             </p>
           </PolicySection>
@@ -180,15 +179,15 @@ export default function TermsOfService() {
             <p>
               Due to the intimate nature of clothing and to maintain hygiene standards, we only accept returns 
               for defective, damaged, or incorrect items. For complete details, please see our 
-              <a href="/returns" className="text-gold hover:underline font-medium mx-1">Return Policy</a>.
+              <a href="/returns" className="text-black hover:underline font-medium mx-1">Return Policy</a>.
             </p>
             <ul className="space-y-2 mt-3">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 All items are quality-checked before shipping
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Size exchanges subject to availability
               </li>
             </ul>
@@ -208,7 +207,7 @@ export default function TermsOfService() {
             <p>
               We respect your privacy and style choices. Your personal information and preferences are 
               handled with care as outlined in our 
-              <a href="/privacy" className="text-gold hover:underline font-medium mx-1">Privacy Policy</a>.
+              <a href="/privacy" className="text-black hover:underline font-medium mx-1">Privacy Policy</a>.
             </p>
           </PolicySection>
 
@@ -233,12 +232,12 @@ export default function TermsOfService() {
         {/* Closing Section */}
         <motion.section
           variants={itemVariants}
-          className="text-center mt-16 py-12 bg-gradient-to-r from-gray-900 to-black rounded-3xl text-white border border-gold/20"
+          className="text-center mt-16 py-12 bg-white rounded-3xl text-black border border-yellow-500"
         >
           <h3 className="text-2xl md:text-3xl font-bold mb-4 font-serif">
             Thank You for Choosing Bellebyokien
           </h3>
-          <p className="text-gold text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-black text-lg max-w-2xl mx-auto leading-relaxed">
             We're committed to providing you with exceptional contemporary fashion and a seamless 
             shopping experience that matches the elegance of our designs.
           </p>
@@ -256,7 +255,7 @@ export default function TermsOfService() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="fixed top-1/4 left-5 w-3 h-3 bg-gold rounded-full opacity-30"
+        className="fixed top-1/4 left-5 w-3 h-3 bg-yellow-500 rounded-full opacity-30"
       />
       <motion.div
         animate={{ 
@@ -269,7 +268,7 @@ export default function TermsOfService() {
           ease: "easeInOut",
           delay: 2
         }}
-        className="fixed top-1/3 right-10 w-2 h-2 bg-gold rounded-full opacity-40"
+        className="fixed top-1/3 right-10 w-2 h-2 bg-yellow-500 rounded-full opacity-40"
       />
     </div>
   );
