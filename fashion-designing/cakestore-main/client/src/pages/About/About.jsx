@@ -298,7 +298,7 @@ const AboutPage = () => {
                             <motion.a
                                 variants={item}
                                 whileHover={{ scale: 1.05 }}
-                                href="tel:+234901873215"
+                                href="tel:+2349014727839"
                                 className="bg-black hover:bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center transition border border-black"
                             >
                                 <FaPhone className="text-2xl sm:text-3xl mb-2 text-white" />
@@ -307,7 +307,15 @@ const AboutPage = () => {
                             </motion.a>
                         </motion.div>
 
-                   
+                        {/* Boutique Info */}
+                        <motion.div variants={item} className="mt-8 sm:mt-12 p-4 sm:p-6 bg-black/10 rounded-xl border border-black/20">
+                            <h3 className="text-lg sm:text-xl font-serif font-bold mb-2 sm:mb-3">Visit Our Boutique</h3>
+                            <p className="text-black text-sm sm:text-base">
+                                330 PH/Aba Express way Rumukwurushi, Port Harcourt
+                            </p>
+                            <p className="text-black text-xs sm:text-sm mt-1 sm:mt-2">Monday - Saturday: 9AM - 6PM</p>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </section>
         </div>
