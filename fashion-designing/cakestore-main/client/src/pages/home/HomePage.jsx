@@ -1110,27 +1110,7 @@ export default function HomePage() {
                             </motion.div>
 
                             {/* Stats */}
-                            <motion.div
-                                className="grid grid-cols-3 gap-6 pt-8"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 1.2 }}
-                            >
-                                {[
-                                    { number: '500+', label: 'Happy Customers' },
-                                    { number: '1000+', label: 'Collections' },
-                                    { number: '5★', label: 'Rated Quality' }
-                                ].map((stat, index) => (
-                                    <motion.div
-                                        key={stat.label}
-                                        className="text-center"
-                                        whileHover={{ scale: 1.05 }}
-                                    >
-                                        <div className="text-2xl font-bold text-gold mb-1">{stat.number}</div>
-                                        <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
+                      
                         </motion.div>
 
                         {/* Image Slider Side */}
