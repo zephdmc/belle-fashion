@@ -293,8 +293,8 @@ export default function ReturnPolicy() {
                 className="bg-black/10 rounded-xl p-4 border border-black/20"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
-                    <FiMail className="text-white text-sm" />
+                  <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                    <FiMail className="text-yellow text-sm" />
                   </div>
                   <div>
                     <div className="font-semibold text-black">Email Support</div>
