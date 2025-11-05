@@ -279,20 +279,20 @@ const FAQPage = () => {
                                     <div>
                                         <p className="font-semibold mb-2">Email us at:</p>
                                         <a 
-                                            href="mailto:support@bellebyokien.com"
+                                            href="mailto:bellebyokien1@gmail.com"
                                             className="text-black hover:text-black/90 underline transition-colors"
                                         >
-                                            support@bellebyokien.com
+                                            bellebyokien1@gmail.com
                                         </a>
                                     </div>
                                     
                                     <div>
                                         <p className="font-semibold mb-2">Call us:</p>
                                         <a 
-                                            href="tel:+2348000000000"
+                                            href="tel:+234 901 873215"
                                             className="text-black hover:text-black/90 underline transition-colors"
                                         >
-                                            +234 800 000 0000
+                                            +234 901 873215
                                         </a>
                                     </div>
                                     
