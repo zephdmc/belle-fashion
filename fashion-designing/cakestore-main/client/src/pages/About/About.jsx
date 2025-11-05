@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { FaRibbon, FaPalette, FaHandsHelping, FaWhatsapp, FaInstagram, FaEnvelope, FaPhone, FaSeedling } from 'react-icons/fa';
-import { FiScissors, FiTrendingUp } from 'react-icons/fi';
+import { FaRibbon, FaPalette, FaHandsHelping, FaWhatsapp, FaInstagram, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FiScissors } from 'react-icons/fi';
 
 const AboutPage = () => {
     // Animation variants
@@ -47,82 +47,76 @@ const AboutPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+        <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <section className="relative overflow-hidden">
-                <div className="container mx-auto px-4 py-20 md:py-28 text-center">
+            <section className="relative overflow-hidden pt-8 pb-12 md:pt-20 md:pb-28">
+                <div className="container mx-auto px-4 sm:px-6 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className="text-4xl md:text-6xl font-serif font-bold text-gray/80 mb-6">
-                            Our <span className="text-gold">Style</span> Story
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-black mb-4 sm:mb-6">
+                            Our <span className="text-yellow-500">Style</span> Story
                         </h1>
-                        <p className="text-lg md:text-xl text-gray max-w-3xl mx-auto">
+                        <p className="text-base sm:text-lg md:text-xl text-black max-w-2xl mx-auto px-4">
                             Where contemporary elegance meets timeless craftsmanship for the modern Nigerian woman
                         </p>
                     </motion.div>
                 </div>
-
-                {/* Decorative elements */}
-                <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-                    <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-gold/20 opacity-30 animate-float"></div>
-                    <div className="absolute top-1/3 right-20 w-24 h-24 rounded-full bg-gray-800/20 opacity-30 animate-float animation-delay-2000"></div>
-                </div>
             </section>
 
             {/* Mission Section */}
-            <section className="py-16 bg-white">
-                <div className="container mx-auto px-4">
+            <section className="py-12 sm:py-16 bg-white">
+                <div className="container mx-auto px-4 sm:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="show"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-50px" }}
                         variants={container}
                         className="max-w-5xl mx-auto"
                     >
-                        <motion.h2 variants={item} className="text-3xl font-serif font-bold text-center mb-12 text-gray-800">
+                        <motion.h2 variants={item} className="text-2xl sm:text-3xl font-serif font-bold text-center mb-8 sm:mb-12 text-black">
                             At Bellebyokien, we believe style is personal expression.
                         </motion.h2>
 
-                        <motion.div variants={container} className="grid md:grid-cols-3 gap-8 mb-16">
-                            <motion.div variants={item} className="bg-gradient-to-br from-white to-gold/5 p-8 rounded-xl text-center border border-gold/20">
-                                <div className="flex justify-center text-gold mb-4">
-                                    <FaPalette className="text-4xl" />
+                        <motion.div variants={container} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
+                            <motion.div variants={item} className="bg-white p-4 sm:p-6 rounded-xl text-center border border-yellow-500">
+                                <div className="flex justify-center text-yellow-500 mb-3 sm:mb-4">
+                                    <FaPalette className="text-3xl sm:text-4xl" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-3 font-serif">Contemporary Design</h3>
-                                <p className="text-gray-600">
+                                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 font-serif">Contemporary Design</h3>
+                                <p className="text-black text-sm sm:text-base">
                                     Creating pieces that blend modern aesthetics with timeless elegance for today's sophisticated woman.
                                 </p>
                             </motion.div>
 
-                            <motion.div variants={item} className="bg-gradient-to-br from-white to-gold/5 p-8 rounded-xl text-center border border-gold/20">
-                                <div className="flex justify-center text-gold mb-4">
-                                    <FiScissors className="text-4xl" />
+                            <motion.div variants={item} className="bg-white p-4 sm:p-6 rounded-xl text-center border border-yellow-500">
+                                <div className="flex justify-center text-yellow-500 mb-3 sm:mb-4">
+                                    <FiScissors className="text-3xl sm:text-4xl" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-3 font-serif">Quality Craftsmanship</h3>
-                                <p className="text-gray-600">
+                                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 font-serif">Quality Craftsmanship</h3>
+                                <p className="text-black text-sm sm:text-base">
                                     Each garment is meticulously crafted with attention to detail, ensuring perfect fit and lasting quality.
                                 </p>
                             </motion.div>
 
-                            <motion.div variants={item} className="bg-gradient-to-br from-white to-gold/5 p-8 rounded-xl text-center border border-gold/20">
-                                <div className="flex justify-center text-gold mb-4">
-                                    <FaHandsHelping className="text-4xl" />
+                            <motion.div variants={item} className="bg-white p-4 sm:p-6 rounded-xl text-center border border-yellow-500">
+                                <div className="flex justify-center text-yellow-500 mb-3 sm:mb-4">
+                                    <FaHandsHelping className="text-3xl sm:text-4xl" />
                                 </div>
-                                <h3 className="text-xl font-bold mb-3 font-serif">Personal Styling</h3>
-                                <p className="text-gray-600">
+                                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 font-serif">Personal Styling</h3>
+                                <p className="text-black text-sm sm:text-base">
                                     Dedicated to helping you discover and express your unique style through personalized consultations.
                                 </p>
                             </motion.div>
                         </motion.div>
 
-                        <motion.div variants={item} className="bg-gradient-to-r from-gray-900 to-black text-white p-8 md:p-12 rounded-xl border border-gold/20">
-                            <h3 className="text-2xl font-serif font-bold mb-4 text-center text-gold">
+                        <motion.div variants={item} className="bg-yellow-500 text-black p-6 sm:p-8 md:p-12 rounded-xl border border-yellow-500">
+                            <h3 className="text-xl sm:text-2xl font-serif font-bold mb-3 sm:mb-4 text-center">
                                 Our Fashion Mission
                             </h3>
-                            <p className="text-center text-black text-lg">
+                            <p className="text-center text-black text-base sm:text-lg">
                                 To empower contemporary women with elegant, well-crafted fashion that celebrates 
                                 their individuality. We create pieces that transition seamlessly from day to night, 
                                 offering both style and substance for the modern lifestyle.
@@ -133,23 +127,23 @@ const AboutPage = () => {
             </section>
 
             {/* Values Section */}
-            <section className="py-16 bg-gradient-to-br from-gray-50 to-gold/5">
-                <div className="container mx-auto px-4">
+            <section className="py-12 sm:py-16 bg-white">
+                <div className="container mx-auto px-4 sm:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="show"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-50px" }}
                         variants={container}
                         className="max-w-4xl mx-auto text-center"
                     >
-                        <motion.h2 variants={item} className="text-3xl font-serif font-bold mb-6 text-gray-800">
+                        <motion.h2 variants={item} className="text-2xl sm:text-3xl font-serif font-bold mb-4 sm:mb-6 text-black">
                             Our Design Philosophy
                         </motion.h2>
-                        <motion.p variants={item} className="text-gray-600 mb-12 max-w-2xl mx-auto">
+                        <motion.p variants={item} className="text-black mb-8 sm:mb-12 max-w-2xl mx-auto text-base sm:text-lg">
                             The principles that guide every design, stitch, and collection
                         </motion.p>
 
-                        <motion.div variants={container} className="grid md:grid-cols-2 gap-8 text-left">
+                        <motion.div variants={container} className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6 text-left">
                             {[
                                 "Quality fabrics that feel as good as they look",
                                 "Timeless designs with contemporary flair",
@@ -161,13 +155,13 @@ const AboutPage = () => {
                                 <motion.div
                                     key={index}
                                     variants={item}
-                                    whileHover={{ scale: 1.03 }}
-                                    className="bg-white p-6 rounded-lg border border-gold/20 flex items-start group hover:bg-gold/5 transition"
+                                    whileHover={{ scale: 1.02 }}
+                                    className="bg-white p-4 sm:p-6 rounded-lg border border-yellow-500 flex items-start group transition"
                                 >
-                                    <div className="bg-gold text-white p-2 rounded-full mr-4 group-hover:scale-110 transition">
+                                    <div className="bg-yellow-500 text-black p-2 rounded-full mr-3 sm:mr-4 transition">
                                         <FaRibbon className="w-4 h-4" />
                                     </div>
-                                    <span className="font-medium text-gray-800 font-serif">{value}</span>
+                                    <span className="font-medium text-black font-serif text-sm sm:text-base">{value}</span>
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -176,28 +170,28 @@ const AboutPage = () => {
             </section>
 
             {/* Brand Story Section */}
-            <section className="py-16 bg-white">
-                <div className="container mx-auto px-4">
+            <section className="py-12 sm:py-16 bg-white">
+                <div className="container mx-auto px-4 sm:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="show"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-50px" }}
                         variants={container}
                         className="max-w-4xl mx-auto text-center"
                     >
-                        <motion.h2 variants={item} className="text-3xl font-serif font-bold mb-6 text-gray-800">
+                        <motion.h2 variants={item} className="text-2xl sm:text-3xl font-serif font-bold mb-4 sm:mb-6 text-black">
                             The Bellebyokien Journey
                         </motion.h2>
-                        <motion.div variants={item} className="bg-gradient-to-br from-gold/10 to-transparent p-8 rounded-2xl border border-gold/20">
-                            <p className="text-lg text-gray-700 leading-relaxed">
+                        <motion.div variants={item} className="bg-yellow-500/10 p-6 sm:p-8 rounded-2xl border border-yellow-500">
+                            <p className="text-black text-base sm:text-lg leading-relaxed">
                                 Born from a passion for elegant design and the unique style of contemporary African women, 
                                 Bellebyokien emerged as a celebration of modern femininity. Our name reflects our commitment 
                                 to creating beautiful, well-crafted pieces that make women feel confident and empowered. 
                                 Each collection is thoughtfully designed in Port Harcourt, inspired by the vibrant energy 
                                 and sophisticated taste of Nigerian women.
                             </p>
-                            <div className="mt-6 flex justify-center">
-                                <div className="w-24 h-1 bg-gold rounded-full"></div>
+                            <div className="mt-4 sm:mt-6 flex justify-center">
+                                <div className="w-16 sm:w-24 h-1 bg-yellow-500 rounded-full"></div>
                             </div>
                         </motion.div>
                     </motion.div>
@@ -205,37 +199,37 @@ const AboutPage = () => {
             </section>
 
             {/* FAQ Section */}
-            <section className="py-16 bg-gradient-to-br from-gray-50 to-gold/5">
-                <div className="container mx-auto px-4">
+            <section className="py-12 sm:py-16 bg-white">
+                <div className="container mx-auto px-4 sm:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="show"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-50px" }}
                         variants={container}
                         className="max-w-4xl mx-auto"
                     >
-                        <motion.h2 variants={item} className="text-3xl font-serif font-bold text-center mb-6 text-gray-800">
+                        <motion.h2 variants={item} className="text-2xl sm:text-3xl font-serif font-bold text-center mb-4 sm:mb-6 text-black">
                             Style Questions Answered
                         </motion.h2>
-                        <motion.p variants={item} className="text-gray-600 text-center mb-12">
+                        <motion.p variants={item} className="text-black text-center mb-8 sm:mb-12 text-base sm:text-lg">
                             Everything you need to know about Bellebyokien Ready-to-Wear
                         </motion.p>
 
-                        <motion.div variants={container} className="space-y-4">
+                        <motion.div variants={container} className="space-y-3 sm:space-y-4">
                             {faqs.map((faq, index) => (
                                 <motion.div
                                     key={index}
                                     variants={item}
-                                    className="border border-gold/20 rounded-xl overflow-hidden bg-white hover:shadow-lg transition"
+                                    className="border border-yellow-500 rounded-xl overflow-hidden bg-white transition"
                                 >
                                     <details className="group">
-                                        <summary className="list-none p-6 flex justify-between items-center cursor-pointer hover:bg-gold/5 transition">
-                                            <h3 className="font-medium text-gray-900 font-serif">{faq.question}</h3>
-                                            <svg className="w-5 h-5 text-gold group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <summary className="list-none p-4 sm:p-6 flex justify-between items-center cursor-pointer transition">
+                                            <h3 className="font-medium text-black font-serif text-sm sm:text-base pr-2">{faq.question}</h3>
+                                            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                             </svg>
                                         </summary>
-                                        <div className="px-6 pb-6 pt-0 text-gray-600 border-t border-gold/10 mt-2">
+                                        <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-0 text-black border-t border-yellow-500/20 mt-2 text-sm sm:text-base">
                                             {faq.answer}
                                         </div>
                                     </details>
@@ -247,45 +241,45 @@ const AboutPage = () => {
             </section>
 
             {/* Contact Section */}
-            <section className="py-16 bg-gradient-to-r from-gray-900 to-black text-white">
-                <div className="container mx-auto px-4">
+            <section className="py-12 sm:py-16 bg-yellow-500 text-black">
+                <div className="container mx-auto px-4 sm:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="show"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-50px" }}
                         variants={container}
                         className="max-w-4xl mx-auto text-center"
                     >
-                        <motion.h2 variants={item} className="text-3xl font-serif font-bold mb-6 text-gold">
+                        <motion.h2 variants={item} className="text-2xl sm:text-3xl font-serif font-bold mb-4 sm:mb-6">
                             Style Consultation
                         </motion.h2>
-                        <motion.p variants={item} className="text-gray-300 mb-12 max-w-2xl mx-auto">
+                        <motion.p variants={item} className="text-black mb-8 sm:mb-12 max-w-2xl mx-auto text-base sm:text-lg">
                             Need help finding your perfect style? Reach out for personal styling advice, size guidance, or to discuss our latest collections.
                         </motion.p>
 
-                        <motion.div variants={container} className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+                        <motion.div variants={container} className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                             <motion.a
                                 variants={item}
                                 whileHover={{ scale: 1.05 }}
                                 href="https://wa.me/2349014727839"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="bg-green-600 hover:bg-green-700 p-4 rounded-lg flex flex-col items-center transition border border-green-500/30"
+                                className="bg-black hover:bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center transition border border-black"
                             >
-                                <FaWhatsapp className="text-3xl mb-2" />
-                                <span>WhatsApp</span>
-                                <span className="text-green-200 text-sm mt-1">Style Advice</span>
+                                <FaWhatsapp className="text-2xl sm:text-3xl mb-2 text-white" />
+                                <span className="text-white text-sm sm:text-base">WhatsApp</span>
+                                <span className="text-gray-300 text-xs sm:text-sm mt-1">Style Advice</span>
                             </motion.a>
 
                             <motion.a
                                 variants={item}
                                 whileHover={{ scale: 1.05 }}
                                 href="mailto:bellebyokien@fashion.com"
-                                className="bg-gold hover:bg-yellow-600 p-4 rounded-lg flex flex-col items-center transition border border-gold/30"
+                                className="bg-black hover:bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center transition border border-black"
                             >
-                                <FaEnvelope className="text-3xl mb-2" />
-                                <span>Email Us</span>
-                                <span className="text-yellow-200 text-sm mt-1">Collections</span>
+                                <FaEnvelope className="text-2xl sm:text-3xl mb-2 text-white" />
+                                <span className="text-white text-sm sm:text-base">Email Us</span>
+                                <span className="text-gray-300 text-xs sm:text-sm mt-1">Collections</span>
                             </motion.a>
 
                             <motion.a
@@ -294,32 +288,32 @@ const AboutPage = () => {
                                 href="https://instagram.com/bellebyokien"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="bg-pink-600 hover:bg-pink-700 p-4 rounded-lg flex flex-col items-center transition border border-pink-500/30"
+                                className="bg-black hover:bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center transition border border-black"
                             >
-                                <FaInstagram className="text-3xl mb-2" />
-                                <span>Instagram</span>
-                                <span className="text-pink-200 text-sm mt-1">Latest Styles</span>
+                                <FaInstagram className="text-2xl sm:text-3xl mb-2 text-white" />
+                                <span className="text-white text-sm sm:text-base">Instagram</span>
+                                <span className="text-gray-300 text-xs sm:text-sm mt-1">Latest Styles</span>
                             </motion.a>
 
                             <motion.a
                                 variants={item}
                                 whileHover={{ scale: 1.05 }}
                                 href="tel:+2349014727839"
-                                className="bg-blue-600 hover:bg-blue-700 p-4 rounded-lg flex flex-col items-center transition border border-blue-500/30"
+                                className="bg-black hover:bg-gray-800 p-3 sm:p-4 rounded-lg flex flex-col items-center transition border border-black"
                             >
-                                <FaPhone className="text-3xl mb-2" />
-                                <span>Call Us</span>
-                                <span className="text-blue-200 text-sm mt-1">Consultation</span>
+                                <FaPhone className="text-2xl sm:text-3xl mb-2 text-white" />
+                                <span className="text-white text-sm sm:text-base">Call Us</span>
+                                <span className="text-gray-300 text-xs sm:text-sm mt-1">Consultation</span>
                             </motion.a>
                         </motion.div>
 
                         {/* Boutique Info */}
-                        <motion.div variants={item} className="mt-12 p-6 bg-gold/10 rounded-xl border border-gold/20">
-                            <h3 className="text-xl font-serif font-bold mb-3 text-gold">Visit Our Boutique</h3>
-                            <p className="text-gray-300">
+                        <motion.div variants={item} className="mt-8 sm:mt-12 p-4 sm:p-6 bg-black/10 rounded-xl border border-black/20">
+                            <h3 className="text-lg sm:text-xl font-serif font-bold mb-2 sm:mb-3">Visit Our Boutique</h3>
+                            <p className="text-black text-sm sm:text-base">
                                 330 PH/Aba Express way Rumukwurushi, Port Harcourt
                             </p>
-                            <p className="text-gold text-sm mt-2">Monday - Saturday: 9AM - 6PM</p>
+                            <p className="text-black text-xs sm:text-sm mt-1 sm:mt-2">Monday - Saturday: 9AM - 6PM</p>
                         </motion.div>
                     </motion.div>
                 </div>
