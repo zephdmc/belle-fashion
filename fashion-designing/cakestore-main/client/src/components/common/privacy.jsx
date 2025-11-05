@@ -1,21 +1,20 @@
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black">
+    <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         {/* Modern Card Design */}
-        <div className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gold/20">
+        <div className="bg-white rounded-2xl overflow-hidden border border-yellow-500">
           
-          {/* Enhanced Header with Gradient */}
-          <div className="bg-gradient-to-r from-black via-gray-900 to-black p-8 border-b border-gold/30 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent"></div>
+          {/* Enhanced Header */}
+          <div className="bg-white p-8 border-b border-yellow-500 relative overflow-hidden">
             <div className="relative">
-              <h1 className="text-4xl font-serif font-bold text-white mb-3">
+              <h1 className="text-4xl font-serif font-bold text-black mb-3">
                 Privacy Policy
               </h1>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <p className="text-gold text-lg">Bellebyokien Ready-to-Wear</p>
-                <div className="bg-gold border border-gold/20 rounded-lg px-4 py-2">
-                  <p className="text-gold text-sm font-medium">
+                <p className="text-black text-lg">Bellebyokien Ready-to-Wear</p>
+                <div className="bg-yellow-500 border border-yellow-500 rounded-lg px-4 py-2">
+                  <p className="text-black text-sm font-medium">
                     Effective: January 22, 2025
                   </p>
                 </div>
@@ -24,9 +23,9 @@ export default function PrivacyPolicy() {
           </div>
 
           {/* Content Area */}
-          <div className="p-6 md:p-8 bg-gray-900">
-            <div className="prose prose-invert max-w-none">
-              <p className="text-white/80 text-lg leading-relaxed mb-8">
+          <div className="p-6 md:p-8 bg-white">
+            <div className="prose max-w-none">
+              <p className="text-black text-lg leading-relaxed mb-8">
                 At Bellebyokien, we are committed to protecting your privacy and personal style. This Privacy Policy explains how we collect, use, and protect the personal information you provide when visiting our boutique website, shopping our collections, or engaging with our brand.
               </p>
 
@@ -34,21 +33,21 @@ export default function PrivacyPolicy() {
                 {/* Section 1 */}
                 <section className="group">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
                       <span className="text-black font-bold text-sm">1</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-white font-serif">
+                    <h2 className="text-2xl font-bold text-black font-serif">
                       Style Information We Collect
                     </h2>
                   </div>
                   <div className="ml-11">
-                    <p className="text-white/80 mb-4">
+                    <p className="text-black mb-4">
                       To enhance your shopping experience, we may collect:
                     </p>
-                    <ul className="space-y-3 text-white/80">
+                    <ul className="space-y-3 text-black">
                       {['Personal details: name, email, phone number for order processing', 'Shipping address and size preferences for perfect fit', 'Payment information (securely processed through trusted partners)', 'Style preferences and wishlist items to personalize recommendations', 'Social media interactions when you engage with our fashion content'].map((item, index) => (
                         <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-gold rounded-full mt-2 flex-shrink-0"></div>
+                          <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -59,21 +58,21 @@ export default function PrivacyPolicy() {
                 {/* Section 2 */}
                 <section className="group">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
                       <span className="text-black font-bold text-sm">2</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-white font-serif">
+                    <h2 className="text-2xl font-bold text-black font-serif">
                       How We Use Your Style Profile
                     </h2>
                   </div>
                   <div className="ml-11">
-                    <p className="text-white/80 mb-4">
+                    <p className="text-black mb-4">
                       We use your information to create a seamless fashion experience:
                     </p>
-                    <ul className="space-y-3 text-white/80">
+                    <ul className="space-y-3 text-black">
                       {['Process orders and deliver your carefully curated pieces', 'Provide personalized styling advice and collection previews', 'Offer customer support for your fashion inquiries', 'Share new collection launches and exclusive events (with consent)', 'Improve our designs based on contemporary women\'s preferences'].map((item, index) => (
                         <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-gold rounded-full mt-2 flex-shrink-0"></div>
+                          <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -84,14 +83,14 @@ export default function PrivacyPolicy() {
                 {/* Section 3 */}
                 <section className="group">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
                       <span className="text-black font-bold text-sm">3</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-white font-serif">
+                    <h2 className="text-2xl font-bold text-black font-serif">
                       Data Security & Style Integrity
                     </h2>
                   </div>
-                  <div className="ml-11 space-y-3 text-white/80">
+                  <div className="ml-11 space-y-3 text-black">
                     <p>
                       We treat your personal information with the same care we put into our designs. We never sell or share your style preferences with third parties for marketing purposes.
                     </p>
@@ -104,21 +103,21 @@ export default function PrivacyPolicy() {
                 {/* Section 4 */}
                 <section className="group">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
                       <span className="text-black font-bold text-sm">4</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-white font-serif">
+                    <h2 className="text-2xl font-bold text-black font-serif">
                       Your Style Rights
                     </h2>
                   </div>
                   <div className="ml-11">
-                    <p className="text-white/80 mb-4">
+                    <p className="text-black mb-4">
                       You have complete control over your fashion journey:
                     </p>
-                    <ul className="space-y-3 text-white/80">
+                    <ul className="space-y-3 text-black">
                       {['Access and update your personal style profile', 'Correct any information in your account', 'Request deletion of your data (where applicable)', 'Opt out of fashion communications at any time', 'Manage your size and preference settings'].map((item, index) => (
                         <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-gold rounded-full mt-2 flex-shrink-0"></div>
+                          <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -130,15 +129,15 @@ export default function PrivacyPolicy() {
                 <div className="grid md:grid-cols-2 gap-8">
                   <section className="group">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
                         <span className="text-black font-bold text-sm">5</span>
                       </div>
-                      <h2 className="text-2xl font-bold text-white font-serif">
+                      <h2 className="text-2xl font-bold text-black font-serif">
                         Boutique Experience
                       </h2>
                     </div>
                     <div className="ml-11">
-                      <p className="text-white/80">
+                      <p className="text-black">
                         Our website uses cookies to enhance your digital boutique experience, remembering your preferences and helping us understand how contemporary women interact with our collections.
                       </p>
                     </div>
@@ -146,15 +145,15 @@ export default function PrivacyPolicy() {
 
                   <section className="group">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 bg-gradient-to-br from-gold to-yellow-600 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
                         <span className="text-black font-bold text-sm">6</span>
                       </div>
-                      <h2 className="text-2xl font-bold text-white font-serif">
+                      <h2 className="text-2xl font-bold text-black font-serif">
                         Collection Updates
                       </h2>
                     </div>
                     <div className="ml-11">
-                      <p className="text-white/80">
+                      <p className="text-black">
                         As our collections evolve, we may update this policy. Changes will be reflected here with updated effective dates, ensuring transparency in our relationship.
                       </p>
                     </div>
@@ -163,11 +162,11 @@ export default function PrivacyPolicy() {
               </div>
 
               {/* Contact Button */}
-              <div className="mt-12 pt-8 border-t border-gold/20 text-center">
-                <p className="text-gold/80 mb-4 font-serif italic">
+              <div className="mt-12 pt-8 border-t border-yellow-500 text-center">
+                <p className="text-black mb-4 font-serif italic">
                   For questions about your privacy or style preferences
                 </p>
-                <button className="bg-gradient-to-r from-gold to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-gold/25">
+                <button className="bg-yellow-500 text-black font-semibold py-3 px-8 rounded-lg hover:bg-yellow-600 transition-all duration-300 transform hover:scale-105">
                   Contact Our Style Team
                 </button>
               </div>
