@@ -154,7 +154,6 @@ const CollectionBadges = ({ onCollectionSelect }) => (
             { name: 'New Arrivals', value: 'new' },
             { name: 'Featured', value: 'featured' },
             { name: 'Summer', value: 'summer' },
-            { name: 'Custom', value: 'custom' },
         ].map((collection) => (
             <motion.button
                 key={collection.value}
