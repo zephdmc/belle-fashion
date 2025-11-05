@@ -473,7 +473,7 @@ const ProductGridCard = ({ product, index }) => {
                         whileHover={{ scale: 1.2 }}
                     >
                         <div className="bg-white/90 hover:bg-white text-gold rounded-full p-2 shadow-lg">
-                            <FiEye className="w-4 h-4" />
+                            <FiEye className="w-4 text-gold h-4" />
                         </div>
                     </motion.div>
                 </div>
