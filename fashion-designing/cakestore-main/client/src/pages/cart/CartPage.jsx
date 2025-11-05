@@ -76,15 +76,7 @@ const EmptyCart = ({ onCustomOrderClick }) => (
                     <FiArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
                 </MotionLink>
                 
-                <motion.button
-                    onClick={onCustomOrderClick}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-3 bg-gray-100 text-gray-700 py-4 px-8 rounded-lg font-semibold transition-all duration-300 hover:bg-gray-200 border border-gray-200"
-                >
-                    <FiScissors className="text-sm" />
-                    Create Custom Design
-                </motion.button>
+                
             </motion.div>
 
             {/* Fashion Categories */}
@@ -434,37 +426,7 @@ export default function CartPage() {
                             ))}
                         </motion.div>
 
-                        {/* Custom Design CTA */}
-                        {!hasCustomItems && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.3 }}
-                                className="mt-6 bg-gold/10 border border-gold/20 rounded-lg p-6"
-                            >
-                                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-gold rounded-lg flex items-center justify-center border border-gold">
-                                            <FiScissors className="text-white text-xl" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-gray-900 font-semibold mb-1">Need Something Unique?</h3>
-                                            <p className="text-gray-600 text-sm">
-                                                Create your custom designed outfit with our expert tailors.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <MotionLink
-                                        onClick={handleCustomOrderClick}
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="bg-gold text-white hover:bg-yellow-600 py-3 px-6 rounded-lg font-semibold transition-all duration-300 whitespace-nowrap border border-gold"
-                                    >
-                                        Start Custom Design
-                                    </MotionLink>
-                                </div>
-                            </motion.div>
-                        )}
+                    
                     </div>
 
                     {/* Cart Summary */}
