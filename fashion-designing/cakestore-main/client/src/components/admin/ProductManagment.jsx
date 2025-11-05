@@ -141,12 +141,12 @@ export default function ProductManagement() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+            <div className="min-h-screen bg-white py-8">
                 <div className="container mx-auto px-4">
                     <div className="flex justify-center items-center h-96">
                         <div className="text-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-                            <p className="text-gray-600 font-medium">Loading products...</p>
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto mb-4"></div>
+                            <p className="text-black font-medium">Loading products...</p>
                         </div>
                     </div>
                 </div>
@@ -155,7 +155,7 @@ export default function ProductManagement() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+        <div className="min-h-screen bg-white py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <motion.div
@@ -165,20 +165,20 @@ export default function ProductManagement() {
                 >
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
                         <div>
-                            <h1 className="text-3xl font-bold text-gray-900 mb-2">Product Management</h1>
-                            <p className="text-gray-600">Manage your product catalog and inventory</p>
+                            <h1 className="text-3xl font-bold text-black mb-2">Product Management</h1>
+                            <p className="text-black">Manage your product catalog and inventory</p>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4 mt-4 lg:mt-0">
                             <button
                                 onClick={refreshProducts}
-                                className="flex items-center bg-white text-gray-700 py-3 px-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200 font-semibold"
+                                className="flex items-center bg-white text-black py-3 px-6 rounded-xl border border-gray-300 hover:shadow-lg transition-all duration-200 font-semibold"
                             >
                                 <FiRefreshCw className="mr-2" />
                                 Refresh
                             </button>
                             <Link
                                 to="/admin/products/new"
-                                className="flex items-center bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold"
+                                className="flex items-center bg-yellow-500 text-black py-3 px-6 rounded-xl hover:bg-yellow-600 hover:shadow-lg transition-all duration-200 font-semibold"
                             >
                                 <FiPlus className="mr-2" />
                                 Add New Product
@@ -189,21 +189,21 @@ export default function ProductManagement() {
                     {/* Statistics */}
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
                         {[
-                            { label: 'Total Products', value: stats.totalProducts, color: 'bg-gradient-to-r from-purple-500 to-pink-500', icon: FiPackage },
-                            { label: 'In Stock', value: stats.inStockProducts, color: 'bg-gradient-to-r from-green-500 to-green-600', icon: FiShoppingCart },
-                            { label: 'Out of Stock', value: stats.outOfStockProducts, color: 'bg-gradient-to-r from-red-500 to-red-600', icon: FiAlertCircle },
-                            { label: 'Custom Products', value: stats.customProducts, color: 'bg-gradient-to-r from-blue-500 to-blue-600', icon: FiLayers },
-                            { label: 'Categories', value: stats.categoriesCount, color: 'bg-gradient-to-r from-orange-500 to-orange-600', icon: FiTag }
+                            { label: 'Total Products', value: stats.totalProducts, color: 'bg-yellow-500', icon: FiPackage },
+                            { label: 'In Stock', value: stats.inStockProducts, color: 'bg-green-500', icon: FiShoppingCart },
+                            { label: 'Out of Stock', value: stats.outOfStockProducts, color: 'bg-red-500', icon: FiAlertCircle },
+                            { label: 'Custom Products', value: stats.customProducts, color: 'bg-blue-500', icon: FiLayers },
+                            { label: 'Categories', value: stats.categoriesCount, color: 'bg-orange-500', icon: FiTag }
                         ].map(({ label, value, color, icon: Icon }) => (
                             <motion.div
                                 key={label}
                                 whileHover={{ scale: 1.02 }}
-                                className="bg-white rounded-2xl shadow-lg p-4"
+                                className="bg-white rounded-2xl border border-gray-300 p-4"
                             >
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-xl font-bold text-gray-900">{value}</p>
-                                        <p className="text-xs text-gray-600 mt-1">{label}</p>
+                                        <p className="text-xl font-bold text-black">{value}</p>
+                                        <p className="text-xs text-black mt-1">{label}</p>
                                     </div>
                                     <div className={`${color} rounded-lg p-2`}>
                                         <Icon className="text-white text-lg" />
@@ -214,11 +214,11 @@ export default function ProductManagement() {
                     </div>
 
                     {/* Filters */}
-                    <div className="bg-white rounded-2xl shadow-lg p-6">
+                    <div className="bg-white rounded-2xl border border-gray-300 p-6">
                         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                             <div className="flex items-center">
-                                <FiFilter className="text-purple-600 mr-3 text-xl" />
-                                <h3 className="text-lg font-semibold text-gray-900">Filter Products</h3>
+                                <FiFilter className="text-yellow-500 mr-3 text-xl" />
+                                <h3 className="text-lg font-semibold text-black">Filter Products</h3>
                             </div>
                             
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-1 lg:ml-8">
@@ -232,7 +232,7 @@ export default function ProductManagement() {
                                         placeholder="Search products..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="block w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50 transition-all duration-200"
+                                        className="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-white transition-all duration-200"
                                     />
                                 </div>
 
@@ -241,7 +241,7 @@ export default function ProductManagement() {
                                     <select
                                         value={categoryFilter}
                                         onChange={(e) => setCategoryFilter(e.target.value)}
-                                        className="block w-full pl-4 pr-10 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50 appearance-none cursor-pointer transition-all duration-200"
+                                        className="block w-full pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-white appearance-none cursor-pointer transition-all duration-200"
                                     >
                                         <option value="all">All Categories</option>
                                         {categories.filter(cat => cat !== 'all').map(category => (
@@ -260,7 +260,7 @@ export default function ProductManagement() {
                                     <select
                                         value={stockFilter}
                                         onChange={(e) => setStockFilter(e.target.value)}
-                                        className="block w-full pl-4 pr-10 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50 appearance-none cursor-pointer transition-all duration-200"
+                                        className="block w-full pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-white appearance-none cursor-pointer transition-all duration-200"
                                     >
                                         <option value="all">All Stock</option>
                                         <option value="in-stock">In Stock</option>
@@ -276,7 +276,7 @@ export default function ProductManagement() {
                                     <select
                                         value={customFilter}
                                         onChange={(e) => setCustomFilter(e.target.value)}
-                                        className="block w-full pl-4 pr-10 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50 appearance-none cursor-pointer transition-all duration-200"
+                                        className="block w-full pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-white appearance-none cursor-pointer transition-all duration-200"
                                     >
                                         <option value="all">All Types</option>
                                         <option value="custom">Custom Only</option>
@@ -298,7 +298,7 @@ export default function ProductManagement() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="bg-green-50 border-l-4 border-green-500 rounded-r-xl p-4 mb-6 shadow-sm"
+                            className="bg-green-50 border-l-4 border-green-500 rounded-r-xl p-4 mb-6"
                         >
                             <div className="flex items-center">
                                 <FiCheckCircle className="text-green-500 text-xl mr-3" />
@@ -312,7 +312,7 @@ export default function ProductManagement() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-4 mb-6 shadow-sm"
+                            className="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-4 mb-6"
                         >
                             <div className="flex items-center">
                                 <FiAlertCircle className="text-red-500 text-xl mr-3" />
@@ -332,15 +332,15 @@ export default function ProductManagement() {
                             exit={{ opacity: 0 }}
                         >
                             {/* Desktop Table */}
-                            <div className="hidden lg:block bg-white rounded-2xl shadow-lg overflow-hidden">
+                            <div className="hidden lg:block bg-white rounded-2xl border border-gray-300 overflow-hidden">
                                 <div className="overflow-x-auto">
                                     <table className="min-w-full divide-y divide-gray-200">
-                                        <thead className="bg-gradient-to-r from-purple-600 to-pink-600">
+                                        <thead className="bg-yellow-500">
                                             <tr>
                                                 {['Product', 'Category', 'Size', 'Price', 'Stock', 'Custom', 'Actions'].map((header) => (
                                                     <th
                                                         key={header}
-                                                        className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider"
+                                                        className="px-6 py-4 text-left text-xs font-semibold text-black uppercase tracking-wider"
                                                     >
                                                         {header}
                                                     </th>
@@ -367,10 +367,10 @@ export default function ProductManagement() {
                                                                 }}
                                                             />
                                                             <div>
-                                                                <p className="text-sm font-semibold text-gray-900">
+                                                                <p className="text-sm font-semibold text-black">
                                                                     {product.name}
                                                                 </p>
-                                                                <p className="text-xs text-gray-500 line-clamp-1">
+                                                                <p className="text-xs text-black line-clamp-1">
                                                                     {product.description || 'No description'}
                                                                 </p>
                                                             </div>
@@ -379,7 +379,7 @@ export default function ProductManagement() {
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center">
                                                             <FiTag className="text-gray-400 mr-2" />
-                                                            <span className="text-sm text-gray-900 capitalize">
+                                                            <span className="text-sm text-black capitalize">
                                                                 {product.category || 'Uncategorized'}
                                                             </span>
                                                         </div>
@@ -387,7 +387,7 @@ export default function ProductManagement() {
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center">
                                                             <FiRuler className="text-gray-400 mr-2" />
-                                                            <span className="text-sm text-gray-900">
+                                                            <span className="text-sm text-black">
                                                                 {product.size || 'N/A'}
                                                             </span>
                                                         </div>
@@ -395,7 +395,7 @@ export default function ProductManagement() {
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center">
                                                             <FiDollarSign className="text-gray-400 mr-2" />
-                                                            <span className="text-sm font-semibold text-gray-900">
+                                                            <span className="text-sm font-semibold text-black">
                                                                 ₦{product.price?.toLocaleString() || '0'}
                                                             </span>
                                                         </div>
@@ -458,7 +458,7 @@ export default function ProductManagement() {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300"
+                                        className="bg-white rounded-2xl border border-gray-300 p-6 hover:shadow-lg transition-all duration-300"
                                     >
                                         <div className="flex items-start space-x-4">
                                             <img
@@ -470,22 +470,22 @@ export default function ProductManagement() {
                                                 }}
                                             />
                                             <div className="flex-1 min-w-0">
-                                                <h3 className="font-semibold text-gray-900 truncate">
+                                                <h3 className="font-semibold text-black truncate">
                                                     {product.name}
                                                 </h3>
-                                                <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                                                <p className="text-sm text-black mt-1 line-clamp-2">
                                                     {product.description || 'No description'}
                                                 </p>
                                                 <div className="grid grid-cols-2 gap-2 mt-3">
-                                                    <div className="flex items-center text-xs text-gray-600">
+                                                    <div className="flex items-center text-xs text-black">
                                                         <FiTag className="mr-1" />
                                                         <span className="capitalize">{product.category}</span>
                                                     </div>
-                                                    <div className="flex items-center text-xs text-gray-600">
+                                                    <div className="flex items-center text-xs text-black">
                                                         <FiRuler className="mr-1" />
                                                         <span>{product.size || 'N/A'}</span>
                                                     </div>
-                                                    <div className="flex items-center text-xs text-gray-600">
+                                                    <div className="flex items-center text-xs text-black">
                                                         <FiDollarSign className="mr-1" />
                                                         <span className="font-semibold">₦{product.price?.toLocaleString()}</span>
                                                     </div>
@@ -539,13 +539,13 @@ export default function ProductManagement() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="text-center bg-white rounded-2xl shadow-lg p-12"
+                            className="text-center bg-white rounded-2xl border border-gray-300 p-12"
                         >
-                            <div className="w-20 h-20 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <FiPackage className="text-white text-3xl" />
+                            <div className="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <FiPackage className="text-black text-3xl" />
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-4">No Products Found</h3>
-                            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                            <h3 className="text-2xl font-bold text-black mb-4">No Products Found</h3>
+                            <p className="text-black mb-8 max-w-md mx-auto">
                                 {products.length === 0 
                                     ? "Get started by adding your first product to the catalog" 
                                     : "No products match your current filters"
@@ -560,14 +560,14 @@ export default function ProductManagement() {
                                             setStockFilter('all');
                                             setCustomFilter('all');
                                         }}
-                                        className="bg-white text-gray-700 py-3 px-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200 font-semibold"
+                                        className="bg-white text-black py-3 px-6 rounded-xl border border-gray-300 hover:shadow-lg transition-all duration-200 font-semibold"
                                     >
                                         Clear Filters
                                     </button>
                                 )}
                                 <Link
                                     to="/admin/products/new"
-                                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold"
+                                    className="bg-yellow-500 text-black py-3 px-6 rounded-xl hover:bg-yellow-600 hover:shadow-lg transition-all duration-200 font-semibold"
                                 >
                                     <FiPlus className="mr-2 inline" />
                                     Add New Product
