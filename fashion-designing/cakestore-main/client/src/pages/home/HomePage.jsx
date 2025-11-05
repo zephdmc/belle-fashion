@@ -353,64 +353,99 @@ const ProductGridCard = ({ product, index }) => {
     );
 };
 
-// Simple Image Slideshow Component
-const SimpleImageSlideShow = () => {
+// NEW: Enhanced Hero Slider Component
+const HeroSlider = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     
     const slides = [
         {
             id: 1,
             image: "/images/hero1.png",
-            alt: "Luxury Fashion Collection"
+            alt: "Luxury Fashion Collection",
+            title: "Elegant Evening Wear",
+            subtitle: "Discover our premium collection"
         },
         {
             id: 2, 
             image: "/images/hero2.png",
-            alt: "Elegant Evening Wear"
+            alt: "Designer Dresses",
+            title: "Designer Collection",
+            subtitle: "Exclusive designs for every occasion"
         },
         {
             id: 3,
             image: "/images/hero3.png",
-            alt: "Designer Collection"
+            alt: "Casual Fashion",
+            title: "Casual Elegance",
+            subtitle: "Comfort meets style"
         }
     ];
 
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 200000);
+        }, 5000); // Changed to 5 seconds for better user experience
 
         return () => clearInterval(timer);
     }, [slides.length]);
 
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    };
+
     return (
-        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
+        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl group">
             <AnimatePresence mode="wait">
-                <motion.img
+                <motion.div
                     key={currentSlide}
-                    src={slides[currentSlide].image}
-                    alt={slides[currentSlide].alt}
                     initial={{ opacity: 0, scale: 1.1 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 1 }}
-                    className="w-full h-full object-cover object-center"
-                    onError={(e) => {
-                        e.target.src = `https://picsum.photos/1200/800?random=${currentSlide + 1}`;
-                    }}
-                />
+                    transition={{ duration: 1, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                >
+                    <img
+                        src={slides[currentSlide].image}
+                        alt={slides[currentSlide].alt}
+                        className="w-full h-full object-cover object-center"
+                        onError={(e) => {
+                            e.target.src = `https://picsum.photos/1200/800?random=${currentSlide + 1}`;
+                        }}
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
+                </motion.div>
             </AnimatePresence>
             
+            {/* Navigation Arrows */}
+            <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-3 transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg"
+            >
+                <FiArrowRight className="rotate-180 w-5 h-5" />
+            </button>
+            <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-3 transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg"
+            >
+                <FiArrowRight className="w-5 h-5" />
+            </button>
+            
             {/* Slide Indicators */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
                 {slides.map((_, index) => (
-                    <motion.button
+                    <button
                         key={index}
                         onClick={() => setCurrentSlide(index)}
-                        whileHover={{ scale: 1.3 }}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                            index === currentSlide ? 'bg-gold' : 'bg-white/70'
-                        } shadow-lg`}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 shadow-lg ${
+                            index === currentSlide 
+                                ? 'bg-gold scale-125' 
+                                : 'bg-white/70 hover:bg-white'
+                        }`}
                     />
                 ))}
             </div>
@@ -681,10 +716,10 @@ export default function HomePage() {
                 </motion.div>
             )}
 
-            {/* Hero Section - Background Images Removed */}
+            {/* NEW HERO SECTION - Split Layout for Desktop */}
             <section className="relative overflow-hidden min-h-[80vh] flex items-center px-4 bg-white">
                 <div className="container mx-auto max-w-7xl relative z-10 pt-2 lg:pt-0">
-                    {/* Mobile Layout */}
+                    {/* Mobile Layout - Keep existing mobile layout */}
                     <div className="lg:hidden">
                         {/* Animated Contact Banner */}
                         <AnimatedContactBanner />
@@ -695,7 +730,7 @@ export default function HomePage() {
                             transition={{ duration: 0.8 }}
                             className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gold/20 mb-2"
                         >
-                            <SimpleImageSlideShow />
+                            <HeroSlider />
                         </motion.div>
 
                         <div className="mt-4 mb-2 overflow-hidden">
@@ -742,108 +777,137 @@ export default function HomePage() {
                         </motion.div>
                     </div>
 
-                    {/* Desktop Layout */}
-                    <div className="hidden lg:grid lg:grid-cols-12 gap-6 items-stretch">
-                        {/* Categories Column */}
+                    {/* NEW DESKTOP LAYOUT - Split Hero Section */}
+                    <div className="hidden lg:grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
+                        {/* Text Content Side */}
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
+                            initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
-                            className="lg:col-span-3 flex flex-col"
+                            className="flex flex-col justify-center space-y-8"
                         >
-                            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
-                                <h3 className="text-gray-800 font-bold text-lg mb-4 flex items-center">
-                                    <FiGrid className="mr-2 text-gold" />
-                                    Categories
-                                </h3>
-                                <div className="space-y-3">
-                                    {[
-                                        { name: 'Evening Gowns', icon: FiHeart, count: 24 },
-                                        { name: 'Wedding Dresses', icon: FiHeart, count: 18 },
-                                        { name: 'Casual Wear', icon: FiUser, count: 32 },
-                                        { name: 'Traditional', icon: FiFeather, count: 15 },
-                                        { name: 'Accessories', icon: FiShoppingBag, count: 45 }
-                                    ].map((category, index) => (
-                                        <motion.div
-                                            key={category.name}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
-                                            whileHover={{ x: 5 }}
-                                            className="flex items-center justify-between p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 cursor-pointer group border border-transparent hover:border-gold/30"
-                                        >
-                                            <div className="flex items-center">
-                                                {React.createElement(category.icon, { 
-                                                    className: "text-gold mr-3 group-hover:text-yellow-600 transition-colors", 
-                                                    size: 18 
-                                                })}
-                                                <span className="text-gray-700 font-medium group-hover:text-gray-900 transition-colors">
-                                                    {category.name}
-                                                </span>
-                                            </div>
-                                            <span className="bg-gold/20 text-gray-700 text-xs px-2 py-1 rounded-full">
-                                                {category.count}
-                                            </span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                            >
+                                <motion.h1
+                                    className="text-6xl font-bold text-gray-800 mb-6 leading-tight font-serif"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.6 }}
+                                >
+                                    Crafting Fashion{' '}
+                                    <span className="bg-gradient-to-r from-gold to-yellow-300 bg-clip-text text-transparent block">
+                                        You Can Feel,
+                                    </span>{' '}
+                                    Wear & Love
+                                </motion.h1>
+                                
+                                <motion.p
+                                    className="text-xl text-gray-600 mb-8 font-serif leading-relaxed"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.8 }}
+                                >
+                                    Discover exquisite fashion pieces crafted with passion and precision. 
+                                    From elegant evening wear to casual chic, find your perfect style 
+                                    that makes you feel confident and beautiful.
+                                </motion.p>
+                            </motion.div>
+
+                            <motion.div
+                                className="flex flex-col sm:flex-row gap-4"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 1 }}
+                            >
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <Link
+                                        to="/products"
+                                        className="bg-gradient-to-r from-gold to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white py-4 px-12 rounded-xl font-semibold transition-all duration-300 shadow-2xl hover:shadow-3xl text-center backdrop-blur-sm border border-gold/30 inline-flex items-center gap-3"
+                                    >
+                                        Shop Now
+                                        <FiArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                                    </Link>
+                                </motion.div>
+                                
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <Link
+                                        to="/about"
+                                        className="border-2 border-gold text-gold hover:bg-gold hover:text-white py-4 px-8 rounded-xl font-semibold transition-all duration-300 shadow-lg text-center"
+                                    >
+                                        Learn More
+                                    </Link>
+                                </motion.div>
+                            </motion.div>
+
+                            {/* Stats */}
+                            <motion.div
+                                className="grid grid-cols-3 gap-6 pt-8"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 1.2 }}
+                            >
+                                {[
+                                    { number: '500+', label: 'Happy Customers' },
+                                    { number: '1000+', label: 'Collections' },
+                                    { number: '5★', label: 'Rated Quality' }
+                                ].map((stat, index) => (
+                                    <motion.div
+                                        key={stat.label}
+                                        className="text-center"
+                                        whileHover={{ scale: 1.05 }}
+                                    >
+                                        <div className="text-2xl font-bold text-gold mb-1">{stat.number}</div>
+                                        <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
+                                    </motion.div>
+                                ))}
+                            </motion.div>
                         </motion.div>
 
-                        {/* Main Banner Column */}
+                        {/* Image Slider Side */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                            className="lg:col-span-6 flex flex-col"
-                        >
-                            <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-gold/20 flex-1">
-                                <SimpleImageSlideShow />
-                            </div>
-                            <div className="mt-4">
-                                <MovingImagesGrid />
-                            </div>
-                        </motion.div>
-
-                        {/* Contact Column */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 30 }}
+                            initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.6 }}
-                            className="lg:col-span-3 flex flex-col"
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                            className="relative h-full min-h-[600px]"
                         >
-                            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-gold/30 shadow-2xl flex-1">
-                                <h3 className="text-gray-800 font-bold text-lg mb-4 flex items-center">
-                                    <FiPhone className="mr-2 text-gold" />
-                                    Contact Us
-                                </h3>
-                                <div className="space-y-4">
-                                    <motion.div 
-                                        className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group border border-transparent hover:border-gold/30"
-                                        whileHover={{ scale: 1.02 }}
-                                    >
-                                        <FiPhone className="text-gold mr-3 group-hover:text-yellow-600 transition-colors" />
-                                        <div>
-                                            <p className="text-gray-700 font-medium">Phone</p>
-                                            <a href="tel:+1234567890" className="text-gold text-sm hover:text-yellow-600 transition-colors">
-                                                +234 901 087 3215
-                                            </a>
-                                        </div>
-                                    </motion.div>
-                                    <motion.div 
-                                        className="flex items-center p-3 rounded-xl hover:bg-gold/10 transition-all duration-300 group border border-transparent hover:border-gold/30"
-                                        whileHover={{ scale: 1.02 }}
-                                    >
-                                        <FiMail className="text-gold mr-3 group-hover:text-yellow-600 transition-colors" />
-                                        <div>
-                                            <p className="text-gray-700 font-medium">Email</p>
-                                            <a href="mailto:info@bellebyokien.com" className="text-gold text-sm hover:text-yellow-600 transition-colors">
-                                                bellebyokien@gmail.com
-                                            </a>
-                                        </div>
-                                    </motion.div>
-                                </div>
+                            <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-gold/20">
+                                <HeroSlider />
                             </div>
+                            
+                            {/* Floating Elements */}
+                            <motion.div
+                                className="absolute -top-4 -right-4 w-24 h-24 bg-gold/10 rounded-full blur-xl"
+                                animate={{
+                                    scale: [1, 1.2, 1],
+                                    opacity: [0.5, 0.8, 0.5],
+                                }}
+                                transition={{
+                                    duration: 4,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                            />
+                            <motion.div
+                                className="absolute -bottom-4 -left-4 w-32 h-32 bg-yellow-200/20 rounded-full blur-xl"
+                                animate={{
+                                    scale: [1.2, 1, 1.2],
+                                    opacity: [0.3, 0.6, 0.3],
+                                }}
+                                transition={{
+                                    duration: 5,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                            />
                         </motion.div>
                     </div>
                 </div>
