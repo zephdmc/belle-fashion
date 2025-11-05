@@ -18,7 +18,9 @@ import {
     FiScissors,
     FiTruck,
     FiUsers,
-    FiMapPin
+    FiMapPin,
+    FiMinus,
+    FiPlus
 } from 'react-icons/fi';
 
 export default function ProductDetail() {
@@ -31,6 +33,7 @@ export default function ProductDetail() {
     const [isImageZoomed, setIsImageZoomed] = useState(false);
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
+    const [activeTab, setActiveTab] = useState('details');
     const { addToCart } = useCart();
     const navigate = useNavigate();
 
@@ -83,9 +86,21 @@ export default function ProductDetail() {
         }
     };
 
+    const incrementQuantity = () => {
+        if (quantity < Math.min(product.countInStock, 10)) {
+            setQuantity(quantity + 1);
+        }
+    };
+
+    const decrementQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
+
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-8">
+            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-4">
                 <div className="container mx-auto px-4">
                     <div className="flex justify-center items-center h-96">
                         <div className="text-center">
@@ -100,17 +115,17 @@ export default function ProductDetail() {
     
     if (error) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-8">
+            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-4">
                 <div className="container mx-auto px-4">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-2xl shadow-lg p-8 text-center border border-gold/20"
+                        className="bg-white rounded-2xl shadow-lg p-6 text-center border border-gold/20"
                     >
                         <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <FiPackage className="text-red-500 text-2xl" />
                         </div>
-                        <h3 className="text-2xl font-bold text-black mb-4 font-serif">Fashion Item Not Found</h3>
+                        <h3 className="text-xl font-bold text-black mb-4 font-serif">Fashion Item Not Found</h3>
                         <p className="text-gray-600 mb-6">{error}</p>
                         <button
                             onClick={() => navigate('/products')}
@@ -126,17 +141,17 @@ export default function ProductDetail() {
 
     if (!product) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-8">
+            <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 py-4">
                 <div className="container mx-auto px-4">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-2xl shadow-lg p-8 text-center border border-gold/20"
+                        className="bg-white rounded-2xl shadow-lg p-6 text-center border border-gold/20"
                     >
                         <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                             <FiPackage className="text-gray-500 text-2xl" />
                         </div>
-                        <h3 className="text-2xl font-bold text-black mb-4 font-serif">Fashion Item Not Available</h3>
+                        <h3 className="text-xl font-bold text-black mb-4 font-serif">Fashion Item Not Available</h3>
                         <p className="text-gray-600 mb-6">The fashion item you're looking for is no longer available.</p>
                         <button
                             onClick={() => navigate('/products')}
@@ -166,13 +181,48 @@ export default function ProductDetail() {
     const canAddToCart = product.isCustomizable || (product.countInStock > 0 && selectedSize && selectedColor);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br pt-8 from-white to-gray-50 py-12">
-            <div className="container mx-auto px-4 max-w-7xl">
-                {/* Breadcrumb Navigation */}
+        <div className="min-h-screen bg-gradient-to-br from-white to-gray-50">
+            {/* Sticky Header for Mobile */}
+            <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="lg:hidden sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200"
+            >
+                <div className="container mx-auto px-4 py-3">
+                    <div className="flex items-center justify-between">
+                        <button 
+                            onClick={() => navigate(-1)} 
+                            className="flex items-center text-black hover:text-gold transition-colors duration-200 p-2"
+                        >
+                            <FiArrowLeft className="w-5 h-5" />
+                        </button>
+                        
+                        <div className="flex items-center space-x-3">
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="p-2 text-gray-600 hover:text-gold transition-colors"
+                            >
+                                <FiHeart className="w-5 h-5" />
+                            </motion.button>
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="p-2 text-gray-600 hover:text-gold transition-colors"
+                            >
+                                <FiShare2 className="w-5 h-5" />
+                            </motion.button>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+
+            <div className="container mx-auto px-4 max-w-7xl py-4">
+                {/* Breadcrumb Navigation - Desktop Only */}
                 <motion.nav
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="mb-8"
+                    className="mb-6 hidden lg:block"
                 >
                     <button 
                         onClick={() => navigate(-1)} 
@@ -183,7 +233,7 @@ export default function ProductDetail() {
                     </button>
                 </motion.nav>
 
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
                     {/* Image Gallery */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
@@ -197,7 +247,7 @@ export default function ProductDetail() {
                                 <motion.span
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black text-sm font-bold px-3 py-2 rounded-full shadow-lg transform -rotate-6 font-serif"
+                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black text-xs lg:text-sm font-bold px-2 lg:px-3 py-1 lg:py-2 rounded-full shadow-lg transform -rotate-6 font-serif"
                                 >
                                     {product.discountPercentage}% OFF
                                 </motion.span>
@@ -208,7 +258,7 @@ export default function ProductDetail() {
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ delay: 0.2 }}
-                                    className="bg-black text-gold text-sm font-bold px-3 py-2 rounded-full shadow-lg block font-serif"
+                                    className="bg-black text-gold text-xs lg:text-sm font-bold px-2 lg:px-3 py-1 lg:py-2 rounded-full shadow-lg block font-serif"
                                 >
                                     Customizable
                                 </motion.span>
@@ -219,20 +269,9 @@ export default function ProductDetail() {
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ delay: 0.3 }}
-                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black text-sm font-bold px-3 py-2 rounded-full shadow-lg block font-serif"
+                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black text-xs lg:text-sm font-bold px-2 lg:px-3 py-1 lg:py-2 rounded-full shadow-lg block font-serif"
                                 >
                                     New Arrival
-                                </motion.span>
-                            )}
-
-                            {product.isBestseller && (
-                                <motion.span
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ delay: 0.4 }}
-                                    className="bg-black text-gold text-sm font-bold px-3 py-2 rounded-full shadow-lg block font-serif"
-                                >
-                                    Bestseller
                                 </motion.span>
                             )}
                         </div>
@@ -257,15 +296,15 @@ export default function ProductDetail() {
                                 <>
                                     <button
                                         onClick={() => navigateImage('prev')}
-                                        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-2 shadow-lg transition-all duration-200 border border-gold/20"
+                                        className="absolute left-2 lg:left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black rounded-full p-2 lg:p-3 shadow-lg transition-all duration-200 border border-gold/20"
                                     >
-                                        <FiChevronLeft size={20} />
+                                        <FiChevronLeft className="w-4 h-4 lg:w-5 lg:h-5" />
                                     </button>
                                     <button
                                         onClick={() => navigateImage('next')}
-                                        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-black rounded-full p-2 shadow-lg transition-all duration-200 border border-gold/20"
+                                        className="absolute right-2 lg:right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black rounded-full p-2 lg:p-3 shadow-lg transition-all duration-200 border border-gold/20"
                                     >
-                                        <FiChevronRight size={20} />
+                                        <FiChevronRight className="w-4 h-4 lg:w-5 lg:h-5" />
                                     </button>
                                 </>
                             )}
@@ -273,15 +312,15 @@ export default function ProductDetail() {
 
                         {/* Thumbnail Gallery */}
                         {product.images && product.images.length > 1 && (
-                            <div className="p-4 border-t border-gray-200">
-                                <div className="flex gap-3 overflow-x-auto py-2">
+                            <div className="p-3 lg:p-4 border-t border-gray-200">
+                                <div className="flex gap-2 lg:gap-3 overflow-x-auto py-2 scrollbar-hide">
                                     {product.images.map((image, index) => (
                                         <motion.button
                                             key={index}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => setSelectedImageIndex(index)}
-                                            className={`flex-shrink-0 w-16 h-20 border-2 rounded-xl overflow-hidden transition-all duration-200 ${
+                                            className={`flex-shrink-0 w-12 h-16 lg:w-16 lg:h-20 border-2 rounded-lg lg:rounded-xl overflow-hidden transition-all duration-200 ${
                                                 selectedImageIndex === index 
                                                     ? 'border-gold shadow-md' 
                                                     : 'border-gray-200 hover:border-gold/50'
@@ -304,13 +343,13 @@ export default function ProductDetail() {
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-white rounded-2xl shadow-xl p-8 border border-gold/20"
+                        className="bg-white rounded-2xl shadow-xl p-4 lg:p-8 border border-gold/20"
                     >
-                        <div className="space-y-6">
+                        <div className="space-y-4 lg:space-y-6">
                             {/* Header */}
                             <div>
-                                <div className="flex items-center text-sm text-gray-500 mb-2 font-serif">
-                                    <FiTag className="mr-2" />
+                                <div className="flex items-center text-xs lg:text-sm text-gray-500 mb-2 font-serif">
+                                    <FiTag className="mr-2 w-3 h-3 lg:w-4 lg:h-4" />
                                     <span className="uppercase tracking-wide font-medium">{product.category}</span>
                                     {product.subcategory && (
                                         <>
@@ -320,38 +359,46 @@ export default function ProductDetail() {
                                     )}
                                 </div>
                                 
-                                <h1 className="text-3xl lg:text-4xl font-bold text-black mb-3 font-serif">
+                                <h1 className="text-xl lg:text-3xl xl:text-4xl font-bold text-black mb-2 lg:mb-3 font-serif leading-tight">
                                     {product.name}
                                 </h1>
                                 
                                 {(product.designer || product.brand) && (
-                                    <p className="text-lg text-gray-600 mb-4 font-serif">
+                                    <p className="text-sm lg:text-lg text-gray-600 mb-3 lg:mb-4 font-serif">
                                         by <span className="font-semibold">{product.designer || product.brand}</span>
                                     </p>
                                 )}
 
-                                {product.collection && (
-                                    <div className="flex items-center text-gray-600 mb-4 font-serif">
-                                        <FiMapPin className="mr-2" />
-                                        <span className="font-medium">{product.collection} Collection</span>
+                                {/* Rating - Mobile Only */}
+                                <div className="lg:hidden flex items-center mb-3">
+                                    <div className="flex items-center space-x-1">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <FiStar 
+                                                key={star}
+                                                className={`w-4 h-4 ${
+                                                    star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+                                                }`}
+                                            />
+                                        ))}
                                     </div>
-                                )}
+                                    <span className="text-gray-500 text-sm ml-2">(4.5)</span>
+                                </div>
                             </div>
 
                             {/* Price Section */}
-                            <div className="bg-gradient-to-r from-gold/10 to-yellow-600/10 rounded-2xl p-6 border border-gold/20">
-                                <div className="flex items-center gap-4 mb-3">
+                            <div className="bg-gradient-to-r from-gold/10 to-yellow-600/10 rounded-xl lg:rounded-2xl p-4 lg:p-6 border border-gold/20">
+                                <div className="flex items-center gap-3 lg:gap-4 mb-2 lg:mb-3">
                                     {hasDiscount ? (
                                         <>
-                                            <span className="text-3xl font-bold text-black font-serif">
+                                            <span className="text-2xl lg:text-3xl font-bold text-black font-serif">
                                                 ₦{discountedPrice.toLocaleString()}
                                             </span>
-                                            <span className="text-xl text-gray-500 line-through font-serif">
+                                            <span className="text-lg lg:text-xl text-gray-500 line-through font-serif">
                                                 ₦{originalPrice.toLocaleString()}
                                             </span>
                                         </>
                                     ) : (
-                                        <span className="text-3xl font-bold text-black font-serif">
+                                        <span className="text-2xl lg:text-3xl font-bold text-black font-serif">
                                             ₦{product.price.toLocaleString()}
                                         </span>
                                     )}
@@ -359,8 +406,8 @@ export default function ProductDetail() {
 
                                 {/* Stock Status */}
                                 {!product.isCustomizable && (
-                                    <div className="flex items-center font-serif">
-                                        <div className={`w-3 h-3 rounded-full mr-2 ${
+                                    <div className="flex items-center font-serif text-sm lg:text-base">
+                                        <div className={`w-2 h-2 lg:w-3 lg:h-3 rounded-full mr-2 ${
                                             product.countInStock > 0 
                                                 ? product.countInStock < 10 
                                                     ? 'bg-orange-500' 
@@ -376,7 +423,7 @@ export default function ProductDetail() {
                                         }>
                                             {product.countInStock > 0 
                                                 ? product.countInStock < 10 
-                                                    ? `Only ${product.countInStock} left in stock` 
+                                                    ? `Only ${product.countInStock} left` 
                                                     : 'In stock'
                                                 : 'Out of stock'
                                             }
@@ -385,205 +432,317 @@ export default function ProductDetail() {
                                 )}
                             </div>
 
-                            {/* Size Selection */}
-                            {product.sizes && product.sizes.length > 0 && (
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
-                                        <FiDroplet className="mr-2 text-gold" />
-                                        Select Size
-                                    </h3>
-                                    <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
-                                        {product.sizes.map((size) => (
-                                            <motion.button
-                                                key={size}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={() => setSelectedSize(size)}
-                                                className={`p-3 border-2 rounded-xl font-semibold transition-all duration-200 font-serif ${
-                                                    selectedSize === size
-                                                        ? 'border-gold bg-gold/10 text-black shadow-sm'
-                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
-                                                }`}
-                                            >
-                                                {size}
-                                            </motion.button>
-                                        ))}
-                                    </div>
+                            {/* Mobile Tab Navigation */}
+                            <div className="lg:hidden border-b border-gray-200">
+                                <div className="flex space-x-4">
+                                    {['details', 'sizing', 'shipping'].map((tab) => (
+                                        <button
+                                            key={tab}
+                                            onClick={() => setActiveTab(tab)}
+                                            className={`pb-3 px-1 font-medium text-sm capitalize font-serif transition-all duration-200 ${
+                                                activeTab === tab
+                                                    ? 'text-black border-b-2 border-gold'
+                                                    : 'text-gray-500 hover:text-gray-700'
+                                            }`}
+                                        >
+                                            {tab}
+                                        </button>
+                                    ))}
                                 </div>
-                            )}
-
-                            {/* Color Selection */}
-                            {product.colors && product.colors.length > 0 && (
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
-                                        <FiDroplet className="mr-2 text-gold" />
-                                        Select Color
-                                    </h3>
-                                    <div className="flex flex-wrap gap-3">
-                                        {product.colors.map((color) => (
-                                            <motion.button
-                                                key={color}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={() => setSelectedColor(color)}
-                                                className={`p-3 border-2 rounded-xl font-semibold transition-all duration-200 font-serif ${
-                                                    selectedColor === color
-                                                        ? 'border-gold bg-gold/10 text-black shadow-sm'
-                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
-                                                }`}
-                                            >
-                                                {color}
-                                            </motion.button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Description */}
-                            <div>
-                                <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
-                                    <FiPackage className="mr-2 text-gold" />
-                                    Product Description
-                                </h3>
-                                <p className="text-gray-700 leading-relaxed text-lg font-serif">{product.description}</p>
                             </div>
 
-                            {/* Material & Care */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {product.material && (
+                            {/* Mobile Tab Content */}
+                            <div className="lg:hidden">
+                                <AnimatePresence mode="wait">
+                                    {activeTab === 'details' && (
+                                        <motion.div
+                                            key="details"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            className="space-y-4"
+                                        >
+                                            {/* Description */}
+                                            <div>
+                                                <p className="text-gray-700 leading-relaxed text-sm font-serif">{product.description}</p>
+                                            </div>
+
+                                            {/* Style Tags */}
+                                            {product.styleTags && product.styleTags.length > 0 && (
+                                                <div>
+                                                    <h3 className="text-lg font-semibold mb-2 text-black font-serif">Style</h3>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {product.styleTags.slice(0, 4).map((tag, index) => (
+                                                            <span
+                                                                key={index}
+                                                                className="bg-gold/20 text-black px-2 py-1 rounded-lg text-xs font-semibold font-serif border border-gold/30"
+                                                            >
+                                                                {tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </motion.div>
+                                    )}
+
+                                    {activeTab === 'sizing' && (
+                                        <motion.div
+                                            key="sizing"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            className="space-y-4"
+                                        >
+                                            {/* Size Selection */}
+                                            {product.sizes && product.sizes.length > 0 && (
+                                                <div>
+                                                    <h3 className="text-lg font-semibold mb-3 text-black font-serif">Select Size</h3>
+                                                    <div className="grid grid-cols-4 gap-2">
+                                                        {product.sizes.map((size) => (
+                                                            <button
+                                                                key={size}
+                                                                onClick={() => setSelectedSize(size)}
+                                                                className={`p-3 border-2 rounded-lg font-semibold transition-all duration-200 font-serif text-sm ${
+                                                                    selectedSize === size
+                                                                        ? 'border-gold bg-gold/10 text-black shadow-sm'
+                                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
+                                                                }`}
+                                                            >
+                                                                {size}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {/* Color Selection */}
+                                            {product.colors && product.colors.length > 0 && (
+                                                <div>
+                                                    <h3 className="text-lg font-semibold mb-3 text-black font-serif">Select Color</h3>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {product.colors.map((color) => (
+                                                            <button
+                                                                key={color}
+                                                                onClick={() => setSelectedColor(color)}
+                                                                className={`p-3 border-2 rounded-lg font-semibold transition-all duration-200 font-serif text-sm ${
+                                                                    selectedColor === color
+                                                                        ? 'border-gold bg-gold/10 text-black shadow-sm'
+                                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
+                                                                }`}
+                                                            >
+                                                                {color}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </motion.div>
+                                    )}
+
+                                    {activeTab === 'shipping' && (
+                                        <motion.div
+                                            key="shipping"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            className="space-y-4"
+                                        >
+                                            {/* Production & Delivery */}
+                                            <div className="space-y-3">
+                                                {product.productionTime && (
+                                                    <div className="flex items-center bg-gold/10 rounded-lg p-3 border border-gold/20">
+                                                        <FiClock className="text-black mr-3 text-lg" />
+                                                        <div>
+                                                            <div className="font-semibold text-black font-serif text-sm">Production Time</div>
+                                                            <div className="text-gray-700 font-serif text-sm">{product.productionTime}</div>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                
+                                                {product.deliveryEstimate && (
+                                                    <div className="flex items-center bg-black/5 rounded-lg p-3 border border-gray-200">
+                                                        <FiTruck className="text-black mr-3 text-lg" />
+                                                        <div>
+                                                            <div className="font-semibold text-black font-serif text-sm">Delivery Estimate</div>
+                                                            <div className="text-gray-700 font-serif text-sm">{product.deliveryEstimate}</div>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            {/* Desktop Content */}
+                            <div className="hidden lg:block space-y-6">
+                                {/* Size Selection */}
+                                {product.sizes && product.sizes.length > 0 && (
                                     <div>
-                                        <h3 className="text-lg font-semibold mb-2 text-black font-serif">Material</h3>
-                                        <p className="text-gray-700 font-serif">{product.material}</p>
-                                    </div>
-                                )}
-                                
-                                {product.careInstructions && (
-                                    <div>
-                                        <h3 className="text-lg font-semibold mb-2 text-black font-serif">Care Instructions</h3>
-                                        <p className="text-gray-700 font-serif">{product.careInstructions}</p>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Fit & Style Details */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {product.fitType && (
-                                    <div className="text-center bg-gray-50 rounded-xl p-4 border border-gray-200">
-                                        <div className="text-sm text-gray-600 mb-1 font-serif">Fit</div>
-                                        <div className="font-semibold text-black font-serif">{product.fitType}</div>
-                                    </div>
-                                )}
-                                
-                                {product.length && (
-                                    <div className="text-center bg-gray-50 rounded-xl p-4 border border-gray-200">
-                                        <div className="text-sm text-gray-600 mb-1 font-serif">Length</div>
-                                        <div className="font-semibold text-black font-serif">{product.length}</div>
-                                    </div>
-                                )}
-                                
-                                {product.neckline && (
-                                    <div className="text-center bg-gray-50 rounded-xl p-4 border border-gray-200">
-                                        <div className="text-sm text-gray-600 mb-1 font-serif">Neckline</div>
-                                        <div className="font-semibold text-black font-serif">{product.neckline}</div>
-                                    </div>
-                                )}
-                                
-                                {product.sleeveType && (
-                                    <div className="text-center bg-gray-50 rounded-xl p-4 border border-gray-200">
-                                        <div className="text-sm text-gray-600 mb-1 font-serif">Sleeve</div>
-                                        <div className="font-semibold text-black font-serif">{product.sleeveType}</div>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Style Tags */}
-                            {product.styleTags && product.styleTags.length > 0 && (
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-3 text-black font-serif">Style</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {product.styleTags.map((tag, index) => (
-                                            <motion.span
-                                                key={index}
-                                                initial={{ opacity: 0, scale: 0.8 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                transition={{ delay: index * 0.1 }}
-                                                className="bg-gold/20 text-black px-3 py-2 rounded-xl text-sm font-semibold font-serif border border-gold/30"
-                                            >
-                                                {tag}
-                                            </motion.span>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Occasion Tags */}
-                            {product.occasion && product.occasion.length > 0 && (
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
-                                        <FiHeart className="mr-2 text-gold" />
-                                        Perfect For
-                                    </h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {product.occasion.map((occasion, index) => (
-                                            <motion.span
-                                                key={index}
-                                                initial={{ opacity: 0, scale: 0.8 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                transition={{ delay: index * 0.1 }}
-                                                className="bg-black text-gold px-3 py-2 rounded-xl text-sm font-semibold font-serif border border-gold/30"
-                                            >
-                                                {occasion}
-                                            </motion.span>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Production & Delivery */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {product.productionTime && (
-                                    <div className="flex items-center bg-gold/10 rounded-xl p-4 border border-gold/20">
-                                        <FiClock className="text-black mr-3 text-xl" />
-                                        <div>
-                                            <div className="font-semibold text-black font-serif">Production Time</div>
-                                            <div className="text-gray-700 font-serif">{product.productionTime}</div>
+                                        <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
+                                            <FiDroplet className="mr-2 text-gold" />
+                                            Select Size
+                                        </h3>
+                                        <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
+                                            {product.sizes.map((size) => (
+                                                <motion.button
+                                                    key={size}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={() => setSelectedSize(size)}
+                                                    className={`p-3 border-2 rounded-xl font-semibold transition-all duration-200 font-serif ${
+                                                        selectedSize === size
+                                                            ? 'border-gold bg-gold/10 text-black shadow-sm'
+                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
+                                                    }`}
+                                                >
+                                                    {size}
+                                                </motion.button>
+                                            ))}
                                         </div>
                                     </div>
                                 )}
-                                
-                                {product.deliveryEstimate && (
-                                    <div className="flex items-center bg-black/5 rounded-xl p-4 border border-gray-200">
-                                        <FiTruck className="text-black mr-3 text-xl" />
-                                        <div>
-                                            <div className="font-semibold text-black font-serif">Delivery Estimate</div>
-                                            <div className="text-gray-700 font-serif">{product.deliveryEstimate}</div>
+
+                                {/* Color Selection */}
+                                {product.colors && product.colors.length > 0 && (
+                                    <div>
+                                        <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
+                                            <FiDroplet className="mr-2 text-gold" />
+                                            Select Color
+                                        </h3>
+                                        <div className="flex flex-wrap gap-3">
+                                            {product.colors.map((color) => (
+                                                <motion.button
+                                                    key={color}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={() => setSelectedColor(color)}
+                                                    className={`p-3 border-2 rounded-xl font-semibold transition-all duration-200 font-serif ${
+                                                        selectedColor === color
+                                                            ? 'border-gold bg-gold/10 text-black shadow-sm'
+                                                            : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
+                                                    }`}
+                                                >
+                                                    {color}
+                                                </motion.button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Description */}
+                                <div>
+                                    <h3 className="text-xl font-semibold mb-3 text-black flex items-center font-serif">
+                                        <FiPackage className="mr-2 text-gold" />
+                                        Product Description
+                                    </h3>
+                                    <p className="text-gray-700 leading-relaxed text-lg font-serif">{product.description}</p>
+                                </div>
+
+                                {/* Style Tags */}
+                                {product.styleTags && product.styleTags.length > 0 && (
+                                    <div>
+                                        <h3 className="text-xl font-semibold mb-3 text-black font-serif">Style</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {product.styleTags.map((tag, index) => (
+                                                <motion.span
+                                                    key={index}
+                                                    initial={{ opacity: 0, scale: 0.8 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: index * 0.1 }}
+                                                    className="bg-gold/20 text-black px-3 py-2 rounded-xl text-sm font-semibold font-serif border border-gold/30"
+                                                >
+                                                    {tag}
+                                                </motion.span>
+                                            ))}
                                         </div>
                                     </div>
                                 )}
                             </div>
 
-                            {/* Add to Cart Section */}
-                            {canAddToCart && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.4 }}
-                                    className="bg-gray-50 rounded-2xl p-6 border border-gray-200"
-                                >
+                            {/* Add to Cart Section - Sticky on Mobile */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="lg:bg-gray-50 lg:rounded-2xl lg:p-6 lg:border lg:border-gray-200"
+                            >
+                                {/* Mobile Sticky Add to Cart */}
+                                <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-2xl z-30">
+                                    <div className="container mx-auto">
+                                        <div className="flex items-center justify-between space-x-4">
+                                            {!product.isCustomizable && (
+                                                <div className="flex items-center space-x-3">
+                                                    <motion.button
+                                                        whileTap={{ scale: 0.9 }}
+                                                        onClick={decrementQuantity}
+                                                        className="w-10 h-10 border-2 border-gray-300 rounded-lg flex items-center justify-center text-gray-600 hover:border-gold transition-colors"
+                                                    >
+                                                        <FiMinus className="w-4 h-4" />
+                                                    </motion.button>
+                                                    <span className="text-lg font-semibold font-serif w-8 text-center">{quantity}</span>
+                                                    <motion.button
+                                                        whileTap={{ scale: 0.9 }}
+                                                        onClick={incrementQuantity}
+                                                        className="w-10 h-10 border-2 border-gray-300 rounded-lg flex items-center justify-center text-gray-600 hover:border-gold transition-colors"
+                                                    >
+                                                        <FiPlus className="w-4 h-4" />
+                                                    </motion.button>
+                                                </div>
+                                            )}
+                                            
+                                            <motion.button
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
+                                                onClick={handleAddToCart}
+                                                disabled={!canAddToCart}
+                                                className={`flex-1 py-3 px-6 rounded-xl font-semibold text-lg flex items-center justify-center font-serif border shadow-lg transition-all duration-200 ${
+                                                    canAddToCart
+                                                        ? 'bg-black text-gold border-gold/30 hover:bg-gray-800'
+                                                        : 'bg-gray-300 text-gray-500 border-gray-300 cursor-not-allowed'
+                                                }`}
+                                            >
+                                                {product.isCustomizable ? (
+                                                    <>
+                                                        <FiScissors className="mr-2 text-xl" />
+                                                        Add to Cart
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <FiShoppingCart className="mr-2 text-xl" />
+                                                        Add to Cart
+                                                    </>
+                                                )}
+                                            </motion.button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Desktop Add to Cart */}
+                                <div className="hidden lg:block">
                                     {!product.isCustomizable && (
                                         <div className="mb-4">
                                             <label className="block text-gray-700 mb-3 font-semibold text-lg font-serif">Quantity</label>
-                                            <select
-                                                value={quantity}
-                                                onChange={(e) => setQuantity(parseInt(e.target.value))}
-                                                className="border-2 border-gray-300 rounded-xl p-3 w-24 bg-white focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-200 font-semibold font-serif"
-                                            >
-                                                {[...Array(Math.min(product.countInStock, 10)).keys()].map((x) => (
-                                                    <option key={x + 1} value={x + 1}>
-                                                        {x + 1}
-                                                    </option>
-                                                ))}
-                                            </select>
+                                            <div className="flex items-center space-x-3">
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={decrementQuantity}
+                                                    className="w-12 h-12 border-2 border-gray-300 rounded-xl flex items-center justify-center text-gray-600 hover:border-gold transition-colors"
+                                                >
+                                                    <FiMinus className="w-5 h-5" />
+                                                </motion.button>
+                                                <span className="text-xl font-semibold font-serif w-12 text-center">{quantity}</span>
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    onClick={incrementQuantity}
+                                                    className="w-12 h-12 border-2 border-gray-300 rounded-xl flex items-center justify-center text-gray-600 hover:border-gold transition-colors"
+                                                >
+                                                    <FiPlus className="w-5 h-5" />
+                                                </motion.button>
+                                            </div>
                                         </div>
                                     )}
 
@@ -591,7 +750,12 @@ export default function ProductDetail() {
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                         onClick={handleAddToCart}
-                                        className="w-full bg-black text-gold py-4 px-6 rounded-xl hover:bg-gray-800 transition-all duration-200 font-semibold text-lg flex items-center justify-center font-serif border border-gold/30 shadow-lg"
+                                        disabled={!canAddToCart}
+                                        className={`w-full py-4 px-6 rounded-xl font-semibold text-lg flex items-center justify-center font-serif border shadow-lg transition-all duration-200 ${
+                                            canAddToCart
+                                                ? 'bg-black text-gold border-gold/30 hover:bg-gray-800'
+                                                : 'bg-gray-300 text-gray-500 border-gray-300 cursor-not-allowed'
+                                        }`}
                                     >
                                         {product.isCustomizable ? (
                                             <>
@@ -605,8 +769,8 @@ export default function ProductDetail() {
                                             </>
                                         )}
                                     </motion.button>
-                                </motion.div>
-                            )}
+                                </div>
+                            </motion.div>
 
                             {/* Out of Stock Message */}
                             {!canAddToCart && !product.isCustomizable && (
@@ -631,6 +795,9 @@ export default function ProductDetail() {
                     </motion.div>
                 </div>
             </div>
+
+            {/* Add padding for mobile sticky button */}
+            <div className="lg:hidden h-20"></div>
 
             {/* Image Zoom Modal */}
             <AnimatePresence>
