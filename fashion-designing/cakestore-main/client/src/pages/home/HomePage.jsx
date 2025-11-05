@@ -140,21 +140,21 @@ const MobileHeroSlider = () => {
     const slides = [
         {
             id: 1,
-            image: "/images/hero1.png",
+            image: "/images/hero1.jpeg",
             alt: "Luxury Fashion Collection",
             title: "Elegant Evening Wear",
             subtitle: "Discover our premium collection"
         },
         {
             id: 2, 
-            image: "/images/hero2.png",
+            image: "/images/hero2.jpeg",
             alt: "Designer Dresses",
             title: "Designer Collection",
             subtitle: "Exclusive designs for every occasion"
         },
         {
             id: 3,
-            image: "/images/hero3.png",
+            image: "/images/hero3.jpeg",
             alt: "Casual Fashion",
             title: "Casual Elegance",
             subtitle: "Comfort meets style"
