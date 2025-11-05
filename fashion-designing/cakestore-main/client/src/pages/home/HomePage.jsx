@@ -958,7 +958,7 @@ export default function HomePage() {
                         </motion.p>
 
                         {/* Mobile Quick Stats */}
-                        <MobileQuickStats />
+    
 
                         {/* Action Buttons */}
                         <motion.div
