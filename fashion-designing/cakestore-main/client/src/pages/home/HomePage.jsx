@@ -618,45 +618,7 @@ const MovingImagesGrid = () => {
     );
 };
 
-// Mobile Quick Stats Component
-const MobileQuickStats = () => {
-    const stats = [
-        { number: '500+', label: 'Happy Customers', icon: FiSmile },
-        { number: '1000+', label: 'Collections', icon: FiShoppingBag },
-        { number: '5★', label: 'Rated Quality', icon: FiStar }
-    ];
 
-    return (
-        <motion.div 
-            className="lg:hidden grid grid-cols-3 gap-4 my-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-        >
-            {stats.map((stat, index) => (
-                <motion.div
-                    key={stat.label}
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center border border-gold/30 shadow-lg"
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 + (index * 0.1) }}
-                >
-                    <motion.div
-                        className="w-12 h-12 bg-gradient-to-r from-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-2 shadow-lg"
-                        whileHover={{ rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        {React.createElement(stat.icon, { className: "text-white text-xl" })}
-                    </motion.div>
-                    <div className="text-lg font-bold text-gold mb-1">{stat.number}</div>
-                    <div className="text-xs text-gray-600 font-medium">{stat.label}</div>
-                </motion.div>
-            ))}
-        </motion.div>
-    );
-};
 
 // Desktop Hero Slider Component
 const DesktopHeroSlider = () => {
