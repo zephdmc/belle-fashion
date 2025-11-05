@@ -39,14 +39,7 @@ export default function ShippingForm({ onSubmit, isCustomOrder = false }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const deliveryOptions = [
-        { 
-            value: 'pickup', 
-            label: 'Store Pickup', 
-            price: 0, 
-            description: 'Collect from our store',
-            icon: FiHome,
-            color: 'gold'
-        },
+    
         { 
             value: 'portHarcourt', 
             label: 'Port Harcourt', 
