@@ -107,12 +107,12 @@ export default function OrderManagement() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+            <div className="min-h-screen bg-white py-8">
                 <div className="container mx-auto px-4">
                     <div className="flex justify-center items-center h-96">
                         <div className="text-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-                            <p className="text-gray-600 font-medium">Loading orders...</p>
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto mb-4"></div>
+                            <p className="text-black font-medium">Loading orders...</p>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@ export default function OrderManagement() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
+        <div className="min-h-screen bg-white py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <motion.div
@@ -131,12 +131,12 @@ export default function OrderManagement() {
                 >
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
                         <div>
-                            <h1 className="text-3xl font-bold text-gray-900 mb-2">Order Management</h1>
-                            <p className="text-gray-600">Manage and track all customer orders</p>
+                            <h1 className="text-3xl font-bold text-black mb-2">Order Management</h1>
+                            <p className="text-black">Manage and track all customer orders</p>
                         </div>
                         <button
                             onClick={fetchOrders}
-                            className="flex items-center bg-white text-gray-700 py-3 px-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200 font-semibold mt-4 lg:mt-0"
+                            className="flex items-center bg-white text-black py-3 px-6 rounded-xl border border-gray-300 hover:shadow-lg transition-all duration-200 font-semibold mt-4 lg:mt-0"
                         >
                             <FiRefreshCw className="mr-2" />
                             Refresh Orders
@@ -146,19 +146,19 @@ export default function OrderManagement() {
                     {/* Statistics */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                         {[
-                            { label: 'Total Orders', value: stats.total, color: 'bg-gradient-to-r from-purple-500 to-pink-500', icon: FiPackage },
-                            { label: 'Processing', value: stats.processing, color: 'bg-gradient-to-r from-yellow-500 to-yellow-600', icon: FiPackage },
-                            { label: 'Shipped', value: stats.shipped, color: 'bg-gradient-to-r from-green-500 to-green-600', icon: FiTruck }
+                            { label: 'Total Orders', value: stats.total, color: 'bg-yellow-500', icon: FiPackage },
+                            { label: 'Processing', value: stats.processing, color: 'bg-yellow-500', icon: FiPackage },
+                            { label: 'Shipped', value: stats.shipped, color: 'bg-green-500', icon: FiTruck }
                         ].map(({ label, value, color, icon: Icon }) => (
                             <motion.div
                                 key={label}
                                 whileHover={{ scale: 1.02 }}
-                                className="bg-white rounded-2xl shadow-lg p-6"
+                                className="bg-white rounded-2xl border border-gray-300 p-6"
                             >
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-2xl font-bold text-gray-900">{value}</p>
-                                        <p className="text-sm text-gray-600 mt-1">{label}</p>
+                                        <p className="text-2xl font-bold text-black">{value}</p>
+                                        <p className="text-sm text-black mt-1">{label}</p>
                                     </div>
                                     <div className={`${color} rounded-xl p-3`}>
                                         <Icon className="text-white text-xl" />
@@ -169,11 +169,11 @@ export default function OrderManagement() {
                     </div>
 
                     {/* Filters */}
-                    <div className="bg-white rounded-2xl shadow-lg p-6">
+                    <div className="bg-white rounded-2xl border border-gray-300 p-6">
                         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                             <div className="flex items-center">
-                                <FiFilter className="text-purple-600 mr-3 text-xl" />
-                                <h3 className="text-lg font-semibold text-gray-900">Filter Orders</h3>
+                                <FiFilter className="text-yellow-500 mr-3 text-xl" />
+                                <h3 className="text-lg font-semibold text-black">Filter Orders</h3>
                             </div>
                             
                             <div className="flex flex-col sm:flex-row gap-4 flex-1 lg:justify-end">
@@ -187,7 +187,7 @@ export default function OrderManagement() {
                                         placeholder="Search orders..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="block w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50 transition-all duration-200"
+                                        className="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-white transition-all duration-200"
                                     />
                                 </div>
 
@@ -196,7 +196,7 @@ export default function OrderManagement() {
                                     <select
                                         value={statusFilter}
                                         onChange={(e) => setStatusFilter(e.target.value)}
-                                        className="block w-full pl-4 pr-10 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50 appearance-none cursor-pointer transition-all duration-200"
+                                        className="block w-full pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-transparent bg-white appearance-none cursor-pointer transition-all duration-200"
                                     >
                                         <option value="all">All Statuses</option>
                                         <option value="processing">Processing</option>
@@ -218,7 +218,7 @@ export default function OrderManagement() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-4 mb-6 shadow-sm"
+                            className="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-4 mb-6"
                         >
                             <div className="flex items-center">
                                 <FiAlertCircle className="text-red-500 text-xl mr-3" />
@@ -238,15 +238,15 @@ export default function OrderManagement() {
                             exit={{ opacity: 0 }}
                         >
                             {/* Desktop Table */}
-                            <div className="hidden lg:block bg-white rounded-2xl shadow-lg overflow-hidden">
+                            <div className="hidden lg:block bg-white rounded-2xl border border-gray-300 overflow-hidden">
                                 <div className="overflow-x-auto">
                                     <table className="min-w-full divide-y divide-gray-200">
-                                        <thead className="bg-gradient-to-r from-purple-600 to-pink-600">
+                                        <thead className="bg-yellow-500">
                                             <tr>
                                                 {['Order ID', 'Customer', 'Date', 'Total', 'Status', 'Actions'].map((header) => (
                                                     <th
                                                         key={header}
-                                                        className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider"
+                                                        className="px-6 py-4 text-left text-xs font-semibold text-black uppercase tracking-wider"
                                                     >
                                                         {header}
                                                     </th>
@@ -269,7 +269,7 @@ export default function OrderManagement() {
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
                                                                 <FiPackage className="text-gray-400 mr-3" />
-                                                                <span className="text-sm font-semibold text-gray-900 font-mono">
+                                                                <span className="text-sm font-semibold text-black font-mono">
                                                                     #{order.id.substring(0, 8)}
                                                                 </span>
                                                             </div>
@@ -278,10 +278,10 @@ export default function OrderManagement() {
                                                             <div className="flex items-center">
                                                                 <FiUser className="text-gray-400 mr-3" />
                                                                 <div>
-                                                                    <p className="text-sm font-medium text-gray-900">
+                                                                    <p className="text-sm font-medium text-black">
                                                                         {order.userEmail || `User ${order.userId?.substring(0, 8) || 'N/A'}`}
                                                                     </p>
-                                                                    <p className="text-xs text-gray-500">
+                                                                    <p className="text-xs text-black">
                                                                         ID: {order.userId?.substring(0, 8)}...
                                                                     </p>
                                                                 </div>
@@ -290,7 +290,7 @@ export default function OrderManagement() {
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
                                                                 <FiCalendar className="text-gray-400 mr-3" />
-                                                                <span className="text-sm text-gray-900">
+                                                                <span className="text-sm text-black">
                                                                     {new Date(order.createdAt).toLocaleDateString()}
                                                                 </span>
                                                             </div>
@@ -298,7 +298,7 @@ export default function OrderManagement() {
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
                                                                 <FiDollarSign className="text-gray-400 mr-3" />
-                                                                <span className="text-sm font-semibold text-gray-900">
+                                                                <span className="text-sm font-semibold text-black">
                                                                     ₦{order.totalPrice?.toLocaleString() || '0'}
                                                                 </span>
                                                             </div>
@@ -325,7 +325,7 @@ export default function OrderManagement() {
                                                                         Mark Shipped
                                                                     </button>
                                                                 )}
-                                                                <button className="flex items-center text-purple-600 hover:text-purple-700 font-semibold transition-colors duration-200">
+                                                                <button className="flex items-center text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-200">
                                                                     <FiEye className="mr-1" />
                                                                     View
                                                                 </button>
@@ -351,16 +351,16 @@ export default function OrderManagement() {
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: index * 0.1 }}
-                                            className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300"
+                                            className="bg-white rounded-2xl border border-gray-300 p-6 hover:shadow-lg transition-all duration-300"
                                         >
                                             <div className="flex justify-between items-start mb-4">
                                                 <div className="flex items-center">
                                                     <FiPackage className="text-gray-400 mr-3" />
                                                     <div>
-                                                        <h3 className="font-semibold text-gray-900">
+                                                        <h3 className="font-semibold text-black">
                                                             Order #{order.id.substring(0, 8)}
                                                         </h3>
-                                                        <p className="text-sm text-gray-500 mt-1">
+                                                        <p className="text-sm text-black mt-1">
                                                             {order.userEmail || `User ${order.userId?.substring(0, 8) || 'N/A'}`}
                                                         </p>
                                                     </div>
@@ -373,14 +373,14 @@ export default function OrderManagement() {
 
                                             <div className="grid grid-cols-2 gap-4 mb-4">
                                                 <div className="bg-gray-50 rounded-lg p-3">
-                                                    <p className="text-xs text-gray-500">Date</p>
-                                                    <p className="text-sm font-semibold text-gray-900">
+                                                    <p className="text-xs text-black">Date</p>
+                                                    <p className="text-sm font-semibold text-black">
                                                         {new Date(order.createdAt).toLocaleDateString()}
                                                     </p>
                                                 </div>
                                                 <div className="bg-gray-50 rounded-lg p-3">
-                                                    <p className="text-xs text-gray-500">Total</p>
-                                                    <p className="text-sm font-semibold text-gray-900">
+                                                    <p className="text-xs text-black">Total</p>
+                                                    <p className="text-sm font-semibold text-black">
                                                         ₦{order.totalPrice?.toLocaleString() || '0'}
                                                     </p>
                                                 </div>
@@ -401,7 +401,7 @@ export default function OrderManagement() {
                                                         Mark Shipped
                                                     </button>
                                                 )}
-                                                <button className="flex items-center text-purple-600 hover:text-purple-700 font-semibold transition-colors duration-200 text-sm">
+                                                <button className="flex items-center text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-200 text-sm">
                                                     <FiEye className="mr-1" />
                                                     View
                                                 </button>
@@ -417,13 +417,13 @@ export default function OrderManagement() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="text-center bg-white rounded-2xl shadow-lg p-12"
+                            className="text-center bg-white rounded-2xl border border-gray-300 p-12"
                         >
-                            <div className="w-20 h-20 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <FiPackage className="text-white text-3xl" />
+                            <div className="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <FiPackage className="text-black text-3xl" />
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-4">No Orders Found</h3>
-                            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                            <h3 className="text-2xl font-bold text-black mb-4">No Orders Found</h3>
+                            <p className="text-black mb-8 max-w-md mx-auto">
                                 {orders.length === 0 
                                     ? "When customers place orders, they will appear here" 
                                     : "No orders match your current filters"
@@ -435,7 +435,7 @@ export default function OrderManagement() {
                                         setSearchQuery('');
                                         setStatusFilter('all');
                                     }}
-                                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-8 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold"
+                                    className="bg-yellow-500 text-black py-3 px-8 rounded-xl hover:bg-yellow-600 hover:shadow-lg transition-all duration-200 font-semibold"
                                 >
                                     Clear Filters
                                 </button>
