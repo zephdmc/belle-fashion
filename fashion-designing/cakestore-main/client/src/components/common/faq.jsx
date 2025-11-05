@@ -9,7 +9,7 @@ const FAQPage = () => {
 
     const faqData = {
         shipping: {
-            icon: <FiTruck className="text-gold" />,
+            icon: <FiTruck className="text-black" />,
             title: "Shipping & Delivery",
             questions: [
                 {
@@ -25,7 +25,7 @@ const FAQPage = () => {
             ]
         },
         products: {
-            icon: <FiPackage className="text-gold" />,
+            icon: <FiPackage className="text-black" />,
             title: "Products & Sizing",
             questions: [
                 {
@@ -41,7 +41,7 @@ const FAQPage = () => {
             ]
         },
         policies: {
-            icon: <FiRefreshCw className="text-gold" />,
+            icon: <FiRefreshCw className="text-black" />,
             title: "Returns & Policies",
             questions: [
                 {
@@ -52,7 +52,7 @@ const FAQPage = () => {
             ]
         },
         collections: {
-            icon: <FiCalendar className="text-gold" />,
+            icon: <FiCalendar className="text-black" />,
             title: "Collections & Updates",
             questions: [
                 {
@@ -94,7 +94,7 @@ const FAQPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-white to-gray-50/30 pt-24 pb-16">
+        <div className="min-h-screen bg-white pt-24 pb-16">
             <div className="container mx-auto px-4">
                 {/* Hero Section */}
                 <motion.div
@@ -105,18 +105,18 @@ const FAQPage = () => {
                     <motion.div
                         initial={{ scale: 0.9 }}
                         animate={{ scale: 1 }}
-                        className="inline-flex items-center gap-3 bg-gold/10 text-gold px-6 py-3 rounded-2xl mb-6"
+                        className="inline-flex items-center gap-3 bg-yellow-500 text-black px-6 py-3 rounded-2xl mb-6"
                     >
                         <FiMessageCircle className="text-lg" />
                         <span className="font-semibold">Style Questions Answered</span>
                     </motion.div>
                     
-                    <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                    <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
                         Everything you need to know about
-                        <span className="block text-gold mt-2">Bellebyokien Ready-to-Wear</span>
+                        <span className="block text-black mt-2">Bellebyokien Ready-to-Wear</span>
                     </h1>
                     
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-black max-w-2xl mx-auto leading-relaxed">
                         Find answers to common questions about our contemporary fashion pieces, 
                         shipping policies, and care instructions.
                     </p>
@@ -130,13 +130,13 @@ const FAQPage = () => {
                     className="max-w-2xl mx-auto mb-12"
                 >
                     <div className="relative">
-                        <FiSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+                        <FiSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-black text-xl" />
                         <input
                             type="text"
                             placeholder="Search questions... (e.g., delivery, returns, sizing)"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-14 pr-6 py-5 text-lg rounded-2xl border-2 border-gray-200 focus:border-gold focus:ring-4 focus:ring-gold/20 transition-all duration-300 bg-white shadow-lg"
+                            className="w-full pl-14 pr-6 py-5 text-lg rounded-2xl border-2 border-black focus:border-yellow-500 focus:ring-4 focus:ring-yellow-500/20 transition-all duration-300 bg-white"
                         />
                     </div>
                 </motion.div>
@@ -157,15 +157,15 @@ const FAQPage = () => {
                                 onClick={() => setActiveCategory(category.id)}
                                 className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 flex items-center gap-3 ${
                                     activeCategory === category.id
-                                        ? 'bg-gold text-white shadow-lg shadow-gold/30'
-                                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200'
+                                        ? 'bg-yellow-500 text-black'
+                                        : 'bg-white text-black border-2 border-black'
                                 }`}
                             >
                                 {category.name}
                                 <span className={`px-2 py-1 text-xs rounded-full ${
                                     activeCategory === category.id
-                                        ? 'bg-white/20 text-white'
-                                        : 'bg-gray-100 text-gray-600'
+                                        ? 'bg-black/20 text-black'
+                                        : 'bg-gray-200 text-black'
                                 }`}>
                                     {category.count}
                                 </span>
@@ -189,21 +189,21 @@ const FAQPage = () => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -20 }}
-                                        className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300"
+                                        className="bg-white rounded-2xl border border-black overflow-hidden"
                                     >
                                         <button
                                             onClick={() => toggleItem(index)}
-                                            className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
+                                            className="w-full px-6 py-5 text-left flex justify-between items-center transition-colors duration-200"
                                         >
                                             <div className="flex-1">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-2 pr-8">
+                                                <h3 className="text-lg font-semibold text-black mb-2 pr-8">
                                                     {item.question}
                                                 </h3>
                                                 <div className="flex flex-wrap gap-2">
                                                     {item.tags.map((tag, tagIndex) => (
                                                         <span
                                                             key={tagIndex}
-                                                            className="px-3 py-1 bg-gold/10 text-gold text-xs font-medium rounded-full"
+                                                            className="px-3 py-1 bg-yellow-500/20 text-black text-xs font-medium rounded-full"
                                                         >
                                                             {tag}
                                                         </span>
@@ -215,7 +215,7 @@ const FAQPage = () => {
                                                 transition={{ duration: 0.3 }}
                                                 className="flex-shrink-0 ml-4"
                                             >
-                                                <FiChevronDown className="text-gray-400 text-xl" />
+                                                <FiChevronDown className="text-black text-xl" />
                                             </motion.div>
                                         </button>
                                         
@@ -227,8 +227,8 @@ const FAQPage = () => {
                                                     exit={{ opacity: 0, height: 0 }}
                                                     transition={{ duration: 0.3 }}
                                                 >
-                                                    <div className="px-6 pb-5 pt-2 border-t border-gray-100">
-                                                        <p className="text-gray-600 leading-relaxed">
+                                                    <div className="px-6 pb-5 pt-2 border-t border-black">
+                                                        <p className="text-black leading-relaxed">
                                                             {item.answer}
                                                         </p>
                                                     </div>
@@ -245,11 +245,11 @@ const FAQPage = () => {
                                     animate={{ opacity: 1 }}
                                     className="text-center py-12"
                                 >
-                                    <FiSearch className="text-gray-300 text-4xl mx-auto mb-4" />
-                                    <h3 className="text-xl font-semibold text-gray-500 mb-2">
+                                    <FiSearch className="text-black text-4xl mx-auto mb-4" />
+                                    <h3 className="text-xl font-semibold text-black mb-2">
                                         No questions found
                                     </h3>
-                                    <p className="text-gray-400">
+                                    <p className="text-black">
                                         Try adjusting your search or filter criteria
                                     </p>
                                 </motion.div>
@@ -264,14 +264,14 @@ const FAQPage = () => {
                             className="space-y-8"
                         >
                             {/* Contact Card */}
-                            <div className="bg-gradient-to-br from-gold to-yellow-600 rounded-2xl p-8 text-white shadow-xl">
+                            <div className="bg-yellow-500 rounded-2xl p-8 text-black">
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="p-3 bg-white/20 rounded-2xl">
+                                    <div className="p-3 bg-black/20 rounded-2xl">
                                         <FiMail className="text-2xl" />
                                     </div>
                                     <div>
                                         <h3 className="text-2xl font-bold">Still have questions?</h3>
-                                        <p className="text-white/80">We're here to help</p>
+                                        <p className="text-black">We're here to help</p>
                                     </div>
                                 </div>
                                 
@@ -280,7 +280,7 @@ const FAQPage = () => {
                                         <p className="font-semibold mb-2">Email us at:</p>
                                         <a 
                                             href="mailto:support@bellebyokien.com"
-                                            className="text-white hover:text-white/90 underline transition-colors"
+                                            className="text-black hover:text-black/90 underline transition-colors"
                                         >
                                             support@bellebyokien.com
                                         </a>
@@ -290,59 +290,59 @@ const FAQPage = () => {
                                         <p className="font-semibold mb-2">Call us:</p>
                                         <a 
                                             href="tel:+2348000000000"
-                                            className="text-white hover:text-white/90 underline transition-colors"
+                                            className="text-black hover:text-black/90 underline transition-colors"
                                         >
                                             +234 800 000 0000
                                         </a>
                                     </div>
                                     
-                                    <p className="text-white/80 text-sm mt-4">
+                                    <p className="text-black text-sm mt-4">
                                         Our customer service team is available Monday to Friday, 9AM - 6PM
                                     </p>
                                 </div>
                             </div>
 
                             {/* Quick Stats */}
-                            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-                                <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose Bellebyokien</h3>
+                            <div className="bg-white rounded-2xl p-8 border border-black">
+                                <h3 className="text-2xl font-bold text-black mb-6">Why Choose Bellebyokien</h3>
                                 
                                 <div className="space-y-6">
                                     <div className="flex items-center gap-4">
-                                        <div className="p-3 bg-gold/10 rounded-2xl">
-                                            <FiStar className="text-gold text-xl" />
+                                        <div className="p-3 bg-yellow-500/20 rounded-2xl">
+                                            <FiStar className="text-black text-xl" />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-gray-900">Premium Quality</h4>
-                                            <p className="text-gray-600 text-sm">Carefully crafted contemporary pieces</p>
+                                            <h4 className="font-semibold text-black">Premium Quality</h4>
+                                            <p className="text-black text-sm">Carefully crafted contemporary pieces</p>
                                         </div>
                                     </div>
                                     
                                     <div className="flex items-center gap-4">
-                                        <div className="p-3 bg-gold/10 rounded-2xl">
-                                            <FiTruck className="text-gold text-xl" />
+                                        <div className="p-3 bg-yellow-500/20 rounded-2xl">
+                                            <FiTruck className="text-black text-xl" />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-gray-900">Nationwide Delivery</h4>
-                                            <p className="text-gray-600 text-sm">Across all 36 states in Nigeria</p>
+                                            <h4 className="font-semibold text-black">Nationwide Delivery</h4>
+                                            <p className="text-black text-sm">Across all 36 states in Nigeria</p>
                                         </div>
                                     </div>
                                     
                                     <div className="flex items-center gap-4">
-                                        <div className="p-3 bg-gold/10 rounded-2xl">
-                                            <FiRefreshCw className="text-gold text-xl" />
+                                        <div className="p-3 bg-yellow-500/20 rounded-2xl">
+                                            <FiRefreshCw className="text-black text-xl" />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-gray-900">Easy Returns</h4>
-                                            <p className="text-gray-600 text-sm">48-hour return policy for defects</p>
+                                            <h4 className="font-semibold text-black">Easy Returns</h4>
+                                            <p className="text-black text-sm">48-hour return policy for defects</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Newsletter */}
-                            <div className="bg-gray-900 rounded-2xl p-8 text-white">
+                            <div className="bg-white rounded-2xl p-8 text-black border border-black">
                                 <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
-                                <p className="text-gray-300 mb-6">
+                                <p className="text-black mb-6">
                                     Get notified about new collections, exclusive offers, and fashion tips.
                                 </p>
                                 
@@ -350,9 +350,9 @@ const FAQPage = () => {
                                     <input
                                         type="email"
                                         placeholder="Enter your email"
-                                        className="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold"
+                                        className="w-full px-4 py-3 rounded-xl bg-white border border-black text-black placeholder-black focus:outline-none focus:ring-2 focus:ring-yellow-500"
                                     />
-                                    <button className="w-full bg-gold hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-300">
+                                    <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-xl transition-colors duration-300">
                                         Subscribe to Newsletter
                                     </button>
                                 </div>
