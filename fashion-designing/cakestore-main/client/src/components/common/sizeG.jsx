@@ -281,25 +281,7 @@ const SizeGuidePage = () => {
                                 </div>
                             </div>
 
-                            {/* Help Section */}
-                            <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 text-white">
-                                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Need Help Sizing?</h3>
-                                <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
-                                    Our style consultants are here to help you find the perfect fit.
-                                </p>
-                                
-                                <div className="space-y-3 sm:space-y-4">
-                                    <button className="w-full bg-gold hover:bg-yellow-600 text-white font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl transition-colors duration-300 flex items-center justify-center gap-2 text-sm sm:text-base">
-                                        <FiArrowRight className="text-sm sm:text-lg flex-shrink-0" />
-                                        Contact Style Consultant
-                                    </button>
-                                    
-                                    <button className="w-full bg-transparent hover:bg-white/10 text-white font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl transition-colors duration-300 flex items-center justify-center gap-2 text-sm sm:text-base border border-white/20">
-                                        <FiDownload className="text-sm sm:text-lg flex-shrink-0" />
-                                        Download Size Chart
-                                    </button>
-                                </div>
-                            </div>
+                           
 
                             {/* Tips */}
                             <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6">
