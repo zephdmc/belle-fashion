@@ -481,7 +481,7 @@ const ProductGridCard = ({ product, index }) => {
                 {/* Product Info - Enhanced for Mobile */}
                 <div className="p-4">
                     {/* Product Name */}
-                    <h3 className="text-gray-800 text-sm font-bold mb-2 line-clamp-2 group-hover:text-gold transition-colors font-serif leading-tight min-h-[40px]">
+                    <h3 className="text-gray-800 text-sm font-bold  line-clamp-2 group-hover:text-gold transition-colors font-serif leading-tight min-h-[40px]">
                         {product.name}
                     </h3>
 
@@ -493,9 +493,9 @@ const ProductGridCard = ({ product, index }) => {
                                     <span className="text-gold font-bold text-base">
                                         ₦{discountedPrice.toLocaleString()}
                                     </span>
-                                    <span className="text-gray-500 text-sm line-through">
+                                    <p className="text-gray-500 text-sm line-through">
                                         ₦{product.price.toLocaleString()}
-                                    </span>
+                                    </p>
                                 </>
                             ) : (
                                 <span className="text-gold font-bold text-base">
@@ -505,18 +505,7 @@ const ProductGridCard = ({ product, index }) => {
                         </div>
                     </div>
                     
-                    {/* Rating Stars */}
-                    <div className="flex items-center mt-2">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <FiStar 
-                                key={star}
-                                className={`w-3 h-3 ${
-                                    star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
-                                }`}
-                            />
-                        ))}
-                        <span className="text-gray-500 text-xs ml-1">(4.5)</span>
-                    </div>
+              
                 </div>
             </Link>
         </motion.div>
@@ -676,21 +665,21 @@ const DesktopHeroSlider = () => {
     const slides = [
         {
             id: 1,
-            image: "/images/hero1.png",
+            image: "/images/hero1.jpeg",
             alt: "Luxury Fashion Collection",
             title: "Elegant Evening Wear",
             subtitle: "Discover our premium collection"
         },
         {
             id: 2, 
-            image: "/images/hero2.png",
+            image: "/images/hero2.jpeg",
             alt: "Designer Dresses",
             title: "Designer Collection",
             subtitle: "Exclusive designs for every occasion"
         },
         {
             id: 3,
-            image: "/images/hero3.png",
+            image: "/images/hero3.jpeg",
             alt: "Casual Fashion",
             title: "Casual Elegance",
             subtitle: "Comfort meets style"
