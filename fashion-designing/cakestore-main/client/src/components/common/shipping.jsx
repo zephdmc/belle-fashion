@@ -303,17 +303,7 @@ export default function ReturnPolicy() {
                 </div>
               </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="bg-yellow-500 rounded-xl p-4 border border-yellow-500 md:col-span-2"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
-                    <FiMapPin className="text-white text-sm" />
-                  </div>
-                
-                </div>
-              </motion.div>
+           
             </div>
           </motion.section>
         </div>
