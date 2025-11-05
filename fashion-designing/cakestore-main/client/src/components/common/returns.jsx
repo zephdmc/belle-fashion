@@ -45,20 +45,20 @@ const PolicySection = ({ icon: Icon, title, children, delay = 0 }) => (
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, margin: "-50px" }}
-    className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group"
+    className="bg-white rounded-2xl p-6 md:p-8 border border-yellow-500 hover:border-yellow-600 transition-all duration-300 group"
   >
     <div className="flex items-start gap-4 mb-4">
       <motion.div
         variants={iconVariants}
-        className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-gold to-yellow-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+        className="flex-shrink-0 w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
       >
-        <Icon className="text-white text-lg" />
+        <Icon className="text-black text-lg" />
       </motion.div>
-      <h2 className="text-xl md:text-2xl font-bold text-gray-800 group-hover:text-gold transition-colors duration-300 font-serif">
+      <h2 className="text-xl md:text-2xl font-bold text-black group-hover:text-yellow-600 transition-colors duration-300 font-serif">
         {title}
       </h2>
     </div>
-    <div className="text-gray-600 leading-relaxed space-y-3">
+    <div className="text-black leading-relaxed space-y-3">
       {children}
     </div>
   </motion.section>
@@ -66,7 +66,7 @@ const PolicySection = ({ icon: Icon, title, children, delay = 0 }) => (
 
 export default function ReturnPolicy() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gold/10">
+    <div className="min-h-screen bg-white">
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
@@ -74,8 +74,7 @@ export default function ReturnPolicy() {
         transition={{ duration: 0.8 }}
         className="relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-black to-gray-800"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,215,0,0.1)_0%,transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-white"></div>
         
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
           <motion.div
@@ -84,16 +83,16 @@ export default function ReturnPolicy() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-center"
           >
-            <div className="w-20 h-20 bg-gold/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 border border-gold/30">
-              <FiRefreshCw className="text-gold text-2xl" />
+            <div className="w-20 h-20 bg-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-yellow-500">
+              <FiRefreshCw className="text-black text-2xl" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-serif">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 font-serif">
               Return & Exchange Policy
             </h1>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
-              <p className="text-gold text-lg">Bellebyokien Ready-to-Wear</p>
-              <div className="bg-gold/10 border border-gold/20 rounded-lg px-4 py-2">
-                <p className="text-gold text-sm font-medium">
+              <p className="text-black text-lg">Bellebyokien Ready-to-Wear</p>
+              <div className="bg-yellow-500 border border-yellow-500 rounded-lg px-4 py-2">
+                <p className="text-black text-sm font-medium">
                   Effective: January 22, 2025
                 </p>
               </div>
@@ -124,8 +123,8 @@ export default function ReturnPolicy() {
           variants={itemVariants}
           className="text-center mb-12"
         >
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            At <span className="font-semibold text-gold font-serif">Bellebyokien Ready-to-Wear</span>, 
+          <p className="text-lg md:text-xl text-black max-w-3xl mx-auto leading-relaxed">
+            At <span className="font-semibold text-yellow-600 font-serif">Bellebyokien Ready-to-Wear</span>, 
             your satisfaction with our contemporary fashion is essential. This policy outlines our 
             guidelines for returns and exchanges to ensure your style journey remains exceptional.
           </p>
@@ -139,20 +138,20 @@ export default function ReturnPolicy() {
             </p>
             <ul className="space-y-2 mt-3">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Item received is damaged or has manufacturing defects
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Incorrect item delivered (wrong style, size, or color)
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Significant quality issues not meeting our standards
               </li>
             </ul>
-            <div className="mt-4 p-4 bg-gold/5 rounded-lg border border-gold/20">
-              <p className="text-gray-700 text-sm">
+            <div className="mt-4 p-4 bg-yellow-500/10 rounded-lg border border-yellow-500">
+              <p className="text-black text-sm">
                 ⏰ <strong>Timeframe:</strong> Requests must be made within 48 hours of delivery receipt
               </p>
             </div>
@@ -165,19 +164,19 @@ export default function ReturnPolicy() {
             </p>
             <ul className="space-y-2 mt-3">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Worn, altered, or washed garments
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Items without original tags and packaging
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Final sale or promotional items (unless defective)
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Personalized or custom-made pieces
               </li>
             </ul>
@@ -211,15 +210,15 @@ export default function ReturnPolicy() {
             </p>
             <ul className="space-y-2 mt-3">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 <strong>Our error:</strong> We cover all return shipping costs
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 <strong>Customer preference:</strong> Return shipping is the customer's responsibility
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 All returns must use trackable shipping methods
               </li>
             </ul>
@@ -232,15 +231,15 @@ export default function ReturnPolicy() {
             </p>
             <ul className="space-y-2 mt-3">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Issued when replacement is not possible due to stock availability
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Processed within 3-5 business days after return inspection
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Refunded to original payment method
               </li>
             </ul>
@@ -253,15 +252,15 @@ export default function ReturnPolicy() {
             </p>
             <ul className="space-y-2 mt-3">
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Exchanges are subject to item availability
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Size exchanges processed within 24 hours of return receipt
               </li>
               <li className="flex items-center">
-                <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                 Style exchanges may take 2-3 business days for processing
               </li>
             </ul>
@@ -270,53 +269,44 @@ export default function ReturnPolicy() {
           {/* Contact Section */}
           <motion.section
             variants={itemVariants}
-            className="bg-gradient-to-r from-gray-900 to-black rounded-2xl p-6 md:p-8 text-white border border-gold/20"
+            className="bg-yellow-500 rounded-2xl p-6 md:p-8 text-black border border-yellow-500"
           >
-            <h2 className="text-2xl font-bold mb-6 font-serif text-gold">7. Style Support & Contact</h2>
+            <h2 className="text-2xl font-bold mb-6 font-serif text-black">7. Style Support & Contact</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="bg-gold/10 rounded-xl p-4 border border-gold/20"
+                className="bg-black/10 rounded-xl p-4 border border-black/20"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
                     <FiPhone className="text-white text-sm" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gold">WhatsApp Support</div>
-                    <div className="text-gold/80 text-sm">+234 901 4727 839</div>
+                    <div className="font-semibold text-black">WhatsApp Support</div>
+                    <div className="text-black text-sm">+234 901 4727 839</div>
                   </div>
                 </div>
               </motion.div>
 
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="bg-gold/10 rounded-xl p-4 border border-gold/20"
+                className="bg-black/10 rounded-xl p-4 border border-black/20"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
                     <FiMail className="text-white text-sm" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gold">Email Support</div>
-                    <div className="text-gold/80 text-sm">bellebyokien@fashion.com</div>
+                    <div className="font-semibold text-black">Email Support</div>
+                    <div className="text-black text-sm">bellebyokien@gmail.com</div>
                   </div>
                 </div>
               </motion.div>
 
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="bg-gold/10 rounded-xl p-4 border border-gold/20 md:col-span-2"
+                className="bg-black/10 rounded-xl p-4 border border-black/20 md:col-span-2"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gold rounded-lg flex items-center justify-center">
-                    <FiMapPin className="text-black text-sm" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gold">Boutique Location</div>
-                    <div className="text-gold/80 text-sm">330 PH/Aba Express way Rumukwurushi Port Harcourt</div>
-                  </div>
-                </div>
               </motion.div>
             </div>
           </motion.section>
@@ -325,12 +315,12 @@ export default function ReturnPolicy() {
         {/* Closing Section */}
         <motion.section
           variants={itemVariants}
-          className="text-center mt-16 py-12 bg-gradient-to-br from-white to-gray-50 rounded-3xl border border-gold/20"
+          className="text-center mt-16 py-12 bg-white rounded-3xl border border-yellow-500"
         >
-          <h3 className="text-2xl md:text-3xl font-bold mb-4 font-serif text-gray-800">
+          <h3 className="text-2xl md:text-3xl font-bold mb-4 font-serif text-black">
             Your Style Satisfaction Matters
           </h3>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-black text-lg max-w-2xl mx-auto leading-relaxed">
             We're committed to ensuring every Bellebyokien piece meets your expectations for 
             contemporary elegance and quality craftsmanship.
           </p>
@@ -348,7 +338,7 @@ export default function ReturnPolicy() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="fixed top-1/4 left-5 w-3 h-3 bg-gold rounded-full opacity-30"
+        className="fixed top-1/4 left-5 w-3 h-3 bg-yellow-500 rounded-full opacity-30"
       />
       <motion.div
         animate={{ 
@@ -361,7 +351,7 @@ export default function ReturnPolicy() {
           ease: "easeInOut",
           delay: 2
         }}
-        className="fixed top-1/3 right-10 w-2 h-2 bg-gold rounded-full opacity-40"
+        className="fixed top-1/3 right-10 w-2 h-2 bg-yellow-500 rounded-full opacity-40"
       />
     </div>
   );
