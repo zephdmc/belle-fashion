@@ -90,47 +90,47 @@ const StatsCard = ({
         }
     }, [liveUpdate, chartData, isError]);
 
-    // Color variants (unchanged)
+    // Updated Color variants - white background with golden accents
     const colorVariants = {
         default: 'bg-white border border-gray-200',
-        primary: 'bg-blue-50 border border-blue-100',
-        success: 'bg-green-50 border border-green-100',
-        danger: 'bg-red-50 border border-red-100',
-        warning: 'bg-yellow-50 border border-yellow-100',
+        primary: 'bg-white border border-amber-200',
+        success: 'bg-white border border-emerald-200',
+        danger: 'bg-white border border-red-200',
+        warning: 'bg-white border border-amber-200',
     };
 
-    // Icon mapping (added error icon)
+    // Icon mapping with golden primary color
     const iconComponents = {
-        box: <FiBox className="text-2xl" />,
-        cart: <FiShoppingCart className="text-2xl" />,
-        dollar: <FiDollarSign className="text-2xl" />,
-        users: <FiUsers className="text-2xl" />,
-        pie: <FiPieChart className="text-2xl" />,
-        error: <FiAlertCircle className="text-2xl text-red-400" />,
+        box: <FiBox className="text-2xl text-amber-600" />,
+        cart: <FiShoppingCart className="text-2xl text-amber-600" />,
+        dollar: <FiDollarSign className="text-2xl text-amber-600" />,
+        users: <FiUsers className="text-2xl text-amber-600" />,
+        pie: <FiPieChart className="text-2xl text-amber-600" />,
+        error: <FiAlertCircle className="text-2xl text-red-500" />,
     };
 
-    // Trend arrow (unchanged)
+    // Trend arrow
     const trendArrow = {
         up: <FiArrowUp className="inline" />,
         down: <FiArrowDown className="inline" />,
     };
 
     const trendColor = {
-        up: 'text-green-500',
-        down: 'text-red-500',
+        up: 'text-emerald-600',
+        down: 'text-red-600',
     };
 
-    // Chart color (unchanged)
+    // Chart colors updated to use golden tones
     const chartColor = {
-        default: '#3b82f6',
-        primary: '#3b82f6',
-        success: '#10b981',
-        danger: '#ef4444',
-        warning: '#f59e0b',
+        default: '#d97706', // amber-600
+        primary: '#d97706', // amber-600
+        success: '#059669', // emerald-600
+        danger: '#dc2626', // red-600
+        warning: '#d97706', // amber-600
     }[color];
 
-    // Pie chart colors (unchanged)
-    const pieColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+    // Pie chart colors with golden primary
+    const pieColors = ['#d97706', '#059669', '#dc2626', '#7c3aed', '#0891b2'];
 
     const handleClick = () => {
         if (link && !isError) navigate(link);
@@ -141,7 +141,7 @@ const StatsCard = ({
             initial={{ opacity: 0, y: 10 }}
             animate={isMounted ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: animationDelay * 0.1 }}
-            className={`p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ${colorVariants[color]} ${link && !isError ? 'cursor-pointer hover:bg-opacity-80' : ''}`}
+            className={`p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ${colorVariants[color]} ${link && !isError ? 'cursor-pointer hover:bg-amber-50 hover:border-amber-300' : ''}`}
             data-tooltip-id={`tooltip-${title}`}
             data-tooltip-content={isError ? errorMessage : tooltip}
             onClick={handleClick}
@@ -155,12 +155,12 @@ const StatsCard = ({
                 <>
                     <div className="flex items-center justify-between mb-2">
                         <div>
-                            <p className="text-gray-500 text-sm font-medium">{title}</p>
-                            <h3 className={`text-2xl font-bold mt-1 ${isError ? 'text-red-500' : ''}`}>
+                            <p className="text-gray-700 text-sm font-medium">{title}</p>
+                            <h3 className={`text-2xl font-bold mt-1 text-black ${isError ? 'text-red-600' : ''}`}>
                                 {isError ? 'N/A' : (typeof value === 'number' ? value.toLocaleString() : value)}
                             </h3>
                             {isError && (
-                                <p className="text-xs text-red-400 mt-1 flex items-center">
+                                <p className="text-xs text-red-500 mt-1 flex items-center">
                                     <FiAlertCircle className="mr-1" /> {errorMessage}
                                 </p>
                             )}
@@ -168,7 +168,7 @@ const StatsCard = ({
                         <div className="flex items-center gap-2">
                             {isError ? iconComponents.error : (typeof icon === 'string' ? iconComponents[icon] : icon)}
                             {!isError && trend && (
-                                <span className={`text-sm ${trendColor[trend.direction]}`}>
+                                <span className={`text-sm font-medium ${trendColor[trend.direction]}`}>
                                     {trendArrow[trend.direction]} {trend.value}
                                 </span>
                             )}
