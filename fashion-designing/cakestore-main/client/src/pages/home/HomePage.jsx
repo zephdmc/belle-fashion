@@ -490,9 +490,9 @@ const ProductGridCard = ({ product, index }) => {
                         <div className="flex items-center gap-2">
                             {discountedPrice ? (
                                 <>
-                                    <span className="text-gold font-bold text-base">
+                                    <p className="text-gold font-bold text-base">
                                         ₦{discountedPrice.toLocaleString()}
-                                    </span>
+                                    </p>
                                     <p className="text-gray-500 text-sm line-through">
                                         ₦{product.price.toLocaleString()}
                                     </p>
