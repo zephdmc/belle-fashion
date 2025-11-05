@@ -340,7 +340,7 @@ const LoadingSlideshow = () => {
         {
             icon: FiSmile,
             title: "Enjoy Your Style",
-            description: "Look fabulous in your new fashion pieces from Belle"
+            description: "Look fabulous in your new fashion pieces from Bellebyokien"
         }
     ];
 
@@ -365,7 +365,7 @@ const LoadingSlideshow = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
             >
-                How to Shop at Belle
+                How to Shop at Bellebyokien
             </motion.h3>
             <div className="relative h-40">
                 <AnimatePresence mode="wait">
