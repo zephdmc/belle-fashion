@@ -64,7 +64,7 @@ const StatusBadge = ({ status, isPaid, isDelivered }) => {
     const statusConfig = {
         pending: { color: 'bg-yellow-100 text-yellow-700 border-yellow-200', text: 'Pending Payment', icon: FiClock },
         confirmed: { color: 'bg-blue-100 text-blue-700 border-blue-200', text: 'Confirmed', icon: FiCheckCircle },
-        processing: { color: 'bg-gold/20 text-yellow-700 border-gold/30', text: 'Processing', icon: FiPackage },
+        processing: { color: 'bg-yellow-500/20 text-yellow-700 border-yellow-500/30', text: 'Processing', icon: FiPackage },
         ready_to_ship: { color: 'bg-orange-100 text-orange-700 border-orange-200', text: 'Ready to Ship', icon: FiTruck },
         shipped: { color: 'bg-green-100 text-green-700 border-green-200', text: 'Shipped', icon: FiTruck },
         delivered: { color: 'bg-emerald-100 text-emerald-700 border-emerald-200', text: 'Delivered', icon: FiCheckCircle },
@@ -78,10 +78,11 @@ const StatusBadge = ({ status, isPaid, isDelivered }) => {
         <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className={`inline-flex items-center gap-2 ${config.color} px-4 py-2 rounded-full text-sm font-semibold border`}
+            className={`inline-flex items-center gap-2 ${config.color} px-3 py-2 rounded-full text-sm font-semibold border`}
         >
             <Icon className="text-sm" />
-            {config.text}
+            <span className="hidden sm:inline">{config.text}</span>
+            <span className="sm:hidden">{config.text.split(' ')[0]}</span>
         </motion.div>
     );
 };
@@ -89,7 +90,7 @@ const StatusBadge = ({ status, isPaid, isDelivered }) => {
 // Order Type Badge
 const OrderTypeBadge = ({ orderType }) => {
     const typeConfig = {
-        standard: { color: 'bg-gold/20 text-yellow-700 border-gold/30', text: 'Ready-to-Wear', icon: FiShoppingBag },
+        standard: { color: 'bg-yellow-500/20 text-yellow-700 border-yellow-500/30', text: 'Ready-to-Wear', icon: FiShoppingBag },
         custom: { color: 'bg-purple-100 text-purple-700 border-purple-200', text: 'Custom Design', icon: FiScissors },
         mixed: { color: 'bg-gray-100 text-gray-700 border-gray-200', text: 'Mixed Order', icon: FiTag }
     };
@@ -98,28 +99,30 @@ const OrderTypeBadge = ({ orderType }) => {
     const Icon = config.icon;
 
     return (
-        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}>
+        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium border ${config.color}`}>
             <Icon className="text-xs" />
-            {config.text}
+            <span className="hidden sm:inline">{config.text}</span>
+            <span className="sm:hidden">{config.text.split(' ')[0]}</span>
         </span>
     );
 };
 
 // Tab Navigation Component
-const TabNavigation = ({ activeTab, setActiveTab, showCustomTab, orderType }) => (
-    <div className="flex space-x-1 bg-gray-100 rounded-lg p-2 mb-8 border border-gray-200">
+const TabNavigation = ({ activeTab, setActiveTab, showCustomTab, orderType, order }) => (
+    <div className="flex flex-wrap gap-2 bg-gray-100 rounded-lg p-2 mb-6 border border-gray-200">
         <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab('orderInfo')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+            className={`flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
                 activeTab === 'orderInfo' 
-                    ? 'bg-gold text-white shadow-sm' 
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-200'
+                    ? 'bg-yellow-500 text-black shadow-sm' 
+                    : 'text-black hover:bg-gray-200'
             }`}
         >
             <FiInfo className="text-sm" />
-            Order Information
+            <span className="hidden sm:inline">Order Info</span>
+            <span className="sm:hidden">Info</span>
         </motion.button>
         
         {(showCustomTab || orderType === 'custom' || orderType === 'mixed') && (
@@ -127,30 +130,32 @@ const TabNavigation = ({ activeTab, setActiveTab, showCustomTab, orderType }) =>
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setActiveTab('customDetails')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
                     activeTab === 'customDetails' 
-                        ? 'bg-gold text-white shadow-sm' 
-                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-200'
+                        ? 'bg-yellow-500 text-black shadow-sm' 
+                        : 'text-black hover:bg-gray-200'
                 }`}
             >
                 <FiScissors className="text-sm" />
-                Custom Details
+                <span className="hidden sm:inline">Custom Details</span>
+                <span className="sm:hidden">Custom</span>
             </motion.button>
         )}
 
-        {(order.trackingNumber || order.status === 'shipped' || order.status === 'delivered') && (
+        {(order?.trackingNumber || order?.status === 'shipped' || order?.status === 'delivered') && (
             <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setActiveTab('tracking')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
                     activeTab === 'tracking' 
-                        ? 'bg-gold text-white shadow-sm' 
-                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-200'
+                        ? 'bg-yellow-500 text-black shadow-sm' 
+                        : 'text-black hover:bg-gray-200'
                 }`}
             >
                 <FiTruck className="text-sm" />
-                Tracking
+                <span className="hidden sm:inline">Tracking</span>
+                <span className="sm:hidden">Track</span>
             </motion.button>
         )}
     </div>
@@ -215,15 +220,15 @@ export default function OrderDetails() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="max-w-2xl mx-auto"
                 >
-                    <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
                         <FiAlertCircle className="text-4xl text-red-500 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Order</h3>
-                        <p className="text-gray-600 mb-6">{error}</p>
+                        <h3 className="text-xl font-semibold text-black mb-2">Error Loading Order</h3>
+                        <p className="text-black mb-6">{error}</p>
                         <MotionLink
                             to="/orders"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-2 bg-gold text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 border border-gold"
+                            className="inline-flex items-center gap-2 bg-yellow-500 text-black py-3 px-6 rounded-lg font-semibold transition-all duration-300 border border-yellow-500"
                         >
                             <FiArrowLeft className="text-sm" />
                             Back to Orders
@@ -242,17 +247,17 @@ export default function OrderDetails() {
                     animate={{ opacity: 1, y: 0 }}
                     className="max-w-2xl mx-auto text-center"
                 >
-                    <div className="bg-white border border-gray-200 rounded-lg p-12 shadow-sm">
-                        <div className="w-16 h-16 bg-gold rounded-lg flex items-center justify-center mx-auto mb-6 border border-gold">
-                            <FiPackage className="text-2xl text-white" />
+                    <div className="bg-white border border-gray-200 rounded-lg p-8">
+                        <div className="w-16 h-16 bg-yellow-500 rounded-lg flex items-center justify-center mx-auto mb-6 border border-yellow-500">
+                            <FiPackage className="text-2xl text-black" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">Order Not Found</h3>
-                        <p className="text-gray-600 mb-8">We couldn't find the order you're looking for.</p>
+                        <h3 className="text-2xl font-bold text-black mb-3">Order Not Found</h3>
+                        <p className="text-black mb-8">We couldn't find the order you're looking for.</p>
                         <MotionLink
                             to="/orders"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="inline-flex items-center gap-2 bg-gold text-white py-3 px-8 rounded-lg font-semibold transition-all duration-300 border border-gold"
+                            className="inline-flex items-center gap-2 bg-yellow-500 text-black py-3 px-8 rounded-lg font-semibold transition-all duration-300 border border-yellow-500"
                         >
                             <FiArrowLeft className="text-sm" />
                             Back to Orders
@@ -269,29 +274,29 @@ export default function OrderDetails() {
             initial="hidden"
             animate="show"
             variants={containerVariants}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6"
         >
             {/* Custom Orders */}
             {order.customOrders?.map((customOrder, index) => (
                 <motion.div
                     key={customOrder.id || index}
                     variants={containerVariants}
-                    className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm"
+                    className="bg-white rounded-lg border border-gray-200 overflow-hidden"
                 >
-                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-3">
-                            <FiScissors className="text-purple-600" />
+                    <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                        <h2 className="text-lg sm:text-xl font-semibold text-black flex items-center gap-2 sm:gap-3">
+                            <FiScissors className="text-purple-600 text-sm sm:text-base" />
                             Custom Design #{customOrder.id?.substring(0, 8) || `#${index + 1}`}
                         </h2>
                     </div>
-                    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         {/* Design Specifications */}
                         <div className="md:col-span-2">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <h3 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4 flex items-center gap-2">
                                 <FiEdit3 className="text-purple-600" />
                                 Design Specifications
                             </h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 {[
                                     { label: 'Design Type', value: customOrder.designType },
                                     { label: 'Occasion', value: customOrder.occasion },
@@ -303,10 +308,10 @@ export default function OrderDetails() {
                                     <motion.div
                                         key={item.label}
                                         variants={itemVariants}
-                                        className="bg-gray-50 rounded-lg p-4 border border-gray-200"
+                                        className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200"
                                     >
-                                        <h4 className="text-sm font-medium text-gray-600 mb-1">{item.label}</h4>
-                                        <p className="text-gray-900 font-medium capitalize">{item.value}</p>
+                                        <h4 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">{item.label}</h4>
+                                        <p className="text-black font-medium text-sm sm:text-base capitalize">{item.value}</p>
                                     </motion.div>
                                 ))}
                             </div>
@@ -315,22 +320,22 @@ export default function OrderDetails() {
                         {/* Measurements */}
                         {customOrder.measurements && (
                             <div className="md:col-span-2">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                <h3 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4 flex items-center gap-2">
                                     <FiInfo className="text-purple-600" />
                                     Body Measurements
                                 </h3>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                                     {Object.entries(customOrder.measurements).map(([key, value]) => (
                                         value && (
                                             <motion.div
                                                 key={key}
                                                 variants={itemVariants}
-                                                className="bg-gray-50 rounded-lg p-4 border border-gray-200 text-center"
+                                                className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200 text-center"
                                             >
-                                                <h4 className="text-sm font-medium text-gray-600 mb-1 capitalize">
+                                                <h4 className="text-xs font-medium text-gray-600 mb-1 capitalize">
                                                     {key.replace(/([A-Z])/g, ' $1').trim()}
                                                 </h4>
-                                                <p className="text-gray-900 font-medium">{value}</p>
+                                                <p className="text-black font-medium text-sm">{value}</p>
                                             </motion.div>
                                         )
                                     ))}
@@ -341,13 +346,13 @@ export default function OrderDetails() {
                         {/* Design Features */}
                         {(customOrder.designFeatures?.length > 0 || customOrder.embellishments?.length > 0) && (
                             <div className="md:col-span-2">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-4">Design Features</h3>
+                                <h3 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4">Design Features</h3>
                                 <div className="flex flex-wrap gap-2">
                                     {customOrder.designFeatures?.map((feature, idx) => (
                                         <motion.span
                                             key={idx}
                                             variants={itemVariants}
-                                            className="bg-gold/20 text-yellow-700 px-3 py-2 rounded-lg text-sm border border-gold/30"
+                                            className="bg-yellow-500/20 text-black px-2 py-1 rounded-lg text-xs border border-yellow-500/30"
                                         >
                                             {feature}
                                         </motion.span>
@@ -356,7 +361,7 @@ export default function OrderDetails() {
                                         <motion.span
                                             key={idx}
                                             variants={itemVariants}
-                                            className="bg-purple-100 text-purple-700 px-3 py-2 rounded-lg text-sm border border-purple-200"
+                                            className="bg-purple-100 text-purple-700 px-2 py-1 rounded-lg text-xs border border-purple-200"
                                         >
                                             {embellishment}
                                         </motion.span>
@@ -366,22 +371,22 @@ export default function OrderDetails() {
                         )}
 
                         {/* Timeline & Notes */}
-                        <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                             {customOrder.eventDate && (
-                                <motion.div variants={itemVariants} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                    <h4 className="text-sm font-medium text-gray-600 mb-1 flex items-center gap-2">
-                                        <FiCalendar className="text-sm" />
+                                <motion.div variants={itemVariants} className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                    <h4 className="text-xs sm:text-sm font-medium text-gray-600 mb-1 flex items-center gap-2">
+                                        <FiCalendar className="text-xs" />
                                         Event Date
                                     </h4>
-                                    <p className="text-gray-900 font-medium">
+                                    <p className="text-black font-medium text-sm sm:text-base">
                                         {new Date(customOrder.eventDate).toLocaleDateString()}
                                     </p>
                                 </motion.div>
                             )}
                             {customOrder.requiredByDate && (
-                                <motion.div variants={itemVariants} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                    <h4 className="text-sm font-medium text-gray-600 mb-1">Required By</h4>
-                                    <p className="text-gray-900 font-medium">
+                                <motion.div variants={itemVariants} className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                    <h4 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Required By</h4>
+                                    <p className="text-black font-medium text-sm sm:text-base">
                                         {new Date(customOrder.requiredByDate).toLocaleDateString()}
                                     </p>
                                 </motion.div>
@@ -390,28 +395,28 @@ export default function OrderDetails() {
 
                         {/* Special Requests */}
                         {customOrder.specialRequests && (
-                            <motion.div variants={itemVariants} className="md:col-span-2 bg-gold/10 rounded-lg p-4 border border-gold/20">
-                                <h4 className="text-sm font-medium text-yellow-700 mb-1">Special Requests</h4>
-                                <p className="text-gray-900 whitespace-pre-wrap">{customOrder.specialRequests}</p>
+                            <motion.div variants={itemVariants} className="md:col-span-2 bg-yellow-500/10 rounded-lg p-3 sm:p-4 border border-yellow-500/20">
+                                <h4 className="text-xs sm:text-sm font-medium text-black mb-1">Special Requests</h4>
+                                <p className="text-black text-sm sm:text-base whitespace-pre-wrap">{customOrder.specialRequests}</p>
                             </motion.div>
                         )}
 
                         {/* Inspiration Images */}
                         {customOrder.inspirationImages?.length > 0 && (
                             <motion.div variants={itemVariants} className="md:col-span-2">
-                                <h4 className="text-lg font-semibold text-gray-900 mb-4">Inspiration Images</h4>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <h4 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4">Inspiration Images</h4>
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                                     {customOrder.inspirationImages.map((image, idx) => (
                                         <motion.div
                                             key={idx}
                                             whileHover={{ scale: 1.05 }}
-                                            className="relative rounded-lg overflow-hidden border-2 border-gray-200 cursor-pointer"
+                                            className="relative rounded-lg overflow-hidden border border-gray-200 cursor-pointer"
                                             onClick={() => window.open(image, '_blank')}
                                         >
                                             <img 
                                                 src={image} 
                                                 alt={`Inspiration ${idx + 1}`}
-                                                className="w-full h-32 object-cover"
+                                                className="w-full h-20 sm:h-32 object-cover"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-2">
                                                 <span className="text-white text-xs">Click to view</span>
@@ -433,55 +438,55 @@ export default function OrderDetails() {
             initial="hidden"
             animate="show"
             variants={containerVariants}
-            className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm"
+            className="bg-white rounded-lg border border-gray-200 overflow-hidden"
         >
-            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-3">
-                    <FiTruck className="text-purple-600" />
+            <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                <h2 className="text-lg sm:text-xl font-semibold text-black flex items-center gap-2 sm:gap-3">
+                    <FiTruck className="text-purple-600 text-sm sm:text-base" />
                     Order Tracking
                 </h2>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
                 {order.trackingNumber ? (
-                    <div className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <motion.div variants={itemVariants} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                <h3 className="text-sm font-medium text-gray-600 mb-1">Courier</h3>
-                                <p className="text-gray-900 font-medium text-lg">{order.shippingCarrier}</p>
+                    <div className="space-y-4 sm:space-y-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                            <motion.div variants={itemVariants} className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Courier</h3>
+                                <p className="text-black font-medium text-base sm:text-lg">{order.shippingCarrier}</p>
                             </motion.div>
-                            <motion.div variants={itemVariants} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                <h3 className="text-sm font-medium text-gray-600 mb-1">Tracking Number</h3>
-                                <p className="text-gray-900 font-medium text-lg font-mono">{order.trackingNumber}</p>
+                            <motion.div variants={itemVariants} className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Tracking Number</h3>
+                                <p className="text-black font-medium text-base sm:text-lg font-mono">{order.trackingNumber}</p>
                             </motion.div>
                         </div>
                         
                         {order.shippedAt && (
-                            <motion.div variants={itemVariants} className="bg-green-50 rounded-lg p-4 border border-green-200">
-                                <h3 className="text-sm font-medium text-green-700 mb-1">Shipped On</h3>
-                                <p className="text-gray-900 font-medium">
+                            <motion.div variants={itemVariants} className="bg-green-50 rounded-lg p-3 sm:p-4 border border-green-200">
+                                <h3 className="text-xs sm:text-sm font-medium text-green-700 mb-1">Shipped On</h3>
+                                <p className="text-black font-medium text-sm sm:text-base">
                                     {new Date(order.shippedAt).toLocaleDateString()} at {new Date(order.shippedAt).toLocaleTimeString()}
                                 </p>
                             </motion.div>
                         )}
 
                         {order.estimatedDeliveryDate && (
-                            <motion.div variants={itemVariants} className="bg-gold/10 rounded-lg p-4 border border-gold/20">
-                                <h3 className="text-sm font-medium text-yellow-700 mb-1">Estimated Delivery</h3>
-                                <p className="text-gray-900 font-medium">
+                            <motion.div variants={itemVariants} className="bg-yellow-500/10 rounded-lg p-3 sm:p-4 border border-yellow-500/20">
+                                <h3 className="text-xs sm:text-sm font-medium text-black mb-1">Estimated Delivery</h3>
+                                <p className="text-black font-medium text-sm sm:text-base">
                                     {new Date(order.estimatedDeliveryDate).toLocaleDateString()}
                                 </p>
                             </motion.div>
                         )}
 
                         <motion.div variants={itemVariants} className="text-center">
-                            <p className="text-gray-600 mb-4">Track your package on the courier's website</p>
+                            <p className="text-black text-sm sm:text-base mb-4">Track your package on the courier's website</p>
                             <motion.a
-                                href={`https://tracking.com/${order.trackingNumber}`} // Replace with actual tracking URL
+                                href={`https://tracking.com/${order.trackingNumber}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="inline-flex items-center gap-2 bg-gold text-white py-3 px-6 rounded-lg font-semibold transition-all duration-300 border border-gold"
+                                className="inline-flex items-center gap-2 bg-yellow-500 text-black py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold transition-all duration-300 border border-yellow-500 text-sm sm:text-base"
                             >
                                 <FiTruck className="text-sm" />
                                 Track Package
@@ -489,10 +494,10 @@ export default function OrderDetails() {
                         </motion.div>
                     </div>
                 ) : (
-                    <motion.div variants={itemVariants} className="text-center py-8">
-                        <FiPackage className="text-4xl text-gray-400 mx-auto mb-4" />
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Tracking Not Available</h3>
-                        <p className="text-gray-600">Tracking information will be available once your order ships.</p>
+                    <motion.div variants={itemVariants} className="text-center py-6 sm:py-8">
+                        <FiPackage className="text-3xl sm:text-4xl text-gray-400 mx-auto mb-3 sm:mb-4" />
+                        <h3 className="text-base sm:text-lg font-semibold text-black mb-2">Tracking Not Available</h3>
+                        <p className="text-black text-sm sm:text-base">Tracking information will be available once your order ships.</p>
                     </motion.div>
                 )}
             </div>
@@ -500,33 +505,34 @@ export default function OrderDetails() {
     );
 
     return (
-        <div className="min-h-screen bg-white py-8">
+        <div className="min-h-screen bg-white py-4 sm:py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-8"
+                    className="mb-6 sm:mb-8"
                 >
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
-                        <div className="flex items-center gap-4">
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                             <MotionLink
                                 to="/orders"
                                 whileHover={{ scale: 1.05, x: -5 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-semibold transition-all duration-300 border border-gray-200"
+                                className="inline-flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-black py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-all duration-300 border border-gray-200 text-sm sm:text-base w-fit"
                             >
                                 <FiArrowLeft className="text-sm" />
-                                Back to Orders
+                                <span className="hidden sm:inline">Back to Orders</span>
+                                <span className="sm:hidden">Back</span>
                             </MotionLink>
                             <div>
-                                <div className="flex items-center gap-3 mb-2">
-                                    <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black">
                                         {order.orderNumber || `Order #${order.id?.substring(0, 8) || 'N/A'}`}
                                     </h1>
                                     <OrderTypeBadge orderType={order.orderType} />
                                 </div>
-                                <p className="text-gray-600 flex items-center gap-2 mt-1">
+                                <p className="text-black flex items-center gap-2 text-sm sm:text-base">
                                     <FiCalendar className="text-sm" />
                                     Placed on {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString()}
                                 </p>
@@ -546,6 +552,7 @@ export default function OrderDetails() {
                     setActiveTab={setActiveTab} 
                     showCustomTab={order.isCustomOrder} 
                     orderType={order.orderType}
+                    order={order}
                 />
 
                 {/* Tab Content */}
@@ -556,18 +563,18 @@ export default function OrderDetails() {
                     transition={{ duration: 0.5 }}
                 >
                     {activeTab === 'orderInfo' && (
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
                             {/* Order Items */}
-                            <div className="lg:col-span-2 space-y-6">
+                            <div className="lg:col-span-2 space-y-4 sm:space-y-6">
                                 <motion.div
                                     variants={containerVariants}
                                     initial="hidden"
                                     animate="show"
-                                    className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm"
+                                    className="bg-white rounded-lg border border-gray-200 overflow-hidden"
                                 >
-                                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                                        <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-3">
-                                            <FiPackage className="text-purple-600" />
+                                    <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                                        <h2 className="text-lg sm:text-xl font-semibold text-black flex items-center gap-2 sm:gap-3">
+                                            <FiPackage className="text-purple-600 text-sm sm:text-base" />
                                             Order Items
                                             {order.items?.length > 0 && ` (${order.items.length})`}
                                             {order.customOrders?.length > 0 && ` + ${order.customOrders.length} Custom Designs`}
@@ -579,22 +586,22 @@ export default function OrderDetails() {
                                             <motion.div
                                                 key={item.id || index}
                                                 variants={itemVariants}
-                                                className="p-6 flex items-center gap-4 hover:bg-gray-50 transition-all duration-300"
+                                                className="p-4 sm:p-6 flex items-center gap-3 sm:gap-4 hover:bg-gray-50 transition-all duration-300"
                                             >
                                                 <div className="flex-shrink-0">
                                                     <div className="relative">
                                                         <img
-                                                            className="h-20 w-16 rounded-lg object-cover border-2 border-gray-200"
+                                                            className="h-16 w-12 sm:h-20 sm:w-16 rounded-lg object-cover border border-gray-200"
                                                             src={item.image || '/images/placeholder-fashion.png'}
                                                             alt={item.name}
                                                         />
-                                                        <div className="absolute -top-2 -right-2 bg-gold text-white text-xs font-bold px-2 py-1 rounded-full">
+                                                        <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-yellow-500 text-black text-xs font-bold px-1 sm:px-2 py-0.5 sm:py-1 rounded-full">
                                                             {item.quantity}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <h3 className="text-lg font-semibold text-gray-900 truncate">
+                                                    <h3 className="text-base sm:text-lg font-semibold text-black truncate">
                                                         <Link 
                                                             to={`/products/${item.productId}`}
                                                             className="hover:text-purple-600 transition-colors"
@@ -602,23 +609,23 @@ export default function OrderDetails() {
                                                             {item.name}
                                                         </Link>
                                                     </h3>
-                                                    <div className="flex flex-wrap gap-2 mt-2">
+                                                    <div className="flex flex-wrap gap-1 sm:gap-2 mt-1 sm:mt-2">
                                                         {item.size && (
-                                                            <span className="text-sm text-purple-600 bg-purple-100 px-2 py-1 rounded">
+                                                            <span className="text-xs sm:text-sm text-purple-600 bg-purple-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
                                                                 Size: {item.size}
                                                             </span>
                                                         )}
                                                         {item.color && (
-                                                            <span className="text-sm text-yellow-700 bg-gold/20 px-2 py-1 rounded">
+                                                            <span className="text-xs sm:text-sm text-black bg-yellow-500/20 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
                                                                 Color: {item.color}
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <div className="flex items-center justify-between mt-2">
-                                                        <p className="text-purple-600 font-medium">
+                                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-1 sm:mt-2 gap-1 sm:gap-0">
+                                                        <p className="text-purple-600 font-medium text-sm sm:text-base">
                                                             ₦{item.price?.toLocaleString()} each
                                                         </p>
-                                                        <p className="text-gray-900 font-bold text-lg">
+                                                        <p className="text-black font-bold text-base sm:text-lg">
                                                             ₦{((item.price || 0) * (item.quantity || 1)).toLocaleString()}
                                                         </p>
                                                     </div>
@@ -633,41 +640,41 @@ export default function OrderDetails() {
                                     variants={containerVariants}
                                     initial="hidden"
                                     animate="show"
-                                    className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm"
+                                    className="bg-white rounded-lg border border-gray-200 overflow-hidden"
                                 >
-                                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                                        <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-3">
-                                            <FiCreditCard className="text-purple-600" />
+                                    <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                                        <h2 className="text-lg sm:text-xl font-semibold text-black flex items-center gap-2 sm:gap-3">
+                                            <FiCreditCard className="text-purple-600 text-sm sm:text-base" />
                                             Payment Information
                                         </h2>
                                     </div>
-                                    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                            <h3 className="text-sm font-medium text-gray-600 mb-1">Payment Method</h3>
-                                            <p className="text-gray-900 font-medium capitalize">{order.paymentMethod}</p>
+                                    <div className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                                        <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                            <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Payment Method</h3>
+                                            <p className="text-black font-medium text-sm sm:text-base capitalize">{order.paymentMethod}</p>
                                         </div>
-                                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                            <h3 className="text-sm font-medium text-gray-600 mb-1">Payment Status</h3>
-                                            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold ${
+                                        <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                            <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Payment Status</h3>
+                                            <span className={`inline-flex items-center gap-1 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold ${
                                                 order.isPaid 
                                                     ? 'bg-green-100 text-green-700 border border-green-200' 
                                                     : 'bg-yellow-100 text-yellow-700 border border-yellow-200'
                                             }`}>
-                                                {order.isPaid ? <FiCheckCircle className="text-sm" /> : <FiClock className="text-sm" />}
+                                                {order.isPaid ? <FiCheckCircle className="text-xs sm:text-sm" /> : <FiClock className="text-xs sm:text-sm" />}
                                                 {order.isPaid ? 'Paid' : 'Pending'}
                                             </span>
                                         </div>
                                         {order.isPaid && (
                                             <>
-                                                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                                    <h3 className="text-sm font-medium text-gray-600 mb-1">Paid At</h3>
-                                                    <p className="text-gray-900 font-medium">
+                                                <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                                    <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Paid At</h3>
+                                                    <p className="text-black font-medium text-sm sm:text-base">
                                                         {new Date(order.paidAt).toLocaleDateString()} at {new Date(order.paidAt).toLocaleTimeString()}
                                                     </p>
                                                 </div>
-                                                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                                    <h3 className="text-sm font-medium text-gray-600 mb-1">Transaction ID</h3>
-                                                    <p className="text-gray-900 font-mono text-sm">
+                                                <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                                    <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1">Transaction ID</h3>
+                                                    <p className="text-black font-mono text-xs sm:text-sm">
                                                         {order.paymentResult?.id || 'N/A'}
                                                     </p>
                                                 </div>
@@ -678,18 +685,18 @@ export default function OrderDetails() {
                             </div>
 
                             {/* Sidebar */}
-                            <div className="space-y-6">
+                            <div className="space-y-4 sm:space-y-6">
                                 {/* Order Summary */}
                                 <motion.div
                                     variants={containerVariants}
                                     initial="hidden"
                                     animate="show"
-                                    className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm"
+                                    className="bg-white rounded-lg border border-gray-200 overflow-hidden"
                                 >
-                                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                                        <h2 className="text-xl font-semibold text-gray-900">Order Summary</h2>
+                                    <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                                        <h2 className="text-lg sm:text-xl font-semibold text-black">Order Summary</h2>
                                     </div>
-                                    <div className="p-6 space-y-3">
+                                    <div className="p-4 sm:p-6 space-y-2 sm:space-y-3">
                                         {[
                                             { label: 'Items', value: order.itemsPrice },
                                             { label: 'Custom Designs', value: order.customOrdersPrice },
@@ -701,8 +708,8 @@ export default function OrderDetails() {
                                                 variants={itemVariants}
                                                 className="flex justify-between items-center"
                                             >
-                                                <span className="text-gray-600">{item.label}</span>
-                                                <span className="text-gray-900 font-medium">₦{item.value?.toLocaleString()}</span>
+                                                <span className="text-black text-sm sm:text-base">{item.label}</span>
+                                                <span className="text-black font-medium text-sm sm:text-base">₦{item.value?.toLocaleString()}</span>
                                             </motion.div>
                                         ))}
                                         {order.discountAmount > 0 && (
@@ -710,16 +717,16 @@ export default function OrderDetails() {
                                                 variants={itemVariants}
                                                 className="flex justify-between items-center"
                                             >
-                                                <span className="text-gray-600">Discount</span>
-                                                <span className="text-red-600 font-medium">-₦{order.discountAmount?.toLocaleString()}</span>
+                                                <span className="text-black text-sm sm:text-base">Discount</span>
+                                                <span className="text-red-600 font-medium text-sm sm:text-base">-₦{order.discountAmount?.toLocaleString()}</span>
                                             </motion.div>
                                         )}
                                         <motion.div
                                             variants={itemVariants}
-                                            className="flex justify-between items-center pt-4 border-t border-gray-200"
+                                            className="flex justify-between items-center pt-3 sm:pt-4 border-t border-gray-200"
                                         >
-                                            <span className="text-xl font-bold text-gray-900">Total</span>
-                                            <span className="text-xl font-bold text-gray-900">₦{order.totalPrice?.toLocaleString()}</span>
+                                            <span className="text-lg sm:text-xl font-bold text-black">Total</span>
+                                            <span className="text-lg sm:text-xl font-bold text-black">₦{order.totalPrice?.toLocaleString()}</span>
                                         </motion.div>
                                     </div>
                                 </motion.div>
@@ -729,48 +736,48 @@ export default function OrderDetails() {
                                     variants={containerVariants}
                                     initial="hidden"
                                     animate="show"
-                                    className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm"
+                                    className="bg-white rounded-lg border border-gray-200 overflow-hidden"
                                 >
-                                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                                        <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-3">
-                                            <FiTruck className="text-purple-600" />
+                                    <div className="bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200">
+                                        <h2 className="text-lg sm:text-xl font-semibold text-black flex items-center gap-2 sm:gap-3">
+                                            <FiTruck className="text-purple-600 text-sm sm:text-base" />
                                             Shipping Information
                                         </h2>
                                     </div>
-                                    <div className="p-6 space-y-4">
-                                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                            <h3 className="text-sm font-medium text-gray-600 mb-2 flex items-center gap-2">
-                                                <FiUser className="text-sm" />
+                                    <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+                                        <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                            <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1 sm:mb-2 flex items-center gap-2">
+                                                <FiUser className="text-xs" />
                                                 Contact
                                             </h3>
                                             <div className="space-y-1">
-                                                <p className="text-gray-900 flex items-center gap-2">
-                                                    <FiMail className="text-sm text-purple-600" />
+                                                <p className="text-black text-sm flex items-center gap-2">
+                                                    <FiMail className="text-xs text-purple-600" />
                                                     {order.userEmail || order.shippingAddress?.email}
                                                 </p>
                                                 {order.shippingAddress?.phone && (
-                                                    <p className="text-gray-900 flex items-center gap-2">
-                                                        <FiPhone className="text-sm text-purple-600" />
+                                                    <p className="text-black text-sm flex items-center gap-2">
+                                                        <FiPhone className="text-xs text-purple-600" />
                                                         {order.shippingAddress.phone}
                                                     </p>
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                            <h3 className="text-sm font-medium text-gray-600 mb-2 flex items-center gap-2">
-                                                <FiMapPin className="text-sm" />
+                                        <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-200">
+                                            <h3 className="text-xs sm:text-sm font-medium text-gray-600 mb-1 sm:mb-2 flex items-center gap-2">
+                                                <FiMapPin className="text-xs" />
                                                 Shipping Address
                                             </h3>
-                                            <p className="text-gray-900 text-sm leading-relaxed">
+                                            <p className="text-black text-xs sm:text-sm leading-relaxed">
                                                 {order.shippingAddress?.address},<br />
                                                 {order.shippingAddress?.city}, {order.shippingAddress?.state}<br />
                                                 {order.shippingAddress?.postalCode}, {order.shippingAddress?.country}
                                             </p>
                                         </div>
                                         {order.deliveryInstructions && (
-                                            <div className="bg-gold/10 rounded-lg p-4 border border-gold/20">
-                                                <h3 className="text-sm font-medium text-yellow-700 mb-1">Delivery Instructions</h3>
-                                                <p className="text-gray-900 text-sm">{order.deliveryInstructions}</p>
+                                            <div className="bg-yellow-500/10 rounded-lg p-3 sm:p-4 border border-yellow-500/20">
+                                                <h3 className="text-xs sm:text-sm font-medium text-black mb-1">Delivery Instructions</h3>
+                                                <p className="text-black text-xs sm:text-sm">{order.deliveryInstructions}</p>
                                             </div>
                                         )}
                                     </div>
