@@ -342,7 +342,7 @@ export default function ProductListPage() {
                             Fashion Collection
                         </h1>
                         <p className="text-gray-600">
-                            Discover our curated collection of ready-to-wear and custom designs
+                            Discover our curated collection of ready-to-wear
                         </p>
                     </div>
                     
