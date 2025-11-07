@@ -108,12 +108,9 @@ export default function Footer() {
         { href: '/', text: 'Home', delay: 0.1 },
         { href: '/products', text: 'Products', delay: 0.15 },
         { href: '/about', text: 'About Us', delay: 0.2 },
-        { href: '/gallery', text: 'Gallery', delay: 0.25 },
-        { href: '/reviews', text: 'Reviews', delay: 0.3 }
     ];
 
     const customerServiceLinks = [
-        { href: '/contact', text: 'Contact Us', delay: 0.1 },
         { href: '/shipping', text: 'Shipping Policy', delay: 0.15 },
         { href: '/returns', text: 'Returns & Refunds', delay: 0.2 },
         { href: '/privacy', text: 'Privacy Policy', delay: 0.25 },
