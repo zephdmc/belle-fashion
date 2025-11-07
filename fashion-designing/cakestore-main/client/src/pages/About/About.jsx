@@ -101,15 +101,7 @@ const AboutPage = () => {
                                 </p>
                             </motion.div>
 
-                            <motion.div variants={item} className="bg-white p-4 sm:p-6 rounded-xl text-center border border-yellow-500">
-                                <div className="flex justify-center text-yellow-500 mb-3 sm:mb-4">
-                                    <FaHandsHelping className="text-3xl sm:text-4xl" />
-                                </div>
-                                <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 font-serif">Personal Styling</h3>
-                                <p className="text-black text-sm sm:text-base">
-                                    Dedicated to helping you discover and express your unique style through personalized consultations.
-                                </p>
-                            </motion.div>
+                          
                         </motion.div>
 
                         <motion.div variants={item} className="bg-yellow-500 text-black p-6 sm:p-8 md:p-12 rounded-xl border border-yellow-500">
