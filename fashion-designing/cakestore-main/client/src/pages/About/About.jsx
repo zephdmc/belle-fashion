@@ -19,32 +19,7 @@ const AboutPage = () => {
         show: { opacity: 1, y: 0 }
     };
 
-    const faqs = [
-        {
-            question: "How long does delivery take?",
-            answer: "Delivery typically takes 1-2 business days within Port Harcourt and 2-7 business days for other states. We partner with premium logistics providers to ensure your fashion pieces arrive in perfect condition."
-        },
-        {
-            question: "Do you offer custom sizing or alterations?",
-            answer: "Yes! We offer basic alterations and custom sizing on select pieces. Contact us before ordering to discuss your specific requirements and timeline."
-        },
-        {
-            question: "What is your return policy?",
-            answer: "We accept returns for damaged or defective items within 48 hours of delivery. Due to the nature of clothing, all items must be unworn with original tags attached."
-        },
-        {
-            question: "Do you ship nationwide?",
-            answer: "Yes, we deliver contemporary fashion to all 36 states in Nigeria. Shipping rates vary by location and are calculated at checkout."
-        },
-        {
-            question: "How do I care for my Bellebyokien pieces?",
-            answer: "Each garment comes with specific care instructions. We recommend gentle washing, air drying, and proper storage to maintain the quality and longevity of your contemporary pieces."
-        },
-        {
-            question: "Do you release new collections regularly?",
-            answer: "Yes! We launch seasonal collections and occasional limited editions. Follow us on social media and subscribe to our newsletter for exclusive previews and early access."
-        }
-    ];
+   
 
     return (
         <div className="min-h-screen bg-white">
@@ -207,27 +182,7 @@ const AboutPage = () => {
                             Everything you need to know about Bellebyokien Ready-to-Wear
                         </motion.p>
 
-                        <motion.div variants={container} className="space-y-3 sm:space-y-4">
-                            {faqs.map((faq, index) => (
-                                <motion.div
-                                    key={index}
-                                    variants={item}
-                                    className="border border-yellow-500 rounded-xl overflow-hidden bg-white transition"
-                                >
-                                    <details className="group">
-                                        <summary className="list-none p-4 sm:p-6 flex justify-between items-center cursor-pointer transition">
-                                            <h3 className="font-medium text-black font-serif text-sm sm:text-base pr-2">{faq.question}</h3>
-                                            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                            </svg>
-                                        </summary>
-                                        <div className="px-4 sm:px-6 pb-4 sm:pb-6 pt-0 text-black border-t border-yellow-500/20 mt-2 text-sm sm:text-base">
-                                            {faq.answer}
-                                        </div>
-                                    </details>
-                                </motion.div>
-                            ))}
-                        </motion.div>
+                     
                     </motion.div>
                 </div>
             </section>
