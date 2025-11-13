@@ -142,22 +142,19 @@ const MobileHeroSlider = () => {
             id: 1,
             image: "/images/hero1.jpeg",
             alt: "Luxury Fashion Collection",
-            title: "Elegant Evening Wear",
-            subtitle: "Discover our premium collection"
+           
         },
         {
             id: 2, 
             image: "/images/hero2.jpeg",
             alt: "Designer Dresses",
-            title: "Designer Collection",
-            subtitle: "Exclusive designs for every occasion"
+          
         },
         {
             id: 3,
             image: "/images/hero3.jpeg",
             alt: "Casual Fashion",
-            title: "Casual Elegance",
-            subtitle: "Comfort meets style"
+            
         }
     ];
 
@@ -199,25 +196,7 @@ const MobileHeroSlider = () => {
                     {/* Gradient Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     
-                    {/* Text Overlay */}
-                    <div className="absolute bottom-6 left-6 right-6 text-white">
-                        <motion.h3
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            className="text-2xl font-bold font-serif mb-2"
-                        >
-                            {slides[currentSlide].title}
-                        </motion.h3>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                            className="text-white/90 font-serif"
-                        >
-                            {slides[currentSlide].subtitle}
-                        </motion.p>
-                    </div>
+            
                 </motion.div>
             </AnimatePresence>
             
