@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { FiSearch, FiChevronDown, FiMail, FiMessageCircle, FiPackage, FiTruck, FiRefreshCw, FiStar, FiCalendar } from 'react-icons/fi';
+import { FiSearch, FiChevronDown, FiMail, FiMessageCircle, FiPackage, FiTruck, FiRefreshCw, FiStar } from 'react-icons/fi';
 
 const FAQPage = () => {
     const [activeCategory, setActiveCategory] = useState('all');
@@ -35,7 +35,7 @@ const FAQPage = () => {
                 },
                 {
                     question: "How do I care for my Bellebyokien pieces?",
-                    answer: "We recommend gentle washing, air drying, and proper storage to maintain the quality and longevity of your  pieces.",
+                    answer: "We recommend gentle washing, air drying, and proper storage to maintain the quality and longevity of your pieces.",
                     tags: ["care", "maintenance", "washing"]
                 }
             ]
@@ -51,7 +51,6 @@ const FAQPage = () => {
                 }
             ]
         },
-       
     };
 
     const allQuestions = Object.values(faqData).flatMap(category => 
@@ -62,13 +61,13 @@ const FAQPage = () => {
         { id: 'all', name: 'All Questions', count: allQuestions.length },
         { id: 'shipping', name: 'Shipping', count: faqData.shipping.questions.length },
         { id: 'products', name: 'Products', count: faqData.products.questions.length },
-        { id: 'policies', name: 'Policies', count: faqData.policies.questions.length },
-        { id: 'collections', name: 'Collections', count: faqData.collections.questions.length }
+        { id: 'policies', name: 'Policies', count: faqData.policies.questions.length }
+        // Removed the non-existent 'collections' category
     ];
 
     const filteredQuestions = allQuestions.filter(item => {
         const matchesCategory = activeCategory === 'all' || 
-            faqData[activeCategory]?.questions.includes(item);
+            item.category === faqData[activeCategory]?.title;
         const matchesSearch = item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
             item.answer.toLowerCase().includes(searchQuery.toLowerCase()) ||
             item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -279,7 +278,7 @@ const FAQPage = () => {
                                     <div>
                                         <p className="font-semibold mb-2">Call us:</p>
                                         <a 
-                                            href="tel:+234 901 873215"
+                                            href="tel:+234901873215"
                                             className="text-black hover:text-black/90 underline transition-colors"
                                         >
                                             +234 901 873215
