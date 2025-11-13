@@ -172,6 +172,8 @@ export default function Footer() {
                                     Bellebyokien
                                 </h3>
                                 <p className="text-yellow-600 text-sm font-medium">READY TO WEAR</p>
+                                <p className="text-yellow-600 text-sm font-medium">MADE TO ORDER</p>
+
                             </div>
                         </motion.div>
                         
