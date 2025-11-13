@@ -165,27 +165,7 @@ const AboutPage = () => {
                 </div>
             </section>
 
-            {/* FAQ Section */}
-            <section className="py-12 sm:py-16 bg-white">
-                <div className="container mx-auto px-4 sm:px-6">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true, margin: "-50px" }}
-                        variants={container}
-                        className="max-w-4xl mx-auto"
-                    >
-                        <motion.h2 variants={item} className="text-2xl sm:text-3xl font-serif font-bold text-center mb-4 sm:mb-6 text-black">
-                            Style Questions Answered
-                        </motion.h2>
-                        <motion.p variants={item} className="text-black text-center mb-8 sm:mb-12 text-base sm:text-lg">
-                            Everything you need to know about Bellebyokien Ready-to-Wear
-                        </motion.p>
-
-                     
-                    </motion.div>
-                </div>
-            </section>
+           
 
             {/* Contact Section */}
             <section className="py-12 sm:py-16 bg-yellow-500 text-black">
