@@ -14,7 +14,7 @@ const FAQPage = () => {
             questions: [
                 {
                     question: "How long does delivery take?",
-                    answer: "Delivery typically takes 1-2 business days within Port Harcourt and 2-7 business days for other states. We partner with premium logistics providers to ensure your fashion pieces arrive in perfect condition.",
+                    answer: "Delivery typically takes 3-7 business days within Port Harcourt and 2-7 business days for other states. We partner with premium logistics providers to ensure your fashion pieces arrive in perfect condition.",
                     tags: ["delivery", "shipping", "time"]
                 },
                 {
