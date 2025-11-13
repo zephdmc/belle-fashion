@@ -19,7 +19,7 @@ const FAQPage = () => {
                 },
                 {
                     question: "Do you ship nationwide?",
-                    answer: "Yes, we deliver contemporary fashion to all 36 states in Nigeria. Shipping rates vary by location and are calculated at checkout.",
+                    answer: "Yes, we deliver to all 36 states in Nigeria. Shipping rates vary by location and are calculated at checkout.",
                     tags: ["shipping", "nationwide", "locations"]
                 }
             ]
@@ -35,7 +35,7 @@ const FAQPage = () => {
                 },
                 {
                     question: "How do I care for my Bellebyokien pieces?",
-                    answer: "Each garment comes with specific care instructions. We recommend gentle washing, air drying, and proper storage to maintain the quality and longevity of your contemporary pieces.",
+                    answer: "We recommend gentle washing, air drying, and proper storage to maintain the quality and longevity of your  pieces.",
                     tags: ["care", "maintenance", "washing"]
                 }
             ]
@@ -51,17 +51,7 @@ const FAQPage = () => {
                 }
             ]
         },
-        collections: {
-            icon: <FiCalendar className="text-black" />,
-            title: "Collections & Updates",
-            questions: [
-                {
-                    question: "Do you release new collections regularly?",
-                    answer: "Yes! We launch seasonal collections and occasional limited editions. Follow us on social media and subscribe to our newsletter for exclusive previews and early access.",
-                    tags: ["collections", "new", "updates"]
-                }
-            ]
-        }
+       
     };
 
     const allQuestions = Object.values(faqData).flatMap(category => 
