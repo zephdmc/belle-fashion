@@ -32,7 +32,6 @@ export default function ProductDetail() {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const [isImageZoomed, setIsImageZoomed] = useState(false);
     const [selectedSize, setSelectedSize] = useState('');
-    const [selectedColor, setSelectedColor] = useState('');
     const [activeTab, setActiveTab] = useState('details');
     const { addToCart } = useCart();
     const navigate = useNavigate();
@@ -65,7 +64,6 @@ export default function ProductDetail() {
         const cartItem = {
             ...product,
             selectedSize,
-            selectedColor,
             quantity
         };
         addToCart(cartItem, quantity);
@@ -369,20 +367,7 @@ export default function ProductDetail() {
                                     </p>
                                 )}
 
-                                {/* Rating - Mobile Only */}
-                                <div className="lg:hidden flex items-center mb-3">
-                                    <div className="flex items-center space-x-1">
-                                        {[1, 2, 3, 4, 5].map((star) => (
-                                            <FiStar 
-                                                key={star}
-                                                className={`w-4 h-4 ${
-                                                    star <= 4 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
-                                                }`}
-                                            />
-                                        ))}
-                                    </div>
-                                    <span className="text-gray-500 text-sm ml-2">(4.5)</span>
-                                </div>
+                            
                             </div>
 
                             {/* Price Section */}
@@ -516,27 +501,7 @@ export default function ProductDetail() {
                                                 </div>
                                             )}
 
-                                            {/* Color Selection */}
-                                            {product.colors && product.colors.length > 0 && (
-                                                <div>
-                                                    <h3 className="text-lg font-semibold mb-3 text-black font-serif">Select Color</h3>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {product.colors.map((color) => (
-                                                            <button
-                                                                key={color}
-                                                                onClick={() => setSelectedColor(color)}
-                                                                className={`p-3 border-2 rounded-lg font-semibold transition-all duration-200 font-serif text-sm ${
-                                                                    selectedColor === color
-                                                                        ? 'border-gold bg-gold/10 text-black shadow-sm'
-                                                                        : 'border-gray-200 bg-white text-gray-700 hover:border-gold/50'
-                                                                }`}
-                                                            >
-                                                                {color}
-                                                            </button>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
+                                    
                                         </motion.div>
                                     )}
 
