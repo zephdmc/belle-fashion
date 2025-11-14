@@ -196,7 +196,7 @@ const Dashboard = () => {
     const currentStatsCards = statsCards[viewMode] || statsCards.overview;
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 bg-white text-black">
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -204,23 +204,23 @@ const Dashboard = () => {
                 className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
             >
                 <div>
-                    <h1 className="text-3xl font-bold text-gold mb-2 font-serif">
+                    <h1 className="text-3xl font-bold text-black mb-2 font-serif">
                         {viewMode === 'overview' ? 'Dashboard Overview' : 'Custom Orders Dashboard'}
                     </h1>
-                    <p className="text-gold/70 font-serif">
+                    <p className="text-gray-700 font-serif">
                         Welcome back, {currentUser?.email?.split('@')[0] || 'Admin'}! 
                         {viewMode === 'overview' ? " Here's what's happening today." : " Managing custom fashion orders."}
                     </p>
                 </div>
                 <div className="flex items-center space-x-4 mt-4 lg:mt-0">
                     {/* View Mode Toggle */}
-                    <div className="flex bg-black/40 backdrop-blur-sm rounded-2xl p-1 border border-gold/20">
+                    <div className="flex bg-gray-100 rounded-2xl p-1 border border-gold">
                         <button
                             onClick={() => setViewMode('overview')}
                             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
                                 viewMode === 'overview' 
                                     ? 'bg-gold text-black shadow-lg' 
-                                    : 'text-gold/70 hover:text-gold hover:bg-gold/10'
+                                    : 'text-gray-700 hover:text-black hover:bg-gold/20'
                             }`}
                         >
                             <FiGrid className="inline mr-2" />
@@ -231,7 +231,7 @@ const Dashboard = () => {
                             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
                                 viewMode === 'custom-orders' 
                                     ? 'bg-gold text-black shadow-lg' 
-                                    : 'text-gold/70 hover:text-gold hover:bg-gold/10'
+                                    : 'text-gray-700 hover:text-black hover:bg-gold/20'
                             }`}
                         >
                             <FiScissors className="inline mr-2" />
@@ -239,7 +239,7 @@ const Dashboard = () => {
                         </button>
                     </div>
 
-                    <div className="flex items-center text-sm text-gold/70">
+                    <div className="flex items-center text-sm text-gray-600">
                         <FiCalendar className="mr-2" />
                         <span>{new Date().toLocaleDateString('en-US', { 
                             weekday: 'long', 
@@ -251,7 +251,7 @@ const Dashboard = () => {
                     <button
                         onClick={handleRefresh}
                         disabled={refreshing}
-                        className="flex items-center bg-gold text-black hover:bg-yellow-500 py-2 px-4 rounded-xl border border-gold/30 hover:shadow-lg transition-all duration-200 disabled:opacity-50 font-medium"
+                        className="flex items-center bg-gold text-black hover:bg-yellow-500 py-2 px-4 rounded-xl border border-gold hover:shadow-lg transition-all duration-200 disabled:opacity-50 font-medium"
                     >
                         <FiRefreshCw className={`mr-2 ${refreshing ? 'animate-spin' : ''}`} />
                         Refresh
@@ -266,13 +266,13 @@ const Dashboard = () => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="bg-red-500/10 border-l-4 border-red-500 rounded-r-xl p-4 shadow-sm border border-red-500/20"
+                        className="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-4 shadow-sm border border-red-200"
                     >
                         <div className="flex items-center">
-                            <FiAlertCircle className="text-red-400 text-xl mr-3" />
+                            <FiAlertCircle className="text-red-500 text-xl mr-3" />
                             <div>
-                                <p className="text-red-300 font-medium">{error}</p>
-                                <p className="text-red-400/80 text-sm mt-1">
+                                <p className="text-red-700 font-medium">{error}</p>
+                                <p className="text-red-600 text-sm mt-1">
                                     Some data may not be up to date. Try refreshing the page.
                                 </p>
                             </div>
@@ -291,14 +291,14 @@ const Dashboard = () => {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
-                                className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-6 h-32 animate-pulse"
+                                className="bg-gray-100 rounded-2xl border border-gray-300 p-6 h-32 animate-pulse"
                             >
                                 <div className="flex items-center justify-between">
                                     <div className="space-y-2 flex-1">
-                                        <div className="h-4 bg-gold/20 rounded w-1/2"></div>
-                                        <div className="h-8 bg-gold/20 rounded w-3/4"></div>
+                                        <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                                        <div className="h-8 bg-gray-300 rounded w-3/4"></div>
                                     </div>
-                                    <div className="w-12 h-12 bg-gold/20 rounded-xl"></div>
+                                    <div className="w-12 h-12 bg-gray-300 rounded-xl"></div>
                                 </div>
                             </motion.div>
                         ))
@@ -312,21 +312,21 @@ const Dashboard = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
                                     whileHover={{ scale: 1.02, y: -2 }}
-                                    className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 hover:border-gold/40 hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                                    className="bg-white rounded-2xl border border-gray-300 hover:border-gold hover:shadow-xl transition-all duration-300 overflow-hidden group shadow-sm"
                                 >
                                     <div className="p-6">
                                         <div className="flex items-center justify-between mb-4">
                                             <div>
-                                                <p className="text-sm font-medium text-gold/70 mb-1 font-serif">
+                                                <p className="text-sm font-medium text-gray-600 mb-1 font-serif">
                                                     {card.title}
                                                 </p>
                                                 <p className={`text-2xl font-bold font-serif ${
-                                                    card.isError ? 'text-red-400' : 'text-white'
+                                                    card.isError ? 'text-red-600' : 'text-black'
                                                 }`}>
                                                     {card.value}
                                                 </p>
                                                 {card.subtitle && (
-                                                    <p className="text-xs text-gold/50 mt-1 font-serif">
+                                                    <p className="text-xs text-gray-500 mt-1 font-serif">
                                                         {card.subtitle}
                                                     </p>
                                                 )}
@@ -339,27 +339,27 @@ const Dashboard = () => {
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center">
                                                 {card.trend.positive ? (
-                                                    <FiTrendingUp className="text-green-400 mr-1" />
+                                                    <FiTrendingUp className="text-green-600 mr-1" />
                                                 ) : (
-                                                    <FiTrendingDown className="text-red-400 mr-1" />
+                                                    <FiTrendingDown className="text-red-600 mr-1" />
                                                 )}
                                                 <span className={`text-sm font-medium font-serif ${
-                                                    card.trend.positive ? 'text-green-400' : 'text-red-400'
+                                                    card.trend.positive ? 'text-green-600' : 'text-red-600'
                                                 }`}>
                                                     {card.trend.positive ? '+' : ''}{card.trend.value}%
                                                 </span>
                                             </div>
-                                            <span className="text-xs text-gold/50 font-serif">
+                                            <span className="text-xs text-gray-500 font-serif">
                                                 {card.trend.label}
                                             </span>
                                         </div>
                                     </div>
                                     
                                     {/* Progress bar */}
-                                    <div className="w-full bg-gold/20 h-1">
+                                    <div className="w-full bg-gray-200 h-1">
                                         <div 
                                             className={`h-1 transition-all duration-1000 ${
-                                                card.trend.positive ? 'bg-green-400' : 'bg-red-400'
+                                                card.trend.positive ? 'bg-green-600' : 'bg-red-600'
                                             }`}
                                             style={{ width: `${Math.min(card.trend.value, 100)}%` }}
                                         ></div>
@@ -380,8 +380,8 @@ const Dashboard = () => {
                     className="grid grid-cols-1 lg:grid-cols-2 gap-6"
                 >
                     {/* Quick Actions */}
-                    <div className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-6">
-                        <h3 className="text-lg font-semibold text-gold mb-4 font-serif">Quick Actions</h3>
+                    <div className="bg-white rounded-2xl border border-gray-300 p-6 shadow-sm">
+                        <h3 className="text-lg font-semibold text-black mb-4 font-serif">Quick Actions</h3>
                         <div className="grid grid-cols-2 gap-4">
                             {[
                                 { label: 'Add Product', icon: FiPackage, path: '/admin/products/new' },
@@ -393,9 +393,9 @@ const Dashboard = () => {
                                     key={action.label}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="flex flex-col items-center justify-center p-4 bg-gold/10 rounded-xl hover:bg-gold/20 text-gold hover:text-white transition-all duration-200 group border border-gold/20"
+                                    className="flex flex-col items-center justify-center p-4 bg-gold/10 rounded-xl hover:bg-gold text-black hover:text-white transition-all duration-200 group border border-gold"
                                 >
-                                    <action.icon className="text-2xl mb-2 text-gold group-hover:text-white" />
+                                    <action.icon className="text-2xl mb-2 text-black group-hover:text-white" />
                                     <span className="text-sm font-medium font-serif group-hover:text-white">
                                         {action.label}
                                     </span>
@@ -405,8 +405,8 @@ const Dashboard = () => {
                     </div>
 
                     {/* Recent Activity */}
-                    <div className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-6">
-                        <h3 className="text-lg font-semibold text-gold mb-4 font-serif">
+                    <div className="bg-white rounded-2xl border border-gray-300 p-6 shadow-sm">
+                        <h3 className="text-lg font-semibold text-black mb-4 font-serif">
                             {viewMode === 'overview' ? 'Recent Activity' : 'Custom Orders Activity'}
                         </h3>
                         <div className="space-y-4">
@@ -421,18 +421,18 @@ const Dashboard = () => {
                                 { action: 'Fitting session scheduled', time: '1 day ago', type: 'fitting' },
                                 { action: 'Custom order delivered', time: '2 days ago', type: 'delivery' }
                             ]).map((activity, index) => (
-                                <div key={index} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gold/10 transition-colors duration-200 border border-transparent hover:border-gold/20">
+                                <div key={index} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gold/10 transition-colors duration-200 border border-transparent hover:border-gold">
                                     <div className={`w-2 h-2 rounded-full ${
-                                        activity.type === 'order' ? 'bg-blue-400' :
-                                        activity.type === 'product' ? 'bg-purple-400' :
+                                        activity.type === 'order' ? 'bg-blue-500' :
+                                        activity.type === 'product' ? 'bg-purple-500' :
                                         activity.type === 'custom' ? 'bg-gold' :
-                                        activity.type === 'design' ? 'bg-yellow-400' :
-                                        activity.type === 'fitting' ? 'bg-orange-400' :
-                                        activity.type === 'delivery' ? 'bg-green-400' : 'bg-green-400'
+                                        activity.type === 'design' ? 'bg-yellow-500' :
+                                        activity.type === 'fitting' ? 'bg-orange-500' :
+                                        activity.type === 'delivery' ? 'bg-green-500' : 'bg-green-500'
                                     }`}></div>
                                     <div className="flex-1">
-                                        <p className="text-sm font-medium text-white font-serif">{activity.action}</p>
-                                        <p className="text-xs text-gold/70 font-serif">{activity.time}</p>
+                                        <p className="text-sm font-medium text-black font-serif">{activity.action}</p>
+                                        <p className="text-xs text-gray-600 font-serif">{activity.time}</p>
                                     </div>
                                 </div>
                             ))}
@@ -447,13 +447,13 @@ const Dashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
-                    className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-6"
+                    className="bg-white rounded-2xl border border-gray-300 p-6 shadow-sm"
                 >
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-semibold text-gold font-serif">Custom Orders Summary</h3>
+                        <h3 className="text-lg font-semibold text-black font-serif">Custom Orders Summary</h3>
                         <button 
                             onClick={() => setViewMode('custom-orders')}
-                            className="text-gold hover:text-white text-sm font-medium flex items-center gap-2 transition-colors"
+                            className="text-black hover:text-gold text-sm font-medium flex items-center gap-2 transition-colors"
                         >
                             View Details
                             <FiTrendingUp className="text-xs" />
@@ -461,13 +461,13 @@ const Dashboard = () => {
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
-                            { label: 'Total Custom Orders', value: stats.customOrders, color: 'text-gold' },
-                            { label: 'Pending Consultation', value: stats.pendingCustomOrders, color: 'text-yellow-400' },
-                            { label: 'In Production', value: Math.floor(stats.customOrders * 0.3), color: 'text-blue-400' },
-                            { label: 'Completed', value: Math.floor(stats.customOrders * 0.4), color: 'text-green-400' }
+                            { label: 'Total Custom Orders', value: stats.customOrders, color: 'text-black' },
+                            { label: 'Pending Consultation', value: stats.pendingCustomOrders, color: 'text-yellow-600' },
+                            { label: 'In Production', value: Math.floor(stats.customOrders * 0.3), color: 'text-blue-600' },
+                            { label: 'Completed', value: Math.floor(stats.customOrders * 0.4), color: 'text-green-600' }
                         ].map((item, index) => (
-                            <div key={index} className="text-center p-4 bg-gold/5 rounded-xl border border-gold/10">
-                                <p className="text-2xl font-bold text-white font-serif">{item.value}</p>
+                            <div key={index} className="text-center p-4 bg-gray-50 rounded-xl border border-gray-200">
+                                <p className="text-2xl font-bold text-black font-serif">{item.value}</p>
                                 <p className={`text-sm font-medium ${item.color} font-serif`}>{item.label}</p>
                             </div>
                         ))}
