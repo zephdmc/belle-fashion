@@ -102,7 +102,7 @@ const FAQPage = () => {
                     
                     <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
                         Everything you need to know about
-                        <span className="block text-black mt-2">Bellebyokien Ready-to-Wear</span>
+                        <span className="block text-black mt-2">Bellebyokien</span>
                     </h1>
                     
                     <p className="text-xl text-black max-w-2xl mx-auto leading-relaxed">
