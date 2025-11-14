@@ -338,11 +338,8 @@ export default function ProductListPage() {
                     className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8"
                 >
                     <div>
-                        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-                            Fashion Collection
-                        </h1>
                         <p className="text-gray-600">
-                            Discover our curated collection of ready-to-wear
+                            Discover our curated collection
                         </p>
                     </div>
                     
