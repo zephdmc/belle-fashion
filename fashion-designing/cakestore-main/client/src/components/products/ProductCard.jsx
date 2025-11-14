@@ -172,17 +172,7 @@ export default function ProductCard({ product, showQuickAdd = true }) {
                         </div>
                     )}
 
-                    {/* Colors */}
-                    {displayColors.length > 0 && (
-                        <div className="flex items-center text-xs text-black font-serif">
-                            <FiDroplet size={12} className="mr-1 text-yellow-500" />
-                            <span className="font-medium">Colors: </span>
-                            <span className="ml-1">{displayColors.join(', ')}</span>
-                            {product.colors?.length > 1 && (
-                                <span className="text-gray-500 ml-1">+{product.colors.length - 1}</span>
-                            )}
-                        </div>
-                    )}
+             
                 </div>
 
                 {/* Material */}
