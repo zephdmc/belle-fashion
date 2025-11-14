@@ -25,51 +25,51 @@ import {
 
 const statusConfig = {
     pending: { 
-        color: 'bg-yellow-400/20 text-yellow-400 border-yellow-400/30', 
+        color: 'bg-yellow-100 text-yellow-800 border-yellow-300', 
         icon: FiClock,
         label: 'Pending'
     },
     confirmed: { 
-        color: 'bg-blue-400/20 text-blue-400 border-blue-400/30', 
+        color: 'bg-blue-100 text-blue-800 border-blue-300', 
         icon: FiCheckCircle,
         label: 'Confirmed'
     },
     processing: { 
-        color: 'bg-purple-400/20 text-purple-400 border-purple-400/30', 
+        color: 'bg-purple-100 text-purple-800 border-purple-300', 
         icon: FiEdit3,
         label: 'Processing'
     },
     ready_to_ship: { 
-        color: 'bg-orange-400/20 text-orange-400 border-orange-400/30', 
+        color: 'bg-orange-100 text-orange-800 border-orange-300', 
         icon: FiPackage,
         label: 'Ready to Ship'
     },
     shipped: { 
-        color: 'bg-teal-400/20 text-teal-400 border-teal-400/30', 
+        color: 'bg-teal-100 text-teal-800 border-teal-300', 
         icon: FiTruck,
         label: 'Shipped'
     },
     delivered: { 
-        color: 'bg-green-400/20 text-green-400 border-green-400/30', 
+        color: 'bg-green-100 text-green-800 border-green-300', 
         icon: FiCheckCircle,
         label: 'Delivered'
     },
     cancelled: { 
-        color: 'bg-red-400/20 text-red-400 border-red-400/30', 
+        color: 'bg-red-100 text-red-800 border-red-300', 
         icon: FiAlertCircle,
         label: 'Cancelled'
     },
     returned: { 
-        color: 'bg-gray-400/20 text-gray-400 border-gray-400/30', 
+        color: 'bg-gray-100 text-gray-800 border-gray-300', 
         icon: FiRefreshCw,
         label: 'Returned'
     }
 };
 
 const orderTypeConfig = {
-    standard: { color: 'bg-blue-400/20 text-blue-400 border-blue-400/30', label: 'Ready-to-Wear', icon: FiPackage },
-    custom: { color: 'bg-purple-400/20 text-purple-400 border-purple-400/30', label: 'Custom Design', icon: FiScissors },
-    mixed: { color: 'bg-pink-400/20 text-pink-400 border-pink-400/30', label: 'Mixed Order', icon: FiTag }
+    standard: { color: 'bg-blue-100 text-blue-800 border-blue-300', label: 'Ready-to-Wear', icon: FiPackage },
+    custom: { color: 'bg-purple-100 text-purple-800 border-purple-300', label: 'Custom Design', icon: FiScissors },
+    mixed: { color: 'bg-pink-100 text-pink-800 border-pink-300', label: 'Mixed Order', icon: FiTag }
 };
 
 export default function AdminOrders() {
@@ -266,12 +266,12 @@ export default function AdminOrders() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
+            <div className="min-h-screen bg-white py-8">
                 <div className="container mx-auto px-4">
                     <div className="flex justify-center items-center h-96">
                         <div className="text-center">
                             <Loader />
-                            <p className="mt-4 text-gold/70 font-medium font-serif">Loading orders...</p>
+                            <p className="mt-4 text-gray-600 font-medium font-serif">Loading orders...</p>
                         </div>
                     </div>
                 </div>
@@ -280,7 +280,7 @@ export default function AdminOrders() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 py-8">
+        <div className="min-h-screen bg-white py-8">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Header */}
                 <motion.div
@@ -290,12 +290,12 @@ export default function AdminOrders() {
                 >
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
                         <div>
-                            <h1 className="text-3xl font-bold text-gold mb-2 font-serif">Order Management</h1>
-                            <p className="text-gold/70 font-serif">Manage and track all customer orders</p>
+                            <h1 className="text-3xl font-bold text-black mb-2 font-serif">Order Management</h1>
+                            <p className="text-gray-700 font-serif">Manage and track all customer orders</p>
                         </div>
                         <button
                             onClick={refreshOrders}
-                            className="flex items-center bg-gold text-black hover:bg-yellow-500 py-3 px-6 rounded-xl border border-gold/30 hover:shadow-lg transition-all duration-200 font-semibold mt-4 lg:mt-0 font-serif"
+                            className="flex items-center bg-gold text-black hover:bg-yellow-500 py-3 px-6 rounded-xl border border-gold hover:shadow-lg transition-all duration-200 font-semibold mt-4 lg:mt-0 font-serif"
                         >
                             <FiRefreshCw className="mr-2" />
                             Refresh Orders
@@ -318,15 +318,15 @@ export default function AdminOrders() {
                             <motion.div
                                 key={status}
                                 whileHover={{ scale: 1.02 }}
-                                className={`bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-4 cursor-pointer transition-all duration-200 ${
+                                className={`bg-white rounded-2xl border border-gray-300 p-4 cursor-pointer transition-all duration-200 shadow-sm ${
                                     statusFilter === status ? 'ring-2 ring-gold' : ''
                                 }`}
                                 onClick={() => setStatusFilter(status === 'all' ? 'all' : status)}
                             >
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-xl font-bold text-white font-serif">{count}</p>
-                                        <p className="text-xs text-gold/70 mt-1 font-serif">{label}</p>
+                                        <p className="text-xl font-bold text-black font-serif">{count}</p>
+                                        <p className="text-xs text-gray-600 mt-1 font-serif">{label}</p>
                                     </div>
                                     <div className={`${color} rounded-xl p-2`}>
                                         <Icon className="text-white text-lg" />
@@ -346,15 +346,15 @@ export default function AdminOrders() {
                             <motion.div
                                 key={type}
                                 whileHover={{ scale: 1.02 }}
-                                className={`bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-6 cursor-pointer transition-all duration-200 ${
+                                className={`bg-white rounded-2xl border border-gray-300 p-6 cursor-pointer transition-all duration-200 shadow-sm ${
                                     orderTypeFilter === type ? 'ring-2 ring-gold' : ''
                                 }`}
                                 onClick={() => setOrderTypeFilter(type === 'all' ? 'all' : type)}
                             >
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-2xl font-bold text-white font-serif">{count}</p>
-                                        <p className="text-sm text-gold/70 mt-1 font-serif">{label}</p>
+                                        <p className="text-2xl font-bold text-black font-serif">{count}</p>
+                                        <p className="text-sm text-gray-600 mt-1 font-serif">{label}</p>
                                     </div>
                                     <div className={`${color} rounded-xl p-3`}>
                                         <Icon className="text-white text-xl" />
@@ -365,25 +365,25 @@ export default function AdminOrders() {
                     </div>
 
                     {/* Filters */}
-                    <div className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-6">
+                    <div className="bg-white rounded-2xl border border-gray-300 p-6 shadow-sm">
                         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                             <div className="flex items-center">
-                                <FiFilter className="text-gold mr-3 text-xl" />
-                                <h3 className="text-lg font-semibold text-gold font-serif">Filter Orders</h3>
+                                <FiFilter className="text-gray-600 mr-3 text-xl" />
+                                <h3 className="text-lg font-semibold text-black font-serif">Filter Orders</h3>
                             </div>
                             
                             <div className="flex flex-col sm:flex-row gap-4 flex-1 lg:justify-end">
                                 {/* Search */}
                                 <div className="relative flex-1 sm:max-w-xs">
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <FiSearch className="text-gold/50" />
+                                        <FiSearch className="text-gray-400" />
                                     </div>
                                     <input
                                         type="text"
                                         placeholder="Search orders..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="block w-full pl-10 pr-4 py-3 border border-gold/20 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent bg-black/20 text-white placeholder-gold/50 transition-all duration-200 font-serif"
+                                        className="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent bg-white text-black placeholder-gray-500 transition-all duration-200 font-serif"
                                     />
                                 </div>
 
@@ -392,7 +392,7 @@ export default function AdminOrders() {
                                     <select
                                         value={orderTypeFilter}
                                         onChange={(e) => setOrderTypeFilter(e.target.value)}
-                                        className="block w-full pl-4 pr-10 py-3 border border-gold/20 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent bg-black/20 text-white appearance-none cursor-pointer transition-all duration-200 font-serif"
+                                        className="block w-full pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent bg-white text-black appearance-none cursor-pointer transition-all duration-200 font-serif"
                                     >
                                         <option value="all" className="text-black">All Types</option>
                                         <option value="standard" className="text-black">Ready-to-Wear</option>
@@ -400,7 +400,7 @@ export default function AdminOrders() {
                                         <option value="mixed" className="text-black">Mixed Orders</option>
                                     </select>
                                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                        <FiTag className="text-gold/50" />
+                                        <FiTag className="text-gray-400" />
                                     </div>
                                 </div>
 
@@ -409,7 +409,7 @@ export default function AdminOrders() {
                                     <select
                                         value={statusFilter}
                                         onChange={(e) => setStatusFilter(e.target.value)}
-                                        className="block w-full pl-4 pr-10 py-3 border border-gold/20 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent bg-black/20 text-white appearance-none cursor-pointer transition-all duration-200 font-serif"
+                                        className="block w-full pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent bg-white text-black appearance-none cursor-pointer transition-all duration-200 font-serif"
                                     >
                                         <option value="all" className="text-black">All Status</option>
                                         {Object.entries(statusConfig).map(([value, config]) => (
@@ -417,7 +417,7 @@ export default function AdminOrders() {
                                         ))}
                                     </select>
                                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                        <FiFilter className="text-gold/50" />
+                                        <FiFilter className="text-gray-400" />
                                     </div>
                                 </div>
 
@@ -426,7 +426,7 @@ export default function AdminOrders() {
                                     <select
                                         value={dateFilter}
                                         onChange={(e) => setDateFilter(e.target.value)}
-                                        className="block w-full pl-4 pr-10 py-3 border border-gold/20 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent bg-black/20 text-white appearance-none cursor-pointer transition-all duration-200 font-serif"
+                                        className="block w-full pl-4 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gold focus:border-transparent bg-white text-black appearance-none cursor-pointer transition-all duration-200 font-serif"
                                     >
                                         <option value="all" className="text-black">All Dates</option>
                                         <option value="today" className="text-black">Today</option>
@@ -434,7 +434,7 @@ export default function AdminOrders() {
                                         <option value="month" className="text-black">Last 30 Days</option>
                                     </select>
                                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                        <FiCalendar className="text-gold/50" />
+                                        <FiCalendar className="text-gray-400" />
                                     </div>
                                 </div>
                             </div>
@@ -449,11 +449,11 @@ export default function AdminOrders() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="bg-green-400/10 border-l-4 border-green-400 rounded-r-xl p-4 mb-6 border border-green-400/20"
+                            className="bg-green-50 border-l-4 border-green-500 rounded-r-xl p-4 mb-6 border border-green-200"
                         >
                             <div className="flex items-center">
-                                <FiCheckCircle className="text-green-400 text-xl mr-3" />
-                                <p className="text-green-300 font-medium font-serif">{success}</p>
+                                <FiCheckCircle className="text-green-500 text-xl mr-3" />
+                                <p className="text-green-700 font-medium font-serif">{success}</p>
                             </div>
                         </motion.div>
                     )}
@@ -463,11 +463,11 @@ export default function AdminOrders() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="bg-red-400/10 border-l-4 border-red-400 rounded-r-xl p-4 mb-6 border border-red-400/20"
+                            className="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-4 mb-6 border border-red-200"
                         >
                             <div className="flex items-center">
-                                <FiAlertCircle className="text-red-400 text-xl mr-3" />
-                                <p className="text-red-300 font-medium font-serif">{error}</p>
+                                <FiAlertCircle className="text-red-500 text-xl mr-3" />
+                                <p className="text-red-700 font-medium font-serif">{error}</p>
                             </div>
                         </motion.div>
                     )}
@@ -484,22 +484,22 @@ export default function AdminOrders() {
                             className="space-y-4"
                         >
                             {/* Desktop Table */}
-                            <div className="hidden lg:block bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 overflow-hidden">
+                            <div className="hidden lg:block bg-white rounded-2xl border border-gray-300 overflow-hidden shadow-sm">
                                 <div className="overflow-x-auto">
-                                    <table className="min-w-full divide-y divide-gold/10">
+                                    <table className="min-w-full divide-y divide-gray-200">
                                         <thead className="bg-gradient-to-r from-gold/20 to-yellow-600/20">
                                             <tr>
                                                 {['Order', 'Customer', 'Type', 'Date', 'Amount', 'Status', 'Tracking', 'Actions'].map((header) => (
                                                     <th
                                                         key={header}
-                                                        className="px-6 py-4 text-left text-xs font-semibold text-gold uppercase tracking-wider font-serif"
+                                                        className="px-6 py-4 text-left text-xs font-semibold text-black uppercase tracking-wider font-serif"
                                                     >
                                                         {header}
                                                     </th>
                                                 ))}
                                             </tr>
                                         </thead>
-                                        <tbody className="bg-black/20 divide-y divide-gold/10">
+                                        <tbody className="bg-white divide-y divide-gray-200">
                                             {filteredOrders.map((order, index) => {
                                                 const StatusIcon = statusConfig[order.status]?.icon;
                                                 const OrderTypeIcon = orderTypeConfig[order.orderType]?.icon;
@@ -513,12 +513,12 @@ export default function AdminOrders() {
                                                     >
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
-                                                                <FiPackage className="text-gold/50 mr-3" />
+                                                                <FiPackage className="text-gray-400 mr-3" />
                                                                 <div>
-                                                                    <span className="text-sm font-semibold text-white block font-serif">
+                                                                    <span className="text-sm font-semibold text-black block font-serif">
                                                                         {order.orderNumber || `#${order.id.substring(0, 8)}`}
                                                                     </span>
-                                                                    <span className="text-xs text-gold/70 font-serif">
+                                                                    <span className="text-xs text-gray-600 font-serif">
                                                                         {order.items?.length || 0} items
                                                                         {order.customOrders?.length > 0 && ` + ${order.customOrders.length} custom`}
                                                                     </span>
@@ -527,12 +527,12 @@ export default function AdminOrders() {
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
-                                                                <FiUser className="text-gold/50 mr-3" />
+                                                                <FiUser className="text-gray-400 mr-3" />
                                                                 <div>
-                                                                    <p className="text-sm font-medium text-white font-serif">
+                                                                    <p className="text-sm font-medium text-black font-serif">
                                                                         {order.userName || order.userEmail || `User ${order.userId?.substring(0, 8) || 'N/A'}`}
                                                                     </p>
-                                                                    <p className="text-xs text-gold/70 font-serif">{order.userEmail}</p>
+                                                                    <p className="text-xs text-gray-600 font-serif">{order.userEmail}</p>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -544,16 +544,16 @@ export default function AdminOrders() {
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
-                                                                <FiCalendar className="text-gold/50 mr-3" />
-                                                                <span className="text-sm text-white font-serif">
+                                                                <FiCalendar className="text-gray-400 mr-3" />
+                                                                <span className="text-sm text-black font-serif">
                                                                     {formatDate(order.createdAt)}
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             <div className="flex items-center">
-                                                                <FiDollarSign className="text-gold/50 mr-3" />
-                                                                <span className="text-sm font-semibold text-white font-serif">
+                                                                <FiDollarSign className="text-gray-400 mr-3" />
+                                                                <span className="text-sm font-semibold text-black font-serif">
                                                                     ${order.totalPrice?.toLocaleString() || '0'}
                                                                 </span>
                                                             </div>
@@ -563,7 +563,7 @@ export default function AdminOrders() {
                                                                 value={order.status} 
                                                                 onChange={(e) => handleStatusUpdate(order.id, e.target.value)}
                                                                 disabled={updatingOrder === order.id}
-                                                                className={`text-xs font-semibold border rounded px-2 py-1 focus:outline-none focus:ring-1 font-serif ${
+                                                                className={`text-xs font-semibold border rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gold font-serif ${
                                                                     statusConfig[order.status]?.color
                                                                 } ${updatingOrder === order.id ? 'opacity-50' : 'cursor-pointer'}`}
                                                             >
@@ -579,14 +579,14 @@ export default function AdminOrders() {
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap">
                                                             {order.trackingNumber ? (
-                                                                <div className="flex items-center text-sm text-gold/80 font-serif">
+                                                                <div className="flex items-center text-sm text-gray-700 font-serif">
                                                                     <FiTruck className="mr-1" />
                                                                     {order.trackingNumber}
                                                                 </div>
                                                             ) : (
                                                                 <button
                                                                     onClick={() => setShowTrackingModal(order.id)}
-                                                                    className="text-xs text-gold hover:text-yellow-400 font-medium font-serif"
+                                                                    className="text-xs text-gold hover:text-yellow-600 font-medium font-serif"
                                                                 >
                                                                     Add Tracking
                                                                 </button>
@@ -596,7 +596,7 @@ export default function AdminOrders() {
                                                             <div className="flex items-center justify-end space-x-3">
                                                                 <Link
                                                                     to={`/admin/orders/${order.id}`}
-                                                                    className="flex items-center text-gold hover:text-yellow-400 font-semibold transition-colors duration-200 font-serif"
+                                                                    className="flex items-center text-gold hover:text-yellow-600 font-semibold transition-colors duration-200 font-serif"
                                                                 >
                                                                     <FiEye className="mr-1" />
                                                                     Details
@@ -622,13 +622,13 @@ export default function AdminOrders() {
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: index * 0.1 }}
-                                            className="bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-6 hover:border-gold/40 hover:shadow-xl transition-all duration-300"
+                                            className="bg-white rounded-2xl border border-gray-300 p-6 hover:border-gold hover:shadow-lg transition-all duration-300 shadow-sm"
                                         >
                                             <div className="flex justify-between items-start mb-4">
                                                 <div className="flex items-center">
-                                                    <FiPackage className="text-gold/50 mr-3" />
+                                                    <FiPackage className="text-gray-400 mr-3" />
                                                     <div>
-                                                        <h3 className="font-semibold text-white font-serif">
+                                                        <h3 className="font-semibold text-black font-serif">
                                                             {order.orderNumber || `Order #${order.id.substring(0, 8)}`}
                                                         </h3>
                                                         <div className="flex items-center gap-2 mt-1">
@@ -636,7 +636,7 @@ export default function AdminOrders() {
                                                                 <OrderTypeIcon className="mr-1" size={10} />
                                                                 {orderTypeConfig[order.orderType]?.label}
                                                             </span>
-                                                            <span className="text-xs text-gold/70 font-serif">
+                                                            <span className="text-xs text-gray-600 font-serif">
                                                                 {order.items?.length || 0} items
                                                                 {order.customOrders?.length > 0 && ` + ${order.customOrders.length} custom`}
                                                             </span>
@@ -650,38 +650,38 @@ export default function AdminOrders() {
                                             </div>
 
                                             <div className="grid grid-cols-2 gap-4 mb-4">
-                                                <div className="bg-gold/5 rounded-lg p-3 border border-gold/10">
-                                                    <p className="text-xs text-gold/70 font-serif">Customer</p>
-                                                    <p className="text-sm font-semibold text-white font-serif truncate">
+                                                <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                                                    <p className="text-xs text-gray-600 font-serif">Customer</p>
+                                                    <p className="text-sm font-semibold text-black font-serif truncate">
                                                         {order.userName || order.userEmail}
                                                     </p>
                                                 </div>
-                                                <div className="bg-gold/5 rounded-lg p-3 border border-gold/10">
-                                                    <p className="text-xs text-gold/70 font-serif">Date</p>
-                                                    <p className="text-sm font-semibold text-white font-serif">
+                                                <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                                                    <p className="text-xs text-gray-600 font-serif">Date</p>
+                                                    <p className="text-sm font-semibold text-black font-serif">
                                                         {formatDate(order.createdAt)}
                                                     </p>
                                                 </div>
-                                                <div className="bg-gold/5 rounded-lg p-3 border border-gold/10">
-                                                    <p className="text-xs text-gold/70 font-serif">Amount</p>
-                                                    <p className="text-sm font-semibold text-white font-serif">
+                                                <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                                                    <p className="text-xs text-gray-600 font-serif">Amount</p>
+                                                    <p className="text-sm font-semibold text-black font-serif">
                                                         ${order.totalPrice?.toLocaleString() || '0'}
                                                     </p>
                                                 </div>
-                                                <div className="bg-gold/5 rounded-lg p-3 border border-gold/10">
-                                                    <p className="text-xs text-gold/70 font-serif">Tracking</p>
-                                                    <p className="text-sm font-semibold text-white font-serif">
+                                                <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                                                    <p className="text-xs text-gray-600 font-serif">Tracking</p>
+                                                    <p className="text-sm font-semibold text-black font-serif">
                                                         {order.trackingNumber || 'Not added'}
                                                     </p>
                                                 </div>
                                             </div>
 
-                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 pt-4 border-t border-gold/20">
+                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 pt-4 border-t border-gray-200">
                                                 <select 
                                                     value={order.status} 
                                                     onChange={(e) => handleStatusUpdate(order.id, e.target.value)}
                                                     disabled={updatingOrder === order.id}
-                                                    className={`text-xs font-semibold border rounded px-3 py-2 focus:outline-none focus:ring-1 font-serif ${
+                                                    className={`text-xs font-semibold border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-gold font-serif ${
                                                         statusConfig[order.status]?.color
                                                     } ${updatingOrder === order.id ? 'opacity-50' : 'cursor-pointer'}`}
                                                 >
@@ -696,14 +696,14 @@ export default function AdminOrders() {
                                                     {!order.trackingNumber && (
                                                         <button
                                                             onClick={() => setShowTrackingModal(order.id)}
-                                                            className="text-xs text-gold hover:text-yellow-400 font-medium font-serif"
+                                                            className="text-xs text-gold hover:text-yellow-600 font-medium font-serif"
                                                         >
                                                             Add Tracking
                                                         </button>
                                                     )}
                                                     <Link
                                                         to={`/admin/orders/${order.id}`}
-                                                        className="flex items-center text-gold hover:text-yellow-400 font-semibold transition-colors duration-200 text-sm font-serif"
+                                                        className="flex items-center text-gold hover:text-yellow-600 font-semibold transition-colors duration-200 text-sm font-serif"
                                                     >
                                                         <FiEye className="mr-1" />
                                                         Details
@@ -721,13 +721,13 @@ export default function AdminOrders() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="text-center bg-black/40 backdrop-blur-sm rounded-2xl border border-gold/20 p-12"
+                            className="text-center bg-white rounded-2xl border border-gray-300 p-12 shadow-sm"
                         >
                             <div className="w-20 h-20 bg-gradient-to-r from-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <FiPackage className="text-white text-3xl" />
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-4 font-serif">No Orders Found</h3>
-                            <p className="text-gold/70 mb-8 max-w-md mx-auto font-serif">
+                            <h3 className="text-2xl font-bold text-black mb-4 font-serif">No Orders Found</h3>
+                            <p className="text-gray-600 mb-8 max-w-md mx-auto font-serif">
                                 {orders.length === 0 
                                     ? "When customers place orders, they will appear here" 
                                     : "No orders match your current filters"
@@ -741,7 +741,7 @@ export default function AdminOrders() {
                                         setOrderTypeFilter('all');
                                         setDateFilter('all');
                                     }}
-                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black py-3 px-8 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold font-serif border border-gold/30"
+                                    className="bg-gradient-to-r from-gold to-yellow-600 text-black py-3 px-8 rounded-xl hover:shadow-lg transition-all duration-200 font-semibold font-serif border border-gold"
                                 >
                                     Clear Filters
                                 </button>
@@ -780,18 +780,18 @@ function TrackingModal({ orderId, onClose, onSubmit }) {
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-black/80 backdrop-blur-sm rounded-2xl border border-gold/20 p-6 w-full max-w-md"
+                className="bg-white rounded-2xl border border-gray-300 p-6 w-full max-w-md shadow-lg"
             >
-                <h3 className="text-lg font-semibold text-gold mb-4 font-serif">Add Tracking Information</h3>
+                <h3 className="text-lg font-semibold text-black mb-4 font-serif">Add Tracking Information</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gold/80 mb-2 font-serif">
+                        <label className="block text-sm font-medium text-gray-700 mb-2 font-serif">
                             Courier
                         </label>
                         <select
                             value={trackingData.courier}
                             onChange={(e) => setTrackingData(prev => ({ ...prev, courier: e.target.value }))}
-                            className="w-full border border-gold/20 rounded-lg px-3 py-2 focus:ring-2 focus:ring-gold focus:border-transparent bg-black/20 text-white font-serif"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-gold focus:border-transparent bg-white text-black font-serif"
                             required
                         >
                             <option value="" className="text-black">Select Courier</option>
@@ -803,14 +803,14 @@ function TrackingModal({ orderId, onClose, onSubmit }) {
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gold/80 mb-2 font-serif">
+                        <label className="block text-sm font-medium text-gray-700 mb-2 font-serif">
                             Tracking Number
                         </label>
                         <input
                             type="text"
                             value={trackingData.trackingNumber}
                             onChange={(e) => setTrackingData(prev => ({ ...prev, trackingNumber: e.target.value }))}
-                            className="w-full border border-gold/20 rounded-lg px-3 py-2 focus:ring-2 focus:ring-gold focus:border-transparent bg-black/20 text-white placeholder-gold/50 font-serif"
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-gold focus:border-transparent bg-white text-black placeholder-gray-500 font-serif"
                             placeholder="Enter tracking number"
                             required
                         />
@@ -819,13 +819,13 @@ function TrackingModal({ orderId, onClose, onSubmit }) {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-4 py-2 text-gold/70 hover:text-gold font-medium font-serif"
+                            className="px-4 py-2 text-gray-600 hover:text-black font-medium font-serif"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-gold text-black rounded-lg hover:bg-yellow-500 font-medium font-serif border border-gold/30"
+                            className="px-4 py-2 bg-gold text-black rounded-lg hover:bg-yellow-500 font-medium font-serif border border-gold"
                         >
                             Add Tracking
                         </button>
